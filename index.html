@@ -1,107 +1,45 @@
 <!DOCTYPE html>
 <html lang="zh-CN" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChengC.com · 记录学习与生活</title>
-  <meta name="description" content="ChengC 的个人记录空间，分享学习笔记与生活片段。">
-  <meta name="theme-color" content="#0b1020">
-  <meta property="og:title" content="ChengC.com · 记录学习与生活">
-  <meta property="og:description" content="分享学习笔记与生活片段。">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ChengC · 个人博客与独立游戏</title>
+  <meta name="description" content="ChengC 的个人网站：学习笔记、生活日志、项目作品与独立游戏下载。"><meta name="theme-color" content="#090910">
+  <meta property="og:title" content="ChengC · 个人博客与独立游戏"><meta property="og:description" content="记录学习与生活，分享独立游戏作品。"><meta property="og:image" content="assets/game-bg.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <a class="skip-link" href="#posts">跳到最新记录</a>
-  <div id="bg-wrap" class="fixed inset-0 overflow-hidden" style="z-index:0">
-    <div id="bg-image" class="absolute" style="inset:-30px;background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%231a1a2e%22 width=%22100%22 height=%22100%22/><circle fill=%22%232a2a4e%22 cx=%2250%22 cy=%2250%22 r=%2240%22 opacity=%220.3%22/><circle fill=%22%233a3a6e%22 cx=%2230%22 cy=%2230%22 r=%2220%22 opacity=%220.2%22/></svg>');background-size:cover;background-position:center;background-repeat:no-repeat"></div>
-    <div id="bg-overlay" class="absolute inset-0" style="pointer-events:none;z-index:1;background:rgba(0,0,0,0.55);transition:background 0.3s"></div>
-  </div>
-
-  <header class="fixed top-0 w-full z-50">
-    <nav class="w-full py-3 px-6" style="background:rgba(255,255,255,0.08);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08)">
-      <div class="max-w-5xl mx-auto flex items-center justify-between">
-        <a href="./" class="brand">ChengC.com</a>
-        <div class="nav-actions" aria-label="记录筛选与页面操作">
-          <div class="filter-group" role="group" aria-label="按分类筛选">
-            <button class="nav-link active" data-filter="all" aria-pressed="true">全部</button>
-            <button class="nav-link" data-filter="study" aria-pressed="false">学习</button>
-            <button class="nav-link" data-filter="life" aria-pressed="false">生活</button>
-          </div>
-          <button id="writeBtn" class="write-btn">写记录</button>
-          <button id="themeToggle" class="theme-btn" aria-label="切换主题">
-            <svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-            <svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-          </button>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <main class="relative" style="z-index:1">
-    <section class="hero">
-      <div class="max-w-5xl mx-auto px-6 text-center">
-        <div class="avatar-wrap">
-          <div class="avatar-border">
-            <div class="avatar-inner">C</div>
-          </div>
-        </div>
-        <h1 class="hero-title">ChengC.com</h1>
-        <p class="hero-subtitle">记录学习与生活</p>
-      </div>
+<a class="skip-link" href="#main">跳到主要内容</a>
+<header class="site-header" id="top"><nav class="nav-shell" aria-label="主导航">
+  <a class="brand" href="#top">ChengC</a><button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="打开导航菜单"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navLinks"><a href="#blog">博客</a><a href="#journal">日志</a><a href="#about">关于</a><a href="#projects">项目</a><button id="privateBtn" class="nav-write" type="button">个人</button><button id="writeBtn" class="nav-write" type="button">写记录</button><button id="themeToggle" class="theme-btn" type="button" aria-label="切换主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.4 6.4-.7-.7M6.3 6.3l-.7-.7m12.8 0-.7.7M6.3 17.7l-.7.7M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-width="2" d="M20.4 15.4A9 9 0 0 1 8.6 3.6 9 9 0 1 0 20.4 15.4z"/></svg></button></div>
+</nav></header>
+<main id="main">
+<section class="hero" aria-labelledby="heroTitle"><div class="hero-bg"></div><div class="hero-shade"></div><div class="hero-content"><div class="avatar">C</div><p class="eyebrow">PERSONAL BLOG · INDIE GAME</p><h1 id="heroTitle">ChengC</h1><p class="hero-copy">记录灵感、生活与创造过程，也把做出来的游戏分享给每一位玩家。</p><div class="hero-actions"><a class="button primary" href="#blog">阅读文章</a><a class="button ghost" href="#projects">查看项目</a></div></div><a class="scroll-hint" href="#blog" aria-label="向下查看博客"><span></span></a></section>
+<section class="section" id="blog"><div class="section-heading"><div><p class="section-kicker">WRITING</p><h2>最新文章</h2></div><span class="post-count" id="postCount" aria-live="polite">共 0 条</span></div><div class="toolbar"><label class="search-box"><span class="sr-only">搜索记录</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input id="searchInput" type="search" placeholder="搜索标题或内容…"></label><div class="filters" role="group" aria-label="按分类筛选"><button class="filter-btn active" data-filter="all" aria-pressed="true">全部</button><button class="filter-btn" data-filter="study" aria-pressed="false">学习</button><button class="filter-btn" data-filter="life" aria-pressed="false">生活</button></div></div><div id="postsContainer" class="posts-grid" aria-live="polite"></div></section>
+<section class="section muted-section" id="journal"><div class="section-heading"><div><p class="section-kicker">JOURNAL</p><h2>最近动态</h2></div></div><div class="timeline"><article class="timeline-item"><time datetime="2026-08-29">2026.08.29</time><div><h3>个人网站升级</h3><p>重新整理了博客、日志、项目与关于页面，并开放独立游戏下载。</p></div></article><article class="timeline-item"><time datetime="2026-08-20">2026.08.20</time><div><h3>游戏成品发布</h3><p>《海绵宝宝大战僵尸鱼》Windows 版本完成，支持在线试玩与本地下载。</p></div></article></div></section>
+<section class="section" id="projects"><div class="section-heading"><div><p class="section-kicker">PROJECTS</p><h2>项目作品</h2></div></div><article class="game-card"><div class="game-cover"><img src="assets/game-cover.png" alt="《海绵宝宝大战僵尸鱼》游戏封面" loading="lazy"></div><div class="game-info"><div class="badges"><span>独立游戏</span><span>Windows</span><span>网页试玩</span></div><h3>海绵宝宝大战僵尸鱼</h3><div class="source-notice" role="note" aria-label="产品来源"><span class="douyin-mark" aria-hidden="true">♪</span><div><strong>产品来源于抖音</strong><small>本页面提供网页版试玩与 Windows 下载</small></div></div><p>一款轻松有趣的同人小游戏。操控角色抵御不断出现的僵尸鱼，在熟悉的海底世界中挑战更高分数。</p><dl class="game-meta"><div><dt>版本</dt><dd>1.0</dd></div><div><dt>下载包</dt><dd>20.00 MB</dd></div><div><dt>平台</dt><dd>Windows</dd></div></dl><div class="game-actions"><a class="button primary download-button" href="downloads/spongebob-vs-zombie-fish-windows.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"></path></svg>下载 Windows 版</a><a class="button secondary" href="game.html" target="_blank" rel="noopener">在线试玩 ↗</a></div><p class="checksum" title="ED7FD173E4AF4DD51B63D38E6BB16E3907FC6A18A384499501C05C519AB2C488">SHA-256：ED7FD173E4AF…AB2C488</p></div></article></section>
+<section class="section about-section" id="about"><div class="about-card"><div class="about-mark">C</div><div><p class="section-kicker">ABOUT</p><h2>关于 ChengC</h2><p>这里是我的数字花园。我会记录正在学习的知识、生活中的小事，以及从想法到成品的创作过程。希望这些内容和作品也能给你一点灵感。</p></div></div></section>
+</main>
+<footer><p>© 2026 ChengC · 用好奇心持续创造</p><a href="#top">回到顶部 ↑</a></footer>
+<div id="modalOverlay" class="modal-overlay hidden" aria-hidden="true"><div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-header"><h3 id="modalTitle">写新记录</h3><button id="modalClose" class="modal-close" type="button" aria-label="关闭">×</button></div><form id="postForm"><div class="form-group"><label for="title">标题</label><input type="text" id="title" maxlength="80" placeholder="请输入标题" required></div><div class="form-group"><label for="category">分类</label><select id="category"><option value="study">学习</option><option value="life">生活</option></select></div><div class="form-group"><label for="content">内容</label><textarea id="content" rows="6" maxlength="5000" placeholder="写下你的经历和感悟…" required></textarea></div><button type="submit" class="submit-btn">发布记录</button></form></div></div>
+<div id="privateOverlay" class="modal-overlay hidden" aria-hidden="true">
+  <div class="modal-content private-modal" role="dialog" aria-modal="true" aria-labelledby="privateTitle">
+    <div class="modal-header"><div><p class="section-kicker">ENCRYPTED VAULT</p><h3 id="privateTitle">Private</h3></div><button id="privateClose" class="modal-close" type="button" aria-label="关闭并锁定">×</button></div>
+    <section id="privateGateOne" class="private-step">
+      <div class="security-mark" aria-hidden="true">1</div><h4>第一道验证</h4><p>请输入访问密码。</p>
+      <form id="privateFirstForm"><label class="private-label" for="privateFirstCode">第一道密码</label><input id="privateFirstCode" type="password" autocomplete="off" spellcheck="false" required><p class="private-error" id="privateFirstError" aria-live="polite"></p><button class="submit-btn" type="submit">继续</button></form>
     </section>
-
-    <section class="max-w-5xl mx-auto px-6 pb-20">
-      <div class="flex items-center justify-between mb-8">
-        <h2 class="section-title">最新记录</h2>
-        <span class="post-count" id="postCount" aria-live="polite">共 0 条</span>
-      </div>
-      <div id="posts" tabindex="-1"></div>
-      <div id="postsContainer" class="posts-grid" aria-live="polite">
-        <div class="empty-state">
-          <p>还没有任何记录</p>
-        </div>
-      </div>
+    <section id="privateGateTwo" class="private-step hidden">
+      <div class="security-mark" aria-hidden="true">2</div><h4 id="privateSecondHeading">第二道验证</h4><p id="privateSecondHint"></p>
+      <form id="privateSecondForm"><label class="private-label" for="privateSecondCode">第二道验证码</label><input id="privateSecondCode" type="password" autocomplete="new-password" minlength="8" required><div id="privateConfirmGroup" class="hidden"><label class="private-label" for="privateSecondConfirm">再次输入验证码</label><input id="privateSecondConfirm" type="password" autocomplete="new-password" minlength="8"></div><p class="private-error" id="privateSecondError" aria-live="polite"></p><button class="submit-btn" type="submit">解锁保险箱</button></form>
     </section>
-  </main>
-
-  <footer class="relative" style="z-index:1">
-    <div class="w-full border-t border-white/10 py-8 mt-20">
-      <div class="max-w-5xl mx-auto px-6 text-center text-sm text-gray-500">
-        <p>&copy; 2026 ChengC.com</p>
-      </div>
-    </div>
-  </footer>
-
-  <div id="modalOverlay" class="modal-overlay hidden" aria-hidden="true">
-    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-header">
-        <h3 id="modalTitle">写新记录</h3>
-        <button id="modalClose" class="modal-close" type="button" aria-label="关闭">&times;</button>
-      </div>
-      <form id="postForm">
-        <div class="form-group">
-          <label for="title">标题</label>
-          <input type="text" id="title" placeholder="请输入标题" maxlength="80" autocomplete="off" required>
-        </div>
-        <div class="form-group">
-          <label for="category">分类</label>
-          <select id="category" required>
-            <option value="study">学习</option>
-            <option value="life">生活</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="content">内容</label>
-          <textarea id="content" rows="5" placeholder="写下你的经历和感悟..." maxlength="5000" required></textarea>
-        </div>
-        <button type="submit" class="submit-btn">发布</button>
-      </form>
-    </div>
+    <section id="privateVault" class="private-step hidden">
+      <div class="vault-status"><span><i></i> 已加密解锁</span><button id="privateLock" type="button">立即锁定</button></div>
+      <label class="private-label" for="privateNotes">私人资料</label><textarea id="privateNotes" rows="12" maxlength="100000" placeholder="在这里写入私人资料…"></textarea>
+      <div class="vault-footer"><span id="privateSaveStatus" aria-live="polite">更改将自动加密保存</span><button id="privateSave" class="submit-btn" type="button">加密保存</button></div>
+    </section>
+    <p class="private-notice">资料只以加密形式保存在当前浏览器。忘记第二道验证码将无法恢复；清除浏览器数据会删除资料。</p>
   </div>
-
-  <script src="js/app.js"></script>
-</body>
-</html>
+</div>
+<script src="js/app.js"></script><script src="js/private.js"></script></body></html>
