@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChengC.com · 记录学习与生活</title>
+  <meta name="description" content="ChengC 的个人记录空间，分享学习笔记与生活片段。">
+  <meta name="theme-color" content="#0b1020">
+  <meta property="og:title" content="ChengC.com · 记录学习与生活">
+  <meta property="og:description" content="分享学习笔记与生活片段。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#posts">跳到最新记录</a>
+  <div id="bg-wrap" class="fixed inset-0 overflow-hidden" style="z-index:0">
+    <div id="bg-image" class="absolute" style="inset:-30px;background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%231a1a2e%22 width=%22100%22 height=%22100%22/><circle fill=%22%232a2a4e%22 cx=%2250%22 cy=%2250%22 r=%2240%22 opacity=%220.3%22/><circle fill=%22%233a3a6e%22 cx=%2230%22 cy=%2230%22 r=%2220%22 opacity=%220.2%22/></svg>');background-size:cover;background-position:center;background-repeat:no-repeat"></div>
+    <div id="bg-overlay" class="absolute inset-0" style="pointer-events:none;z-index:1;background:rgba(0,0,0,0.55);transition:background 0.3s"></div>
+  </div>
+
+  <header class="fixed top-0 w-full z-50">
+    <nav class="w-full py-3 px-6" style="background:rgba(255,255,255,0.08);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08)">
+      <div class="max-w-5xl mx-auto flex items-center justify-between">
+        <a href="./" class="brand">ChengC.com</a>
+        <div class="nav-actions" aria-label="记录筛选与页面操作">
+          <div class="filter-group" role="group" aria-label="按分类筛选">
+            <button class="nav-link active" data-filter="all" aria-pressed="true">全部</button>
+            <button class="nav-link" data-filter="study" aria-pressed="false">学习</button>
+            <button class="nav-link" data-filter="life" aria-pressed="false">生活</button>
+          </div>
+          <button id="writeBtn" class="write-btn">写记录</button>
+          <button id="themeToggle" class="theme-btn" aria-label="切换主题">
+            <svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            <svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="relative" style="z-index:1">
+    <section class="hero">
+      <div class="max-w-5xl mx-auto px-6 text-center">
+        <div class="avatar-wrap">
+          <div class="avatar-border">
+            <div class="avatar-inner">C</div>
+          </div>
+        </div>
+        <h1 class="hero-title">ChengC.com</h1>
+        <p class="hero-subtitle">记录学习与生活</p>
+      </div>
+    </section>
+
+    <section class="max-w-5xl mx-auto px-6 pb-20">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="section-title">最新记录</h2>
+        <span class="post-count" id="postCount" aria-live="polite">共 0 条</span>
+      </div>
+      <div id="posts" tabindex="-1"></div>
+      <div id="postsContainer" class="posts-grid" aria-live="polite">
+        <div class="empty-state">
+          <p>还没有任何记录</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="relative" style="z-index:1">
+    <div class="w-full border-t border-white/10 py-8 mt-20">
+      <div class="max-w-5xl mx-auto px-6 text-center text-sm text-gray-500">
+        <p>&copy; 2026 ChengC.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="modalOverlay" class="modal-overlay hidden" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h3 id="modalTitle">写新记录</h3>
+        <button id="modalClose" class="modal-close" type="button" aria-label="关闭">&times;</button>
+      </div>
+      <form id="postForm">
+        <div class="form-group">
+          <label for="title">标题</label>
+          <input type="text" id="title" placeholder="请输入标题" maxlength="80" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+          <label for="category">分类</label>
+          <select id="category" required>
+            <option value="study">学习</option>
+            <option value="life">生活</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="content">内容</label>
+          <textarea id="content" rows="5" placeholder="写下你的经历和感悟..." maxlength="5000" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">发布</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
