@@ -1,0 +1,9 @@
+# 构建产物（不入仓库）
+.game-work/
+node_modules/
+__pycache__/
+
+# 隐私数据：空课表干事/干部名单（不入公开仓库）
+Free-Schedule-Query-System/data/schedule.json
+downloads/free-schedule-query-system.zip
+downloads/空课查询系统.exe

@@ -1,0 +1,8 @@
+使用内置 image_gen 工具，透明背景。最终素材：assets/boat-realistic.webp。
+
++Use case: photorealistic-natural
+Asset type: transparent cutout sprite to composite into a realistic panoramic photograph of Erhai Lake, Yunnan.
+Primary request: ONE photorealistic small traditional wooden rowboat / fishing skiff. NO sail and NO mast. Long low slender hull made from weathered dark brown wooden planks, a muted pale wooden gunwale, natural fine detail. Bow points to the right, stern at left. Boat is empty, no people, no flags, no logos. One simple wooden oar lying inside the hull, nothing protruding far.
+Composition: isolated entire boat on a genuinely transparent background, horizontally arranged, broadside three-quarter view slightly from above as seen from the lakeshore. The boat looks natural in the mid-distance, not product photography with sharp studio lighting. Keep the hull subtle, low profile, roughly 4:1 width-to-height. Crop reasonably close to the boat but include all of it.
+Lighting: natural morning light from upper right, soft ambient blue fill from lake and sky. Muted warm brown / gray wood, realistic wear, no bright saturated colors, no glowing edges.
+Constraints: transparent background with alpha; no water, ground, horizon, sky, cast shadow outside the boat, reflection, border, text, sail, mast, motor, bright white hull, cartoon or illustration. This is a compositing asset, not a whole landscape.

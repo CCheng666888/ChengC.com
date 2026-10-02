@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Linux 命令速查：增删查改，一篇讲清楚 · ChengC</title>
+  <meta name="description" content="整理 WSL / Linux 终端里最常用的文件操作命令，按查、增、改、删四类分类，每条都配了人话解释，附 nano 与 vi 编辑器用法。">
+  <meta name="theme-color" content="#090910">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/theme.js"></script>
+</head>
+<body class="article-page">
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="文章导航">
+      <a class="brand" href="../index.html">ChengC</a>
+      <div class="article-nav"><a href="../index.html#blog">← 返回博客</a><button id="articleTheme" class="theme-btn" type="button" aria-label="切换主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3v2m0 14v2M3 12h2m14 0h2M6 6l1.5 1.5m9 9L18 18m0-12-1.5 1.5m-9 9L6 18M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5z"/></svg></button></div>
+    </nav>
+  </header>
+  <main class="article-shell">
+    <article>
+      <header class="article-header">
+        <a class="article-category" href="../index.html#blog">学习</a>
+        <h1>Linux 命令速查：增删查改，一篇讲清楚</h1>
+        <p class="article-lead">整理 WSL / Linux 终端里最常用的文件操作命令，按“查、增、改、删”四类分类，每条都配了人话解释，照着敲就能用。</p>
+        <div class="article-meta"><time datetime="2026-09-18">2026 年 9 月 18 日</time><span>约 6 分钟阅读</span></div>
+      </header>
+      <div class="article-body">
+        <p>第一次用 Linux 终端的人，最怕的就是“不知道敲什么”。这篇文章把最常用的文件操作命令按 <strong>查、增、改、删</strong> 四类整理成速查表，命令、作用一眼就能对应上。</p>
+
+        <blockquote>命令和参数之间要用空格隔开。比如 <code>cp a b</code> 表示“把 a 复制成 b”；如果打成 <code>cpab</code>，系统会当成一个不存在的命令，直接报 command not found。</blockquote>
+
+        <h2>查（看文件）</h2>
+        <table>
+          <thead><tr><th>命令</th><th>作用</th></tr></thead>
+          <tbody>
+            <tr><td><code>pwd</code></td><td>显示当前在哪个文件夹</td></tr>
+            <tr><td><code>ls</code></td><td>列出当前文件夹里的内容（<code>ls -la</code> 连隐藏文件也显示）</td></tr>
+            <tr><td><code>cat 文件名</code></td><td>把文件内容显示出来，适合小文件</td></tr>
+            <tr><td><code>less 文件名</code></td><td>分页看长文件，按 <code>q</code> 退出</td></tr>
+            <tr><td><code>head -n 5 文件名</code></td><td>只看文件前 5 行</td></tr>
+            <tr><td><code>grep "关键词" 文件名</code></td><td>在文件内容里搜索关键词</td></tr>
+          </tbody>
+        </table>
+
+        <h2>增（新建）</h2>
+        <table>
+          <thead><tr><th>命令</th><th>作用</th></tr></thead>
+          <tbody>
+            <tr><td><code>mkdir 文件夹名</code></td><td>新建文件夹</td></tr>
+            <tr><td><code>mkdir -p a/b/c</code></td><td>一次创建多级文件夹</td></tr>
+            <tr><td><code>touch 文件名</code></td><td>新建一个空文件</td></tr>
+            <tr><td><code>cp 源文件 目标文件</code></td><td>复制文件，如 <code>cp a b</code> 就是复制出一份 b</td></tr>
+            <tr><td><code>echo "内容" &gt; 文件名</code></td><td>把内容写入文件（<code>&gt;</code> 覆盖原内容，<code>&gt;&gt;</code> 追加）</td></tr>
+          </tbody>
+        </table>
+
+        <h2>改（编辑）</h2>
+        <table>
+          <thead><tr><th>命令</th><th>作用</th></tr></thead>
+          <tbody>
+            <tr><td><code>nano 文件名</code></td><td>用 nano 编辑器打开文件（没有这个文件会自动新建）</td></tr>
+            <tr><td><code>mv 源 目标</code></td><td>移动文件，或给文件改名</td></tr>
+            <tr><td><code>chmod +x 文件名</code></td><td>给文件加上可执行权限</td></tr>
+          </tbody>
+        </table>
+
+        <h2>删（删除）</h2>
+        <table>
+          <thead><tr><th>命令</th><th>作用</th></tr></thead>
+          <tbody>
+            <tr><td><code>rm 文件名</code></td><td>删除文件</td></tr>
+            <tr><td><code>rm -r 文件夹名</code></td><td>删除整个文件夹（<code>-r</code> 表示递归删除里面的所有内容）</td></tr>
+            <tr><td><code>rm -rf</code></td><td>很危险，Linux 没有回收站，删掉就无法恢复，不要乱用</td></tr>
+          </tbody>
+        </table>
+
+        <h2>nano 用法</h2>
+        <p>nano 打开就能直接打字，和记事本一样：</p>
+        <ul>
+          <li>输入 <code>nano 文件名</code> 回车，打开文件</li>
+          <li>直接输入内容</li>
+          <li><code>Ctrl+O</code> 保存（再按回车确认）</li>
+          <li><code>Ctrl+X</code> 退出</li>
+        </ul>
+
+        <h2>vi 用法</h2>
+        <p>vi 需要先按 <code>i</code> 才能输入文字，按 <code>Esc</code> 退出输入模式：</p>
+        <ul>
+          <li><code>:w</code> 保存</li>
+          <li><code>:q</code> 退出</li>
+          <li><code>:wq</code> 保存并退出</li>
+          <li><code>:q!</code> 不保存退出</li>
+        </ul>
+
+        <blockquote>小技巧：想不起来命令参数的时候，在命令后面加 <code>--help</code>（如 <code>ls --help</code>）或 <code>man 命令名</code>，终端会给出完整的说明。</blockquote>
+      </div>
+      <footer class="article-footer"><a class="button secondary" href="../index.html#blog">← 返回博客列表</a><a class="button primary" href="../index.html#journal">看看最近动态</a></footer>
+    </article>
+  </main>
+  
+</body>
+</html>

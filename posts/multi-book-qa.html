@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>我把 6 本书的知识点，做成了一个离线问答台 · ChengC</title>
+  <meta name="description" content="一个多书语义问答台：把密码学、Web 安全、数据库、计算机组成原理等 6 本书的 326 条知识点整理成语义检索问答，引用溯源、随站托管打开即用。">
+  <meta name="theme-color" content="#090910">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/theme.js"></script>
+</head>
+<body class="article-page">
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="文章导航">
+      <a class="brand" href="../index.html">ChengC</a>
+      <div class="article-nav"><a href="../index.html#blog">← 返回博客</a><button id="articleTheme" class="theme-btn" type="button" aria-label="切换主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3v2m0 14v2M3 12h2m14 0h2M6 6l1.5 1.5m9 9L18 18m0-12-1.5 1.5m-9 9L6 18M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5z"/></svg></button></div>
+    </nav>
+  </header>
+  <main class="article-shell">
+    <article>
+      <header class="article-header">
+        <a class="article-category" href="../index.html#blog">学习</a>
+        <h1>我把 6 本书的知识点，做成了一个离线问答台</h1>
+        <p class="article-lead">备考最怕的不是不会，而是「记得学过，但想不起在哪本书、哪个章节」。于是我把六本教材的知识点整理成了一个离线问答台。</p>
+        <div class="article-meta"><time datetime="2026-09-22">2026 年 9 月 22 日</time><span>约 4 分钟阅读</span></div>
+      </header>
+      <div class="article-body">
+        <p>这个学期同时在啃密码学、Web 安全、数据库和计算机组成原理，再加上信息安全数学基础、数字电子技术，前后一共六本教材。知识点散落在不同书里，复习时最花时间的不是「学」，而是「找」——想查「补码为什么能简化加减法」，得先想起它在哪本书、翻到哪一章，经常翻半天还找错位置。</p>
+        <p>所以我把每本书的知识点按章节整理出来，做成了一个<strong>多书语义问答</strong>：一共 <strong>6 本书、326 条知识点</strong>，每条都带标题、答案、公式、示例和关键词，并建好了词法索引与向量索引，打开就能检索。</p>
+
+        <h2>它做了什么</h2>
+        <p>打开就是问答界面，用起来三步：</p>
+        <ul>
+          <li><strong>选择范围</strong>：左侧列出 6 本书，可以只查一本，也可以选「全部 6 本书」一起检索；</li>
+          <li><strong>语义检索</strong>：直接在输入框提问，例如「什么是完全剩余类？」，系统先用语义检索模型把问题转成向量，与 326 条知识点逐一比对相似度，返回最相关的原文；语义模型未加载或加载失败时，会自动降级为 BM25 词法匹配，保证任何时候都能查；</li>
+          <li><strong>引用溯源</strong>：每条回答都带「回答依据」卡片，列出检索命中的知识点（书名 · 章节 · 标题），点一下就能展开原文核对——回答不是凭空生成的，每句都能找到出处。</li>
+        </ul>
+        <p>打开页面就会自动准备语义引擎：模型文件已经随站点一起托管（约 23MB），<strong>不需要任何下载操作</strong>，浏览器缓存后秒开。窗口左侧还常驻一排「试一试」快捷问题，不知道问什么时点一个就能开练。</p>
+
+        <blockquote>比如输入「RSA怎么加密解密？」，命中的知识点卡片会列出《密码学》中 RSA 公钥密码的原文，点开就能看到加密公式和数值例子。</blockquote>
+
+        <h2>技术上的一点坚持</h2>
+        <p>这一版从「关键词匹配」升级成了<strong>语义检索 + 引用溯源</strong>：数据、推理库（transformers.js + ONNX Runtime）和语义检索模型（bge-small-zh，约 23MB）<strong>全部随站点托管</strong>，打开页面自动准备，浏览器缓存后秒开，<strong>全程不经过任何服务器、无需手动下载</strong>。</p>
+        <p>数据是离线整理的：知识点整理成结构化 JSON（标题、答案、公式、示例、关键词），再用脚本为每条生成向量索引，构建时注入页面。另外也保留了 <strong>Windows 桌面版</strong>：用 pywebview 把同一个页面套进桌面窗口，双击即用，适合不习惯开浏览器的场景。电脑和手机上都是响应式布局，随时能查。</p>
+
+        <h2>9 月 23 日更新</h2><p>把语义引擎改为<strong>随站托管</strong>：模型文件直接放在本站，页面一打开就自动准备（约 23MB），彻底去掉手动加载和外部下载依赖，任何网络环境下打开即用。</p>
+
+<h2>在线体验</h2>
+        <p>我把这一版直接放到了本站，和整个站点的暗色风格保持了一致，点下面的按钮就能进入：</p>
+        <p><a class="button primary" href="../multi-book-qa/index.html" target="_blank" rel="noopener">打开多书知识问答台 ↗</a></p>
+        <p>如果你也在备考这几门课，希望它能帮你把「翻书找知识点」的时间省下来，花在真正需要理解的地方。</p>
+      </div>
+      <footer class="article-footer"><a class="button secondary" href="../index.html#blog">← 返回博客列表</a><a class="button primary" href="../multi-book-qa/index.html" target="_blank" rel="noopener">打开问答台 ↗</a></footer>
+    </article>
+  </main>
+  
+</body>
+</html>

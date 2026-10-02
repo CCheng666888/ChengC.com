@@ -1,0 +1,26 @@
+{
+  "name": "obsidian-note-to-site",
+  "version": "1.0.0",
+  "description": "Summarize Obsidian notes into website-ready article pages (ChengC.com style). Author: ChenC",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production"
+  },
+  "keywords": [
+    "obsidian",
+    "plugin",
+    "website",
+    "summary"
+  ],
+  "author": "ChenC",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.19.0",
+    "builtin-modules": "^3.3.0",
+    "esbuild": "^0.21.5",
+    "obsidian": "^1.4.11",
+    "tslib": "^2.6.3",
+    "typescript": "^5.4.5"
+  }
+}

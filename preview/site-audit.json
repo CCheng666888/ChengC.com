@@ -1,0 +1,19 @@
+{
+  "pages_checked": 7,
+  "local_references_checked": 66,
+  "broken_local_references": [],
+  "downloads": [
+    {
+      "filename": "spongebob-vs-zombie-fish-windows.zip",
+      "bytes": 20554908,
+      "MiB": 19.6,
+      "sha256": "1587129EEB17FFA030EE9068B0B4ECF32D6E095E085AFBFC8724B84F08E0EE4C"
+    },
+    {
+      "filename": "spongebob-vs-zombiefish-douyin-windows.zip",
+      "bytes": 87802525,
+      "MiB": 83.74,
+      "sha256": "4A0CB90E10EDDA623CD7B0471167433F88011A77DD8F86898B6B37B553EE5B3E"
+    }
+  ]
+}

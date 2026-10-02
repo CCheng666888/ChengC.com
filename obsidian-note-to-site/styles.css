@@ -1,0 +1,39 @@
+/* Note to Site - 预览弹窗样式 */
+
+.note-to-site-modal h3 {
+  margin-top: 0;
+}
+
+.note-to-site-modal .note-to-site-pre {
+  max-height: 55vh;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-size: 12px;
+  line-height: 1.5;
+  background: var(--background-secondary);
+  color: var(--text-normal);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 12px 0;
+}
+
+.note-to-site-modal .note-to-site-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.note-to-site-modal .note-to-site-actions button {
+  padding: 6px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: var(--font-ui-small);
+}
+
+.note-to-site-modal .note-to-site-actions button.mod-cta {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+}

@@ -1,0 +1,17 @@
+工具：内置 image_gen；生成一张背景，然后做一次风格调整。
+最终素材：assets/cangshan-erhai.webp
+
+初始生成提示词：
++Use case: stylized-concept
+Asset type: full-bleed panoramic background artwork for a personal blog, landscape 16:9.
+Primary request: a stylized Chinese landscape of the Cangshan mountain range and Erhai Lake in Dali, interpreted as an atmospheric procedural landscape of fluid layered contours, with subtle stippled grain and pointillist particles. This is landscape art, never a website screenshot.
+Scene/backdrop: wide blue-green Erhai water in the lower half, long recognizable layered Cangshan mountain ridges across the middle, pale snow accents near distant peaks, soft drifting cloud banks. The lake extends towards the right, delicate warm dawn light on the horizon and lake reflection. No desert, no canyon, no bridge.
+Style/medium: sophisticated flat layered topographic illustration with softly undulating organic edges, flowing contour bands, mist, extremely fine luminous stippled texture; a restrained mixture of paper-cut landscape and procedural shader artwork. Broad coherent silhouettes, calm and elegant.
+Composition/framing: panoramic 16:9, mountain range occupies middle 45 percent; water lower 45 percent. Left third is dark, quiet navy mountain shadow with few details so white HTML headings will remain readable. Right two thirds show the beautiful lake, receding mountain layers, diffuse warm sunlight. Large artwork edge to edge.
+Lighting/mood: tranquil early morning, atmospheric depth, soft diffuse glow, blue hour turning to dawn.
+Color palette: deep midnight navy, blue slate, mineral turquoise, lake jade, creamy cloud and a small amount of muted peach sunrise. Contrast and depth. No purple gradients.
+Text: none.
+Constraints: absolutely no words, letters, labels, logos, watermarks, borders, user-interface elements, panels, buttons or black margins. This is an artistic interpretation, not a literal geographic map. Make the mountain and lake clearly distinct.
+
+最终调整提示词：
++Edit the supplied landscape artwork. Keep its panoramic composition, left dark-blue mountains, right open Erhai Lake, delicate warm dawn horizon, overall deep blue and turquoise palette. Change the rendering STYLE ONLY to match a procedural flat contour landscape: broad SOLID FLAT COLOR BANDS, smoothly undulating organic layer boundaries, minimal simplified mountain silhouettes, large flowing cream cloud contour shapes. Think flat topographic poster, screen printed paper-cut, procedural shader contour art. Very strongly abstract and flat, no realistic mountain textures, no photorealistic detail, no oil painting brushstrokes, no photographic sky. Large continuous undulating shapes like cream/orange layers in a fluid canyon animation, but these shapes depict dark-blue Cangshan mountain ridges and turquoise Erhai lake instead of a canyon. The lake uses smooth horizontally flowing blue and jade contour bands with a few light bands for reflection. Fine stippled particle dust is allowed, but broad flat contour bands are the dominant visible effect. No bridge, no people, no text, no interface, no letters, no black border. Wide 16:9 standalone artwork.

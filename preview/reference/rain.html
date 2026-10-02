@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="2be7686a-3ddf-482f-a89a-067ec5f6e634"></script>
+
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>/* Organic — design-system tokens and component classes. This file is the source of truth for the system's look; retune it here and see readme.md. */
+/* latin-ext */
+@font-face {
+  font-family: 'Caprasimo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("4c0e9203-ae69-438d-975c-5935304f2391") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Caprasimo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("ec5febaa-06c0-4c41-b999-8e4c5637bd70") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("4f68ac9e-b6b9-4b04-9bbb-8c927a17eecd") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("c6ba96aa-fefb-414b-b9a0-e31437a92e43") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("4f68ac9e-b6b9-4b04-9bbb-8c927a17eecd") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("c6ba96aa-fefb-414b-b9a0-e31437a92e43") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("4f68ac9e-b6b9-4b04-9bbb-8c927a17eecd") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("c6ba96aa-fefb-414b-b9a0-e31437a92e43") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+:root {
+  --color-bg: #f5ead8;
+  --color-surface: #ebddc5;
+  --color-text: #201e1d;
+  --color-accent: #c67139;
+  --color-accent-2: #7a8a5e;
+  --color-divider: color-mix(in srgb, #201e1d 16%, transparent);
+
+  /* Tonal ramps — generated in OKLCH on one shared lightness scale, so the
+     same step of any role matches the others in visual value. */
+  --color-neutral-100: #f9f4ed;
+  --color-neutral-200: #eee7db;
+  --color-neutral-300: #dcd3c4;
+  --color-neutral-400: #c0b6a5;
+  --color-neutral-500: #a19786;
+  --color-neutral-600: #82796a;
+  --color-neutral-700: #645c50;
+  --color-neutral-800: #474238;
+  --color-neutral-900: #2e2b25;
+
+  --color-accent-100: #fff2eb;
+  --color-accent-200: #ffe1d0;
+  --color-accent-300: #ffc6a5;
+  --color-accent-400: #f6a06b;
+  --color-accent-500: #d67f48;
+  --color-accent-600: #b2622d;
+  --color-accent-700: #8c491a;
+  --color-accent-800: #643312;
+  --color-accent-900: #402310;
+
+  --color-accent-2-100: #f0fae1;
+  --color-accent-2-200: #e1eecc;
+  --color-accent-2-300: #ccdbb2;
+  --color-accent-2-400: #aebf92;
+  --color-accent-2-500: #8fa073;
+  --color-accent-2-600: #728157;
+  --color-accent-2-700: #56633f;
+  --color-accent-2-800: #3d472b;
+  --color-accent-2-900: #272e1b;
+
+  --font-heading: "Caprasimo", system-ui, sans-serif;
+  --font-heading-weight: 400;
+  --font-body: "Figtree", system-ui, sans-serif;
+
+  --space-1: 4.4px;
+  --space-2: 8.8px;
+  --space-3: 13.2px;
+  --space-4: 17.6px;
+  --space-6: 26.4px;
+  --space-8: 35.2px;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+
+  /* Elevation — derived from the ground: soft ink-tinted shadows on a
+     light theme, a hairline edge + ambient darkness on a dark one. */
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #2e2b25 14%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #2e2b25 16%, transparent);
+  --shadow-lg: 0 12px 32px color-mix(in srgb, #2e2b25 22%, transparent);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: var(--font-heading-weight); }
+
+.washed{filter:saturate(0.6) contrast(0.85) brightness(1.1) opacity(0.94)}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Components — built with the tokens above. Plain CSS
+   on plain HTML: no JavaScript, no build step. Each class is documented in
+   readme.md and demonstrated in foundations/ and components/.
+   ══════════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-size: 15px; line-height: 1.55; font-weight: 400; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 var(--space-2);
+}
+h1 { font-size: 42px; }
+h2 { font-size: 32px; }
+h3 { font-size: 25px; }
+h4 { font-size: 20px; }
+h5 { font-size: 16px; }
+h6 { font-size: 13px; }
+h6 { letter-spacing: 0.08em; text-transform: uppercase; }
+p { margin: 0 0 var(--space-3); }
+a { color: var(--color-accent); text-underline-offset: 3px; }
+img { display: block; max-width: 100%; }
+figure { margin: 0; }
+figcaption {
+  font-size: 11px; margin-top: var(--space-1);
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+}
+.text-muted { color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+
+/* — rules — */
+.hr {
+  height: 1px; border: 0; margin: var(--space-4) 0;
+  background: var(--color-divider);
+}
+
+/* — buttons — */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  cursor: pointer; text-decoration: none;
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 14px; line-height: 1.2; color: var(--color-text); /* matches the .input's 14px —
+     the pair sits side by side in sign-up rows */
+  background: transparent; border: 1px solid transparent;
+  padding: var(--space-2) calc(var(--space-3) * 1.2);
+  border-radius: var(--radius-md);
+}
+.btn svg { display: block; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary { background: var(--color-accent); color: var(--color-bg); }
+.btn-primary:hover { background: var(--color-accent-600); }
+.btn-primary:active { background: var(--color-accent-700); }
+.btn-secondary { border-color: var(--color-divider); }
+.btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.btn-secondary:active { background: color-mix(in srgb, var(--color-text) 14%, transparent); }
+.btn-ghost { color: var(--color-accent); padding-inline: var(--space-1); }
+.btn-ghost:hover { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+.btn-ghost:active { background: color-mix(in srgb, var(--color-accent) 18%, transparent); }
+.btn-icon { width: 36px; height: 36px; padding: 0; }
+.btn-block { width: 100%; margin-top: var(--space-2); }
+
+/* — forms — */
+.field > label {
+  display: block; font-size: 12px; margin-bottom: 5px;
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+}
+.input {
+  width: 100%; min-height: 36px; padding: 6px 10px; font: inherit;
+  font-size: 14px; color: var(--color-text); caret-color: var(--color-accent);
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.input:hover { border-color: color-mix(in srgb, var(--color-text) 45%, transparent); }
+.input:focus-visible { border-color: var(--color-accent); outline-offset: 0; }
+textarea.input { min-height: 90px; resize: vertical; }
+.radio { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; }
+.radio input, .seg-opt input {
+  position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none;
+}
+.radio .dot {
+  width: 16px; height: 16px; flex: none; border-radius: 50%;
+  border: 1.5px solid var(--color-divider);
+}
+.radio:hover .dot { border-color: var(--color-accent); }
+.radio input:checked + .dot {
+  border-color: var(--color-accent); background: var(--color-accent);
+  box-shadow: inset 0 0 0 4px var(--color-bg);
+}
+.radio input:focus-visible + .dot { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.seg {
+  display: inline-flex; overflow: hidden;
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.seg-opt {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px; font-size: 13px; cursor: pointer;
+}
+.seg-opt + .seg-opt { border-left: 1px solid var(--color-divider); }
+.seg-opt:has(input:checked) { background: var(--color-accent); color: var(--color-bg); }
+.seg-opt:not(:has(input:checked)):hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.seg-opt:has(input:focus-visible) { outline: 2px solid var(--color-accent); outline-offset: -2px; }
+
+/* — cards — */
+.card {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  padding: var(--space-3); border-radius: var(--radius-md); background: var(--color-surface);
+}
+.card-kicker { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
+.card-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 17px; line-height: 1.2;
+}
+.card-body { margin: 0; font-size: 13px; opacity: 0.8; flex: 1; }
+.card-meta {
+  display: flex; align-items: center; gap: 6px; font-size: 11px;
+  color: color-mix(in srgb, var(--color-text) 50%, transparent);
+}
+.elev-sm { box-shadow: var(--shadow-sm); }
+.elev-md { box-shadow: var(--shadow-md); }
+.elev-lg { box-shadow: var(--shadow-lg); }
+
+/* — tags — */
+.tag {
+  display: inline-flex; align-items: center; font-size: 11px;
+  letter-spacing: 0.02em; padding: 3px 10px;
+  border-radius: calc(var(--radius-md) * 0.75);
+}
+.tag-accent { background: var(--color-accent-100); color: var(--color-accent-800); }
+.tag-accent-2 { background: var(--color-accent-2-100); color: var(--color-accent-2-800); }
+.tag-neutral { background: var(--color-neutral-100); color: var(--color-neutral-800); }
+.tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent); }
+
+/* — navigation — */
+.nav {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: none;
+}
+.nav-brand {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 18px; margin-right: auto;
+}
+.nav a { color: inherit; text-decoration: none; font-size: 14px; }
+.nav a:hover, .nav a[aria-current='page'] { color: var(--color-accent); }
+
+/* — tables — */
+.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.table th {
+  text-align: left; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+  padding: var(--space-2); border-bottom: 1px solid var(--color-divider);
+}
+.table td {
+  padding: var(--space-2);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+}
+.table tbody tr:hover { background: color-mix(in srgb, var(--color-text) 4%, transparent); }
+
+/* — dialog — */
+.dialog-backdrop {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--color-neutral-900) 50%, transparent);
+}
+.dialog {
+  width: min(440px, 100%); display: flex; flex-direction: column; gap: var(--space-3);
+  padding: var(--space-4); border-radius: var(--radius-lg);
+  background: var(--color-surface); box-shadow: var(--shadow-lg);
+}
+.dialog-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 20px;
+}
+.dialog-body { font-size: 14px; opacity: 0.85; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: var(--space-2); margin-top: var(--space-2); }
+
+/* — rounded frame: everything softens, small controls go pill — */
+.card, .dialog { border-radius: calc(var(--radius-lg) * 1.15); }
+.btn, .tag, .seg, .input { border-radius: 999px; }
+.input { padding-inline: 14px; }
+
+</style>
+  <script src="73a08c96-5e23-43c7-a380-b0276a390ec6"></script>
+  <style>
+    html, body { margin: 0; background: #070a16; }
+    a { color: #b8c8e2; }
+    a:hover { color: #e6ecf6; }
+  </style>
+</helmet>
+<div style="position: relative; width: 100%;">
+  <canvas ref="{{ canvasRef }}" sc-camel-on-pointer-down="{{ onDown }}" style="position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; z-index: 0; touch-action: pan-y; image-rendering: pixelated;"></canvas>
+  <div style="position: relative; z-index: 1; pointer-events: none; display: flex; flex-direction: column;">
+    <section data-screen-label="01 Hero" style="min-height: 100vh; display: flex; flex-direction: column; padding: clamp(18px, 3.5vw, 48px); gap: clamp(20px, 5vh, 52px);">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap;">
+        <div style="pointer-events: auto; font-family: var(--font-heading); font-size: 22px; display: flex; align-items: center; gap: var(--space-2); color: #e6ecf6;">
+          <span style="width: 18px; height: 18px; border-radius: 999px; background: #8fa6c8; display: inline-block;"></span>
+          <span>李树孳孳</span>
+        </div>
+        <div style="pointer-events: auto; display: flex; gap: var(--space-1); flex-wrap: wrap;">
+          <a class="btn btn-ghost" href="#blog" style="color: #dfe7f2; background: rgba(20,28,52,0.55); border: 1px solid rgba(160,185,220,0.28);" style-hover="background: rgba(40,54,90,0.7); color: #ffffff;">博客 Blog</a>
+          <a class="btn btn-ghost" href="#log" style="color: #dfe7f2; background: rgba(20,28,52,0.55); border: 1px solid rgba(160,185,220,0.28);" style-hover="background: rgba(40,54,90,0.7); color: #ffffff;">日志 Log</a>
+          <a class="btn btn-ghost" href="#about" style="color: #dfe7f2; background: rgba(20,28,52,0.55); border: 1px solid rgba(160,185,220,0.28);" style-hover="background: rgba(40,54,90,0.7); color: #ffffff;">关于 About</a>
+          <a class="btn btn-ghost" href="#projects" style="color: #dfe7f2; background: rgba(20,28,52,0.55); border: 1px solid rgba(160,185,220,0.28);" style-hover="background: rgba(40,54,90,0.7); color: #ffffff;">项目 Projects</a>
+        </div>
+      </div>
+      <div style="max-width: 560px; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); padding: var(--space-4) var(--space-8) var(--space-6) 0; background: radial-gradient(ellipse 80% 90% at 30% 50%, rgba(6,10,22,0.55), rgba(6,10,22,0) 72%); text-shadow: 0 1px 10px rgba(4,6,16,0.9);">
+        <span style="pointer-events: auto; font-size: 13px; letter-spacing: 0.08em; color: #cfdaeb; background: rgba(120,145,185,0.2); border: 1px solid rgba(160,185,220,0.3); border-radius: 999px; padding: 4px 12px;">江南 · 雨夜</span>
+        <h1 style="font-size: clamp(40px, 6vw, 80px); line-height: 1.05; margin: 0; letter-spacing: 0; color: #f1f4fa;">江南雨夜</h1>
+        <p style="margin: 0; font-family: var(--font-heading); font-size: clamp(17px, 2vw, 26px); color: #dfe6f2;">Night Rain in Jiangnan</p>
+        <p style="margin: 0; max-width: 26em; font-size: clamp(14px, 1.2vw, 17px); line-height: 1.6; color: #c9d3e4; text-wrap: pretty;">细雨落在青石板上，茶楼的灯映在河里。 Rain on the stones, teahouse lights on the canal.</p>
+      </div>
+    </section>
+    <section id="blog" data-screen-label="02 Blog" style="padding: clamp(18px, 3.5vw, 48px); display: flex; flex-direction: column; gap: var(--space-6);">
+      <h2 style="margin: 0; color: #eef2f8; text-shadow: 0 2px 12px rgba(4,6,16,0.8);">博客 <span style="font-size: 0.6em;">Blog</span></h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); max-width: 960px;">
+        <sc-for list="{{ posts }}" as="p" hint-placeholder-count="3">
+          <div class="card" style="pointer-events: auto; background: rgba(12,18,36,0.78); border: 1px solid rgba(150,175,215,0.22); box-shadow: 0 10px 30px rgba(0,0,0,0.35); backdrop-filter: blur(6px);">
+            <div class="card-kicker" style="color: #9fb3d4;">{{ p.kicker }}</div>
+            <div class="card-title" style="color: #eef2f8;">{{ p.title }}</div>
+            <div class="card-body" style="color: #c4cedf;">{{ p.body }}</div>
+            <div class="card-meta" style="color: #8b9ab4;">{{ p.meta }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+    <section id="about" data-screen-label="03 About" style="padding: clamp(18px, 3.5vw, 48px); padding-bottom: 140px; display: flex; flex-direction: column; gap: var(--space-4); max-width: 960px;">
+      <div class="card" style="pointer-events: auto; max-width: 560px; display: flex; flex-direction: column; gap: var(--space-3); align-items: flex-start; background: rgba(12,18,36,0.78); border: 1px solid rgba(150,175,215,0.22); box-shadow: 0 10px 30px rgba(0,0,0,0.35); backdrop-filter: blur(6px);">
+        <div class="card-kicker" style="color: #9fb3d4;">关于 · About</div>
+        <div class="card-title" style="color: #eef2f8;">示例内容，请替换 Sample content, replace me</div>
+        <div class="card-body" style="color: #c4cedf;">这里是页面正文。背景层固定在视口后面，卡片在其上滚动。 Body content scrolls above the fixed background layer.</div>
+        <a class="btn btn-ghost" href="#blog" style="color: #dfe7f2; background: rgba(40,54,90,0.6); border: 1px solid rgba(160,185,220,0.3);" style-hover="background: rgba(60,78,120,0.75); color: #ffffff;">回到顶部 Back to top</a>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;rain&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.3,&quot;max&quot;:2,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;场景&quot;},&quot;pixelSize&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0,&quot;min&quot;:0,&quot;max&quot;:6,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;像素&quot;},&quot;speed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;动画&quot;},&quot;parallax&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;动画&quot;}}">
+class Component extends DCLogic {
+  canvasRef = React.createRef();
+  t = 0; mx = 0; mt = 0; acc = 0; last = 0; splashes = []; spAcc = 0; smoke = []; smAcc = 0;
+  BAY = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+  CHA = ['..X...X..', 'XXXXXXXXX', '..X...X..', '....X....', '...X.X...', '..X...X..', 'XX.....XX', '.XXXXXXX.', '....X....', '..X.X.X..', '.X..X..X.'];
+  WALL = ['#a2aabb', '#939cae', '#838ca0', '#6f788d'];
+  WARM = ['#ffe6a8', '#ffcb7a', '#f4a65c', '#d6843f', '#aa5c2a'];
+
+  componentDidMount() {
+    this.reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    this.ctx = this.canvasRef.current.getContext('2d');
+    this.resize = () => this.build();
+    this.build();
+    window.addEventListener('resize', this.resize);
+    this.onMove = e => { this.mt = (e.clientX / window.innerWidth) * 2 - 1; };
+    this.onVis = () => { this.hidden = document.hidden; this.last = performance.now(); };
+    window.addEventListener('pointermove', this.onMove);
+    document.addEventListener('visibilitychange', this.onVis);
+    this.last = performance.now();
+    const loop = now => { this.raf = requestAnimationFrame(loop); if (!this.hidden) this.frame(now); };
+    this.raf = requestAnimationFrame(loop);
+  }
+  componentDidUpdate(p) { if (p.pixelSize !== this.props.pixelSize) this.build(); }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); window.removeEventListener('resize', this.resize); window.removeEventListener('pointermove', this.onMove); document.removeEventListener('visibilitychange', this.onVis); }
+
+  mk(w, h) { const c = document.createElement('canvas'); c.width = Math.max(1, Math.round(w)); c.height = Math.max(1, Math.round(h)); const x = c.getContext('2d'); x.imageSmoothingEnabled = false; return [c, x]; }
+  hx(h) { return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]; }
+  rng(seed) { let s = seed; return () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  painter(x) { return (a, b, w, h, col) => { x.fillStyle = col; x.fillRect(Math.round(a), Math.round(b), Math.max(1, Math.round(w)), Math.max(1, Math.round(h))); }; }
+  bay(x, y) { return (this.BAY[(y & 3) * 4 + (x & 3)] + 0.5) / 16; }
+  gradImg(x, W, H, ramp, curve) {
+    const img = x.createImageData(W, H), d = img.data, C = ramp.map(h => this.hx(h)), n = C.length - 1;
+    for (let y = 0; y < H; y++) { const f = Math.pow(y / Math.max(1, H - 1), curve) * n, b = Math.floor(f), fr = f - b;
+      for (let xx = 0; xx < W; xx++) { const c = C[Math.min(n, fr > this.bay(xx, y) ? b + 1 : b)], i = (y * W + xx) * 4; d[i] = c[0]; d[i + 1] = c[1]; d[i + 2] = c[2]; d[i + 3] = 255; } }
+    x.putImageData(img, 0, 0);
+  }
+  dith(x, x0, y0, w, h, cA, cB) { x0 = Math.round(x0); y0 = Math.round(y0); w = Math.round(w); h = Math.round(h); x.fillStyle = cA; x.fillRect(x0, y0, w, h); x.fillStyle = cB; for (let yy = 0; yy < h; yy++) { const f = (yy + 0.5) / h; for (let xx = 0; xx < w; xx++) if (f > this.bay(x0 + xx, y0 + yy)) x.fillRect(x0 + xx, y0 + yy, 1, 1); } }
+  glow(r, hex) {
+    r = Math.max(2, Math.round(r)); const key = r + hex; if (this.glowC[key]) return this.glowC[key];
+    const s = 2 * r + 1, [c, x] = this.mk(s, s), img = x.createImageData(s, s), d = img.data, col = this.hx(hex);
+    for (let yy = 0; yy < s; yy++) for (let xx = 0; xx < s; xx++) { const dd = Math.hypot(xx - r, yy - r) / r; if (dd >= 1) continue; const a = Math.pow(1 - dd, 1.7), lv = Math.floor(a * 6 + this.bay(xx, yy)) / 6, i = (yy * s + xx) * 4; d[i] = col[0]; d[i + 1] = col[1]; d[i + 2] = col[2]; d[i + 3] = Math.min(255, lv * 255); }
+    x.putImageData(img, 0, 0); return this.glowC[key] = c;
+  }
+  blit(x, c, cx, cy, a) { const rr = (c.width - 1) / 2; x.globalAlpha = Math.max(0, Math.min(1, a)); x.drawImage(c, Math.round(cx - rr), Math.round(cy - rr)); x.globalAlpha = 1; }
+  drawGlow(x, y, r, hex, I) { this.blit(this.ctx, this.glow(r, hex), x, y, I); }
+
+  build() {
+    const c = this.canvasRef.current; if (!c || !this.ctx) return;
+    const W = window.innerWidth, H = window.innerHeight, mob = W < 700;
+    const px = this.props.pixelSize > 0 ? Math.round(this.props.pixelSize) : Math.max(2, Math.round(H / 380));
+    const PW = Math.ceil(W / px), PH = Math.ceil(H / px), u = PH / 360, M = 10;
+    Object.assign(this, { mob, px, PW, PH, u, M, FW: PW + 2 * M, glowC: {} });
+    const q = this.q = v => Math.round(v * u);
+    c.width = PW; c.height = PH; this.ctx.imageSmoothingEnabled = false;
+    const g = this.g = { yG: q(250), yE: q(290), yW: q(301), moon: [Math.round(PW * (mob ? 0.74 : 0.64)), q(52)], drips: [] };
+    this.lights = { win: [], lant: [], shop: [], tiny: [] }; this.people = [];
+    this.buildSky(); this.buildClouds(); this.buildFar(); this.buildTown(); this.buildStreet(); this.buildWater(); this.buildWillow(); this.buildVig();
+    g.drips = g.drips.filter(d => d.x > 1 && d.x < PW - 1);
+    this.dripSt = g.drips.map(() => ({ prev: 0 }));
+    const n = Math.round(PW * PH / (mob ? 1100 : 560));
+    this.drops = Array.from({ length: n }, (_, i) => { const l = i % 10 < 5 ? 0 : i % 10 < 8 ? 1 : 2; return { l, x: Math.random() * (PW + PH * 0.2), y: Math.random() * PH, v: [150, 210, 290][l] * u * (0.85 + Math.random() * 0.3), len: Math.max(2, Math.round([3, 5, 8][l] * u)) }; });
+    if (!this.ped) this.ped = { x: PW * 0.15, wait: 0 };
+    if (!this.boat) this.boat = { x: PW * 0.7 };
+    const r = this.rng(3); this.wl = Array.from({ length: 34 }, () => ({ x: r() * PW, y: g.yW + 2 + Math.floor(r() * (PH - g.yW - 3)), l: q(3 + r() * 9), sp: 2 + r() * 4 }));
+    this.splashes = []; this.smoke = [];
+  }
+
+  buildSky() {
+    const { FW, M, g } = this, q = this.q;
+    const [c, x] = this.mk(FW, g.yG); this.cSky = c;
+    this.gradImg(x, FW, g.yG, ['#060914', '#080c1a', '#0a0f20', '#0d1326', '#10172c', '#141b32', '#182038', '#1c253f', '#212b46'], 1.05);
+    const mx = g.moon[0] + M, my = g.moon[1];
+    x.globalCompositeOperation = 'lighter';
+    this.blit(x, this.glow(q(80), '#26386a'), mx, my, 0.7);
+    this.blit(x, this.glow(q(30), '#6a84b8'), mx, my, 0.5);
+    x.globalCompositeOperation = 'source-over';
+    const rr = Math.max(5, q(8.5));
+    for (let yy = -rr; yy <= rr; yy++) for (let xx = -rr; xx <= rr; xx++) { const d = Math.hypot(xx, yy) / rr; if (d > 1) continue; const cz = (xx + rr * 0.3) ** 2 + (yy - rr * 0.1) ** 2 < rr * rr * 0.06 || (xx - rr * 0.35) ** 2 + (yy + rr * 0.35) ** 2 < rr * rr * 0.03; x.fillStyle = d > 0.85 ? '#c2cee4' : cz ? '#cfd9ea' : '#e8eef8'; x.fillRect(mx + xx, my + yy, 1, 1); }
+  }
+
+  buildClouds() {
+    const { PW } = this, q = this.q, CW = this.CW = Math.max(PW + 60, q(560));
+    this.cClouds = [0, 1].map(L => {
+      const r = this.rng(101 + L * 17), H = q(L ? 70 : 110), [c, x] = this.mk(CW, H), dens = new Float32Array(CW * H), n = Math.round(CW / q(L ? 90 : 70));
+      for (let i = 0; i < n; i++) { const cx = r() * CW, cy = H * (0.35 + r() * 0.4), w = q(30 + r() * 50), h = q(6 + r() * 8);
+        for (let k = 0; k < 6; k++) { const bx = cx + (r() - 0.5) * w * 1.2, by = cy + (r() - 0.6) * h, bw = w * (0.3 + r() * 0.35), bh = h * (0.5 + r() * 0.6);
+          for (let yy = Math.max(0, Math.floor(by - bh)); yy <= Math.min(H - 1, Math.ceil(by + bh)); yy++) for (let xx = Math.floor(bx - bw); xx <= Math.ceil(bx + bw); xx++) { const e = ((xx - bx) / bw) ** 2 + ((yy - by) / bh) ** 2; if (e >= 1) continue; const i2 = yy * CW + ((xx % CW) + CW) % CW; dens[i2] = Math.min(2, dens[i2] + (1 - e) * 1.1); } } }
+      const img = x.createImageData(CW, H), d = img.data;
+      for (let yy = 0; yy < H; yy++) for (let xx = 0; xx < CW; xx++) {
+        const i2 = yy * CW + xx, v = dens[i2], th = this.bay(xx, yy); if (v < 0.1 + th * 0.25) continue;
+        const up = yy > 1 ? dens[i2 - 2 * CW] : 0; let col;
+        if (up < 0.12 + th * 0.2) col = L ? [58, 70, 104] : [44, 54, 84];
+        else if (v > 0.8) col = L ? [22, 28, 46] : [15, 20, 34];
+        else if (v > 0.4) col = L ? [28, 35, 56] : [19, 25, 41];
+        else col = L ? [36, 44, 68] : [25, 31, 50];
+        const i4 = i2 * 4; d[i4] = col[0]; d[i4 + 1] = col[1]; d[i4 + 2] = col[2]; d[i4 + 3] = 255;
+      }
+      x.putImageData(img, 0, 0); return c;
+    });
+  }
+
+  buildFar() {
+    const { FW, M, PW, g } = this, q = this.q, r = this.rng(7);
+    const [c, x] = this.mk(FW, g.yG); this.cFar = c; const R = this.painter(x);
+    const base = g.yG - q(50);
+    for (let xx = 0; xx < FW; xx++) { const h = q(26) + Math.round(Math.sin(xx / q(60)) * q(9) + Math.sin(xx / q(23) + 1.3) * q(4)); R(xx, base - h, 1, h + q(50), '#10172a'); R(xx, base - h, 1, 1, '#1a2338'); }
+    const px = M + Math.round(PW * (this.mob ? 0.2 : 0.71)), pb = base - q(4);
+    for (let k = 0; k < 7; k++) { const w = q(18 - k * 1.8), y0 = pb - k * q(7); R(px - w * 0.32, y0 - q(5), w * 0.64, q(5), '#141c30'); R(px - w / 2, y0 - q(6.5), w, q(1.5), '#141c30'); R(px - w / 2 - 1, y0 - q(7.5), 1, 1, '#141c30'); R(px + w / 2, y0 - q(7.5), 1, 1, '#141c30'); R(px - w / 2, y0 - q(6.5), w, 1, '#222c44'); if (k % 2 === 0) R(px - 1, y0 - q(3.5), 1, 1, '#6a5a48'); }
+    R(px, pb - 7 * q(7) - q(6), 1, q(6), '#141c30');
+    let xx = -q(6);
+    while (xx < FW) { const w = q(24 + r() * 30), h = q(14 + r() * 26), top = g.yG - q(66) - h, rh = Math.max(2, q(4));
+      R(xx, top, w, g.yG - top, '#141b2e');
+      for (let k = 0; k < rh; k++) R(xx - q(2) + (rh - k), top - rh + k, w + q(4) - 2 * (rh - k), 1, '#0f1528');
+      R(xx - q(2) + rh, top - rh, w + q(4) - 2 * rh, 1, '#26304a');
+      R(xx - q(3), top - q(1), Math.max(1, q(1.2)), Math.max(1, q(1.2)), '#0f1528'); R(xx + w + q(2), top - q(1), Math.max(1, q(1.2)), Math.max(1, q(1.2)), '#0f1528');
+      if (r() < 0.35) R(xx + w * (0.2 + r() * 0.6), top + q(4) + r() * q(8), Math.max(1, q(2)), Math.max(1, q(2)), '#8a6444');
+      xx += w + q(r() * 3); }
+    x.fillStyle = 'rgba(30,40,66,0.35)'; x.fillRect(0, g.yG - q(110), FW, q(110));
+  }
+
+  buildTown() {
+    const { FW, PW, g } = this, q = this.q;
+    const [c, x] = this.mk(FW, g.yG); this.cTown = c; this.X_ = x; this.R_ = this.painter(x); const r = this.r_ = this.rng(23);
+    const tw = Math.min(q(178), PW - q(4)), t0 = Math.round(FW / 2 - tw / 2), mods = [];
+    const pick = last => { const v = r(); if (last === 'gap') return v < 0.75 ? 'house' : 'gate'; if (last === 'gate') return v < 0.6 ? 'house' : 'gap'; if (last === 'tea') return v < 0.6 ? 'house' : 'gap'; return v < 0.5 ? 'house' : v < 0.72 ? 'gate' : 'gap'; };
+    const wid = t => t === 'house' ? q(96 + r() * 34) : t === 'gate' ? q(60 + r() * 10) : q(9 + r() * 6);
+    let xl = t0, last = 'tea'; while (xl > 0) { const t = pick(last), w = wid(t); xl -= w; mods.push([t, xl, w]); last = t; }
+    let xr = t0 + tw; last = 'tea'; while (xr < FW) { const t = pick(last), w = wid(t); mods.push([t, xr, w]); xr += w; last = t; }
+    for (const [t, a, w] of mods) this[t](a, w);
+    this.tea(t0, tw);
+  }
+
+  wall(x0, x1, yT, yB, dark) {
+    const x = this.X_, R = this.R_, r = this.r_, q = this.q, W = dark ? ['#5a6480', '#4c5672', '#404a64', '#343d55'] : this.WALL;
+    x0 = Math.round(x0); x1 = Math.round(x1); yT = Math.round(yT); yB = Math.round(yB);
+    R(x0, yT, x1 - x0, yB - yT, W[1]);
+    const th = Math.min(q(4), yB - yT); if (th > 0) this.dith(x, x0, yT, x1 - x0, th, W[3], W[1]);
+    const bh = Math.min(q(10), yB - yT - th); if (bh > 0) this.dith(x, x0, yB - bh, x1 - x0, bh, W[1], W[2]);
+    for (let xx = x0; xx < x1; xx++) { if (r() < 0.1) { const L = q(3 + r() * 10); for (let k = 0; k < L; k++) if (r() < 0.75) R(xx, yT + th + k, 1, 1, W[2]); } if (r() < 0.05) R(xx, yT + th + r() * Math.max(1, yB - yT - th - 2), 1, 1, W[0]); }
+  }
+  plinth(x0, x1) { const R = this.R_, q = this.q, yG = this.g.yG, h = Math.max(3, q(5)); R(x0, yG - h, x1 - x0, h, '#4a5166'); R(x0, yG - h, x1 - x0, 1, '#667088'); for (let xx = x0 + q(3); xx < x1; xx += q(11)) R(xx, yG - h + 1, 1, h - 1, '#353b4e'); R(x0, yG - Math.ceil(h / 2), x1 - x0, 1, '#3c4356'); }
+  roof(x0, x1, yE, h, ov) {
+    const x = this.X_, R = this.R_, q = this.q, r = this.r_;
+    for (let k = 0; k < h; k++) {
+      const f = k / Math.max(1, h - 1), a = Math.round(x0 + q(3) - (q(3) + ov) * f), b = Math.round(x1 - q(3) + (q(3) + ov) * f), yy = yE - h + k;
+      for (let xx = a; xx < b; xx++) { const m = (xx - a) % 3; let col = m === 0 ? '#262e42' : m === 1 ? '#1a2030' : '#121724';
+        if (k === h - 1) col = m === 0 ? '#3c4662' : '#0d111b'; else if (k === h - 2) col = '#1e2536'; else if (k < q(3) && this.bay(xx, yy) < 0.4) col = '#303a54';
+        x.fillStyle = col; x.fillRect(xx, yy, 1, 1); }
+    }
+    const ra = x0 + q(1), rb = x1 - q(1), rt = yE - h - q(3), rw = rb - ra;
+    R(ra, rt, rw, q(3), '#10141f'); R(ra, rt, rw, 1, '#5a6a90'); R(ra, rt + q(3) - 1, rw, 1, '#1e2536');
+    R(ra - q(2), rt - q(2), q(3), q(2), '#10141f'); R(ra - q(2), rt - q(2), q(3), 1, '#5a6a90'); R(ra - q(3.5), rt - q(3.5), q(1.5), q(1.5), '#10141f');
+    R(rb - q(1), rt - q(2), q(3), q(2), '#10141f'); R(rb - q(1), rt - q(2), q(3), 1, '#5a6a90'); R(rb + q(2), rt - q(3.5), q(1.5), q(1.5), '#10141f');
+    const ea = x0 - ov, eb = x1 + ov;
+    R(ea - q(2), yE - q(2.5), q(2.5), q(2), '#1a2030'); R(ea - q(3.5), yE - q(4), q(1.5), q(1.5), '#3c4662');
+    R(eb - q(0.5), yE - q(2.5), q(2.5), q(2), '#1a2030'); R(eb + q(2), yE - q(4), q(1.5), q(1.5), '#3c4662');
+    for (let i = 0; i < (x1 - x0) / 5; i++) R(x0 + r() * (x1 - x0), yE - h + 2 + r() * Math.max(1, h - 4), 1, 1, '#36425e');
+  }
+  eaveBand(x0, x1, yB, h, ov) {
+    const x = this.X_, a = Math.round(x0 - ov), b = Math.round(x1 + ov);
+    for (let k = 0; k < h; k++) { const yy = yB - h + k; for (let xx = a; xx < b; xx++) { const m = (xx - a) % 3; let col = m === 0 ? '#262e42' : m === 1 ? '#1a2030' : '#121724'; if (k === 0) col = '#46527a'; else if (k === h - 1) col = m === 0 ? '#3a4460' : '#0d111b'; x.fillStyle = col; x.fillRect(xx, yy, 1, 1); } }
+    x.fillStyle = 'rgba(8,12,24,0.4)'; x.fillRect(Math.round(x0), yB, Math.round(x1 - x0), this.q(2));
+  }
+  win(x0, y0, w, h, kind) {
+    const x = this.X_, R = this.R_, q = this.q, W = this.WARM;
+    x0 = Math.round(x0); y0 = Math.round(y0);
+    R(x0 - 1, y0 - 1, w + 2, h + 2, '#24160f'); R(x0 - 2, y0 + h + 1, w + 4, 1, '#3a2a22'); R(x0 - 2, y0 - 2, w + 4, 1, '#3a2a22');
+    const cx = x0 + w / 2, cy = y0 + h / 2;
+    for (let yy = y0; yy < y0 + h; yy++) for (let xx = x0; xx < x0 + w; xx++) {
+      let col;
+      if (kind === 'dark') col = ((xx - x0) % 3 === 1 || (yy - y0) % 3 === 1) ? '#2e364c' : '#171d2e';
+      else { const d = Math.hypot((xx - cx) / (w / 2), (yy - cy) / (h / 2)), f = Math.min(4, d * 2.3), b = Math.floor(f); col = W[Math.min(4, f - b > this.bay(xx, yy) ? b + 1 : b)];
+        if (kind === 'slat' ? (yy - y0) % 2 === 1 : ((xx - x0) % 3 === 1 || (yy - y0) % 3 === 1)) col = '#5c2e1a'; }
+      x.fillStyle = col; x.fillRect(xx, yy, 1, 1);
+    }
+    if (kind !== 'slat') R(Math.round(cx), y0, 1, h, '#24160f');
+    if (kind === 'fig') { const fx = Math.round(cx + w * 0.2), fb = y0 + h; R(fx - q(2.5), fb - q(7), q(5), q(7), '#4a2414'); R(fx - q(1.6), fb - q(10.5), q(3.2), q(3.6), '#4a2414'); }
+    if (kind !== 'dark') this.lights.win.push({ x: cx - this.M, y: cy, r: Math.max(w, h), ph: this.r_() * 6 });
+  }
+  door(x0, y0, w, h, lit) {
+    const R = this.R_, q = this.q; x0 = Math.round(x0); y0 = Math.round(y0);
+    R(x0 - q(2), y0 - q(2), w + q(4), h + q(2), '#586078'); R(x0 - q(2), y0 - q(2), w + q(4), 1, '#76809a');
+    R(x0, y0, w, h, '#3a2420'); for (let xx = x0 + 2; xx < x0 + w - 1; xx += 3) R(xx, y0, 1, h, '#2a1814');
+    const m = x0 + Math.floor(w / 2); R(m - 1, y0, 2, h, lit ? '#f0a458' : '#140c0a');
+    R(m - q(2.5), y0 + h * 0.45, 1, 1, '#c8a060'); R(m + q(2), y0 + h * 0.45, 1, 1, '#c8a060');
+    for (const cx of [x0 - q(6), x0 + w + q(3.5)]) { R(cx, y0 + q(2), q(2.5), h * 0.7, '#8e2c24'); for (let k = q(4); k < h * 0.7; k += q(4)) R(cx + 1, y0 + q(2) + k, 1, 1, '#d8a860'); }
+    if (lit) this.lights.win.push({ x: m - this.M, y: y0 + h * 0.5, r: q(8), ph: 1, I: 0.35 });
+  }
+  lant(X, Y, s = 1) { this.R_(X, Y - 1, 1, 2, '#161216'); this.lights.lant.push({ ax: Math.round(X) - this.M, ay: Math.round(Y), ph: this.r_() * 6, s }); }
+
+  house(x0, w) {
+    const q = this.q, R = this.R_, r = this.r_, yG = this.g.yG, x1 = x0 + w, tall = r() < 0.4, gfT = yG - q(36), ufT = yG - q(tall ? 82 : 74), rh = q(18);
+    this.wall(x0, x1, ufT, yG, false); this.plinth(x0, x1);
+    const dw = q(16), dx = Math.round(x0 + w * (0.28 + r() * 0.44) - dw / 2), lit = r() < 0.35;
+    this.door(dx, yG - q(29), dw, q(24), lit);
+    if (dx - q(30) > x0 + q(4)) this.win(dx - q(28), yG - q(25), q(18), q(10), r() < 0.7 ? 'slat' : 'dark');
+    if (dx + dw + q(30) < x1 - q(4)) this.win(dx + dw + q(10), yG - q(25), q(18), q(10), r() < 0.7 ? 'slat' : 'dark');
+    this.eaveBand(x0, x1, gfT, q(5), q(3));
+    if (r() < 0.75) { this.lant(dx - q(5), gfT + q(1), 0.8); this.lant(dx + dw + q(5), gfT + q(1), 0.8); }
+    const n = Math.max(1, Math.floor((w - q(12)) / q(32)));
+    for (let i = 0; i < n; i++) { const ww = q(17), wx = x0 + q(6) + (i + 0.5) * (w - q(12)) / n - ww / 2, v = r(); this.win(wx, ufT + q(tall ? 16 : 12), ww, q(16), v < 0.12 ? 'fig' : v < 0.7 ? 'lat' : 'dark'); }
+    R(x0, ufT, w, q(2), '#3a2a26');
+    this.roof(x0, x1, ufT, rh, q(5));
+    this.g.drips.push({ x: Math.round(x0 - q(3)) - this.M, y0: gfT + 1, y1: yG + q(3 + r() * 6), r: 0.3 + r() * 0.3, ph: r() });
+    if (r() < 0.5) { const gw = q(8); for (const gx of [x0, x1 - gw]) { const top = ufT - rh - q(12); this.wall(gx, gx + gw, top + q(3), ufT, false); R(gx - q(1), top, gw + q(2), q(3), '#10141f'); R(gx - q(1), top, gw + q(2), 1, '#5a6a90'); const tip = gx === x0 ? gx - q(3) : gx + gw + q(1); R(tip, top - q(1.5), q(2), q(2), '#10141f'); R(tip, top - q(1.5), q(2), 1, '#5a6a90'); } }
+  }
+  gate(x0, w) {
+    const q = this.q, yG = this.g.yG, R = this.R_, r = this.r_, x1 = x0 + w, top = yG - q(84);
+    this.wall(x0, x1, top, yG, true); this.plinth(x0, x1);
+    const dw = q(18), dx = Math.round(x0 + w / 2 - dw / 2), dh = q(30);
+    R(dx - q(2), yG - dh - q(2), dw + q(4), dh + q(2), '#586078'); R(dx - q(2), yG - dh - q(2), dw + q(4), 1, '#76809a');
+    R(dx, yG - dh, dw, dh, '#0b0e18');
+    for (let yy = yG - q(12); yy < yG; yy++) for (let xx = dx + 1; xx < dx + dw - 1; xx++) if (this.bay(xx, yy) < (yy - yG + q(12)) / q(12) * 0.55) R(xx, yy, 1, 1, '#4a3024');
+    R(dx - q(1), yG - dh - q(9), dw + q(2), q(5), '#1e1612'); R(dx - q(1), yG - dh - q(9), dw + q(2), 1, '#8a6a3a'); R(dx + q(3), yG - dh - q(7), dw - q(6), 1, '#8a6a3a');
+    this.win(x0 + w / 2 - q(5), top + q(16), q(10), q(10), r() < 0.55 ? 'lat' : 'dark');
+    this.lant(dx + dw + q(5), yG - dh + q(1), 0.9);
+    this.roof(x0, x1, top, q(14), q(4));
+  }
+  gap(x0, w) {
+    const q = this.q, yG = this.g.yG, R = this.R_, top = yG - q(62);
+    this.dith(this.X_, x0, top - q(4), w, q(4), 'rgba(0,0,0,0)', '#090c16'); R(x0, top, w, yG - top, '#090c16');
+    const lx = Math.round(x0 + w / 2); R(lx, yG - q(26), 1, q(2), '#ff9a4a'); this.lights.tiny.push({ x: lx - this.M, y: yG - q(25) });
+    R(x0, yG - q(3), w, q(3), '#141a28');
+  }
+  tea(x0, w) {
+    const q = this.q, g = this.g, yG = g.yG, R = this.R_, x = this.X_, r = this.r_, M = this.M, x1 = x0 + w;
+    const gfT = yG - q(42), ah = q(6), ufT = yG - q(90), rh = q(22);
+    this.wall(x0, x1, ufT, gfT, false);
+    R(x0, gfT, w, yG - gfT, '#2e1c18');
+    const pw = Math.max(2, q(3.5)), pa = x0 + q(5), pb = x1 - q(5), ia = pa + pw, ib = pb - pw, it = gfT + q(2), iB = yG - q(3);
+    const icx = (ia + ib) / 2, icy = it + (iB - it) * 0.42, hw = (ib - ia) / 2, hh = (iB - it) * 0.95;
+    for (let yy = it; yy < iB; yy++) for (let xx = ia; xx < ib; xx++) { const d = Math.hypot((xx - icx) / hw, (yy - icy) / hh), f = Math.min(4, d * 2.4), b = Math.floor(f); x.fillStyle = this.WARM[Math.min(4, f - b > this.bay(xx, yy) ? b + 1 : b)]; x.fillRect(xx, yy, 1, 1); }
+    R(ia, it, ib - ia, q(2), '#5a2e1a');
+    const sp = ia + q(7); R(sp, it + q(5), q(9), q(17), '#efe2c0'); R(sp - 1, it + q(5), q(9) + 2, 1, '#4a2a18'); R(sp - 1, it + q(22), q(9) + 2, 1, '#4a2a18');
+    for (let k = 0; k < q(7); k++) R(sp + q(1) + k, it + q(16) - Math.round(Math.abs(Math.sin(k * 0.6)) * q(4)), 1, 1, '#6a6458');
+    R(sp + q(5.5), it + q(8), q(1.5), q(1.5), '#b84a30');
+    const sa = ia + Math.round((ib - ia) * 0.66), sb = ib - q(3);
+    for (const sy of [it + q(10), it + q(18)]) { R(sa, sy, sb - sa, 1, '#6a3a22'); for (let xx = sa + 1; xx < sb - q(2); xx += q(4)) { const h2 = q(2 + r() * 2.5); R(xx, sy - h2, q(2.4), h2, ['#7a4a2a', '#c89458', '#4a3024', '#e8cc90'][Math.floor(r() * 4)]); } }
+    this.people = [];
+    for (const f of [0.26, 0.47]) { const tx = Math.round(ia + (ib - ia) * f), tt = iB - q(7); for (const s of [-1, 1]) this.people.push({ x: tx + s * q(8) - M, y: iB, ph: r() * 6 }); R(tx - q(6), tt, q(12), Math.max(1, q(1.5)), '#3a2016'); R(tx - q(0.8), tt, Math.max(1, q(1.6)), iB - tt, '#3a2016'); R(tx - q(2), tt - q(2), q(1.6), q(2), '#e8e0d0'); R(tx + q(1), tt - q(1.4), q(1.4), q(1.4), '#e8e0d0'); }
+    const ca = ia + Math.round((ib - ia) * 0.64), ct = iB - q(10);
+    this.people.push({ x: Math.round((ca + ib) / 2) - M, y: ct, st: 1, ph: r() * 6 });
+    R(ca, ct, ib - ca, iB - ct, '#3a2016'); R(ca, ct, ib - ca, 1, '#9a6a40'); for (let xx = ca + q(4); xx < ib; xx += q(7)) R(xx, ct + 2, 1, iB - ct - 2, '#26140c');
+    R(ca + q(4), ct - q(3), q(3), q(3), '#2a3a3a'); R(ca + q(7), ct - q(2), q(1), q(1), '#2a3a3a');
+    R(pa, iB, pb - pa, yG - iB, '#586078'); R(pa, iB, pb - pa, 1, '#76809a');
+    for (const px of [pa, pb - pw]) { R(px, gfT, pw, yG - gfT, '#7a2a22'); R(px, gfT, 1, yG - gfT, '#a83e2c'); R(px - 1, yG - q(3), pw + 2, q(3), '#586078'); }
+    R(x0, gfT - q(2), w, q(2.5), '#6a2620');
+    this.eaveBand(x0, x1, gfT - q(2), ah, q(4));
+    const nl = Math.max(2, Math.round((pb - pa) / q(38)));
+    for (let i = 0; i < nl; i++) this.lant(pa + (i + 0.5) * (pb - pa) / nl, gfT, 1.1);
+    const nw = w > q(140) ? 3 : 2;
+    for (let i = 0; i < nw; i++) { const ww = q(24), wx = x0 + (i + 0.5) * w / nw - ww / 2; this.win(wx, ufT + q(12), ww, q(20), i === 1 ? 'fig' : 'lat'); }
+    R(x0, ufT, w, q(2.5), '#6a2620');
+    this.roof(x0, x1, ufT, rh, q(6));
+    const chx = Math.round(x0 + w * 0.78), cht = ufT - rh - q(12);
+    R(chx, cht, q(6), q(13), '#3a3844'); R(chx - 1, cht, q(6) + 2, q(2), '#24222c'); R(chx, cht + q(2), q(6), 1, '#4a4856'); R(chx + q(1), cht + q(4), 1, q(8), '#2e2c36');
+    g.chim = [chx + q(3) - M, cht - 1];
+    const bw = Math.max(11, q(12)), bx = x1 + q(3), bt = gfT - q(10), bh = q(40);
+    R(x1 - q(3), bt - q(2), q(5) + bw + q(1), Math.max(1, q(1.4)), '#24160f');
+    R(bx, bt, bw, bh, '#9a2a22'); R(bx, bt, 1, bh, '#b8402e'); R(bx + bw - 1, bt, 1, bh, '#6a1c16'); R(bx + 1, bt + 1, bw - 2, 1, '#d8a058'); R(bx + 1, bt + bh - 2, bw - 2, 1, '#d8a058');
+    const s = Math.max(1, Math.floor(this.u)), cx0 = bx + Math.floor((bw - 9 * s) / 2), cy0 = bt + q(5);
+    this.CHA.forEach((row, j) => { for (let i = 0; i < 9; i++) if (row[i] === 'X') R(cx0 + i * s, cy0 + j * s, s, s, '#f6e7c6'); });
+    R(bx + q(3), cy0 + 11 * s + q(4), bw - q(6), 1, '#d8a058'); R(bx + q(3), cy0 + 11 * s + q(7), bw - q(6), 1, '#d8a058');
+    for (let xx = bx; xx < bx + bw; xx += 2) R(xx, bt + bh, 1, q(2.5), '#d8a058');
+    this.lights.shop.push({ x: icx - M, y: icy, w: ib - ia, h: iB - it });
+    g.cat = [pa - M - q(9), yG + q(6)];
+    g.drips.push({ x: Math.round(x0 - q(4)) - M, y0: gfT - q(2) + 1, y1: yG + q(4), r: 0.4, ph: 0.2 }, { x: Math.round(x1 + q(2)) - M, y0: gfT - q(2) + 1, y1: yG + q(5), r: 0.35, ph: 0.6 });
+  }
+
+  buildStreet() {
+    const { FW, M, PW, g } = this, q = this.q, yG = g.yG, sh = g.yE - yG, h = g.yW - yG;
+    const [c, x] = this.mk(FW, h); this.cStreet = c; const R = this.painter(x), r = this.rng(41);
+    R(0, 0, FW, h, '#1a2030');
+    let y = 0, i = 0;
+    while (y < sh) { const rh = Math.min(sh - y, Math.max(3, q(3.5 + i * 1.4))); let xx = -Math.round(r() * q(20));
+      while (xx < FW) { const w = Math.round(q(14) + r() * q(14) + rh * 1.2), col = ['#2a3246', '#2e364c', '#323a52', '#283044', '#2c3448'][Math.floor(r() * 5)];
+        R(xx + 1, y + 1, w - 1, Math.max(1, rh - 1), col); if (r() < 0.7) R(xx + 1, y + 1, w - 1, 1, '#3a4460');
+        for (let k = 0; k < w * rh / 30; k++) R(xx + 1 + r() * (w - 2), y + 1 + r() * Math.max(1, rh - 1), 1, 1, r() < 0.5 ? '#242b3e' : '#3a4460');
+        xx += w; }
+      y += rh; i++; }
+    x.fillStyle = 'rgba(6,9,18,0.5)'; x.fillRect(0, 0, FW, q(2)); x.fillStyle = 'rgba(6,9,18,0.25)'; x.fillRect(0, q(2), FW, q(2));
+    x.globalCompositeOperation = 'lighter';
+    for (const s of this.lights.shop) this.blit(x, this.glow(q(62), '#6a3414'), s.x + M, q(2), 1);
+    for (const w of this.lights.win) if (w.I) this.blit(x, this.glow(q(16), '#5a3014'), w.x + M, q(2), 1);
+    x.globalCompositeOperation = 'source-over';
+    const [tc, tx] = this.mk(FW, yG); tx.drawImage(this.cSky, 0, 0); tx.drawImage(this.cFar, 0, 0); tx.drawImage(this.cTown, 0, 0);
+    const src = tx.getImageData(0, 0, FW, yG).data, np = Math.max(3, Math.round(PW / q(64)));
+    this.puddles = [];
+    for (let k = 0; k < np; k++) {
+      const pw = q(14 + r() * 30), ph = Math.max(2, q(2 + r() * 2.5)), pcx = Math.round(M + (k + 0.2 + r() * 0.6) * PW / np), pcy = Math.round(q(9) + r() * Math.max(1, sh - q(15)));
+      this.puddles.push({ x: pcx - M, y: pcy + yG, w: pw, h: ph });
+      for (let yy = pcy - ph; yy <= pcy + ph; yy++) for (let xx = pcx - pw; xx <= pcx + pw; xx++) {
+        if (xx < 0 || xx >= FW || yy < 0 || yy >= sh) continue;
+        const e = ((xx - pcx) / pw) ** 2 + ((yy - pcy) / ph) ** 2 + Math.sin(xx * 0.7 + k * 3) * 0.1; if (e >= 1) continue;
+        const sy = yG - 2 - yy; let cr = 18, cg = 24, cb = 40;
+        if (sy >= 0) { const i4 = (sy * FW + xx) * 4; cr = cr * 0.4 + src[i4] * 0.6; cg = cg * 0.4 + src[i4 + 1] * 0.6; cb = cb * 0.4 + src[i4 + 2] * 0.6; }
+        if (e > 0.75) { cr *= 0.75; cg *= 0.75; cb *= 0.8; }
+        x.fillStyle = 'rgb(' + (cr | 0) + ',' + (cg | 0) + ',' + (cb | 0) + ')'; x.fillRect(xx, yy, 1, 1);
+      }
+      R(pcx - pw * 0.55, pcy - ph, pw * 1.1, 1, '#46527a');
+    }
+    R(0, sh, FW, q(3), '#4e566e'); R(0, sh, FW, 1, '#6c7690'); for (let xx = Math.round(r() * q(16)); xx < FW; xx += q(14 + r() * 6)) R(xx, sh + 1, 1, Math.max(1, q(3) - 1), '#343b50');
+    let yy = sh + q(3), row = 0;
+    while (yy < h) { const bh = Math.min(h - yy, Math.max(2, q(3))); let xx = (row & 1) ? -q(6) : 0;
+      while (xx < FW) { const bw = q(10 + r() * 5); R(xx + 1, yy + 1, bw - 1, Math.max(1, bh - 1), ['#2e3548', '#343c50', '#2a3044'][Math.floor(r() * 3)]); if (r() < 0.2) R(xx + 1, yy + 1, bw * r(), 1, '#2e4034'); xx += bw; }
+      yy += bh; row++; }
+    x.fillStyle = 'rgba(6,9,18,0.4)'; x.fillRect(0, h - q(3), FW, q(3));
+    const sx0 = Math.round(M + PW * (this.mob ? 0.1 : 0.27)), ns = Math.max(2, Math.round((h - sh) / q(2.4))), stp = (h - sh) / ns;
+    for (let k = 0; k < ns; k++) { const y2 = Math.round(sh + k * stp), xa = sx0 + k * q(3), ww = q(34) - k * q(3); R(xa, y2, ww, Math.ceil(stp), '#434b62'); R(xa, y2, ww, 1, '#5e6882'); }
+    for (let xx = M + q(34); xx < FW; xx += q(96)) { R(xx, sh - q(4), q(3), q(4), '#2a2a34'); R(xx, sh - q(4), q(3), 1, '#4a4a58'); }
+  }
+  buildWater() { const { FW, PH, g } = this, [c, x] = this.mk(FW, PH - g.yW); this.cWater = c; this.gradImg(x, FW, PH - g.yW, ['#121a2c', '#0f1626', '#0c1220', '#0a0f1b'], 1); }
+  buildWillow() {
+    const { PW, g, mob } = this, q = this.q; this.wil = null; if (mob) return;
+    const r = this.rng(77), w = this.wil = { x: Math.round(PW * 0.86), base: g.yE - q(1), top: g.yG - q(72) };
+    w.strands = Array.from({ length: 44 }, () => { const a = (r() - 0.5) * 2; return { dx: Math.round(a * q(34)), y0: Math.round(w.top + q(6) + Math.abs(a) * q(12) + r() * q(5)), len: q(26 + r() * 44), ph: r() * 6, c: Math.floor(r() * 3) }; });
+  }
+  buildVig() {
+    const { PW, PH } = this, [c, x] = this.mk(PW, PH), img = x.createImageData(PW, PH), d = img.data;
+    for (let yy = 0; yy < PH; yy++) for (let xx = 0; xx < PW; xx++) { const dx = xx / PW - 0.5, dy = yy / PH - 0.5, e = dx * dx * 1.2 + dy * dy * 1.4, a = Math.max(0, Math.min(0.5, (e - 0.1) * 1.8)), lv = Math.floor(a * 10 + this.bay(xx, yy)) / 10, i = (yy * PW + xx) * 4; d[i] = 4; d[i + 1] = 6; d[i + 2] = 14; d[i + 3] = lv * 255; }
+    x.putImageData(img, 0, 0); this.cVig = c;
+  }
+
+  frame(now) {
+    const dt = Math.min(0.05, (now - this.last) / 1000), fps = this.reduce ? 15 : this.mob ? 24 : 30;
+    this.acc += dt; this.last = now; if (this.acc < 1 / fps - 0.002) return;
+    const step = this.acc * (this.props.speed ?? 1) * (this.reduce ? 0.3 : 1); this.acc = 0; this.t += step;
+    const par = (this.props.parallax ?? true) && !this.mob; this.mx += ((par ? this.mt : 0) - this.mx) * 0.06;
+    const rain = this.props.rain ?? 1, { g, PW, PH } = this, q = this.q; if (!g) return;
+    this.spAcc += step * rain * 34;
+    while (this.spAcc >= 1) { this.spAcc -= 1; const v = Math.random();
+      if (v < 0.5) this.splashes.push({ k: 1, x: Math.random() * PW, y: g.yW + 2 + Math.random() * (PH - g.yW - 3), t0: this.t, life: 1 });
+      else if (v < 0.85) this.splashes.push({ k: 0, x: Math.random() * PW, y: g.yG + q(3) + Math.random() * (g.yE - g.yG - q(4)), t0: this.t, life: 0.7 });
+      else if (this.puddles && this.puddles.length) { const p = this.puddles[Math.floor(Math.random() * this.puddles.length)]; this.splashes.push({ k: 2, x: p.x + (Math.random() - 0.5) * p.w * 1.4, y: p.y + (Math.random() - 0.5) * p.h, t0: this.t, life: 1.1 }); } }
+    if (this.splashes.length > 300) this.splashes.splice(0, 100);
+    for (const d of this.drops) { d.y += d.v * step * rain; d.x -= d.v * 0.2 * step * rain; if (d.y - d.len > PH) { d.y = -Math.random() * 30; d.x = Math.random() * (PW + PH * 0.2); } }
+    const p = this.ped; if (p.wait > 0) p.wait -= step; else { p.x += q(7) * step; if (p.x > PW + q(24)) { p.x = -q(24); p.wait = 4; } }
+    this.boat.x -= q(3) * step; if (this.boat.x < -q(90)) this.boat.x = PW + q(20);
+    if (g.chim) { this.smAcc += step; while (this.smAcc > 0.35) { this.smAcc -= 0.35; this.smoke.push({ t0: this.t, ph: Math.random() * 6 }); } this.smoke = this.smoke.filter(s => this.t - s.t0 < 7); }
+    this.draw();
+  }
+
+  draw() {
+    const { ctx, g, PW, PH, M, t, u } = this, q = this.q; if (!this.cTown) return;
+    const oF = Math.round(this.mx * 1.5) - M, ox = Math.round(this.mx * 4), oT = ox - M, oC = Math.round(this.mx);
+    ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
+    ctx.drawImage(this.cSky, oF, 0);
+    this.cClouds.forEach((c, i) => { const y = i ? q(24) : q(6), off = (t * (i ? 2.4 : 1.2) * u + i * 211) % this.CW; ctx.globalAlpha = i ? 0.85 : 1; for (let k = -1; k <= 1; k++) ctx.drawImage(c, Math.round(k * this.CW - off) + oC, y); });
+    ctx.globalAlpha = 1;
+    ctx.drawImage(this.cFar, oF, 0);
+    ctx.drawImage(this.cTown, oT, 0);
+    this.drawSmoke(ox);
+    this.drawPeople(ox);
+    const L = this.lights.lant.map(l => this.drawLantern(l.ax + ox, l.ay, Math.sin(t * 1.2 + l.ph) * 1.1 * u, l.s));
+    ctx.drawImage(this.cStreet, oT, g.yG);
+    this.splashes = this.splashes.filter(s => t - s.t0 < s.life);
+    ctx.globalCompositeOperation = 'lighter';
+    L.forEach((c, i) => this.streak(c[0], g.yG + q(2), g.yE - 1, 0.4, 0.8, i * 3));
+    for (const s of this.lights.shop) for (let k = 0; k < 4; k++) this.streak(s.x + ox + (k - 1.5) * s.w / 4.5, g.yG + q(2), g.yE - 1, 0.26, 1.3, 9 + k * 2);
+    ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
+    ctx.fillStyle = 'rgba(170,195,235,0.4)';
+    for (const p of this.puddles) ctx.fillRect(Math.round(p.x + ox + Math.sin(t * 0.7 + p.x) * p.w * 0.45) - q(3), Math.round(p.y - p.h * 0.3), q(6), 1);
+    for (const s of this.splashes) { if (s.k === 1) continue; const a = (t - s.t0) / s.life, sx = s.x + ox, rad = a * (s.big ? 12 : s.k === 2 ? 4 : 2) * u + 0.5; this.ring(sx, s.y, rad, (1 - a) * (s.k === 2 ? 0.6 : 0.5), 0.32); if (s.k === 0 && a < 0.25) { ctx.fillStyle = 'rgba(200,220,245,0.7)'; ctx.fillRect(Math.round(sx), Math.round(s.y - 1 - a * 8 * u), 1, 1); } }
+    this.drawCat(ox);
+    this.drawPed(this.ped.x + ox, g.yG + q(26));
+    ctx.globalCompositeOperation = 'lighter';
+    const fl = i => 0.9 + 0.1 * Math.sin(t * 2.7 + i * 1.9) * Math.sin(t * 1.1 + i * 0.7);
+    this.lights.win.forEach((w, i) => this.drawGlow(w.x + ox, w.y, w.r * 1.25 + q(6), '#ff9848', (w.I || 0.2) * fl(i)));
+    L.forEach((c, i) => { this.drawGlow(c[0], c[1], q(22), '#ff662a', 0.3 * fl(i + 9)); this.drawGlow(c[0], c[1], q(7), '#ffb45c', 0.5 * fl(i + 9)); });
+    for (const s of this.lights.shop) this.drawGlow(s.x + ox, s.y, q(74), '#ff8a3c', 0.2);
+    for (const tl of this.lights.tiny) this.drawGlow(tl.x + ox, tl.y, q(8), '#ff8a3c', 0.4);
+    ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
+    this.drawDrips(ox);
+    this.drawWillow(ox);
+    const wh = PH - g.yW; ctx.drawImage(this.cWater, oT, g.yW);
+    for (let j = 0; j < wh; j++) { const sy = g.yW - 1 - Math.floor(j * 1.8); if (sy < 0) break; const f = j / wh, wob = Math.round(Math.sin(j * 0.6 + t * 2.3) * (0.6 + f * 2.2) + Math.sin(j * 1.9 - t * 3.4) * 0.7); ctx.globalAlpha = (0.58 - 0.3 * f) * (((j + Math.floor(t * 5)) % 7 === 0) ? 0.35 : 1); ctx.drawImage(ctx.canvas, 0, sy, PW, 1, wob, g.yW + j, PW, 1); }
+    ctx.globalAlpha = 1; ctx.fillStyle = 'rgba(6,10,24,0.3)'; ctx.fillRect(0, g.yW, PW, wh);
+    ctx.fillStyle = 'rgba(120,145,190,0.3)'; for (const l of this.wl) ctx.fillRect(Math.round(((l.x + t * l.sp * u) % (PW + 20)) - 10), l.y, l.l, 1);
+    const bl = []; this.drawBoat(this.boat.x, g.yW + Math.round(wh * 0.5), bl);
+    for (const s of this.splashes) { if (s.k !== 1) continue; const a = (t - s.t0) / s.life, rad = a * (s.big ? 10 : 2.5) * u + 0.5; this.ring(s.x, s.y, rad, (1 - a) * 0.5, 0.3); if (s.big && a > 0.2) this.ring(s.x, s.y, rad * 0.6, (1 - a) * 0.4, 0.3); }
+    ctx.globalCompositeOperation = 'lighter'; for (const b of bl) { this.drawGlow(b[0], b[1], q(14), '#ff8038', 0.32); this.drawGlow(b[0], b[1], q(5), '#ffc070', 0.5); }
+    ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
+    const cols = ['rgba(130,155,200,0.2)', 'rgba(160,185,222,0.32)', 'rgba(195,215,240,0.46)'];
+    for (let l = 0; l < 3; l++) { ctx.fillStyle = cols[l]; for (const d of this.drops) { if (d.l !== l) continue; for (let k = 0; k < d.len; k++) ctx.fillRect(Math.round(d.x + k * 0.2), Math.round(d.y - k), 1, 1); } }
+    ctx.drawImage(this.cVig, 0, 0);
+  }
+
+  streak(x, y0, y1, I, wm, ph) {
+    const { ctx, t, u } = this, n = Math.max(1, y1 - y0);
+    for (let y = y0; y < y1; y++) { if ((y + Math.floor(t * 6) + ph) % 5 === 0) continue; const f = (y - y0) / n, w = Math.max(1, Math.round((1.4 + f * 3) * u * wm)), wob = Math.round(Math.sin(y * 0.7 + t * 2.4 + ph) * (0.6 + f * 1.4));
+      ctx.globalAlpha = Math.max(0, I * (1 - f * 0.7) * (0.7 + 0.3 * Math.sin(y * 1.9 - t * 4 + ph))); ctx.fillStyle = '#ff9448'; ctx.fillRect(Math.round(x - w / 2) + wob, y, w, 1);
+      if (f < 0.55) { ctx.fillStyle = '#ffd08a'; ctx.fillRect(Math.round(x) + wob, y, 1, 1); } }
+    ctx.globalAlpha = 1;
+  }
+  ring(x, y, rad, a, ry) { const ctx = this.ctx; if (a <= 0) return; ctx.fillStyle = 'rgba(175,200,235,' + a.toFixed(3) + ')'; const n = Math.max(6, Math.round(rad * 3.2)); for (let j = 0; j < n; j++) { const an = j / n * 6.2832; ctx.fillRect(Math.round(x + Math.cos(an) * rad), Math.round(y + Math.sin(an) * rad * ry), 1, 1); } }
+
+  drawLantern(ax, ay, sw, s) {
+    const ctx = this.ctx, q = this.q, lw = Math.max(4, q(7 * s)), lh = Math.max(5, q(9 * s)), rope = Math.max(2, q(3 * s));
+    ctx.fillStyle = '#161216'; for (let k = 0; k <= rope; k++) ctx.fillRect(Math.round(ax + sw * k / rope), ay + k, 1, 1);
+    const cx = Math.round(ax + sw), top = ay + rope + 1, cw = Math.max(2, Math.round(lw * 0.55)), ch = Math.max(1, q(1.2 * s));
+    ctx.fillStyle = '#2a1a14'; ctx.fillRect(cx - (cw >> 1), top, cw, ch);
+    const b0 = top + ch, hw0 = lw / 2;
+    for (let k = 0; k < lh; k++) { const f = (k + 0.5) / lh * 2 - 1, hw = Math.max(1, Math.round(hw0 * Math.sqrt(1 - f * f * 0.7)));
+      for (let xx = -hw; xx <= hw; xx++) { const e = Math.abs(xx) / (hw + 0.5); let col = e > 0.78 ? '#6e1e16' : e > 0.52 ? '#a8302a' : e > 0.24 ? '#dc4e30' : '#ff8a50'; if (Math.abs(f) < 0.42 && e < 0.3) col = '#ffd48e'; if (k % 3 === 2 && e > 0.24) col = '#7a2218'; ctx.fillStyle = col; ctx.fillRect(cx + xx, b0 + k, 1, 1); } }
+    ctx.fillStyle = '#2a1a14'; ctx.fillRect(cx - (cw >> 1), b0 + lh, cw, ch);
+    const tl = Math.max(2, q(3 * s)); ctx.fillStyle = '#b8402c'; ctx.fillRect(cx, b0 + lh + ch, 1, tl); ctx.fillStyle = '#e8a060'; ctx.fillRect(cx, b0 + lh + ch + tl, 1, 1);
+    return [cx, b0 + lh / 2];
+  }
+  drawPeople(ox) { const { ctx, t } = this, q = this.q; ctx.fillStyle = '#2e160c'; for (const p of this.people) { const b = Math.sin(t * 0.7 + p.ph) > 0.55 ? 1 : 0, x = p.x + ox, y = p.y, bh = q(p.st ? 7 : 9); ctx.fillRect(x - q(2.6), y - bh - b, q(5.2), bh + b); ctx.fillRect(x - q(1.8), y - bh - q(3.8) - b, q(3.6), q(3.6)); } }
+  drawSmoke(ox) {
+    const { ctx, t } = this, q = this.q, c = this.g.chim; if (!c) return; ctx.fillStyle = '#8a94a8';
+    for (const s of this.smoke) { const a = t - s.t0, f = a / 7, x = c[0] + ox + a * q(3.2) + Math.sin(a * 1.3 + s.ph) * q(1.5), y = c[1] - a * q(4.5), sz = Math.max(1, Math.round(q(1.5 + a * 0.9))), x0 = Math.round(x - sz / 2), y0 = Math.round(y - sz / 2);
+      ctx.globalAlpha = 0.34 * (1 - f); for (let yy = 0; yy < sz; yy++) for (let xx = 0; xx < sz; xx++) if (((x0 + xx + y0 + yy) & 1) === 0) ctx.fillRect(x0 + xx, y0 + yy, 1, 1); }
+    ctx.globalAlpha = 1;
+  }
+  drawCat(ox) {
+    const c = this.g.cat; if (!c) return; const { ctx, t } = this, s = Math.max(1, Math.round(this.u)), x = c[0] + ox, y = c[1];
+    ['X...X..', 'XXXXX..', 'XXXXX..', '.XXXX..', '.XXXXX.', '.XXXXXX'].forEach((row, j) => { ctx.fillStyle = '#0a0c14'; for (let i = 0; i < row.length; i++) if (row[i] === 'X') ctx.fillRect(x + i * s, y - (6 - j) * s, s, s); });
+    const up = Math.sin(t * 1.6) > 0; ctx.fillRect(x + 6 * s, y - (up ? 3 : 2) * s, s, (up ? 2 : 1) * s); ctx.fillRect(x + 7 * s, y - (up ? 4 : 2) * s, s, s);
+    if (Math.sin(t * 0.9) < 0.9) { ctx.fillStyle = '#d8c850'; ctx.fillRect(x + s, y - 4 * s, s, s); ctx.fillRect(x + 3 * s, y - 4 * s, s, s); }
+  }
+  drawDrips(ox) {
+    const { ctx, t, g } = this;
+    g.drips.forEach((dp, i) => { const pp = (t * dp.r + dp.ph) % 1, st = this.dripSt[i], xx = Math.round(dp.x + ox);
+      if (pp < 0.3) { ctx.fillStyle = '#b8cce6'; ctx.fillRect(xx, dp.y0, 1, pp > 0.15 ? 2 : 1); }
+      else if (pp < 0.7) { const f = (pp - 0.3) / 0.4, yy = Math.round(dp.y0 + (dp.y1 - dp.y0) * f * f); ctx.fillStyle = '#d4e4f6'; ctx.fillRect(xx, yy, 1, 2); }
+      if (st && st.prev < 0.7 && pp >= 0.7) this.splashes.push({ k: 0, x: dp.x, y: dp.y1, t0: t, life: 0.8 });
+      if (st) st.prev = pp; });
+  }
+  drawWillow(ox) {
+    const w = this.wil; if (!w) return; const { ctx, t } = this, q = this.q, x0 = w.x + ox;
+    for (let yy = w.top + q(6); yy < w.base; yy++) { const f = (yy - w.top) / (w.base - w.top), tw = Math.max(1, Math.round(q(1.5) + f * q(2.5))), cx = x0 + Math.round(Math.sin(f * 2.4) * q(3)); ctx.fillStyle = '#16141a'; ctx.fillRect(cx - tw, yy, tw * 2, 1); ctx.fillStyle = '#2c2a32'; ctx.fillRect(cx - tw, yy, 1, 1); }
+    ctx.fillStyle = '#16141a'; const bl = q(28);
+    for (const s of [-1, 1]) for (let k = 0; k < bl; k++) ctx.fillRect(x0 + s * k, w.top + q(8) - Math.round(Math.sin(k / bl * 2.2) * q(6)), 1, Math.max(1, q(1.4)));
+    const wind = Math.sin(t * 0.5) * 0.6 + 0.4, P = [['#2c4a3e', '#3c6250'], ['#24403a', '#335446'], ['#3a5e4c', '#4c745e']];
+    for (const s of w.strands) { const cols = P[s.c];
+      for (let k = 0; k < s.len; k++) { const f = k / s.len, sw = (Math.sin(t * 1.1 + s.ph + k * 0.04) * 1.2 + wind * 1.6) * f * f * q(3); ctx.fillStyle = cols[(k >> 1) & 1]; ctx.fillRect(Math.round(x0 + s.dx + sw), s.y0 + k, k % 3 === 0 ? 2 : 1, 1); } }
+  }
+  drawPed(x0, yF) {
+    const { ctx, t } = this, k = this.u * 0.62, Q = v => Math.round(v * k), walk = this.ped.wait <= 0;
+    if (!this.sPed || this.sPedK !== k) { [this.sPed, this.sPx] = this.mk(Q(32) + 2, Q(44) + 2); this.sPedK = k; }
+    const c = this.sPed, x = this.sPx, W = c.width, H = c.height, cx = Math.round(W / 2), R = this.painter(x), Y = v => H - 1 - Math.round(v * k);
+    x.clearRect(0, 0, W, H);
+    const ph = walk ? Math.floor(t * 4.5) % 4 : 1, lg = [[-1.4, 1.4], [0, 0], [1.4, -1.4], [0, 0]][ph];
+    R(cx - Q(1.8) + lg[0] * k, Y(6), Q(1.5), Q(6), '#141826'); R(cx + Q(0.4) + lg[1] * k, Y(6), Q(1.5), Q(6), '#1e2438');
+    for (let yy = Y(28); yy <= Y(5); yy++) { const hv = (H - 1 - yy) / k, hw = hv < 20 ? 2.5 + (20 - hv) * 0.13 : hv < 25 ? 2.5 + (hv - 20) * 0.18 : 3.4 - (hv - 25) * 0.3, a = Math.round(cx - hw * k), w = Math.max(2, Math.round(2 * hw * k)); R(a, yy, w, 1, '#34466c'); R(a + w - 1, yy, 1, 1, '#6c80aa'); R(a, yy, 1, 1, '#232f4c'); }
+    R(cx - Q(2.6), Y(20), Q(5.2), 1, '#1a2034');
+    R(cx - Q(1.6), Y(33), Q(3.2), Q(4.4), '#101218');
+    R(cx - Q(0.2), Y(29), Q(1.3), Q(4), '#2c3c60');
+    R(cx, Y(41), 1, Q(13), '#3a2a22');
+    const Rr = Q(13), ch = Math.max(3, Q(6.5));
+    for (let kk = 0; kk <= ch; kk++) { const yy = Y(34) - kk, hw = Math.round(Rr * Math.sqrt(Math.max(0, 1 - Math.pow(kk / (ch + 0.6), 2))));
+      for (let xx = -hw; xx <= hw; xx++) { const v = xx / Math.max(1, hw), ri = (v + 1) * 4, rib = Math.abs(ri - Math.round(ri)) < 2 / Math.max(2, hw); let col = kk === 0 ? '#5a1a1a' : rib ? '#c4503c' : '#a8342c'; if (kk === ch) col = '#d8765a'; x.fillStyle = col; x.fillRect(cx + xx, yy, 1, 1); } }
+    R(cx, Y(34) - ch - 1, 1, 1, '#3a2a22');
+    const sx = Math.round(x0) - cx, sy = yF - (H - 1);
+    for (let j = 0; j < H; j++) { ctx.globalAlpha = 0.26 * (1 - j / H); ctx.drawImage(c, 0, H - 1 - j, W, 1, sx + Math.round(Math.sin(j * 0.8 + t * 3) * 0.8), yF + 1 + j, W, 1); }
+    ctx.globalAlpha = 1; ctx.drawImage(c, sx, sy);
+  }
+  drawBoat(bx, yW, lights) {
+    const { ctx, t } = this, q = this.q;
+    if (!this.sBoat || this.sBoatU !== this.u) { [this.sBoat, this.sBx] = this.mk(q(84), q(36)); this.sBoatU = this.u; }
+    const c = this.sBoat, x = this.sBx, W = c.width, H = c.height, R = this.painter(x);
+    x.clearRect(0, 0, W, H);
+    const wl = H - q(2), L = q(64), x0 = q(8), hh = Math.max(3, q(5)), deck = wl - hh;
+    for (let k = 0; k < hh; k++) { const f = k / hh, a = x0 + Math.round(f * f * q(8)), b = x0 + L - Math.round(f * f * q(6)); R(a, deck + k, b - a, 1, k === 0 ? '#5e4a3c' : k === 1 ? '#30261f' : '#1a1412'); }
+    R(x0 - q(2), deck - q(2), q(5), q(2), '#1a1412'); R(x0 - q(2), deck - q(2), q(5), 1, '#5e4a3c'); R(x0 + L - q(4), deck - q(1), q(4), q(1), '#1a1412');
+    const ca = x0 + Math.round(L * 0.27), cb = x0 + Math.round(L * 0.7), cht = q(9);
+    for (let xx = ca; xx < cb; xx++) { const e = Math.min(xx - ca, cb - 1 - xx), drop = e < q(3) ? Math.round((q(3) - e) * 0.8) : 0, top = deck - cht + drop;
+      for (let yy = top; yy < deck; yy++) { let col = ((xx + yy) & 1) ? '#141a28' : '#0c0f1a'; if ((xx - ca) % Math.max(2, q(6)) === 0) col = '#05070c'; if (yy === top) col = '#4a5878'; else if (yy === top + 1) col = '#252e46'; x.fillStyle = col; x.fillRect(xx, yy, 1, 1); } }
+    R(ca, deck - cht + q(3), Math.max(1, q(1.5)), cht - q(3), '#04050a'); R(ca + q(1.5), deck - q(4), 1, q(3), '#8a5230');
+    const bm = x0 + Math.round(L * 0.86), sway = Math.round(Math.sin(t * 0.9) * q(1));
+    R(bm - q(1), deck - q(6), q(2.2), q(6), '#0e111c');
+    for (let k = 0; k < q(7); k++) R(bm - (q(4.6) - k * 0.2) / 2 + sway * k / q(7), deck - q(6) - k - 1, q(4.6) - k * 0.2, 1, (k & 1) ? '#232a3e' : '#1a2032');
+    R(bm - q(1) + sway, deck - q(15), q(2.2), q(2.2), '#12141e');
+    const hy = deck - q(15.5); R(bm - q(4.5) + sway, hy, q(9), 1, '#4a3e2a'); R(bm - q(3) + sway, hy - 1, q(6), 1, '#7a6844'); R(bm - q(1.5) + sway, hy - 2, q(3), 1, '#9a8a60');
+    R(x0 + q(3), deck - q(9), 1, q(9), '#2a201c'); R(x0 + q(1), deck - q(9), q(3), 1, '#2a201c'); R(x0, deck - q(8), q(2.4), q(3), '#b8362a'); R(x0 + q(0.7), deck - q(7.2), 1, q(1.4), '#ffd08a');
+    const sx = Math.round(bx) - x0, sy = yW - wl, rh = H - q(4);
+    for (let j = 0; j < rh; j++) { const src = wl - 1 - j; if (src < 0) break; ctx.globalAlpha = 0.34 * (1 - j / rh); ctx.drawImage(c, 0, src, W, 1, sx + Math.round(Math.sin(j * 0.9 + t * 2.6) * (0.4 + j * 0.06)), yW + 1 + j, W, 1); }
+    ctx.globalAlpha = 1; ctx.drawImage(c, sx, sy);
+    const hxp = sx + bm + q(1) + sway, hyp = sy + deck - q(11), ex = hxp + q(13) + Math.sin(t * 0.9) * q(3), ey = yW + q(5), n = Math.max(1, Math.round(Math.max(Math.abs(ex - hxp), Math.abs(ey - hyp))));
+    ctx.fillStyle = '#3a2c24';
+    for (let k = 0; k <= n; k++) { const px = Math.round(hxp + (ex - hxp) * k / n), py = Math.round(hyp + (ey - hyp) * k / n); ctx.globalAlpha = py > yW ? 0.35 : 1; ctx.fillRect(px, py, 1, 1); }
+    ctx.globalAlpha = 1; ctx.fillStyle = 'rgba(150,175,210,0.35)';
+    for (let k = 0; k < 4; k++) ctx.fillRect(sx + x0 + L + q(3) + k * q(7) + Math.round((t * 6) % Math.max(1, q(7))), yW + 1 + (k & 1), q(4), 1);
+    const lx = sx + x0 + q(1.2), ly = sy + deck - q(6.5); lights.push([lx, ly]);
+    ctx.globalCompositeOperation = 'lighter'; this.streak(lx, yW + 2, Math.min(this.PH, yW + q(18)), 0.4, 0.5, 11); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
+  }
+
+  renderVals() {
+    return {
+      canvasRef: this.canvasRef,
+      posts: [
+        { kicker: '博客 · Blog', title: '示例文章一 Sample post', body: '用来展示卡片在固定背景上的滚动效果。 Shows cards scrolling over the fixed scene.', meta: '2026.09.30' },
+        { kicker: '博客 · Blog', title: '示例文章二 Sample post', body: '换成真实的标题与摘要即可。 Swap in real titles and excerpts.', meta: '2026.09.28' },
+        { kicker: '日志 · Log', title: '示例日志 Sample log', body: '点击石板路或河面，会泛起涟漪。 Click the street or the canal for ripples.', meta: '2026.09.25' }
+      ],
+      onDown: e => {
+        const g = this.g; if (!g) return; const x = e.clientX / this.px, y = e.clientY / this.px;
+        if (y > g.yW + 1) this.splashes.push({ k: 1, x, y, t0: this.t, life: 1.6, big: 1 });
+        else if (y > g.yG + 2 && y < g.yE) this.splashes.push({ k: 0, x: x - Math.round(this.mx * 4), y, t0: this.t, life: 1.3, big: 1 });
+      }
+    };
+  }
+}
+</script>
+
+
+</body></html>
