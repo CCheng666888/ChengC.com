@@ -1,0 +1,20 @@
+"""Finish the one-time personal portfolio migration; keep as a work record."""
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[1]
+css = ROOT / 'css/profile-products.css'
+css.write_text(css.read_text(encoding='utf-8').replace('font:9px/1.8 inherit;', 'font-size:9px;line-height:1.8;font-family:inherit;'), encoding='utf-8')
+compatibility = '''<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>作品介绍 · ChenC 个人空间</title>
+  <meta name="description" content="ChenC 的作品介绍已收进个人空间，继续探索网站、工具与游戏。"><meta name="theme-color" content="#eee9dc">
+  <noscript><meta http-equiv="refresh" content="0;url=about.html#portfolio"></noscript>
+  <style>body{margin:0;min-height:100svh;display:grid;place-items:center;background:#eee9dc;color:#131311;font-family:'Microsoft YaHei',sans-serif}main{width:min(500px,calc(100% - 52px));padding:60px 0;border-top:2px solid #c91e36}p{font-size:13px;line-height:2;color:#70685e}h1{font:normal 36px/1.5 Georgia,'SimSun',serif}a{color:#c91e36;text-underline-offset:6px;font-size:13px}a:focus-visible{outline:2px solid #c91e36;outline-offset:5px}</style>
+  <script src="js/products-redirect.js" defer></script>
+</head>
+<body><main id="main"><p>CHENC / WORKS &amp; PRODUCTS</p><h1>作品，写进个人故事。</h1><p>网站、工具与游戏的介绍，已经收进 ChenC 的个人空间。</p><a href="about.html#portfolio">前往个人空间的作品介绍 ↗</a></main></body>
+</html>
+'''
+(ROOT / 'products.html').write_text(compatibility, encoding='utf-8')
+print('Legacy introduction now leads to the integrated personal portfolio.')

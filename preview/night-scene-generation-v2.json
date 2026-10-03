@@ -1,0 +1,10 @@
+{
+  "mode": "Built-in image_gen",
+  "saved_asset": "assets/cangshan-erhai-night-v2.png",
+  "inputs": [
+    "assets/cangshan-erhai.webp",
+    "C:/Users/19152/Documents/Tencent Files/1915250812/nt_qq/nt_data/Pic/2026-10/Ori/4ebc90564a843ac770fa2f1946c8d24b.png"
+  ],
+  "prompt": "Use case: lighting-weather edit. Asset type: wide full-bleed night-mode photographic background for a Cangshan and Erhai website. Input image 1 is the EDIT TARGET: the existing daylight lake photograph. Preserve its exact wide composition, camera viewpoint, mountain outlines, shoreline location, buildings, lake horizon around 55 percent of the image height, and foreground water perspective. Input image 2 is a STYLE REFERENCE ONLY: a screenshot containing three blue-hour lake photos and many warm-white points of light. Use only their deep sapphire blue twilight, dark mountain silhouettes, warm village lights, and luminous rippling water mood; do not copy the screenshot layout, bars, device UI, triptych, text, icons, or borders. Transform the target photograph into an atmospheric photorealistic blue-hour evening: rich cobalt and sapphire water, dark blue layered mountains, deep blue clouds with a little lingering twilight, warm illuminated shore buildings and natural narrow reflections on the water. Scatter restrained tiny warm-white points of light and little glints across the water, following the lake perspective, clustered more subtly in the distance and more widely spaced in the foreground. Retain realistic lake texture and depth; provide a clean background for live water animation. No visible boats, people, added foreground villages, buildings in new locations, giant star graphics, text, logo, watermark, screenshot UI, split panels or frames. Preserve the original 16:9 landscape frame. Avoid excessive bloom and overly bright white water.",
+  "implementation": "Dense warm fish-light ribbons and their reflections are animated in the existing perspective lake shader. Both day and night photographs share the same camera, water displacement and refraction."
+}

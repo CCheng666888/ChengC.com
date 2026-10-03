@@ -1,7 +1,7 @@
 {
   "name": "obsidian-note-to-site",
   "version": "1.0.0",
-  "description": "Summarize Obsidian notes into website-ready article pages (ChengC.com style). Author: ChenC",
+  "description": "Summarize Obsidian notes into website-ready article pages (ChenC style). Author: ChenC",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",

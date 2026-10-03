@@ -1,0 +1,164 @@
+[
+  {
+    "id": "chengc",
+    "category": "web",
+    "name": "ChengC",
+    "tagline": "山海之间，记录日常。",
+    "description": "学习笔记、生活故事与项目作品，在一个数字花园里相遇。苍山洱海风景支持水面互动、明暗主题与音乐播放。",
+    "version": "个人主站",
+    "status": "本站可访问",
+    "visual": "landscape",
+    "image": "assets/cangshan-erhai.webp",
+    "href": "index.html",
+    "cta": "访问主站",
+    "features": [
+      "博客搜索与学习 / 生活分类",
+      "日志时间线与独立文章页",
+      "互动山水、音乐播放器和明暗主题"
+    ],
+    "source": "index.html"
+  },
+  {
+    "id": "qa",
+    "category": "tools",
+    "name": "多书知识问答台",
+    "tagline": "找到答案，也找到出处。",
+    "description": "把六本教材的知识点串起来，用语义检索寻找相关内容，结合章节引用与关联知识点，帮助复习与理解。",
+    "version": "6 本教材 · 326 条知识点",
+    "status": "本站可体验",
+    "visual": "qa",
+    "href": "multi-book-qa/index.html",
+    "cta": "打开问答台",
+    "secondaryHref": "posts/multi-book-qa.html",
+    "secondaryLabel": "阅读开发记录",
+    "features": [
+      "6 本计算机与信息安全相关教材",
+      "浏览器内运行语义检索，提供章节引用",
+      "支持教材筛选、关联知识点与关键词检索回退"
+    ],
+    "note": "语义模型随站托管，首次使用需加载模型资源；检索基于收录的知识点，并非通用聊天模型。",
+    "source": "multi-book-qa/index.html"
+  },
+  {
+    "id": "schedule",
+    "category": "tools",
+    "name": "空课查询系统",
+    "tagline": "找一个，大家都有空的时间。",
+    "description": "选择周数、星期与课节，即可查询共同空闲的成员；多选课节取交集，全天查询与值班提示让排班更清楚。",
+    "version": "MIT 开源",
+    "status": "本站可体验",
+    "visual": "schedule",
+    "href": "Free-Schedule-Query-System/index.html",
+    "cta": "开始查询",
+    "secondaryHref": "posts/schedule-query.html",
+    "secondaryLabel": "查看说明与下载",
+    "features": [
+      "第 1–20 周、周一至周日查询",
+      "多课节交集与全天空课查询",
+      "单双周值班提示与相邻课节状态"
+    ],
+    "note": "数据来自项目现有课表，更新课表后才能反映新的课程安排。",
+    "source": "Free-Schedule-Query-System/README.md"
+  },
+  {
+    "id": "notes",
+    "category": "tools",
+    "name": "Note to Site",
+    "tagline": "让笔记，走向更多读者。",
+    "description": "在 Obsidian 中把当前笔记转换成网站文章 HTML，生成导语、正文、大纲与彩色思维导图，复制或保存后即可接入自己的发布流程。",
+    "version": "v1.1.0 · Obsidian 插件",
+    "status": "可获取源码",
+    "visual": "notes",
+    "href": "obsidian-note-to-site/README.md",
+    "cta": "查看安装说明",
+    "secondaryHref": "obsidian-note-to-site/demo-mindmap.html",
+    "secondaryLabel": "预览思维导图",
+    "features": [
+      "本地提取导语，可选 AI 摘要",
+      "生成匹配本站文章模板的 HTML",
+      "彩色思维导图、文章大纲与保存预览"
+    ],
+    "note": "需先安装到 Obsidian；生成 HTML 后由使用者发布到网站。",
+    "source": "obsidian-note-to-site/manifest.json"
+  },
+  {
+    "id": "ming",
+    "category": "games",
+    "name": "大明风华录 · 山河一统",
+    "tagline": "以你的抉择，书写山河。",
+    "description": "从元末明初出发，在原创单人大战略中统筹钱粮、任命文武、经营辖区与调兵征战。本地新版加入靖难与秦篇剧本。",
+    "version": "本地 v2.1.0",
+    "status": "线上访问受限",
+    "visual": "ming",
+    "image": "assets/products/ming-cover.webp",
+    "href": "https://ming-chronicles-shanhe.q3279619782.chatgpt.site",
+    "cta": "访问线上版本",
+    "features": [
+      "40 个战略辖区，建设、科研与军队统将",
+      "历史主线与分支事件影响战役路线",
+      "本地 v2.1.0 加入剧本库、靖难之役与秦篇"
+    ],
+    "note": "本地 v2.1.0 尚未发布到线上；链接指向已有线上版本，需要获授权的账号访问。历史疆界与数值为游戏化设计，作品仍为可玩原型。",
+    "source": "../大明风华录/README.md"
+  },
+  {
+    "id": "badminton",
+    "category": "games",
+    "name": "羽境 · 火柴人羽毛球",
+    "tagline": "下一拍，轮到你。",
+    "description": "在 2D 球场上移动、跳跃、挥拍与扣杀。故事与冒险两种模式，多种角色，支持键盘和触屏按钮。",
+    "version": "本地 v1.3.2",
+    "status": "本地作品",
+    "visual": "badminton",
+    "image": "assets/products/badminton-cover.webp",
+    "features": [
+      "故事模式与冒险模式",
+      "键盘移动、跳跃、发球、挥拍与扣杀",
+      "单文件 HTML 与 Windows 启动版可离线运行"
+    ],
+    "note": "现有成品保存在本地项目中，尚未放入本站下载目录。冒险模式按实际得分判定胜负；故事模式包含剧情比分设计。",
+    "source": "../羽毛球/README.md"
+  },
+  {
+    "id": "fish",
+    "category": "games",
+    "name": "海绵宝宝大战僵尸鱼",
+    "tagline": "比奇堡，等你来守护。",
+    "description": "本站同人小游戏，抵御不断出现的僵尸鱼，挑战更高分数。可直接打开网页试玩，也提供 Windows 成品下载。",
+    "version": "v1.0 · Windows / 网页",
+    "status": "可试玩与下载",
+    "visual": "fish",
+    "image": "assets/game-bg.jpg",
+    "href": "game.html",
+    "cta": "在线试玩",
+    "secondaryHref": "downloads/spongebob-vs-zombie-fish-windows.zip",
+    "secondaryLabel": "下载 Windows 版",
+    "download": true,
+    "features": [
+      "本站网页可直接试玩",
+      "Windows v1.0 成品下载",
+      "下载包约 19.60 MiB"
+    ],
+    "note": "同人游戏作品。",
+    "source": "index.html#projects"
+  },
+  {
+    "id": "defense",
+    "category": "games",
+    "name": "海底塔防",
+    "tagline": "伙伴就位，守住每一波。",
+    "description": "海绵宝宝大战僵尸鱼的独立在线塔防项目：在比奇堡布置伙伴，抵御僵尸鱼。",
+    "version": "独立在线项目",
+    "status": "公开在线体验",
+    "visual": "defense",
+    "href": "https://spongebob-zombie-fish-defense.q3279619782.chatgpt.site",
+    "cta": "体验海底塔防",
+    "features": [
+      "海底主题塔防玩法",
+      "布置伙伴抵御僵尸鱼",
+      "独立网站，可公开访问"
+    ],
+    "note": "此项目与本站网页小游戏、抖音来源下载版是不同入口。",
+    "source": "Sites 项目元数据"
+  }
+]

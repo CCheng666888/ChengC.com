@@ -1,0 +1,14 @@
+[
+  {
+    "source": "assets/cangshan-erhai.webp",
+    "bundle": "js\\scene-day-data.js",
+    "bytes": 310540,
+    "sha256": "a7a2dd941ebf92f9f9be24d4979c497110db0f2ac1b478676a970642bcd62702"
+  },
+  {
+    "source": "assets/cangshan-erhai-night-v2.png",
+    "bundle": "js\\scene-night-data.js",
+    "bytes": 2291963,
+    "sha256": "0f5433395d2750ed9373db2a560f85fcb95c43ae58e5c3d33e4ca9f7edde949f"
+  }
+]

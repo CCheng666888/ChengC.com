@@ -1,0 +1,21 @@
+{
+  "source_page": "https://hugedesigns.co.uk/project/magpie-murders/",
+  "video": "https://player.vimeo.com/video/676323296?app_id=122963&dnt=1&h=d1695c2b9d",
+  "source_image": "original-poster.png",
+  "source_size": [
+    1920,
+    1080
+  ],
+  "crop": [
+    690,
+    110,
+    960,
+    1080
+  ],
+  "asset": "assets/magpie-original-detective.png",
+  "processing": "Original artwork crop; color-based background removal; title overprint removed by copying nearby pixels from the same original coat. No image generation or vector redrawing.",
+  "size": [
+    267,
+    964
+  ]
+}

@@ -1,0 +1,15 @@
+/* Keep both neighbouring windows visible, with a real dark layer over their contents. */
+.showcase-page{--work-width:min(740px,calc(100vw - 240px))}
+.showcase-page .carousel-track{gap:18px;scroll-behavior:auto}
+.showcase-page .carousel-track.is-switching,.showcase-page .carousel-track.is-rebasing,.showcase-page .carousel-track.drag-ready{scroll-snap-type:none;scroll-behavior:auto}
+.showcase-page .work-card{position:relative;isolation:isolate;transform:scale(.86) translateY(12px);opacity:.94;filter:brightness(.72) saturate(.55);transition:transform .85s cubic-bezier(.2,.7,.2,1),filter .85s,opacity .85s,border-color .85s,box-shadow .85s}
+.showcase-page .work-card.is-before{transform-origin:right center}.showcase-page .work-card.is-after{transform-origin:left center}
+.showcase-page .work-card:after{content:'';position:absolute;inset:0;z-index:3;background:#020710;opacity:.66;pointer-events:none;transition:opacity .85s cubic-bezier(.2,.7,.2,1)}
+.showcase-page .work-card.is-current{transform:scale(1) translateY(0);opacity:1;filter:brightness(1.07) saturate(1);border-color:#ffffffb8;box-shadow:0 20px 60px #02071570,0 0 25px #ffffff13}
+.showcase-page .work-card.is-current:after{opacity:0}
+.showcase-page .is-rebasing .work-card,.showcase-page .is-rebasing .work-card:after{transition:none}
+.showcase-page .work-card.is-entering .work-art img{animation:work-cover-settle .85s cubic-bezier(.2,.7,.2,1) both}
+@keyframes work-cover-settle{from{transform:scale(1.08)}to{transform:scale(1)}}
+@media(max-width:800px){.showcase-page{--work-width:calc(100vw - 140px)}.showcase-page .carousel-track{gap:12px}}
+@media(max-width:480px){.showcase-page{--work-width:calc(100vw - 110px)}.showcase-page .carousel-track{gap:8px}}
+@media(prefers-reduced-motion:reduce){.showcase-page .work-card,.showcase-page .work-card:after{transition:none}.showcase-page .work-card.is-entering .work-art img{animation:none}}

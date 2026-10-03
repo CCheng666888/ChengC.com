@@ -51,7 +51,7 @@
     "id": "hello-world",
     "title": "Hello World",
     "category": "life",
-    "content": "你好，世界！欢迎来到 ChengC 的网站。这是我的第一篇博客，也是这个数字空间正式启程的记录。",
+    "content": "你好，世界！欢迎来到 ChenC 的网站。这是我的第一篇博客，也是这个数字空间正式启程的记录。",
     "date": "2026/06/19",
     "builtin": true,
     "url": "posts/hello-world.html"
@@ -127,14 +127,6 @@
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
   document.addEventListener('keydown', event => { if (event.key === 'Escape' && links.classList.contains('open')) { setMenu(false); menu.focus(); } });
   document.addEventListener('click', event => { if (!event.target.closest('.nav-shell')) setMenu(false); });
-  $('journalHistory').hidden = true;
-  $('journalToggle').addEventListener('click', () => {
-    const open = $('journalHistory').hidden;
-    $('journalHistory').hidden = !open;
-    $('journalToggle').setAttribute('aria-expanded', String(open));
-    $('journalToggle').textContent = open ? '收起历史动态 ↑' : '查看全部动态 ↓';
-    if (!open) $('journalToggle').scrollIntoView({block:'nearest', behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
-  });
   $('backToTop').addEventListener('click', () => scrollTo({top:0, behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'}));
   const header = document.querySelector('.site-header');
   const refreshHeader = () => header.classList.toggle('scrolled', scrollY > 40);

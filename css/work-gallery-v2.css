@@ -1,0 +1,64 @@
+/* A compact, centered work window; neighbouring windows stay visibly subdued. */
+.showcase-page{--work-width:min(760px,calc(100vw - 160px));--work-accent:#e8cc9c}
+.showcase-page .showcase-main{padding-top:107px;min-height:calc(100svh - 165px)}
+.showcase-page .showcase-head{width:min(960px,calc(100% - 80px));margin-bottom:27px}
+.showcase-page .showcase-head h1{font-size:38px}.showcase-page .showcase-head>p{font-size:12px}
+.showcase-page .carousel-shell{position:relative;isolation:isolate}
+.showcase-page .carousel-track{gap:26px;padding:10px calc((100% - var(--work-width))/2) 22px;scroll-padding-inline:calc((100% - var(--work-width))/2);scroll-snap-type:x mandatory}
+.showcase-page .work-card{flex-basis:var(--work-width);grid-template-columns:.98fr 1.12fr;min-height:370px;scroll-snap-align:center;border-radius:14px;transform:scale(.92);opacity:.53;filter:brightness(.54) saturate(.55);cursor:pointer;transition:transform .55s cubic-bezier(.2,.7,.2,1),filter .55s,opacity .55s,border-color .55s,box-shadow .55s;background:linear-gradient(145deg,#ffffff16,transparent 80%),var(--glass)}
+.showcase-page .work-card.is-current{transform:scale(1);opacity:1;filter:brightness(1) saturate(1);border-color:#ffffff99;box-shadow:0 20px 60px #02071554,0 0 0 1px #ffffff14;cursor:grab}
+.showcase-page .work-copy{padding:27px 29px}.showcase-page .work-meta{font-size:9px;gap:10px}
+.showcase-page .work-copy h2{font-size:25px;line-height:1.4;margin-top:17px}
+.showcase-page .work-tagline{font-size:13px;margin-top:10px}.showcase-page .work-description{font-size:12px;line-height:1.9;margin-top:12px}
+.showcase-page .work-features{font-size:10px;gap:5px 14px;margin-top:14px;padding-top:13px}
+.showcase-page .work-actions{padding-top:20px;gap:9px}.showcase-page .work-actions .button{font-size:11px;min-height:42px;padding:9px 14px}
+.showcase-page .work-note{font-size:9px;line-height:1.8;margin-top:12px}.showcase-page .work-art figcaption{left:16px;bottom:14px;font-size:9px}
+.showcase-page .carousel-sides{position:absolute;z-index:3;left:50%;top:calc(50% - 6px);transform:translate(-50%,-50%);width:calc(var(--work-width) + 124px);display:flex;justify-content:space-between;pointer-events:none}
+.showcase-page .carousel-sides[hidden]{display:none}
+.showcase-page .carousel-sides .carousel-button{pointer-events:auto;width:44px;height:44px;border-color:#ffffff73;background:#071622b8;box-shadow:0 3px 18px #03081533;backdrop-filter:blur(8px)}
+.showcase-page .carousel-sides .carousel-button:hover{color:#182630;background:#f5f2e8}
+.showcase-page .carousel-sides .carousel-button:disabled{opacity:.25;background:#07162275;color:#fff}
+.showcase-page .carousel-controls{width:var(--work-width);padding-top:0;gap:18px;align-items:center}
+.showcase-page .carousel-position{font-size:11px}.showcase-page .carousel-navigation{width:auto;gap:0}.showcase-page .carousel-dots{gap:6px}
+.showcase-page .coming-card .work-copy h2{font-size:29px}.showcase-page .coming-card .work-copy h2 span{font-size:20px}
+.showcase-page .coming-art{background:linear-gradient(140deg,#10273944,#182f4933)}
+.showcase-page .showcase-footer{width:min(960px,calc(100% - 80px));padding-top:29px;font-size:10px}
+.showcase-page .tools{margin-right:max(28px,calc((100vw - 960px)/2))}
+.work-landscape{background:#102030}.work-landscape canvas{image-rendering:pixelated;filter:brightness(1);transition:filter .5s}
+.work-landscape .scene-shade{background:linear-gradient(180deg,#050c2022,transparent 38%,#040b1d55)}
+.showcase-page:has(.site-header.scrolled) .work-landscape .scene-shade{background:linear-gradient(180deg,#040d1a44,#040d1a33)}
+.showcase-page.scene-soft .work-landscape canvas{filter:brightness(.75) saturate(.85)}
+.showcase-page[data-scene-theme=ming]{--work-accent:#f3c896}
+.showcase-page[data-scene-theme=badminton]{--work-accent:#b1e2d4}
+.showcase-page[data-scene-theme=fish],.showcase-page[data-scene-theme=defense]{--work-accent:#a7dfe5}
+.showcase-page[data-scene-theme=qa]{--work-accent:#edcb9a}
+.showcase-page[data-scene-theme=notes]{--work-accent:#d0c2ea}
+.showcase-page .carousel-dot[aria-pressed=true]:before{background:var(--work-accent)}
+/* The personal page uses the original site's own background image. */
+.profile-page .landscape-art{background-image:url('../assets/home-bg.png');background-position:center;filter:none}
+.profile-page .scene-shade{background:linear-gradient(90deg,#060b2394,#090d286e),linear-gradient(0deg,#070c298c,transparent 65%)}
+.profile-page:has(.site-header.scrolled) .scene-shade{background:linear-gradient(90deg,#060b23a8,#090d2888)}
+.profile-page .site-header{background:#0d122b3d}.profile-page .site-header.scrolled{background:#0d122bbc}
+.profile-page .profile-actions .button{background:#17223960;border-color:#ffffff62}
+.profile-page .tools{background:#17223990}
+@media(max-width:800px){
+  .showcase-page{--work-width:calc(100vw - 110px)}
+  .showcase-page .showcase-head{width:calc(100% - 60px)}.showcase-page .showcase-head h1{font-size:33px}
+  .showcase-page .work-card{grid-template-columns:1fr;min-height:0}.showcase-page .work-art{aspect-ratio:16/9}.showcase-page .work-art img{width:100%;height:100%;object-fit:contain}
+  .showcase-page .work-copy{padding:24px 26px}.showcase-page .coming-art{min-height:0}
+  .showcase-page .carousel-sides{width:calc(100% - 20px)}.showcase-page .carousel-sides .carousel-button{width:38px;height:38px}
+  .showcase-page .showcase-footer{width:calc(100% - 60px)}
+}
+@media(max-width:480px){
+  .showcase-page{--work-width:calc(100vw - 90px)}
+  .showcase-page .showcase-main{padding-top:94px}.showcase-page .showcase-head{width:calc(100% - 44px);margin-bottom:22px}.showcase-page .showcase-head h1{font-size:29px}
+  .showcase-page .showcase-head>p{font-size:11px;line-height:1.8}.showcase-page .carousel-track{gap:20px;padding-top:7px;padding-bottom:18px}
+  .showcase-page .work-copy{padding:21px 19px}.showcase-page .work-copy h2{font-size:22px;margin-top:14px}.showcase-page .work-meta{font-size:8px}
+  .showcase-page .work-tagline{font-size:12px}.showcase-page .work-description{font-size:11px;line-height:1.9}
+  .showcase-page .work-actions .button{font-size:10px;padding:9px 11px}.showcase-page .work-features{font-size:9px;gap:5px 10px}
+  .showcase-page .carousel-sides{width:calc(100% - 10px)}.showcase-page .carousel-sides .carousel-button{width:28px;height:38px;border-radius:7px;background:#09182acc}.showcase-page .carousel-sides svg{width:15px}
+  .showcase-page .carousel-controls{flex-direction:column;align-items:flex-start;gap:8px}.showcase-page .carousel-position{font-size:9px}.showcase-page .carousel-navigation{align-self:flex-end}
+  .showcase-page .coming-card .work-copy{min-height:220px}.showcase-page .coming-card .work-copy h2{font-size:25px}.showcase-page .coming-card .work-copy h2 span{font-size:18px}
+  .showcase-page .showcase-footer{width:calc(100% - 44px)}.showcase-page .tools{margin-right:22px}
+}
+@media(prefers-reduced-motion:reduce){.showcase-page .work-card,.work-landscape canvas{transition:none}}

@@ -1,0 +1,14 @@
+{
+  "html_pages": 21,
+  "local_references": 197,
+  "broken": [],
+  "profile_duplicate_ids": [],
+  "portfolio_products": 8,
+  "categories": {
+    "web": 2,
+    "tools": 2,
+    "games": 4
+  },
+  "legacy_redirect": "products.html → about.html#portfolio",
+  "deployment": "local only"
+}

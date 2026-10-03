@@ -1,0 +1,19 @@
+{
+  "day-running": {
+    "water_pixels_changed_over_5": 48.72,
+    "mean_absolute_rgb_difference": 5.686
+  },
+  "day-ambient": {
+    "water_pixels_changed_over_5": 82.34,
+    "mean_absolute_rgb_difference": 14.561
+  },
+  "day-paused": {
+    "water_pixels_changed_over_5": 0.0,
+    "mean_absolute_rgb_difference": 0.0
+  },
+  "night-running": {
+    "water_pixels_changed_over_5": 79.22,
+    "mean_absolute_rgb_difference": 15.225
+  },
+  "scope": "HTTP browser preview using embedded photos, not direct file-origin verification."
+}

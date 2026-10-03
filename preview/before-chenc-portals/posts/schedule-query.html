@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>我开源了一个「空课查询系统」 · ChengC</title>
+  <meta name="description" content="一个纯前端的空课查询网页：支持课节多选、全天交集与值班表，选择周数、星期、课节即可查看该时段有空的干事与干部名单。单文件即可运行，MIT 开源。">
+  <meta name="theme-color" content="#090910">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/theme.js"></script>
+</head>
+<body class="article-page">
+  <div class="landscape" aria-hidden="true"><div class="landscape-art"></div><div class="scene-shade"></div></div>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="文章导航">
+      <a class="brand" href="../index.html">ChengC</a>
+      <div class="article-nav"><a href="../index.html#blog">← 返回博客</a><button id="articleTheme" class="theme-btn" type="button" aria-label="切换主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3v2m0 14v2M3 12h2m14 0h2M6 6l1.5 1.5m9 9L18 18m0-12-1.5 1.5m-9 9L6 18M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5z"/></svg></button></div>
+    </nav>
+  </header>
+  <main class="article-shell">
+    <article>
+      <header class="article-header">
+        <a class="article-category" href="../index.html#blog">学习</a>
+        <h1>我开源了一个「空课查询系统」</h1>
+        <p class="article-lead">一个纯前端的空课查询网页，选择周数、星期、课节，就能看到这个时段谁有空。</p>
+        <div class="article-meta"><time datetime="2026-09-14">2026 年 9 月 14 日</time><span>约 4 分钟阅读</span></div>
+      </header>
+      <div class="article-body">
+        <p>新媒体中心经常要排班、找人手。空课表是一张 Excel，几十个人的课表排在一起，想临时找一个「周四下午第三、四节有空」的人，得对着表格一格一格地看，很容易看花眼。所以我写了一个小工具，把这个过程变成三个下拉框。</p>
+
+        <h2>它做了什么</h2>
+        <p>页面上一共三个选择：<strong>周数</strong>（第 1–20 周）、<strong>星期</strong>（周一至周日）、<strong>课节</strong>（第 1、2 节到第 9、10、11 节）。选好之后点「查询」，下面直接列出这个时段有空的人，先干事、后干部分组展示，全员空闲时会显示「全有空」。</p>
+        <p><strong>课节支持多选</strong>：同时勾选多个课节时，只列出这些课节<strong>都有空</strong>的人（交集）。课节也可以不选——不选就是查一整天，此时只显示当天五个课节<strong>全天都有空</strong>的人。</p>
+        <p>选课节时，还会备注所选时段<strong>相邻</strong>的课节有没有空，方便判断能不能前后连成一段完整的时间——比如选中整个上午，就备注下午第一节段（第 5、6 节）有没有空。备注里「有空」显示为绿色、「有课」显示为红色。</p>
+        <p>系统还内置了新媒体中心的<strong>单双周值班表</strong>：查询结果顶部会显示当天值班的干事；名单里当天值班的干事会<strong>整行标黄</strong>，一眼就能看出该找谁。</p>
+
+        <h2>技术上的一点坚持</h2>
+        <p>整个工具是一个<strong>单文件 HTML</strong>：样式、逻辑、数据全部内嵌，双击 <code>index.html</code> 就能用，不需要服务器、不需要联网、不需要装任何依赖。数据以 JS 对象的形式固化在页面里，所以离线也能跑。</p>
+        <p>这样做的代价是页面文件会变大一点，但换来的是「谁拿到都能直接用」的省心——对校内这种场景，简单可靠比什么都重要。电脑和手机上都是响应式布局，随手能查。</p>
+
+        <blockquote>数据更新也很省事：改 Excel 后跑一个脚本，页面里的数据块和 <code>schedule.json</code> 会自动重写。</blockquote>
+
+        <h2>把它开源出来</h2>
+        <p>这个项目我用 <strong>MIT 协议</strong>开源了，仓库里带齐了文档：README（使用与数据更新说明）、LICENSE、CONTRIBUTING（贡献指南）、CHANGELOG（变更记录）。解析脚本、验证脚本也都放在 <code>tools/</code> 里，谁想拿去改成自己学院用，照着说明改 Excel 就行。</p>
+        <p>唯一没有进库的是那份原始空课表——里面有成员的姓名，属于内部数据，按约定不入库；想开源的可以按说明自己脱敏一份样例。</p>
+
+        <h2>获取源码与文档</h2>
+        <p>完整的源码与文档我都放在本站，方便随时查阅或下载：</p>
+        <p><a href="../Free-Schedule-Query-System/README.md" target="_blank" rel="noopener">在线查看项目文档</a> · <a href="../downloads/free-schedule-query-system.zip" download>下载源码与文档（zip）</a></p>
+        <p>另外还有一个 <strong>Windows 桌面工具</strong>：不需要打开浏览器，双击就能把空课表改造成可发布的查询系统，适合不熟悉代码的同学直接使用——<a href="../downloads/空课查询系统.exe" download>下载空课查询系统（Windows，约 15 MB）</a>。</p>
+
+        <p>如果它恰好能帮你的组织省下一点排班的力气，那这个周末就没白写。</p>
+      </div>
+      <footer class="article-footer"><a class="button secondary" href="../index.html#blog">← 返回博客列表</a><a class="button primary" href="../downloads/free-schedule-query-system.zip" download>下载源码与文档</a></footer>
+    </article>
+  </main>
+  
+</body>
+</html>

@@ -4,7 +4,7 @@
 
 作者：**ChenC**
 
-- 生成的 HTML 页面完全对齐 [ChengC.com](https://chengc.com) 的文章模板（`posts/*.html` 的 `article-page` 结构）
+- 生成的 HTML 页面完全对齐 [ChenC](https://chengc.com) 的文章模板（`posts/*.html` 的 `article-page` 结构）
 - **彩色思维导图**：文章末尾自动生成，标题为中心、H2 为一级分支（每支一色）、H3 为二级分支，纯 CSS 实现、自包含
 - 支持**本地提取**（不联网）和**可选 AI 摘要**（任意 OpenAI 兼容接口，含 Ollama）
 - 两条命令 + 侧边栏图标，弹窗预览后选择「复制 HTML」或「保存到笔记库」
@@ -54,7 +54,7 @@ npm run build     # 产出 main.js
 
 | 部分 | 说明 |
 | --- | --- |
-| `<title>` | `笔记标题 · ChengC`（后缀可配） |
+| `<title>` | `笔记标题 · ChenC`（后缀可配） |
 | `<meta description>` | 导语截断版，用于搜索引擎与分享卡片 |
 | 分类链接 | 默认 `学习`，可被 frontmatter `category` 覆盖 |
 | 导语 `article-lead` | 本地取正文第一段；AI 开启时由模型生成 |
@@ -74,10 +74,10 @@ npm run build     # 产出 main.js
 | 导语最大字数 | 120 | 本地提取导语的截断长度（字符） |
 | 包含文章大纲 | 开 | 正文末尾追加 H2/H3 大纲 |
 | 包含彩色思维导图 | 开 | 正文末尾追加彩色思维导图（标题为中心，H2 一级分支，H3 二级分支） |
-| 站点名 | ChengC | 页面顶栏与底部显示的名称 |
+| 站点名 | ChenC | 页面顶栏与底部显示的名称 |
 | 首页链接 | `../index.html` | 返回博客按钮地址（posts 目录内文章适用） |
 | 样式表路径 | `../css/style.css` | 文章页引用的 CSS |
-| 标题后缀 | ` · ChengC` | `<title>` 后缀 |
+| 标题后缀 | ` · ChenC` | `<title>` 后缀 |
 | 保存文件夹 | 网站输出 | 「保存到笔记库」的输出路径 |
 
 ### AI 摘要（可选）

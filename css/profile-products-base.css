@@ -1,0 +1,456 @@
+/* Layout migrated from products.html, scoped to the personal portfolio. */
+.profile-portfolio{--ink:#1d1d1f;--muted:#6e6e73;--blue:#0071e3;--bg:#f5f5f7;--line:#d2d2d7;--ease:cubic-bezier(.22,1,.36,1);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);font-synthesis:none}
+.profile-portfolio *{box-sizing:border-box}
+.profile-portfolio{scroll-behavior:smooth;scroll-padding-top:88px}
+.profile-portfolio{margin:0}
+.profile-portfolio a{color:inherit;text-decoration:none}
+.profile-portfolio button{font:inherit;cursor:pointer}
+.profile-portfolio img{max-width:100%;display:block}
+.profile-portfolio button,.profile-portfolio a,.profile-portfolio summary{-webkit-tap-highlight-color:transparent}
+.profile-portfolio button:focus-visible,.profile-portfolio a:focus-visible,.profile-portfolio summary:focus-visible{outline:3px solid #0071e3;outline-offset:5px}
+.profile-portfolio [hidden]{display:none!important}
+.profile-portfolio button:disabled{cursor:default;opacity:.4}
+.profile-portfolio ::selection{background:#b7d9fd}
+.profile-portfolio h1,.profile-portfolio h2,.profile-portfolio h3,.profile-portfolio h4,.profile-portfolio p{margin:0}
+.profile-portfolio a:hover.text-link{text-decoration:underline;text-underline-offset:4px}
+.profile-portfolio .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.profile-portfolio .skip{position:fixed;left:20px;top:-100px;z-index:100;background:white;padding:14px 24px;border-radius:12px}
+.profile-portfolio .skip:focus{top:12px}
+.profile-portfolio .wrap{width:min(1120px,calc(100% - 80px));margin:auto}
+.profile-portfolio .global-header{height:48px;background:#fff;position:relative;z-index:30}
+.profile-portfolio .global-nav{display:flex;align-items:center;justify-content:space-between;height:100%;gap:24px}
+.profile-portfolio .brand{font-size:19px;font-weight:750;letter-spacing:-1px}
+.profile-portfolio .brand span{color:var(--blue)}
+.profile-portfolio .global-links{display:flex;gap:30px;font-size:12px;color:#424245}
+.profile-portfolio .global-links a:hover{color:var(--blue)}
+.profile-portfolio .back-link{font-size:12px;color:var(--muted)}
+.profile-portfolio .local-header{position:sticky;top:0;z-index:25;background:#fafafbe8;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid #00000012}
+.profile-portfolio .local-nav{min-height:60px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.profile-portfolio .local-title{font-size:21px;font-weight:650;letter-spacing:-.04em}
+.profile-portfolio .local-links{display:flex;align-items:center;gap:26px;font-size:12px}
+.profile-portfolio .local-links>a:hover{color:var(--blue)}
+.profile-portfolio .button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:12px 22px;border-radius:28px;background:var(--blue);color:white;font-size:15px;border:0;transition:background .2s,transform .2s}
+.profile-portfolio .button:hover{background:#0077ed;transform:translateY(-1px)}
+.profile-portfolio .button.small{padding:8px 16px;min-height:34px;font-size:12px}
+.profile-portfolio .menu-button{display:none;background:none;border:0;width:40px;height:40px;color:var(--ink);font-size:23px}
+.profile-portfolio .announcement{text-align:center;padding:15px 24px;background:#fff;font-size:12px;line-height:1.7;color:var(--muted)}
+.profile-portfolio .announcement a{color:var(--blue);margin-left:7px}
+.profile-portfolio .hero{position:relative;overflow:hidden;padding:66px 0 34px;text-align:center;background:radial-gradient(ellipse at 50% 72%,#dcecf9 0,#f5f8fc 38%,#fff 73%)}
+.profile-portfolio .eyebrow{font-size:14px;font-weight:650;letter-spacing:.04em}
+.profile-portfolio .hero h1{font-size:clamp(48px,6.3vw,86px);font-weight:750;letter-spacing:-.075em;line-height:1.15;margin:18px 0 22px}
+.profile-portfolio .blue-type{background:linear-gradient(115deg,#063b81,#0071e3 40%,#51acdb);background-clip:text;-webkit-background-clip:text;color:transparent}
+.profile-portfolio .hero-sub{font-size:19px;line-height:1.6;color:var(--muted);letter-spacing:-.025em}
+.profile-portfolio .hero-actions{display:flex;justify-content:center;align-items:center;gap:26px;margin:28px 0 18px}
+.profile-portfolio .text-link{display:inline-flex;align-items:center;gap:5px;font-size:14px;color:var(--blue);line-height:1.6}
+.profile-portfolio .hero-stage{position:relative;width:min(960px,100%);height:362px;margin:38px auto 0;isolation:isolate}
+.profile-portfolio .browser-window{border:1px solid #ffffffa1;border-radius:14px;overflow:hidden;box-shadow:0 24px 60px #18315c20,0 3px 9px #18315c12;background:#fff;position:absolute;transform:translateZ(0)}
+.profile-portfolio .window-top{height:28px;background:#f8f9fa;display:flex;align-items:center;padding:0 12px;gap:5px;border-bottom:1px solid #e7e8ea}
+.profile-portfolio .window-top i{width:6px;height:6px;border-radius:50%;background:#dedfe3}
+.profile-portfolio .window-top i:first-child{background:#f08076}
+.profile-portfolio .window-top i:nth-child(2){background:#edc65b}
+.profile-portfolio .window-top i:nth-child(3){background:#78bc8c}
+.profile-portfolio .window-top span{font-size:8px;color:#92959b;margin:auto;letter-spacing:.05em}
+.profile-portfolio .hero-site{width:63%;left:18.5%;top:0;z-index:3;transform:rotate(-2deg)}
+.profile-portfolio .hero-site-screen{aspect-ratio:1.85;position:relative;background:url('assets/cangshan-erhai.webp') center/cover;color:#fff;text-align:left;padding:14px 25px}
+.profile-portfolio .hero-site-screen:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0e252d70,transparent 70%)}
+.profile-portfolio .hero-site-screen>*{position:relative}
+.profile-portfolio .tiny-brand{font-size:11px;font-weight:600}
+.profile-portfolio .hero-site-screen strong{display:block;font-size:clamp(30px,4vw,52px);letter-spacing:-.07em;margin-top:58px}
+.profile-portfolio .hero-site-screen p{font-size:12px;margin-top:8px}
+.profile-portfolio .hero-site-screen .micro{margin-top:20px;display:inline-block;font-size:8px;background:#eef3dfdd;color:#233b34;padding:7px 12px;border-radius:4px}
+.profile-portfolio .hero-qa{width:32%;left:0;top:63px;transform:rotate(-8deg);z-index:2}
+.profile-portfolio .mini-qa{background:#11101b;color:#f4f1ff;text-align:left;padding:19px 16px;height:200px}
+.profile-portfolio .mini-qa b{font-size:12px}
+.profile-portfolio .mini-qa small{display:block;font-size:8px;color:#9e92bf;margin-top:6px}
+.profile-portfolio .mini-chat{font-size:9px;background:#282039;border:1px solid #ffffff14;border-radius:10px;padding:11px 13px;margin-top:21px;line-height:1.9}
+.profile-portfolio .mini-chat.user{margin:16px 0 0 30px;background:#7947bf;line-height:1.5}
+.profile-portfolio .mini-cite{font-size:8px;color:#c3a2eb;margin-top:12px}
+.profile-portfolio .hero-game{width:34%;right:0;top:60px;z-index:4;transform:rotate(7deg)}
+.profile-portfolio .hero-game img{width:100%;height:auto;aspect-ratio:1.55;object-fit:cover}
+.profile-portfolio .hero-game-label{font-size:10px;text-align:left;padding:10px 14px;background:#18242e;color:#eee}
+.profile-portfolio .hero-caption{font-size:10px;color:#88939f;letter-spacing:.03em}
+.profile-portfolio .hero-index{display:flex;justify-content:center;gap:36px;margin:24px 0 0;padding:19px 20px;border-top:1px solid #dae1e933}
+.profile-portfolio .hero-index a{font-size:12px;color:#6e6e73;display:flex;align-items:center;gap:8px}
+.profile-portfolio .hero-index a:hover{color:var(--blue)}
+.profile-portfolio .hero-index span{font-size:17px;font-weight:650;color:#3e4a59}
+.profile-portfolio .section{padding:100px 0}
+.profile-portfolio .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:42px}
+.profile-portfolio .section-head h2,.profile-portfolio .section-title{font-size:clamp(32px,4.3vw,54px);font-weight:700;letter-spacing:-.06em;line-height:1.2}
+.profile-portfolio .section-head p{color:var(--muted);font-size:15px;line-height:1.7;max-width:320px}
+.profile-portfolio .section-kicker{font-size:12px;font-weight:600;letter-spacing:.12em;color:var(--muted);margin-bottom:14px}
+.profile-portfolio .overview-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.profile-portfolio .overview-card{position:relative;min-height:300px;border-radius:24px;padding:30px;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start}
+.profile-portfolio .overview-card h3{font-size:27px;letter-spacing:-.055em;line-height:1.35;position:relative;z-index:2}
+.profile-portfolio .overview-card p{font-size:12px;line-height:1.7;margin-top:13px;position:relative;z-index:2;max-width:200px}
+.profile-portfolio .overview-card .text-link{margin-top:auto;position:relative;z-index:2}
+.profile-portfolio .overview-card:first-child{background:#e4eef8}
+.profile-portfolio .overview-card:nth-child(2){background:#e8e4f2}
+.profile-portfolio .overview-card:nth-child(3){background:#e9eee6}
+.profile-portfolio .overview-number{font-size:132px;line-height:1;font-weight:750;letter-spacing:-.09em;position:absolute;right:15px;bottom:15px;opacity:.09}
+.profile-portfolio .overview-card .mini-kicker{font-size:10px;letter-spacing:.08em;margin-bottom:16px;color:#66727d}
+.profile-portfolio .site-feature{padding-bottom:100px}
+.profile-portfolio .site-screen{height:580px;border-radius:28px;overflow:hidden;position:relative;background:#092b37;color:#fff}
+.profile-portfolio .site-screen>img{width:100%;height:100%;object-fit:cover;object-position:center}
+.profile-portfolio .site-screen:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#042735ab,transparent 85%),linear-gradient(0deg,#04273573,transparent 50%)}
+.profile-portfolio .site-screen-copy{position:absolute;left:6%;top:13%;bottom:11%;z-index:1;display:flex;flex-direction:column;align-items:flex-start}
+.profile-portfolio .site-screen-copy .section-kicker{color:#d2dfd8}
+.profile-portfolio .site-screen-copy h3{font-size:clamp(38px,5vw,64px);letter-spacing:-.055em;line-height:1.22;font-weight:650}
+.profile-portfolio .site-screen-copy p{font-size:16px;line-height:1.8;color:#d2e1df;margin-top:23px;max-width:400px}
+.profile-portfolio .site-screen-copy a{margin-top:auto;background:#f2f5ec;color:#24392e}
+.profile-portfolio .site-caption{display:flex;justify-content:space-between;gap:30px;margin:22px 6px 0;font-size:13px;color:var(--muted);line-height:1.7}
+.profile-portfolio .site-caption a{white-space:nowrap}
+.profile-portfolio .tools-section{background:white}
+.profile-portfolio .tools-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:22px}
+.profile-portfolio .feature-card{border-radius:28px;overflow:hidden;position:relative;padding:38px;min-width:0}
+.profile-portfolio .feature-card .section-kicker{font-size:11px;margin-bottom:18px}
+.profile-portfolio .feature-card h3{font-size:clamp(28px,3.1vw,39px);letter-spacing:-.055em;line-height:1.25}
+.profile-portfolio .feature-card .feature-description{font-size:14px;line-height:1.9;margin-top:20px;max-width:400px}
+.profile-portfolio .qa-feature{background:radial-gradient(ellipse at 80% 80%,#503082,#191322 68%);color:#f7f3ff;min-height:550px;display:flex;flex-direction:column;align-items:flex-start}
+.profile-portfolio .qa-feature .section-kicker{color:#b6a1cf}
+.profile-portfolio .qa-feature .feature-description{color:#baaeca}
+.profile-portfolio .qa-feature .text-link{color:#cbb0ff}
+.profile-portfolio .qa-feature .feature-links,.profile-portfolio .schedule-feature .feature-links{display:flex;gap:20px;align-items:center;margin-top:25px}
+.profile-portfolio .qa-stat{display:flex;gap:36px;margin-top:30px}
+.profile-portfolio .qa-stat strong{display:block;font-size:44px;font-weight:650;letter-spacing:-.05em;line-height:1}
+.profile-portfolio .qa-stat span{font-size:11px;color:#b4a5c8;display:block;margin-top:10px}
+.profile-portfolio .qa-demo{border:1px solid #bdb0db22;background:#ffffff07;border-radius:16px;padding:20px;margin-top:29px;width:100%;box-shadow:0 20px 45px #0002}
+.profile-portfolio .demo-label{font-size:9px;letter-spacing:.06em;color:#9d8eaf;margin-bottom:12px}
+.profile-portfolio .qa-question{font-size:12px;background:#6e44aa;border-radius:10px;padding:9px 12px;margin:0 0 13px 25%;text-align:right}
+.profile-portfolio .qa-answer{font-size:12px;line-height:1.85;color:#ddd1ec}
+.profile-portfolio .qa-source{font-size:10px;margin-top:15px;color:#c7afff;border-top:1px solid #ffffff12;padding-top:12px}
+.profile-portfolio .schedule-feature{background:#eaf2fc;min-height:550px}
+.profile-portfolio .schedule-feature .feature-description{color:#67798f}
+.profile-portfolio .schedule-demo{background:white;border-radius:15px;border:1px solid #dae4f3;padding:20px;margin-top:35px;box-shadow:0 20px 40px #6294bb15}
+.profile-portfolio .schedule-controls{display:flex;gap:8px}
+.profile-portfolio .schedule-controls span{font-size:10px;background:#f2f6fd;border:1px solid #e6edf6;border-radius:7px;padding:9px 10px;flex:1;white-space:nowrap}
+.profile-portfolio .schedule-blocks{display:flex;gap:6px;margin:14px 0}
+.profile-portfolio .schedule-blocks span{font-size:10px;border-radius:5px;background:#0071e3;color:#fff;padding:8px 10px;flex:1;text-align:center}
+.profile-portfolio .schedule-blocks span:last-child{background:#eff2f8;color:#7f8796}
+.profile-portfolio .schedule-result{padding:12px 0;border-top:1px solid #ecf0f7;font-size:11px;display:flex;justify-content:space-between;gap:12px}
+.profile-portfolio .schedule-result b{font-weight:500;color:#7c899c}
+.profile-portfolio .schedule-result em{font-style:normal;color:#168c73}
+.profile-portfolio .notes-feature{grid-column:1/-1;display:grid;grid-template-columns:1fr 1.2fr;gap:50px;align-items:center;background:#f5f3ee;margin-top:0;min-height:305px}
+.profile-portfolio .notes-feature .feature-description{color:#7c7971}
+.profile-portfolio .notes-flow{display:flex;gap:18px;align-items:center;justify-content:center}
+.profile-portfolio .note-sheet{background:white;border:1px solid #e4dfd5;width:168px;min-height:185px;border-radius:13px;padding:22px;box-shadow:0 16px 32px #7664410d;transform:rotate(-4deg)}
+.profile-portfolio .note-sheet:last-child{transform:rotate(4deg)}
+.profile-portfolio .note-sheet strong{font-size:13px;line-height:1.5;display:block}
+.profile-portfolio .note-line{height:4px;background:#e5e4e0;border-radius:4px;margin-top:13px}
+.profile-portfolio .note-line:nth-child(3n){width:75%}
+.profile-portfolio .note-sheet .tiny-tag{font-size:8px;margin-bottom:12px;color:#a49b8a;display:block}
+.profile-portfolio .flow-arrow{font-size:24px;color:#a79d8d}
+.profile-portfolio .mindmap-mini{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:18px}
+.profile-portfolio .mindmap-mini span{font-size:8px;text-align:center;padding:7px 4px;border-radius:4px;background:#e8edf7;color:#6a789d}
+.profile-portfolio .mindmap-mini span:nth-child(2){background:#f4e8da;color:#ae8662}
+.profile-portfolio .mindmap-mini span:nth-child(3){background:#e6eee4;color:#809274}
+.profile-portfolio .mindmap-mini span:nth-child(4){background:#f0e4ef;color:#a485a3}
+.profile-portfolio .notes-links{margin-top:20px;display:flex;gap:20px}
+.profile-portfolio .game-feature{border-radius:28px;overflow:hidden;position:relative;min-height:590px;background:#121416;color:white}
+.profile-portfolio .game-feature>img{position:absolute;inset:0;height:100%;width:100%;object-fit:cover;object-position:center}
+.profile-portfolio .game-feature:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#101719ed,#10171990 45%,#10171910 85%),linear-gradient(0deg,#11171ba1,transparent 50%)}
+.profile-portfolio .game-copy{position:relative;z-index:2;padding:54px;min-height:590px;display:flex;align-items:flex-start;flex-direction:column;max-width:620px}
+.profile-portfolio .game-copy .section-kicker{color:#c7a677}
+.profile-portfolio .game-copy h3{font-size:clamp(40px,5vw,62px);font-weight:600;line-height:1.24;letter-spacing:-.045em}
+.profile-portfolio .game-copy p{color:#c8c8c4;font-size:15px;line-height:1.9;margin-top:22px;max-width:340px}
+.profile-portfolio .game-meta{display:flex;gap:32px;margin-top:33px}
+.profile-portfolio .game-meta b{font-size:29px;letter-spacing:-.045em;font-weight:550;display:block;color:#e2c69b}
+.profile-portfolio .game-meta span{display:block;font-size:10px;color:#a4a69e;margin-top:7px}
+.profile-portfolio .game-feature .game-actions{margin-top:auto;display:flex;flex-wrap:wrap;gap:24px;align-items:center;padding-top:27px}
+.profile-portfolio .game-feature .button{background:#e4c596;color:#28231b}
+.profile-portfolio .game-feature .text-link{color:#e4c596}
+.profile-portfolio .game-version{font-size:10px;color:#c2baaa;margin-top:15px}
+.profile-portfolio .game-pair{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
+.profile-portfolio .game-small{border-radius:28px;overflow:hidden;background:white}
+.profile-portfolio .game-small .game-photo{height:270px;overflow:hidden}
+.profile-portfolio .game-small .game-photo img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.profile-portfolio .game-small:hover .game-photo img{transform:scale(1.025)}
+.profile-portfolio .game-small-copy{padding:32px}
+.profile-portfolio .game-small h3{font-size:29px;font-weight:650;letter-spacing:-.05em;line-height:1.25}
+.profile-portfolio .game-small p{font-size:14px;line-height:1.8;margin-top:14px;color:var(--muted)}
+.profile-portfolio .game-small .text-link{margin-top:22px}
+.profile-portfolio .game-small .version{font-size:11px}
+.profile-portfolio .game-small .game-small-links{display:flex;gap:20px;flex-wrap:wrap}
+.profile-portfolio .catalog-section{padding-top:70px;background:white}
+.profile-portfolio .catalog-head{align-items:flex-start}
+.profile-portfolio .catalog-count{font-size:13px;line-height:1.7;color:var(--muted);white-space:nowrap;padding-top:12px}
+.profile-portfolio .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
+.profile-portfolio .filter{border:1px solid #dddde2;border-radius:30px;background:white;padding:10px 21px;font-size:13px;color:#626267;min-height:42px}
+.profile-portfolio .filter[aria-pressed=true]{background:#1d1d1f;color:white;border-color:#1d1d1f}
+.profile-portfolio .filter:hover{border-color:#7d7d83}
+.profile-portfolio .catalog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.profile-portfolio .catalog-card{background:var(--bg);border-radius:23px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.profile-portfolio .catalog-card[hidden]{display:none}
+.profile-portfolio .catalog-art{height:180px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#e8edf3}
+.profile-portfolio .catalog-image{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.profile-portfolio .catalog-card:hover .catalog-image{transform:scale(1.035)}
+.profile-portfolio .catalog-copy{padding:26px;flex:1;display:flex;flex-direction:column}
+.profile-portfolio .product-status{font-size:10px;font-weight:600;color:#7a808a;letter-spacing:.025em;margin-bottom:11px}
+.profile-portfolio .catalog-copy h3{font-size:21px;line-height:1.4;letter-spacing:-.045em;font-weight:650}
+.profile-portfolio .catalog-description{font-size:12px;line-height:1.9;color:var(--muted);margin-top:14px;flex:1}
+.profile-portfolio .version{font-size:10px;line-height:1.7;color:#85858c;margin-top:16px}
+.profile-portfolio .card-bottom{border-top:1px solid #dedee5;margin-top:19px;padding-top:17px;display:flex;gap:12px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap}
+.profile-portfolio .card-bottom .text-link{font-size:11px}
+.profile-portfolio .local-status{font-size:10px;color:#85858c;line-height:1.7}
+.profile-portfolio .product-details{margin-left:auto}
+.profile-portfolio .product-details summary{display:flex;gap:8px;align-items:center;cursor:pointer;list-style:none;font-size:10px;color:#5f636b;min-height:22px}
+.profile-portfolio .product-details summary::-webkit-details-marker{display:none}
+.profile-portfolio .plus{background:#dedee3;color:#5a5c63;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:400;transition:background .2s}
+.profile-portfolio .product-details summary:hover .plus{background:#0071e3;color:white}
+.profile-portfolio .product-details[open]{width:100%;margin:0}
+.profile-portfolio .fallback-details{padding-top:20px;font-size:12px;line-height:1.8}
+.profile-portfolio .fallback-details h4{font-size:16px}
+.profile-portfolio .fallback-details ul{padding-left:18px}
+.profile-portfolio .detail-note{font-size:11px;color:var(--muted);line-height:1.8}
+.profile-portfolio .symbol-art{width:100%;height:100%;display:grid;place-items:center;position:relative;overflow:hidden}
+.profile-portfolio .symbol-art:after{content:"";width:200px;height:200px;border-radius:50%;border:1px solid #ffffff22;position:absolute;transform:translate(80px,65px)}
+.profile-portfolio .symbol-art>span{font-size:54px;font-weight:650;letter-spacing:-.06em;line-height:1;position:relative;padding:20px;border-radius:22px}
+.profile-portfolio .qa-art{background:radial-gradient(ellipse at 65% 85%,#7149a8,#2b1c45);color:#d9c0ff}
+.profile-portfolio .qa-art>span{background:#a674e431;border:1px solid #d4acff40;box-shadow:0 10px 25px #0002}
+.profile-portfolio .schedule-art{background:linear-gradient(130deg,#d4e9ff,#f1f7ff);color:#4681bb}
+.profile-portfolio .schedule-art>span{background:#fff;border:1px solid #bed8f2;box-shadow:0 15px 30px #82a9cc22}
+.profile-portfolio .notes-art{background:linear-gradient(130deg,#e8def4,#f4edf9);color:#77589a}
+.profile-portfolio .notes-art>span{transform:rotate(-9deg);background:#8b60b9;color:white;font-family:Georgia,serif;box-shadow:0 15px 28px #65419025}
+.profile-portfolio .gamestation-art{background:linear-gradient(135deg,#17344a,#3779a3);color:#e6f2fb}
+.profile-portfolio .gamestation-art>span{background:#ffffff14;border:1px solid #ffffff25}
+.profile-portfolio .defense-art{background:radial-gradient(ellipse at 70% 30%,#40cfba,#0871a0);color:#ffef91}
+.profile-portfolio .defense-art>span{border:2px solid #faf2bb7a;background:#ffd34c2b}
+.profile-portfolio .research-art{background:linear-gradient(130deg,#202831,#45566a);color:#c3d7f0}
+.profile-portfolio .research-art>span{border:1px solid #8cabc556;font-size:43px;font-weight:450;box-shadow:inset 0 0 25px #accaf814}
+.profile-portfolio .birthday-art{height:100%;width:100%;background:radial-gradient(ellipse at center,#fffdf1,#e9eee1);display:grid;place-items:center}
+.profile-portfolio .birthday-art img{width:175px;height:175px;object-fit:contain}
+.profile-portfolio .choose-section{padding:85px 0 95px}
+.profile-portfolio .choose-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:85px}
+.profile-portfolio .choose-intro .section-title{font-size:40px}
+.profile-portfolio .choose-intro p{font-size:15px;color:var(--muted);line-height:1.8;margin-top:20px}
+.profile-portfolio .faq{border-bottom:1px solid var(--line)}
+.profile-portfolio .faq summary{list-style:none;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:15px;font-weight:600;padding:20px 0;gap:20px}
+.profile-portfolio .faq summary::-webkit-details-marker{display:none}
+.profile-portfolio .faq summary:after{content:"+";font-weight:400;font-size:21px;color:var(--muted)}
+.profile-portfolio .faq[open] summary:after{content:"−"}
+.profile-portfolio .faq p{font-size:13px;line-height:1.9;color:var(--muted);padding:0 28px 22px 0}
+.profile-portfolio .faq a{color:var(--blue)}
+.profile-portfolio .ending{background:#fff;text-align:center;padding:82px 24px}
+.profile-portfolio .ending h2{font-size:clamp(31px,4.4vw,52px);letter-spacing:-.055em;line-height:1.3}
+.profile-portfolio .ending p{color:var(--muted);font-size:15px;margin:20px 0 28px}
+.profile-portfolio .footer{padding:30px 0;color:#86868b;font-size:10px;line-height:1.8}
+.profile-portfolio .footer-note{padding-bottom:20px;border-bottom:1px solid #dcdce1}
+.profile-portfolio .footer-bottom{display:flex;justify-content:space-between;gap:25px;padding-top:19px}
+.profile-portfolio .footer-links{display:flex;gap:22px}
+.profile-portfolio .footer a:hover{color:var(--blue)}
+.profile-portfolio .product-dialog{border:0;border-radius:26px;padding:0;width:min(600px,calc(100% - 32px));max-height:calc(100svh - 48px);color:var(--ink);background:#fff;box-shadow:0 30px 100px #0004}
+.profile-portfolio .product-dialog::backdrop{background:#1c22385c;backdrop-filter:blur(8px)}
+.profile-portfolio .dialog-content{padding:46px;position:relative}
+.profile-portfolio .dialog-close{position:absolute;top:15px;right:15px;border:0;border-radius:50%;width:34px;height:34px;background:#eeeef0;color:#64646a;font-size:24px;line-height:1;display:grid;place-items:center}
+.profile-portfolio .dialog-content .section-kicker{margin-bottom:14px;padding-right:20px}
+.profile-portfolio .dialog-content h2{font-size:32px;line-height:1.3;letter-spacing:-.05em;max-width:440px}
+.profile-portfolio .dialog-tagline{font-size:19px;margin-top:15px;font-weight:550;line-height:1.5}
+.profile-portfolio .dialog-description{font-size:14px;color:var(--muted);line-height:1.9;margin-top:20px}
+.profile-portfolio .dialog-features{padding:22px 0 20px 20px;margin:0;font-size:14px;line-height:2}
+.profile-portfolio .dialog-note{font-size:12px;color:var(--muted);line-height:1.9;background:var(--bg);padding:16px 18px;border-radius:12px}
+.profile-portfolio .dialog-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-top:25px}
+.profile-portfolio .dialog-version{font-size:11px;color:var(--muted);margin-top:20px}
+.profile-portfolio body.dialog-open{overflow:hidden}
+.profile-portfolio .reveal{transition:opacity .75s var(--ease),transform .75s var(--ease)}
+.profile-portfolio .motion .reveal.pending{opacity:0;transform:translateY(24px)}
+.profile-portfolio .motion .hero-site{animation:float-front 8s ease-in-out infinite}
+.profile-portfolio .motion .hero-qa{animation:float-left 9s ease-in-out infinite}
+.profile-portfolio .motion .hero-game{animation:float-right 10s ease-in-out infinite}
+@keyframes float-front{50%{transform:translateY(-7px) rotate(-2deg)}}
+@keyframes float-left{50%{transform:translateY(8px) rotate(-8deg)}}
+@keyframes float-right{50%{transform:translateY(-9px) rotate(7deg)}}
+@media(min-width:1500px){.profile-portfolio .hero h1{font-size:90px}
+.profile-portfolio .hero{padding-top:80px}
+.profile-portfolio .hero-stage{margin-top:47px}}
+@media(max-width:1000px){.profile-portfolio .wrap{width:calc(100% - 48px)}
+.profile-portfolio .hero-stage{height:320px}
+.profile-portfolio .hero-site-screen strong{margin-top:36px}
+.profile-portfolio .mini-qa{height:170px}
+.profile-portfolio .hero-game{top:56px}
+.profile-portfolio .section{padding:78px 0}
+.profile-portfolio .feature-card{padding:30px}
+.profile-portfolio .qa-feature,.profile-portfolio .schedule-feature{min-height:565px}
+.profile-portfolio .qa-stat{gap:25px}
+.profile-portfolio .notes-feature{gap:20px}
+.profile-portfolio .note-sheet{width:145px;padding:18px}
+.profile-portfolio .catalog-grid{gap:18px}
+.profile-portfolio .catalog-copy{padding:21px}
+.profile-portfolio .choose-grid{gap:40px}
+.profile-portfolio .game-copy{padding:42px}
+.profile-portfolio .global-links{gap:24px}
+.profile-portfolio .overview-card{padding:26px}
+.profile-portfolio .overview-card h3{font-size:23px}}
+@media(max-width:760px){.profile-portfolio{scroll-padding-top:78px}
+.profile-portfolio .wrap{width:calc(100% - 40px)}
+.profile-portfolio .global-header{height:44px}
+.profile-portfolio .global-links{display:none}
+.profile-portfolio .local-nav{min-height:56px;gap:10px}
+.profile-portfolio .local-title{font-size:18px}
+.profile-portfolio .local-links{gap:16px;font-size:11px}
+.profile-portfolio .local-links .mobile-hide{display:none}
+.profile-portfolio .announcement{font-size:11px;padding:12px 25px}
+.profile-portfolio .hero{padding:45px 0 25px}
+.profile-portfolio .hero h1{font-size:clamp(44px,8vw,64px);margin-top:14px}
+.profile-portfolio .hero-sub{font-size:15px}
+.profile-portfolio .hero-actions{gap:22px;margin-top:23px}
+.profile-portfolio .hero-actions .button{font-size:13px;padding:11px 20px}
+.profile-portfolio .hero-actions .text-link{font-size:12px}
+.profile-portfolio .hero-stage{height:275px;margin-top:30px;width:calc(100% + 5px)}
+.profile-portfolio .hero-site{width:75%;left:12.5%;top:0}
+.profile-portfolio .hero-site-screen{aspect-ratio:1.75;padding:14px 18px}
+.profile-portfolio .hero-site-screen strong{font-size:35px;margin-top:33px}
+.profile-portfolio .hero-site-screen p{font-size:10px}
+.profile-portfolio .hero-site-screen .micro{margin-top:13px;font-size:7px}
+.profile-portfolio .hero-qa{width:36%;left:-8%;top:63px}
+.profile-portfolio .mini-qa{padding:15px 11px;height:150px}
+.profile-portfolio .mini-qa b{font-size:9px}
+.profile-portfolio .mini-chat{font-size:7px;padding:8px;margin-top:10px}
+.profile-portfolio .mini-cite{font-size:6px}
+.profile-portfolio .mini-qa small{font-size:6px}
+.profile-portfolio .hero-game{width:40%;right:-9%;top:87px}
+.profile-portfolio .hero-game-label{font-size:8px;padding:8px}
+.profile-portfolio .hero-index{gap:22px;padding-top:19px;margin-top:16px}
+.profile-portfolio .hero-index a{font-size:10px;gap:5px}
+.profile-portfolio .hero-index span{font-size:14px}
+.profile-portfolio .section{padding:65px 0}
+.profile-portfolio .section-head{margin-bottom:28px;flex-direction:column;align-items:flex-start;gap:15px}
+.profile-portfolio .section-head h2,.profile-portfolio .section-title{font-size:36px}
+.profile-portfolio .section-head p{font-size:13px;max-width:100%}
+.profile-portfolio .overview-cards{gap:12px}
+.profile-portfolio .overview-card{padding:23px;min-height:265px;border-radius:20px}
+.profile-portfolio .overview-card h3{font-size:21px}
+.profile-portfolio .overview-card p{font-size:11px}
+.profile-portfolio .overview-number{font-size:90px}
+.profile-portfolio .overview-card .text-link{font-size:11px}
+.profile-portfolio .site-screen{height:500px;border-radius:22px}
+.profile-portfolio .site-screen>img{object-position:56% center}
+.profile-portfolio .site-screen-copy{left:7%;top:11%;bottom:9%}
+.profile-portfolio .site-screen-copy h3{font-size:44px}
+.profile-portfolio .site-screen-copy p{font-size:14px;max-width:270px}
+.profile-portfolio .site-caption{flex-direction:column;gap:10px;font-size:12px}
+.profile-portfolio .site-feature{padding-bottom:65px}
+.profile-portfolio .tools-grid{grid-template-columns:1fr}
+.profile-portfolio .feature-card{padding:32px;border-radius:22px}
+.profile-portfolio .qa-feature,.profile-portfolio .schedule-feature{min-height:auto}
+.profile-portfolio .qa-feature{padding-bottom:32px}
+.profile-portfolio .qa-demo{max-width:500px}
+.profile-portfolio .schedule-demo{margin-top:27px;max-width:500px}
+.profile-portfolio .notes-feature{grid-column:auto;grid-template-columns:1fr;gap:35px}
+.profile-portfolio .notes-flow{justify-content:flex-start}
+.profile-portfolio .note-sheet{width:175px}
+.profile-portfolio .game-feature,.profile-portfolio .game-copy{min-height:580px}
+.profile-portfolio .game-copy{padding:36px}
+.profile-portfolio .game-copy h3{font-size:46px}
+.profile-portfolio .game-feature>img{object-position:64% center}
+.profile-portfolio .game-feature:after{background:linear-gradient(90deg,#101719dc,#10171985),linear-gradient(0deg,#11171bd9,transparent)}
+.profile-portfolio .game-copy p{font-size:14px}
+.profile-portfolio .game-pair{gap:16px}
+.profile-portfolio .game-small .game-photo{height:210px}
+.profile-portfolio .game-small-copy{padding:25px}
+.profile-portfolio .game-small h3{font-size:25px}
+.profile-portfolio .game-small p{font-size:12px}
+.profile-portfolio .game-small .text-link{font-size:12px}
+.profile-portfolio .catalog-grid{grid-template-columns:repeat(2,1fr);gap:17px}
+.profile-portfolio .catalog-art{height:155px}
+.profile-portfolio .catalog-count{padding:0}
+.profile-portfolio .catalog-copy h3{font-size:19px}
+.profile-portfolio .catalog-copy{padding:21px}
+.profile-portfolio .catalog-description{font-size:11px}
+.profile-portfolio .choose-section{padding:65px 0}
+.profile-portfolio .choose-grid{grid-template-columns:1fr;gap:24px}
+.profile-portfolio .choose-intro .section-title{font-size:34px}
+.profile-portfolio .choose-intro p{font-size:13px}
+.profile-portfolio .ending{padding:65px 24px}
+.profile-portfolio .ending p{font-size:13px}
+.profile-portfolio .footer-bottom{flex-direction:column;gap:10px}
+.profile-portfolio .dialog-content{padding:42px 27px 30px}
+.profile-portfolio .dialog-content h2{font-size:27px}
+.profile-portfolio .dialog-tagline{font-size:17px}}
+@media(max-width:480px){.profile-portfolio .local-links{gap:12px}
+.profile-portfolio .local-links>a:not(.button){display:none}
+.profile-portfolio .menu-button{display:block}
+.profile-portfolio .menu-enabled .local-links:not(.open)>a:not(.button){display:none}
+.profile-portfolio .local-links.open{position:absolute;right:20px;top:55px;width:200px;border:1px solid #d8d8dd;background:#fff;box-shadow:0 15px 30px #0001;padding:16px;border-radius:16px;display:flex;flex-direction:column;align-items:stretch;gap:4px}
+.profile-portfolio .local-links.open>a:not(.button){display:block;padding:12px;font-size:13px}
+.profile-portfolio .local-links.open>a.mobile-hide{display:block}
+.profile-portfolio .local-links.open .button{margin:7px 0 0}
+.profile-portfolio .hero-stage{height:230px}
+.profile-portfolio .hero-site-screen strong{margin-top:20px;font-size:29px}
+.profile-portfolio .hero-site-screen .micro{margin-top:12px}
+.profile-portfolio .hero-site-screen .tiny-brand{font-size:9px}
+.profile-portfolio .window-top{height:21px;padding:0 9px}
+.profile-portfolio .window-top span{font-size:6px}
+.profile-portfolio .window-top i{width:4px;height:4px}
+.profile-portfolio .hero-qa{top:55px}
+.profile-portfolio .mini-qa{height:130px;padding:10px}
+.profile-portfolio .mini-qa small{display:none}
+.profile-portfolio .mini-chat{font-size:6px;padding:6px;line-height:1.6}
+.profile-portfolio .hero-game{top:83px}
+.profile-portfolio .hero-index{gap:16px}
+.profile-portfolio .hero-index span{font-size:13px}
+.profile-portfolio .hero-caption{font-size:9px}
+.profile-portfolio .overview-cards{grid-template-columns:1fr}
+.profile-portfolio .overview-card{min-height:185px;padding:24px}
+.profile-portfolio .overview-card h3{font-size:25px}
+.profile-portfolio .overview-card h3 br{display:none}
+.profile-portfolio .overview-card p{max-width:245px;margin-top:10px}
+.profile-portfolio .overview-card .text-link{margin-top:20px}
+.profile-portfolio .overview-card .mini-kicker{margin-bottom:10px}
+.profile-portfolio .overview-number{font-size:120px;right:25px;bottom:10px}
+.profile-portfolio .section-head h2,.profile-portfolio .section-title{font-size:32px}
+.profile-portfolio .site-screen{height:465px}
+.profile-portfolio .site-screen-copy h3{font-size:39px}
+.profile-portfolio .site-screen-copy p{font-size:12px;max-width:245px}
+.profile-portfolio .feature-card{padding:27px}
+.profile-portfolio .feature-card h3{font-size:30px}
+.profile-portfolio .feature-card .feature-description{font-size:12px}
+.profile-portfolio .qa-stat strong{font-size:36px}
+.profile-portfolio .qa-demo{padding:16px}
+.profile-portfolio .qa-question,.profile-portfolio .qa-answer{font-size:11px}
+.profile-portfolio .schedule-controls span{padding:9px 7px;font-size:9px}
+.profile-portfolio .schedule-blocks span{font-size:9px;padding:8px 4px}
+.profile-portfolio .notes-flow{gap:12px}
+.profile-portfolio .note-sheet{width:calc((100% - 43px)/2);padding:16px;min-height:169px}
+.profile-portfolio .note-sheet strong{font-size:11px}
+.profile-portfolio .flow-arrow{font-size:20px}
+.profile-portfolio .notes-links{gap:18px}
+.profile-portfolio .notes-links .text-link{font-size:12px}
+.profile-portfolio .game-copy{padding:29px;min-height:560px}
+.profile-portfolio .game-feature{min-height:560px}
+.profile-portfolio .game-copy h3{font-size:40px}
+.profile-portfolio .game-copy p{font-size:12px}
+.profile-portfolio .game-meta{gap:24px}
+.profile-portfolio .game-meta b{font-size:25px}
+.profile-portfolio .game-feature .game-actions{gap:20px}
+.profile-portfolio .game-feature .text-link{font-size:12px}
+.profile-portfolio .game-feature .button{font-size:13px;padding:11px 19px}
+.profile-portfolio .game-pair{grid-template-columns:1fr;gap:18px}
+.profile-portfolio .game-small .game-photo{height:225px}
+.profile-portfolio .game-small-copy{padding:27px}
+.profile-portfolio .game-small h3{font-size:29px}
+.profile-portfolio .catalog-grid{grid-template-columns:1fr;gap:20px}
+.profile-portfolio .catalog-art{height:200px}
+.profile-portfolio .catalog-copy{padding:25px}
+.profile-portfolio .catalog-copy h3{font-size:23px}
+.profile-portfolio .catalog-description{font-size:12px}
+.profile-portfolio .card-bottom .text-link{font-size:12px}
+.profile-portfolio .product-details summary{font-size:11px}
+.profile-portfolio .filter{font-size:11px;padding:10px 15px}
+.profile-portfolio .filters{gap:7px}
+.profile-portfolio .ending h2{font-size:31px}
+.profile-portfolio .dialog-content{padding:48px 25px 28px}
+.profile-portfolio .dialog-content h2{font-size:25px}
+.profile-portfolio .dialog-links{gap:16px}}
+@media(prefers-reduced-motion:reduce){.profile-portfolio{scroll-behavior:auto}
+.profile-portfolio *,.profile-portfolio *:before,.profile-portfolio *:after{animation:none!important;transition:none!important}
+.profile-portfolio .motion .reveal.pending{opacity:1;transform:none}}
+@media print{.profile-portfolio .global-header,.profile-portfolio .local-header,.profile-portfolio .announcement,.profile-portfolio .hero-actions,.profile-portfolio .hero-stage,.profile-portfolio .hero-index,.profile-portfolio .filters,.profile-portfolio .product-dialog,.profile-portfolio .card-bottom,.profile-portfolio .ending,.profile-portfolio .footer-links{display:none!important}
+.profile-portfolio{background:white}
+.profile-portfolio .wrap{width:100%}
+.profile-portfolio .section{padding:30px 0}
+.profile-portfolio .reveal{opacity:1!important;transform:none!important}
+.profile-portfolio .catalog-card{break-inside:avoid}
+.profile-portfolio .catalog-card[hidden]{display:flex!important}
+.profile-portfolio .catalog-grid{grid-template-columns:repeat(2,1fr)}
+.profile-portfolio .hero{padding:25px}
+.profile-portfolio .hero h1{font-size:45px}
+.profile-portfolio .feature-card,.profile-portfolio .site-screen,.profile-portfolio .game-feature{print-color-adjust:exact}}

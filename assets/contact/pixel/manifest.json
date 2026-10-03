@@ -1,0 +1,230 @@
+[
+  {
+    "id": "firefly",
+    "name": "流萤",
+    "frameSize": [
+      48,
+      64
+    ],
+    "frames": [
+      "idle",
+      "blink",
+      "walk-1",
+      "walk-2",
+      "walk-3",
+      "walk-4",
+      "action-1",
+      "action-2"
+    ],
+    "source": "authored pixel grid; reference PNG not loaded"
+  },
+  {
+    "id": "sparkle",
+    "name": "花火",
+    "frameSize": [
+      48,
+      64
+    ],
+    "frames": [
+      "idle",
+      "blink",
+      "walk-1",
+      "walk-2",
+      "walk-3",
+      "walk-4",
+      "action-1",
+      "action-2"
+    ],
+    "source": "authored pixel grid; reference PNG not loaded"
+  },
+  {
+    "id": "sparxie",
+    "name": "火花",
+    "frameSize": [
+      48,
+      64
+    ],
+    "frames": [
+      "idle",
+      "blink",
+      "walk-1",
+      "walk-2",
+      "walk-3",
+      "walk-4",
+      "action-1",
+      "action-2"
+    ],
+    "source": "authored pixel grid; reference PNG not loaded"
+  },
+  {
+    "id": "castorice",
+    "name": "遐蝶",
+    "frameSize": [
+      48,
+      64
+    ],
+    "frames": [
+      "idle",
+      "blink",
+      "walk-1",
+      "walk-2",
+      "walk-3",
+      "walk-4",
+      "action-1",
+      "action-2"
+    ],
+    "source": "authored pixel grid; reference PNG not loaded"
+  },
+  {
+    "id": "jingyuan",
+    "name": "景元",
+    "frameSize": [
+      48,
+      64
+    ],
+    "frames": [
+      "idle",
+      "blink",
+      "walk-1",
+      "walk-2",
+      "walk-3",
+      "walk-4",
+      "action-1",
+      "action-2"
+    ],
+    "source": "authored pixel grid; reference PNG not loaded"
+  },
+  {
+    "id": "robin",
+    "name": "知更鸟",
+    "frameSize": [
+      48,
+      64
+    ],
+    "frames": [
+      "idle",
+      "blink",
+      "walk-1",
+      "walk-2",
+      "walk-3",
+      "walk-4",
+      "action-1",
+      "action-2"
+    ],
+    "source": "authored pixel grid; reference PNG not loaded"
+  },
+  {
+    "id": "sunday",
+    "name": "星期日",
+    "frameSize": [
+      48,
+      64
+    ],
+    "frames": [
+      "idle",
+      "blink",
+      "walk-1",
+      "walk-2",
+      "walk-3",
+      "walk-4",
+      "action-1",
+      "action-2"
+    ],
+    "source": "authored pixel grid; reference PNG not loaded"
+  },
+  {
+    "id": "aventurine",
+    "name": "砂金",
+    "frameSize": [
+      48,
+      64
+    ],
+    "frames": [
+      "idle",
+      "blink",
+      "walk-1",
+      "walk-2",
+      "walk-3",
+      "walk-4",
+      "action-1",
+      "action-2"
+    ],
+    "source": "authored pixel grid; reference PNG not loaded"
+  },
+  {
+    "id": "yingzheng",
+    "name": "嬴政",
+    "frameSize": [
+      48,
+      64
+    ],
+    "frames": [
+      "idle",
+      "blink",
+      "walk-1",
+      "walk-2",
+      "walk-3",
+      "walk-4",
+      "action-1",
+      "action-2"
+    ],
+    "source": "authored pixel grid; reference PNG not loaded"
+  },
+  {
+    "id": "lisi",
+    "name": "李斯",
+    "frameSize": [
+      48,
+      64
+    ],
+    "frames": [
+      "idle",
+      "blink",
+      "walk-1",
+      "walk-2",
+      "walk-3",
+      "walk-4",
+      "action-1",
+      "action-2"
+    ],
+    "source": "authored pixel grid; reference PNG not loaded"
+  },
+  {
+    "id": "mengtian",
+    "name": "蒙恬",
+    "frameSize": [
+      48,
+      64
+    ],
+    "frames": [
+      "idle",
+      "blink",
+      "walk-1",
+      "walk-2",
+      "walk-3",
+      "walk-4",
+      "action-1",
+      "action-2"
+    ],
+    "source": "authored pixel grid; reference PNG not loaded"
+  },
+  {
+    "id": "wangjian",
+    "name": "王翦",
+    "frameSize": [
+      48,
+      64
+    ],
+    "frames": [
+      "idle",
+      "blink",
+      "walk-1",
+      "walk-2",
+      "walk-3",
+      "walk-4",
+      "action-1",
+      "action-2"
+    ],
+    "source": "authored pixel grid; reference PNG not loaded"
+  }
+]

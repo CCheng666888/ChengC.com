@@ -1,0 +1,23 @@
+{
+  "mode": "built-in image_gen",
+  "prompts": [
+    {
+      "id": "qa",
+      "prompt": "Use case: stylized-concept. Asset type: wide 16:9 website cover for ChenC's 多书知识问答台, a computer-science study tool that searches six textbooks and cites the source. Create a refined editorial 3D illustration: six substantial textbooks arranged in an airy architectural cluster on a dark midnight-blue desk, softly glowing fine threads connect a few open pages to a small floating search lens and neat translucent source tabs. Warm ivory paper, subtle cool glass, realistic tactile materials, carefully restrained light and depth. Sophisticated calm study atmosphere, legible at thumbnail size. Full-bleed wide landscape composition. No people, no actual UI screenshot, no words, letters, logos, watermarks or fake readable code. This is illustrative cover artwork, not a claim of additional product features."
+    },
+    {
+      "id": "notes",
+      "prompt": "Use case: stylized-concept. Asset type: wide 16:9 website cover for ChenC's Note to Site, an Obsidian plugin that turns a note into a website article with a colorful mind map. Create a refined editorial 3D illustration of one ivory paper note gracefully opening into a clean glass browser-like frame, with a few fine branching lines and small softly colored nodes suggesting an article outline and mind map. Midnight blue setting, tactile warm paper, quiet violet glass highlights, restrained cinematic studio lighting, elegant depth and simple silhouette, no clutter. Full-bleed wide landscape, composition polished for a portfolio cover. No people, no words, letters, logos, watermark, or fake readable UI. Illustration, not a product screenshot."
+    },
+    {
+      "id": "defense",
+      "prompt": "Use case: illustration-story. Asset type: wide 16:9 cover for ChenC's 海底塔防, a playful SpongeBob-themed tower-defense game. Bright polished cartoon illustration underwater at Bikini Bottom: SpongeBob and Patrick defending a small coral-lined pathway, a handful of funny zombie fish approach from the opposite side, a pineapple house and bubbles in the background. Make the characters recognizable, the action friendly and playful, the setting clearly underwater, saturated turquoise with soft sun rays and warm yellow accents. Balanced professional game-poster composition with clear foreground/midground/background, readable as a thumbnail. Do not include guns or gore. No title, text, letters, logos, watermark, version numbers or UI controls. Full-bleed wide landscape."
+    }
+  ],
+  "usedAssets": {
+    "qa": "assets/products/qa-cover-v1.png",
+    "notes": "assets/products/notes-cover-v1.png",
+    "defense": "assets/products/defense-cover-v1.png"
+  },
+  "note": "Three initial generated covers were successful and are used. A later fish-enemy edit was rejected and a new environment-only attempt failed to connect; neither unsuccessful result is used."
+}

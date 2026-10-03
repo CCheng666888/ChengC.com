@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>工具 · ChenC</title><meta name="description" content="ChenC 的工具空间，内容即将更新。"><meta name="theme-color" content="#0b2431">
+  <meta property="og:title" content="工具 · ChenC"><meta property="og:description" content="让日常，轻松一点。"><meta property="og:image" content="assets/cangshan-erhai.webp">
+  <link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/navigation.css"><script src="js/theme.js"></script>
+</head>
+<body class="home-page collection-page tools-page">
+<div class="landscape" aria-hidden="true"><div class="landscape-art" id="landscapeArt"></div><canvas id="water"></canvas><canvas id="particles"></canvas><div class="scene-shade"></div></div>
+<a class="skip-link" href="#main">跳到主要内容</a>
+<header class="site-header"><nav class="nav-shell" aria-label="主导航"><a class="brand" href="index.html" data-animate>ChenC</a><button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="打开导航菜单"><span></span><span></span><span></span></button><div class="nav-links" id="navLinks"><a href="tools.html" data-animate aria-current="page">工具</a><a href="index.html#blog" data-animate>文章</a><a href="games.html" data-animate>游戏</a><button id="themeToggle" class="theme-btn" type="button" aria-label="切换主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.4 6.4-.7-.7M6.3 6.3l-.7-.7m12.8 0-.7.7M6.3 17.7l-.7.7M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-width="2" d="M20.4 15.4A9 9 0 0 1 8.6 3.6 9 9 0 1 0 20.4 15.4z"/></svg></button></div></nav></header>
+<main id="main"><section class="hero collection-hero" aria-labelledby="collectionTitle"><div class="hero-content">
+  <div class="collection-emblem" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7m-3.5-3.5v7"/></svg></div><p class="eyebrow">TOOLS & IDEAS</p><h1 id="collectionTitle">工具</h1><p class="hero-copy">让日常，轻松一点。</p>
+  <div class="collection-content" id="toolsCollection"><span class="collection-status">即将更新</span><p>实用工具将在这里陆续更新。</p></div>
+  <div class="hero-actions"><a class="button ghost portal-link" href="index.html" data-animate><span>返回首页</span></a><a class="button ghost portal-link" href="games.html" data-animate><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10a4 4 0 0 1 4 3.5l1 7a2 2 0 0 1-3.4 1.7L16 17H8l-2.6 2.2A2 2 0 0 1 2 17.5l1-7A4 4 0 0 1 7 7zM6 12h4m-2-2v4M16 11h.01M19 14h.01"/></svg><span>试玩游戏</span></a></div>
+</div><div class="scene-caption"><p>苍山 · 洱海<small id="sceneHint">点水拨动倒影 · 点山吹动云雾</small></p></div></section></main>
+<div class="collection-footer">© 2026 ChenC</div>
+  <div class="tools" aria-label="风景控制">
+    <button class="tool" id="sceneToggle" type="button" aria-pressed="false">只看风景</button>
+    <button class="tool" id="pauseToggle" type="button" aria-pressed="false">暂停动画</button>
+    <button class="tool" id="settingsToggle" type="button" aria-expanded="false" aria-controls="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="#0b283a"/><circle cx="15" cy="17" r="3" fill="#0b283a"/></svg>风景设置</button>
+  </div>
+  <aside class="settings" id="settings" aria-label="风景设置" hidden>
+    <div class="settings-head"><h2>风景设置</h2><button class="close" id="settingsClose" type="button" aria-label="关闭风景设置">×</button></div>
+    <label class="slider" for="density"><span class="slider-top"><span>湖面起伏</span><output id="densityValue" for="density">65%</output></span><input id="density" type="range" min="0" max="100" value="65"></label>
+    <label class="slider" for="speed"><span class="slider-top"><span>风的速度</span><output id="speedValue" for="speed">35%</output></span><input id="speed" type="range" min="0" max="100" value="35"></label>
+    <label class="slider" for="mist"><span class="slider-top"><span>山间云雾</span><output id="mistValue" for="mist">40%</output></span><input id="mist" type="range" min="0" max="100" value="40"></label>
+    <label class="slider" for="glow"><span class="slider-top"><span>水面微光</span><output id="glowValue" for="glow">60%</output></span><input id="glow" type="range" min="0" max="100" value="60"></label>
+    <div class="settings-foot"><button type="button" id="nightToggle" aria-pressed="false">切换夜色</button><button type="button" id="reset">恢复默认</button></div>
+    <p class="settings-note" id="motionNote">点水或拖动：波动沿湖面透视扩散，远处更细、更扁，近处更明显，带动倒影和水光。点山：山间云雾随风移动，山体保持稳定，不触发鸟群。</p>
+  </aside>
+
+<script src="js/lake-projection.js"></script><script src="js/landscape.js"></script><script src="js/collection.js"></script><script src="js/navigation.js"></script>
+</body></html>

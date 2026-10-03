@@ -1,0 +1,144 @@
+{
+  "games": [
+    {
+      "id": "ming",
+      "category": "games",
+      "name": "大明风华录 · 山河一统",
+      "tagline": "以你的抉择，书写山河。",
+      "description": "从元末明初出发，在单人大战略中统筹钱粮、任命文武、经营辖区与调兵征战。另有靖难与秦篇剧本，体验不同的历史路线。",
+      "version": "v2.1.0 · 网页游戏",
+      "status": "可直接试玩",
+      "visual": "ming",
+      "image": "assets/products/ming-cover.webp",
+      "href": "play/mingchronicles.html",
+      "cta": "开始试玩",
+      "features": [
+        "40 个战略辖区",
+        "建设、科研与调兵",
+        "历史事件与多剧本"
+      ],
+      "note": "历史疆界与数值为游戏化设计，作品仍在持续完善。",
+      "source": "https://chencgamedemo.netlify.app/；../chengcgamedemo/games/mingchronicles.html；../大明风华录/README.md",
+      "secondaryHref": "https://chencgamedemo.netlify.app/downloads/mingchronicles-2.1.0-windows-x64.exe",
+      "secondaryLabel": "下载 Windows 版",
+      "download": true
+    },
+    {
+      "id": "badminton",
+      "category": "games",
+      "name": "羽境 · 火柴人羽毛球",
+      "tagline": "下一拍，轮到你。",
+      "description": "在 2D 球场上移动、跳跃、挥拍与扣杀。故事与冒险两种模式，多种角色，支持键盘和触屏按钮。",
+      "version": "v1.3.2 · 网页游戏",
+      "status": "可直接试玩",
+      "visual": "badminton",
+      "image": "assets/products/badminton-cover.webp",
+      "features": [
+        "故事 / 冒险双模式",
+        "移动、跳跃与扣杀",
+        "键盘与触屏操作"
+      ],
+      "note": "建议横屏游玩；故事模式包含剧情比分设计。",
+      "source": "https://chencgamedemo.netlify.app/；../chengcgamedemo/games/yujing.html；../羽毛球/README.md",
+      "href": "play/yujing.html",
+      "cta": "开始试玩",
+      "secondaryHref": "https://chencgamedemo.netlify.app/downloads/yujing-1.3.2-windows.exe",
+      "secondaryLabel": "下载 Windows 版",
+      "download": true
+    },
+    {
+      "id": "fish",
+      "category": "games",
+      "name": "海绵宝宝大战僵尸鱼",
+      "tagline": "比奇堡，等你来守护。",
+      "description": "本站同人小游戏，抵御不断出现的僵尸鱼，挑战更高分数。可直接打开网页试玩，也提供 Windows 成品下载。",
+      "version": "v1.0 · Windows / 网页",
+      "status": "可试玩与下载",
+      "visual": "fish",
+      "image": "assets/game-bg.jpg",
+      "href": "game.html",
+      "cta": "在线试玩",
+      "secondaryHref": "downloads/spongebob-vs-zombie-fish-windows.zip",
+      "secondaryLabel": "下载 Windows 版",
+      "download": true,
+      "features": [
+        "网页直接试玩",
+        "Windows 版可下载",
+        "挑战更高分数"
+      ],
+      "note": "同人小游戏。",
+      "source": "game.html"
+    },
+    {
+      "id": "defense",
+      "category": "games",
+      "name": "海底塔防",
+      "tagline": "伙伴就位，守住每一波。",
+      "description": "海绵宝宝大战僵尸鱼的独立在线塔防项目：在比奇堡布置伙伴，抵御僵尸鱼。",
+      "version": "独立在线项目",
+      "status": "公开在线体验",
+      "visual": "defense",
+      "href": "https://spongebob-zombie-fish-defense.q3279619782.chatgpt.site",
+      "cta": "体验海底塔防",
+      "features": [
+        "海底主题塔防",
+        "布置伙伴",
+        "挑战多波敌人"
+      ],
+      "note": "同人塔防作品，在独立游戏网站打开。",
+      "source": "Sites 项目元数据",
+      "image": "assets/products/defense-cover-v1.png",
+      "generated": true
+    }
+  ],
+  "tools": [
+    {
+      "id": "qa",
+      "category": "tools",
+      "name": "多书知识问答台",
+      "tagline": "找到答案，也找到出处。",
+      "description": "把六本教材的知识点串起来，用语义检索寻找相关内容，结合章节引用与关联知识点，帮助复习与理解。",
+      "version": "6 本教材 · 326 条知识点",
+      "status": "本站可体验",
+      "visual": "qa",
+      "href": "multi-book-qa/index.html",
+      "cta": "打开问答台",
+      "secondaryHref": "posts/multi-book-qa.html",
+      "secondaryLabel": "阅读开发记录",
+      "features": [
+        "6 本教材",
+        "326 条知识点",
+        "语义检索与出处引用"
+      ],
+      "note": "首次使用需加载语义模型；答案来自已收录的知识点。",
+      "source": "multi-book-qa/index.html",
+      "image": "assets/products/qa-cover-v1.png",
+      "generated": true
+    },
+    {
+      "id": "notes",
+      "category": "tools",
+      "name": "Note to Site",
+      "tagline": "让笔记，走向更多读者。",
+      "description": "在 Obsidian 中把当前笔记转换成网站文章 HTML，生成导语、正文、大纲与彩色思维导图，复制或保存后即可接入自己的发布流程。",
+      "version": "v1.1.0 · Obsidian 插件",
+      "status": "可下载插件",
+      "visual": "notes",
+      "href": "downloads/note-to-site-v1.1.0.zip",
+      "cta": "下载插件",
+      "secondaryHref": "obsidian-note-to-site/demo-mindmap.html",
+      "secondaryLabel": "预览思维导图",
+      "features": [
+        "笔记转文章 HTML",
+        "导语与正文大纲",
+        "彩色思维导图"
+      ],
+      "note": "解压后将 note-to-site 文件夹放到笔记库的 .obsidian/plugins/ 中，再在 Obsidian 中启用。",
+      "source": "obsidian-note-to-site/manifest.json",
+      "image": "assets/products/notes-cover-v1.png",
+      "generated": true,
+      "primaryDownload": true
+    }
+  ],
+  "comingSoonCards": 2
+}

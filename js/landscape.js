@@ -1,12 +1,15 @@
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
-  const photo = new Image(), art = $('landscapeArt');
+  const photo = new Image(), nightPhoto = new Image(), art = $('landscapeArt');
   const water = $('water'), birdsCanvas = $('particles'), ctx = birdsCanvas.getContext('2d');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)'), coarse = matchMedia('(pointer: coarse)');
-  const config = { density: 65, speed: 35, mist: 40, glow: 60 };
+  const config = { density: 65, speed: 35, mist: 40, glow: 60, lanterns: 55 };
   const defaultConfig = {...config};
   const source = getComputedStyle(art).backgroundImage.match(/url\(["']?(.*?)["']?\)$/)?.[1];
+  const embeddedImages = location.protocol === 'file:' || art.dataset.textureMode === 'embedded';
+  const sceneNote = $('motionNote').textContent;
+  let nightLoading = false;
   const random = (a,b) => a+Math.random()*(b-a), clamp = (v,a,b) => Math.min(b,Math.max(a,v));
   // Simulate in a horizontal world plane, then project through the scene camera.
   const projection=window.LakeProjection,{camera,bounds}=projection;
@@ -15,7 +18,7 @@
   const waveStep=.0055,weightX=(waveStep/spacingX)**2,weightZ=(waveStep/spacingZ)**2;
   const heights=new Float32Array(length), velocity=new Float32Array(length), pixels=new Uint8Array(length*4);
   let width=1,height=1,shore=.55,clock=0,previous=0,raf=0,visible=true;
-  let paused=reduced.matches,ready=false,gl=null,program=null,locations={},heightTexture=null;
+  let paused=reduced.matches,ready=false,gl=null,program=null,locations={},heightTexture=null,nightTexture=null,nightReady=false;
   let accumulator=0,nextWind=0,nextFlock=12,night=0,birds=[],motes=[],lastStroke=-1;
   const touch={x:.5,y:.4,held:false,region:'',force:0,started:-10,dx:0,dy:0};
 
@@ -28,6 +31,7 @@
     #endif
     varying vec2 uv;
     uniform sampler2D image;
+    uniform sampler2D nightImage;
     uniform sampler2D lakeHeight;
     uniform vec2 viewport;
     uniform vec2 photoSize;
@@ -42,6 +46,8 @@
     uniform float mist;
     uniform float light;
     uniform float motion;
+    uniform float nightMix;
+    uniform float lanternDensity;
     float hash(vec2 point){
       vec3 p3=fract(vec3(point.xyx)*.1031);
       p3+=dot(p3,p3.yzx+33.33);
@@ -90,24 +96,54 @@
       vec2 reflectedOffset=vec2(rayChange.x*camera.z/(photoSize.x/photoSize.y),-rayChange.y*camera.z)*.065;
       p+=clamp(reflectedOffset,vec2(-.018),vec2(.018))*lake;
       p.y+=elevation*camera.z/worldZ*lake;
-      vec3 color=texture2D(image,clamp(p,.001,.999)).rgb;
+      vec2 sceneUV=clamp(p,.001,.999);
+      vec3 color=mix(texture2D(image,sceneUV).rgb,texture2D(nightImage,sceneUV).rgb,nightMix);
       float reflectedLight=clamp(1.0+(gradient.x*.30-gradient.y*.45)*light,.89,1.12);
       color*=mix(1.0,reflectedLight,lake);
-      // Sample-inspired scattered water glints, sampled in the refracted lake space.
-      // They follow the same surface displacement as the photograph and its reflections.
-      vec2 grid=world*vec2(42.0,60.0),cell=floor(grid),local=fract(grid);
-      float seed=hash(cell),phase=hash(cell+19.0);
-      vec2 center=vec2(.2+.6*hash(cell+7.0),.2+.6*phase);
-      vec2 size=vec2(.09+.15*depth,.075);
-      vec2 offset=(local-center)/size;
-      float sparkle=exp(-dot(offset,offset)*2.0)*step(.982,seed);
-      float pulse=max(0.0,sin(time*(1.3+phase*.8)+phase*40.0+gradient.x*5.0-gradient.y*9.0));
-      pulse=pulse*pulse*pulse*pulse*pulse*pulse;
+      // Daylight glints stay on the water surface.
+      vec2 dayGrid=world*vec2(42.0,60.0),dayCell=floor(dayGrid),dayLocal=fract(dayGrid);
+      float daySeed=hash(dayCell),dayPhase=hash(dayCell+19.0);
+      vec2 dayCenter=vec2(.2+.6*hash(dayCell+7.0),.2+.6*dayPhase);
+      vec2 dayOffset=(dayLocal-dayCenter)/vec2(.09+.15*depth,.075);
+      float daySparkle=exp(-dot(dayOffset,dayOffset)*2.0)*step(.982,daySeed);
+      float pulse=max(0.0,sin(time*(1.3+dayPhase*.8)+dayPhase*40.0+gradient.x*5.0-gradient.y*9.0));
+      pulse=pow(pulse,6.0);
       float alongSun=(p.x-.89)/(.13+.11*depth);
       float sunPath=exp(-alongSun*alongSun);
-      float intensity=sparkle*pulse*light*smoothstep(.558,.59,original.y)*(.17+.40*sunPath);
-      vec3 glint=mix(vec3(.67,.82,.84),vec3(1.0,.87,.65),sunPath);
-      color+=glint*intensity;
+      float dayIntensity=daySparkle*pulse*light*smoothstep(.558,.59,original.y)*(.17+.40*sunPath);
+      color+=mix(vec3(.67,.82,.84),vec3(1.0,.87,.65),sunPath)*dayIntensity*(1.0-nightMix);
+
+      // Small stable lamp heads project through the scene camera. Only their reflections
+      // use the displaced water sample, so a lamp stays round while its reflection ripples.
+      vec2 lampGrid=world*vec2(26.0,18.0),lampCell=floor(lampGrid);
+      float seed=hash(lampCell+53.0),phase=hash(lampCell+29.0);
+      vec2 center=vec2(.24+.52*hash(lampCell+11.0),.24+.52*phase);
+      vec2 lampWorld=(lampCell+center)/vec2(26.0,18.0);
+      float ribbonA=exp(-pow((lampWorld.x-.38*sin(lampWorld.y*2.7)-.13)/.25,2.0));
+      float ribbonB=exp(-pow((lampWorld.x+.48*sin(lampWorld.y*1.8)-.68)/.28,2.0));
+      float ribbonC=exp(-pow((lampWorld.x-.44*sin(lampWorld.y*1.3)+.76)/.27,2.0));
+      float ribbon=max(ribbonA,max(ribbonB,ribbonC));
+      float amount=clamp(lanternDensity,0.0,1.0);
+      float present=step(1.0-amount*mix(.06,.57,ribbon),seed);
+      vec2 lampPlane=(lampWorld-plane.xy)/(plane.zw-plane.xy);
+      float bob=(texture2D(lakeHeight,clamp(lampPlane,0.0,1.0)).r*255.0-128.0)/30.0*.0012;
+      vec2 lampBase=vec2(.5+camera.z*lampWorld.x/(photoSize.x/photoSize.y*lampWorld.y),camera.x+camera.z*(camera.y-bob)/lampWorld.y);
+      vec2 imagePixels=photoSize*cover;
+      float headLift=mix(1.0,2.0,depth);
+      vec2 headUV=lampBase-vec2(0.0,headLift/imagePixels.y);
+      vec2 headDelta=(original-headUV)*imagePixels;
+      float radius=mix(.64,1.04,depth)*(.85+.25*phase);
+      float head=exp(-dot(headDelta,headDelta)/(radius*radius));
+      float halo=exp(-dot(headDelta,headDelta)/(radius*radius*7.0))*.10;
+      float flare=(exp(-abs(headDelta.x)*5.0-abs(headDelta.y)*1.8)+exp(-abs(headDelta.y)*5.0-abs(headDelta.x)*1.8))*.075;
+      vec2 reflectionDelta=(p-lampBase)*imagePixels;
+      float tailLength=mix(2.2,7.0,depth);
+      float reflection=exp(-reflectionDelta.x*reflectionDelta.x/(.4+.25*depth))*exp(-max(0.0,reflectionDelta.y)/tailLength)*step(.15,reflectionDelta.y);
+      reflection*=.20*(.35+.65*pow(sin(reflectionDelta.y*1.7-time*1.3+phase*20.0),2.0));
+      float steadiness=.92+.08*sin(time*.45+phase*20.0);
+      float lampLight=(head+halo+flare+reflection)*present*steadiness*light*nightMix*smoothstep(.558,.585,original.y);
+      vec3 lampColor=mix(vec3(1.0,.96,.84),vec3(1.0,.79,.50),hash(lampCell+41.0)*.42);
+      color+=lampColor*lampLight*2.1;
       gl_FragColor=vec4(color,1.0);
     }
   `;
@@ -119,18 +155,45 @@
       if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error('Scene unavailable');gl.useProgram(program);
       const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
       const attribute=gl.getAttribLocation(program,'position');gl.enableVertexAttribArray(attribute);gl.vertexAttribPointer(attribute,2,gl.FLOAT,false,0,0);
-      for(const key of ['image','lakeHeight','viewport','photoSize','camera','plane','gridSpacing','touch','drag','time','wind','swell','mist','light','motion'])locations[key]=gl.getUniformLocation(program,key);
+      for(const key of ['image','nightImage','nightMix','lanternDensity','lakeHeight','viewport','photoSize','camera','plane','gridSpacing','touch','drag','time','wind','swell','mist','light','motion'])locations[key]=gl.getUniformLocation(program,key);
       const texture=gl.createTexture();gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,texture);textureSettings();gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,photo);gl.uniform1i(locations.image,0);
       heightTexture=gl.createTexture();gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,heightTexture);textureSettings();
       gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,cols,rows,0,gl.RGBA,gl.UNSIGNED_BYTE,pixels);gl.uniform1i(locations.lakeHeight,1);gl.activeTexture(gl.TEXTURE0);
+      nightTexture=gl.createTexture();gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,nightTexture);textureSettings();gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,photo);gl.uniform1i(locations.nightImage,2);gl.activeTexture(gl.TEXTURE0);
+      if(nightPhoto.complete&&nightPhoto.naturalWidth)uploadNight();
       gl.uniform2f(locations.photoSize,photo.naturalWidth,photo.naturalHeight);
       gl.uniform3f(locations.camera,camera.horizon,camera.height,camera.focal);
       gl.uniform4f(locations.plane,bounds.minX,bounds.minZ,bounds.maxX,bounds.maxZ);
       gl.uniform2f(locations.gridSpacing,spacingX,spacingZ);
-      ready=true;resize();water.classList.add('ready');syncPause();
-    }catch{ready=false;gl=null;paused=true;water.classList.remove('ready');$('motionNote').textContent='当前浏览器显示静态山水背景。';$('pauseToggle').hidden=true;syncPause();}
+      ready=true;resize();water.classList.add('ready');$('pauseToggle').hidden=false;
+      $('motionNote').textContent=paused&&reduced.matches?'系统已启用减少动画。点击“继续动画”可播放山水背景。':sceneNote;
+      syncPause();
+    }catch(error){failScene(error);}
+  }
+  function failScene(error){
+    ready=false;gl=null;paused=true;water.classList.remove('ready');$('pauseToggle').hidden=true;syncPause();
+    $('sceneHint').textContent='背景动画暂不可用';
+    $('motionNote').textContent=error.name==='SecurityError'?'浏览器限制了背景图片的动画读取。请确认 js 文件夹已完整更新。':'背景动画未能加载。请确认 css、js 和 assets 文件夹与首页一起保留，且浏览器支持 WebGL。';
+    console.warn('山水背景初始化失败：'+error.name+' / '+error.message);
   }
   function textureSettings(){gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);}
+  function uploadNight(){
+    if(!gl||!nightTexture)return;
+    try{gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,nightTexture);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,nightPhoto);nightReady=true;}
+    catch(error){failNight(error);}
+    finally{gl.activeTexture(gl.TEXTURE0);}
+    if(ready)draw();
+  }
+  function failNight(error){
+    nightLoading=false;nightReady=false;night=0;document.body.classList.remove('night');
+    $('nightToggle').textContent='切换夜色';$('nightToggle').setAttribute('aria-pressed','false');
+    $('motionNote').textContent='夜景图片未能加载，暂时保留晨光动画。请确认夜景资源已完整更新。';
+    console.warn('山水夜景加载失败：'+error.message);
+  }
+  function loadNight(){
+    if(nightLoading||nightReady)return;
+    nightLoading=true;window.SceneImages.assign(nightPhoto,art.dataset.nightImage,'night',embeddedImages).catch(failNight);
+  }
   function resize(){
     width=innerWidth;height=innerHeight;
     const dpr=Math.min(devicePixelRatio||1,coarse.matches?1.25:1.5);
@@ -189,6 +252,8 @@
       gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,heightTexture);gl.texSubImage2D(gl.TEXTURE_2D,0,0,0,cols,rows,gl.RGBA,gl.UNSIGNED_BYTE,pixels);gl.activeTexture(gl.TEXTURE0);
       gl.viewport(0,0,water.width,water.height);gl.uniform2f(locations.viewport,width,height);gl.uniform1f(locations.time,clock);
       gl.uniform1f(locations.wind,config.speed/100);gl.uniform1f(locations.swell,config.density/65);gl.uniform1f(locations.mist,config.mist/40);gl.uniform1f(locations.light,config.glow/60);
+      gl.uniform1f(locations.nightMix,nightReady?night:0);
+      gl.uniform1f(locations.lanternDensity,config.lanterns/100);
       const age=touch.held&&touch.region==='mountain'?Math.min(1.25,clock-touch.started):clock-touch.started;
       gl.uniform1f(locations.motion,reduced.matches&&paused?0:1);gl.uniform4f(locations.touch,touch.x,touch.y,touch.force,age);gl.uniform2f(locations.drag,touch.dx,touch.dy);
       gl.drawArrays(gl.TRIANGLES,0,6);
@@ -215,7 +280,7 @@
     raf=0;if(paused||!visible||document.hidden||!ready){previous=0;return;}
     if(!previous)previous=now;
     if(now-previous>=30){const dt=Math.min((now-previous)/1000,.075);previous=now;clock+=dt;simulate(dt);
-      night+=(Number(document.body.classList.contains('night'))-night)*Math.min(1,dt*2);
+      night+=(Number(document.body.classList.contains('night')&&nightReady)-night)*Math.min(1,dt*2);
       for(const b of birds){b.x-=dt*b.speed;b.y+=Math.sin(clock*.6+b.phase)*dt*1.8;}birds=birds.filter(b=>b.x>-20);
       if(clock>nextFlock){if(birds.length<10)addFlock();nextFlock=clock+random(13,20);}draw();
     }schedule();
@@ -226,7 +291,7 @@
   function syncPause(){document.body.classList.toggle('paused',paused);$('pauseToggle').textContent=paused?'继续动画':'暂停动画';$('pauseToggle').setAttribute('aria-pressed',String(paused));$('sceneHint').textContent=paused?'动画已暂停':'点水拨动倒影 · 点山吹动云雾';if(paused){release();stop();draw();}else schedule();}
   function panel(open){$('settings').hidden=!open;$('settingsToggle').setAttribute('aria-expanded',String(open));(open?$('settingsClose'):$('settingsToggle')).focus();}
   function position(event){return {x:clamp(event.clientX/width,0,1),y:clamp(event.clientY/height,0,1)};}
-  function eligible(event){return ready&&visible&&!paused&&event.clientY<height&&scrollY<height*.5&&!event.target.closest('a,button,input,textarea,.settings,.site-body,.site-header,.music-panel,.music-mini,.modal-overlay');}
+  function eligible(event){return ready&&visible&&!paused&&event.clientY<height&&scrollY<height*.5&&!event.target.closest('a,button,input,textarea,.settings,.section,.showcase-head,.carousel-track,.carousel-controls,.profile-card,.profile-interests,footer,.site-header,.music-panel,.music-mini,.modal-overlay');}
   addEventListener('pointerdown',event=>{
     if(!eligible(event))return;
     const p=position(event);touch.x=p.x;touch.y=p.y;touch.dx=touch.dy=0;touch.held=true;touch.region=p.y>shore?'water':'mountain';
@@ -246,16 +311,19 @@
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('settings').hidden)panel(false);});
   document.addEventListener('click',e=>{if(!$('settings').hidden&&!$('settings').contains(e.target)&&!$('settingsToggle').contains(e.target)){$('settings').hidden=true;$('settingsToggle').setAttribute('aria-expanded','false');}});
   for(const key of Object.keys(config))$(key).addEventListener('input',e=>{config[key]=Number(e.target.value);$(key+'Value').value=config[key]+'%';if(paused)draw();});
-  $('sceneToggle').addEventListener('click',()=>{const only=document.body.classList.toggle('scene-only');$('sceneToggle').textContent=only?'显示首页':'只看风景';$('sceneToggle').setAttribute('aria-pressed',String(only));if(only)scrollTo({top:0,behavior:'instant'});});
-  document.querySelectorAll('.nav-links a, a[href="#blog"], a[href="#projects"], .brand').forEach(a=>a.addEventListener('click',()=>{document.body.classList.remove('scene-only');$('sceneToggle').textContent='只看风景';$('sceneToggle').setAttribute('aria-pressed','false');}));
-  $('nightToggle').addEventListener('click',()=>{const n=document.body.classList.toggle('night');$('nightToggle').textContent=n?'切换晨光':'切换夜色';$('nightToggle').setAttribute('aria-pressed',String(n));if(paused){night=Number(n);draw();}});
+  $('sceneToggle').addEventListener('click',()=>{const only=document.body.classList.toggle('scene-only');$('sceneToggle').textContent=only?(document.body.classList.contains('collection-page')?'显示内容':'显示首页'):'只看风景';$('sceneToggle').setAttribute('aria-pressed',String(only));if(only)scrollTo({top:0,behavior:'instant'});});
+  document.querySelectorAll('.nav-links a, a[href="#blog"], a[data-animate], .brand').forEach(a=>a.addEventListener('click',()=>{document.body.classList.remove('scene-only');$('sceneToggle').textContent='只看风景';$('sceneToggle').setAttribute('aria-pressed','false');}));
+  $('nightToggle').addEventListener('click',()=>{const n=document.body.classList.toggle('night');if(n)loadNight();$('nightToggle').textContent=n?'切换晨光':'切换夜色';$('nightToggle').setAttribute('aria-pressed',String(n));if(paused){night=Number(n);draw();}});
   $('reset').addEventListener('click',()=>{Object.assign(config,defaultConfig);for(const key of Object.keys(config)){$(key).value=config[key];$(key+'Value').value=config[key]+'%';}heights.fill(0);velocity.fill(0);release();touch.force=touch.dx=touch.dy=0;touch.started=-10;document.body.classList.remove('night');$('nightToggle').textContent='切换夜色';$('nightToggle').setAttribute('aria-pressed','false');night=0;paused=reduced.matches;syncPause();draw();});
   let timer;addEventListener('resize',()=>{clearTimeout(timer);timer=setTimeout(resize,120);});
   document.addEventListener('visibilitychange',()=>{if(document.hidden){release();stop();}else schedule();});
-  if('IntersectionObserver'in window)new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(!visible){release();stop();}else schedule();}).observe(document.querySelector('.hero'));
+  if('IntersectionObserver'in window)new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(!visible){release();stop();}else schedule();}).observe(document.querySelector('.landscape'));
   reduced.addEventListener('change',()=>{paused=reduced.matches;syncPause();});
   water.addEventListener('webglcontextlost',e=>{e.preventDefault();ready=false;paused=true;water.classList.remove('ready');$('pauseToggle').hidden=true;syncPause();});
   water.addEventListener('webglcontextrestored',()=>{paused=reduced.matches;$('pauseToggle').hidden=false;initialize();});
-  photo.onload=initialize;if(source)photo.src=source;
+  nightPhoto.onload=uploadNight;nightPhoto.onerror=()=>failNight(new Error('Night image could not be decoded'));
+  if(document.body.classList.contains('night'))loadNight();
+  photo.onload=initialize;photo.onerror=()=>failScene(new Error('Day image could not be decoded'));
+  window.SceneImages.assign(photo,source,'day',embeddedImages).catch(failScene);
   resize();syncPause();
 })();

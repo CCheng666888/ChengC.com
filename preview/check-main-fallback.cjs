@@ -19,7 +19,6 @@ vm.runInContext(fs.readFileSync(path.join(root,'js/theme.js'),'utf8'),env.contex
 vm.runInContext(fs.readFileSync(path.join(root,'js/app.js'),'utf8'),env.context);
 assert.equal(env.elements.get('postCount').textContent,'共 6 条');
 assert.equal((env.elements.get('postsContainer').innerHTML.match(/class="post-link"/g)||[]).length,6);
-assert.equal(env.elements.get('journalHistory').hidden,true);
 const local = environment({getItem(){return JSON.stringify([{id:'multi-book-qa',title:'old',category:'study',content:'old',date:'2026/01/01',url:'javascript:alert(1)'},{id:'custom',title:'local',category:'life',content:'preserve',date:'2026/10/02',url:'javascript:alert(1)'}])}});
 vm.runInContext(fs.readFileSync(path.join(root,'js/app.js'),'utf8'),local.context);
 assert.equal(local.elements.get('postCount').textContent,'共 7 条');
@@ -28,6 +27,6 @@ assert.ok(local.elements.get('postsContainer').innerHTML.includes('data-expand="
 assert.ok(!local.elements.get('postsContainer').innerHTML.includes('href="javascript:'));
 const html = fs.readFileSync(path.join(root,'index.html'),'utf8');
 assert.equal((html.match(/class="post-link"/g)||[]).length,6);
-assert.equal((html.match(/class="timeline-item"/g)||[]).length,10);
+assert.equal((html.match(/class="timeline-item"/g)||[]).length,13);
 assert.ok(!html.includes('role="link"'));
-console.log('Passed: blocked-storage startup, canonical links, retained local records, six static article links, and ten retained timeline entries.');
+console.log('Passed: blocked-storage startup, canonical links, retained local records, six static article links, and thirteen timeline entries, including ten retained historical entries.');

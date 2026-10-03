@@ -1,0 +1,19 @@
+{
+  "products": 9,
+  "categories": {
+    "web": 2,
+    "tools": 3,
+    "games": 4
+  },
+  "local_links_and_images_checked": 71,
+  "missing_local_targets": [],
+  "main_navigation_link": true,
+  "excluded_products_absent": true,
+  "game_versions": {
+    "ming": "2.1.0",
+    "badminton": "1.3.2"
+  },
+  "public_game_station": "https://chencgamedemo.netlify.app/",
+  "online_pages_verified": true,
+  "game_station_local_html_matches_release": true
+}
