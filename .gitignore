@@ -7,3 +7,7 @@ __pycache__/
 Free-Schedule-Query-System/data/schedule.json
 downloads/free-schedule-query-system.zip
 downloads/空课查询系统.exe
+
+# 本地服务器运行时日志（不入仓库）
+preview/local-server-error.log
+preview/local-server-output.log

@@ -20,7 +20,7 @@ class Page(HTMLParser):
             if attrs.get(attr):
                 self.links.append((self.getpos()[0], attrs[attr]))
 
-pages = [ROOT / name for name in ['index.html', 'tools.html', 'games.html', 'about.html', 'contact.html', 'products.html']] + sorted((ROOT / 'posts').glob('*.html'))
+pages = [ROOT / name for name in ['index.html', 'tools.html', 'games.html', 'about.html', 'products.html']] + sorted((ROOT / 'posts').glob('*.html'))
 parsed = {path.resolve(): Page(path) for path in pages}
 broken = []
 checked = 0
