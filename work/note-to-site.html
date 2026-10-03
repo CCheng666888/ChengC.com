@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Note to Site · 设计开发历程 · ChenC</title>
+  <meta name="description" content="Note to Site（笔记转网站文章）Obsidian 插件的设计目的、思路、实现过程、困难与更新记录：本地提取导语、可选 AI 摘要、彩色思维导图。">
+  <meta name="theme-color" content="#0b2431">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/showcase.css">
+  <link rel="stylesheet" href="../css/work-gallery-v2.css?v=20261002-v2">
+  <link rel="stylesheet" href="../css/work-detail.css?v=20261003-b">
+  <script src="../js/theme.js"></script>
+</head>
+<body class="article-page work-detail-page">
+  <div class="landscape work-landscape" aria-hidden="true"><canvas id="workScene"></canvas><div class="scene-shade"></div></div>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="作品详情导航">
+      <a class="brand" href="../index.html">ChenC</a>
+      <div class="article-nav"><a href="../tools.html">← 返回工具页</a><button id="articleTheme" class="theme-btn" type="button" aria-label="切换浅色主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3v2m0 14v2M3 12h2m14 0h2M6 6l1.5 1.5m9 9L18 18m0-12-1.5 1.5m-9 9L6 18M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5z"/></svg></button></div>
+    </nav>
+  </header>
+  <main class="article-shell">
+    <article>
+      <header class="article-header">
+        <a class="article-category" href="../tools.html">工具</a>
+        <h1>笔记写完，一键变成网站文章</h1>
+        <p class="article-lead">文章页的导语、大纲、思维导图每篇都要手工弄，重复劳动太多。于是做了这个 Obsidian 插件：当前笔记一键转成可直接发布的文章 HTML。</p>
+        <div class="article-meta"><time>v1.1.0</time><span>Obsidian 插件</span><span>可下载插件</span></div>
+      </header>
+      <div class="article-body">
+
+        <h2>设计目的</h2>
+        <p>自己维护网站，文章页的结构是固定的：标题、导语、正文、大纲，有的还要配思维导图。每写一篇都手工排版一遍，很重复。理想状态是——<strong>笔记在 Obsidian 里写完了，一键就能变成网站文章的 HTML</strong>，复制或保存后直接接入发布流程。</p>
+
+        <h2>设计思路</h2>
+        <p>在 Obsidian 里提供命令 + 侧边栏图标：读取当前笔记 → 生成文章页面 → 弹窗预览 → 选择「复制 HTML」或「保存到笔记库」。生成结果对齐本站文章模板：</p>
+        <ul>
+          <li><strong>本地提取为主</strong>：导语默认取正文第一段截断，不联网也能生成；</li>
+          <li><strong>可选 AI 摘要</strong>：接任意 OpenAI 兼容接口（含本地 Ollama），让模型生成导语，失败自动回退本地提取；</li>
+          <li><strong>彩色思维导图</strong>：正文末尾自动生成，标题为中心、H2 一级分支（每支一色）、H3 二级分支，纯 CSS 实现、自包含。</li>
+        </ul>
+
+        <h2>实现过程</h2>
+        <ul>
+          <li>用 TypeScript 写插件，esbuild 打包成 main.js，<code>manifest.json / main.js / styles.css</code> 三个文件放进 <code>.obsidian/plugins/note-to-site/</code> 即可启用；</li>
+          <li>把生成逻辑拆成纯函数（导语提取、大纲收集、思维导图树构建、frontmatter 解析、阅读时长估算、文件名转写），方便单独测试；</li>
+          <li>用 <code>smoke-test.mjs</code> 写断言：覆盖导语首段提取、超长截断、空正文兜底、大纲层级、思维导图配色归属等；</li>
+          <li>思维导图的可视化验证：用网站真实的 <code>style.css</code> 生成演示页，无头浏览器截图 + 像素取样，确认各分支颜色正常渲染。</li>
+        </ul>
+
+        <h2>遇到的困难</h2>
+        <ul>
+          <li><strong>Obsidian 的渲染细节多</strong>：DOM 处理和 Markdown 转换的边界情况不少，把核心逻辑抽成纯函数之后才测得住；</li>
+          <li><strong>思维导图在明暗主题下的可读性</strong>：站点有明暗两套主题，导图最后固定为白底卡片、每支一色，保证两种主题下都清楚。</li>
+        </ul>
+
+        <h2>做了哪些优化</h2>
+        <ul>
+          <li><strong>v1.1.0（当前）</strong>：补齐设置项（默认分类、导语最大字数、大纲/思维导图开关、站点名、样式表路径、保存文件夹），新增可选 AI 摘要（OpenAI 兼容 / Ollama），生成结果的完整性比首发版更好；</li>
+          <li><strong>v1.0.0 首发</strong>：先跑通「本地提取 + 预览 + 复制/保存」的基本流程。</li>
+        </ul>
+
+        <h2>更新记录</h2>
+        <ul class="detail-timeline">
+          <li>
+            <time>v1.1.0（当前）</time>
+            <strong>设置项 + 可选 AI 摘要</strong>
+            <p>补齐生成相关的配置项；导语可接 OpenAI 兼容接口（含本地 Ollama），失败自动回退本地提取。</p>
+          </li>
+          <li>
+            <time>v1.0.0</time>
+            <strong>首发版</strong>
+            <p>本地提取导语、正文、大纲与彩色思维导图，弹窗预览后复制 HTML 或保存到笔记库。</p>
+          </li>
+        </ul>
+
+        <h2>下载与安装</h2>
+        <p>下载后将 <code>note-to-site</code> 文件夹放到笔记库的 <code>.obsidian/plugins/</code> 中，再在 Obsidian 的第三方插件里启用。预览思维导图效果可以直接打开演示页。</p>
+        <p><a class="button primary" href="../downloads/note-to-site-v1.1.0.zip" download>下载插件 v1.1.0</a> <a class="button ghost" href="../obsidian-note-to-site/demo-mindmap.html" data-animate>预览思维导图</a></p>
+      </div>
+      <footer class="article-footer"><a class="button secondary" href="../tools.html">← 返回工具页</a><a class="button primary" href="../downloads/note-to-site-v1.1.0.zip" download>下载插件 ↗</a></footer>
+    </article>
+  </main>
+  <div class="tools" aria-label="风景控制">
+    <button class="tool" id="sceneToggle" type="button" aria-pressed="false">只看背景</button>
+    <button class="tool" id="pauseToggle" type="button" aria-pressed="false">暂停动画</button>
+    <button class="tool" id="settingsToggle" type="button" aria-expanded="false" aria-controls="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="#0b283a"/><circle cx="15" cy="17" r="3" fill="#0b283a"/></svg>风景设置</button>
+  </div>
+  <aside class="settings" id="settings" aria-label="风景设置" hidden>
+    <div class="settings-head"><h2>风景设置</h2><button class="close" id="settingsClose" type="button" aria-label="关闭风景设置">×</button></div>
+    <label class="slider" for="density"><span class="slider-top"><span>环境粒子</span><output id="densityValue" for="density">65%</output></span><input id="density" type="range" min="0" max="100" value="65"></label>
+    <label class="slider" for="speed"><span class="slider-top"><span>动画速度</span><output id="speedValue" for="speed">35%</output></span><input id="speed" type="range" min="0" max="100" value="35"></label>
+    <label class="slider" for="mist"><span class="slider-top"><span>环境光</span><output id="mistValue" for="mist">40%</output></span><input id="mist" type="range" min="0" max="100" value="40"></label>
+    <label class="slider" for="glow"><span class="slider-top"><span>微光强度</span><output id="glowValue" for="glow">60%</output></span><input id="glow" type="range" min="0" max="100" value="60"></label>
+    <div class="settings-foot"><button type="button" id="nightToggle" aria-pressed="false">柔和背景</button><button type="button" id="reset">恢复默认</button></div>
+    <p class="settings-note" id="motionNote">每个作品有自己的像素场景；环境动画、微光和交互都在同一画面中绘制。</p>
+  </aside>
+  <script src="../js/work-scenes.js?v=20261002-v2"></script>
+  <script>window.WorkScenes?.setTheme('notes');</script>
+</body>
+</html>

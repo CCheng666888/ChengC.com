@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>羽境 · 火柴人羽毛球 · 设计开发历程 · ChenC</title>
+  <meta name="description" content="羽境 · 火柴人羽毛球的设计目的、思路、实现过程、困难与更新记录：2D 羽毛球，故事与冒险双模式，多种角色，键盘与触屏操作。">
+  <meta name="theme-color" content="#0b2431">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/showcase.css">
+  <link rel="stylesheet" href="../css/work-gallery-v2.css?v=20261002-v2">
+  <link rel="stylesheet" href="../css/work-detail.css?v=20261003-b">
+  <script src="../js/theme.js"></script>
+</head>
+<body class="article-page work-detail-page">
+  <div class="landscape work-landscape" aria-hidden="true"><canvas id="workScene"></canvas><div class="scene-shade"></div></div>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="作品详情导航">
+      <a class="brand" href="../index.html">ChenC</a>
+      <div class="article-nav"><a href="../games.html">← 返回游戏页</a><button id="articleTheme" class="theme-btn" type="button" aria-label="切换浅色主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3v2m0 14v2M3 12h2m14 0h2M6 6l1.5 1.5m9 9L18 18m0-12-1.5 1.5m-9 9L6 18M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5z"/></svg></button></div>
+    </nav>
+  </header>
+  <main class="article-shell">
+    <article>
+      <header class="article-header">
+        <a class="article-category" href="../games.html">游戏</a>
+        <h1>做一个上手就能玩的羽毛球小游戏</h1>
+        <p class="article-lead">规则简单（先得 11 分结束本局），键盘和触屏都能玩；故事模式带一点剧情比分，冒险模式就是正经打 AI。</p>
+        <div class="article-meta"><time>v1.3.2</time><span>网页 + Windows</span><span>运动小游戏</span></div>
+      </header>
+      <div class="article-body">
+
+        <h2>设计目的</h2>
+        <p>想做一个<strong>上手就能玩</strong>的运动小游戏：不用学复杂规则，靠近来球、在球进入拍子范围时挥拍就行。先得 11 分结束本局，不采用净胜两分——目标就是「打开就能打几拍」。</p>
+
+        <h2>设计思路</h2>
+        <ul>
+          <li><strong>操作</strong>：A/D 或左右方向键移动，W/上方向键跳跃，空格挥拍或发球，X 扣杀，P/Esc 暂停；支持页面下方触屏按钮，手机也能玩；</li>
+          <li><strong>判定</strong>：挥拍按实际拍面椭圆碰撞计算，落地优先判分；高点击球可以扣杀；</li>
+          <li><strong>双模式</strong>：故事模式带剧情比分设计（第一章固定阶段性分差，第二章装备升级 100zz / 65z4，剧情对手全力压制）；冒险模式是正常 AI，比分按球的落地或触网结果计算，不操控胜负；</li>
+          <li><strong>角色</strong>：故事模式 6 种、冒险模式 4 种——经典火柴人是实时绘制的 2D 模型，另有原照片人物 yjb 按轮廓裁切成头颈、躯干、双臂、双腿六个部件做 2D 关节绑定。</li>
+        </ul>
+
+        <h2>实现过程</h2>
+        <ul>
+          <li>游戏本体是单文件 <code>game.html</code>；<code>build.cjs</code> 把游戏和照片素材内嵌编译，HTML 打开即玩，不需要联网或旁边的资源文件；</li>
+          <li>Windows 版用 <code>Launcher.cs</code> 启动器：把内嵌网页释放到本地缓存目录，用 Edge（或 Chrome）独立应用窗口打开；</li>
+          <li>对手姓名用独立随机英文名 + 英文姓组合（如 Alex Taylor），一场比赛内不变，故事第二关延续第一关；故事选择 yjb 时固定对手 cmc；</li>
+          <li>故事第一关结束显示与同桌的对话，点击底部居中的「我不服」直接进入第二关，保留玩家角色并升级装备。</li>
+        </ul>
+
+        <h2>遇到的困难</h2>
+        <ul>
+          <li><strong>照片角色的 2D 绑定</strong>：yjb 用的是单张真实照片，按轮廓裁切后做 2D 关节绑定；被横杆遮挡的衣服局部只能用原照片里相邻衣料覆盖，存在单张照片无法还原的遮挡信息——这是照片切片的 2D 模型，不是完整 3D 扫描，细节做不到完美；</li>
+          <li><strong>剧情比分和 AI 的平衡</strong>：故事模式用阶段性分差控制节奏（比如第一章 4:8），但又要留出极小概率（1%）的「破局」路线让玩家自己打；这个概率只是抽取概率，不是保证的实际胜率；</li>
+          <li><strong>浏览器不让关窗口</strong>：退出游戏时浏览器会禁止网页主动关闭，只能显示退出页面提示手动关页。</li>
+        </ul>
+
+        <h2>做了哪些优化</h2>
+        <ul>
+          <li><strong>v1.3.1</strong>：原照片人物更名 yjb、手绘角色更名 yjb手绘；新增铁皮同学、夜行忍者、星际球手三个角色；普通对手改用随机姓 + 名组合；故事第一关结束后加入「我不服」进入第二关的对话；界面、交付文件名和 EXE 版本信息统一版本号；</li>
+          <li><strong>v1.3.2（当前）</strong>：暂停菜单新增「回到主页面」和「退出游戏」，均有离开确认，取消后继续保持暂停；退出会停止本场对局和音效并尝试关闭窗口，被浏览器阻止时显示退出页面；</li>
+          <li><strong>判定打磨</strong>：挥拍按实际拍面椭圆碰撞计算，落地优先判分；高级球拍的显示尺寸与判定尺寸一致，模型持拍手使用同一套拍面位置数据。</li>
+        </ul>
+
+        <h2>更新记录</h2>
+        <ul class="detail-timeline">
+          <li>
+            <time>v1.3.2（当前）</time>
+            <strong>暂停与退出体验</strong>
+            <p>暂停菜单支持回到主页面、退出游戏（带确认）；退出停止对局与音效，被浏览器阻止时提示手动关页。</p>
+          </li>
+          <li>
+            <time>v1.3.1</time>
+            <strong>角色扩充与故事对话</strong>
+            <p>新增三个可选角色、随机对手姓名、故事第一关「我不服」进入第二关，并统一版本号。</p>
+          </li>
+          <li>
+            <time>更早 1.x 版本</time>
+            <strong>基础玩法成型</strong>
+            <p>移动、跳跃、挥拍、扣杀和双模式的底层玩法逐步搭起来。</p>
+          </li>
+        </ul>
+
+        <h2>试玩</h2>
+        <p>建议横屏游玩；故事模式包含剧情比分设计。电脑用键盘，手机用触屏按钮，离开窗口会自动暂停。</p>
+        <p><a class="button primary" href="../play/yujing.html">开始试玩 ↗</a> <a class="button ghost" href="https://chencgamedemo.netlify.app/downloads/yujing-1.3.2-windows.exe" download>下载 Windows 版</a></p>
+      </div>
+      <footer class="article-footer"><a class="button secondary" href="../games.html">← 返回游戏页</a><a class="button primary" href="../play/yujing.html" target="_blank" rel="noopener">开始试玩 ↗</a></footer>
+    </article>
+  </main>
+  <div class="tools" aria-label="风景控制">
+    <button class="tool" id="sceneToggle" type="button" aria-pressed="false">只看背景</button>
+    <button class="tool" id="pauseToggle" type="button" aria-pressed="false">暂停动画</button>
+    <button class="tool" id="settingsToggle" type="button" aria-expanded="false" aria-controls="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="#0b283a"/><circle cx="15" cy="17" r="3" fill="#0b283a"/></svg>风景设置</button>
+  </div>
+  <aside class="settings" id="settings" aria-label="风景设置" hidden>
+    <div class="settings-head"><h2>风景设置</h2><button class="close" id="settingsClose" type="button" aria-label="关闭风景设置">×</button></div>
+    <label class="slider" for="density"><span class="slider-top"><span>环境粒子</span><output id="densityValue" for="density">65%</output></span><input id="density" type="range" min="0" max="100" value="65"></label>
+    <label class="slider" for="speed"><span class="slider-top"><span>动画速度</span><output id="speedValue" for="speed">35%</output></span><input id="speed" type="range" min="0" max="100" value="35"></label>
+    <label class="slider" for="mist"><span class="slider-top"><span>环境光</span><output id="mistValue" for="mist">40%</output></span><input id="mist" type="range" min="0" max="100" value="40"></label>
+    <label class="slider" for="glow"><span class="slider-top"><span>微光强度</span><output id="glowValue" for="glow">60%</output></span><input id="glow" type="range" min="0" max="100" value="60"></label>
+    <div class="settings-foot"><button type="button" id="nightToggle" aria-pressed="false">柔和背景</button><button type="button" id="reset">恢复默认</button></div>
+    <p class="settings-note" id="motionNote">每个作品有自己的像素场景；环境动画、微光和交互都在同一画面中绘制。</p>
+  </aside>
+  <script src="../js/work-scenes.js?v=20261002-v2"></script>
+  <script>window.WorkScenes?.setTheme('badminton');</script>
+</body>
+</html>

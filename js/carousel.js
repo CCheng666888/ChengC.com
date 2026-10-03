@@ -15,6 +15,7 @@
   function clone(card) {
     const copy = card.cloneNode(true);
     copy.dataset.workClone = 'true';
+    copy.removeAttribute('data-detail');
     copy.setAttribute('aria-hidden', 'true');
     copy.removeAttribute('role');
     copy.removeAttribute('aria-label');
@@ -206,6 +207,10 @@
       event.preventDefault();
       event.stopPropagation();
       request({type:'absolute', value:logical});
+    } else if (!event.target.closest('a,button,input') && card.dataset.detail) {
+      event.preventDefault();
+      event.stopPropagation();
+      location.href = card.dataset.detail;
     }
   }, true);
   track.addEventListener('dragstart', event => event.preventDefault());

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101f24">
+  <title>联系作者 · ChenC 的萤火通讯</title>
+  <meta name="description" content="联系 ChenC。新的故事与作品正在全力更新。">
+  <link rel="stylesheet" href="css/secret-arcade.css?v=20261003-snake2">
+  <link rel="stylesheet" href="css/contact.css?v=20261003">
+</head>
+<body class="contact-page">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="pixel-stars" aria-hidden="true"></div>
+  <header class="contact-header">
+    <a class="contact-brand" href="index.html">ChenC<span>.</span></a>
+    <span class="header-frequency">FIREFLY FREQUENCY / 01</span>
+    <a class="back-link" href="about.html">返回个人空间</a>
+  </header>
+  <main id="main" class="contact-main">
+    <div class="page-label"><span class="pixel-cross" aria-hidden="true">✦</span><span>一封来自星间的信</span><span class="label-code">CHENC / CONTACT</span></div>
+    <h1>联系作者<span class="heading-dot" aria-hidden="true">.</span></h1>
+    <section class="firefly-window" aria-labelledby="updateTitle">
+      <div class="window-bar">
+        <span class="window-name"><span class="window-mark" aria-hidden="true"></span>萤火通讯</span>
+        <div class="window-controls">
+          <button type="button" class="window-secret spark-control" data-secret-game="snake" aria-label="萤火星标"><span aria-hidden="true">✦</span></button>
+          <button type="button" class="window-secret tile-control" data-secret-game="tetris" aria-label="窗口方块"><span aria-hidden="true"></span></button>
+          <a class="window-return" href="about.html" aria-label="关闭通讯，返回个人空间">×</a>
+        </div>
+      </div>
+      <div class="window-body">
+        <div class="update-copy">
+          <p class="channel-label"><span aria-hidden="true">[</span> FIREFLY / 星间频道 <span aria-hidden="true">]</span></p>
+          <h2 id="updateTitle">正在<br><span>全力更新</span><span class="pixel-cursor" aria-hidden="true"></span></h2>
+          <p class="update-note">想做的事，还有很多。<br>让新的故事，慢慢亮起来。</p>
+          <div class="update-loading" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <p class="update-caption">故事还在继续<span aria-hidden="true"> . . .</span></p>
+        </div>
+        <figure class="firefly-stage">
+          <div class="stage-coordinate" aria-hidden="true"><span>星间的萤火</span><span>01 / FIREFLY</span></div>
+          <div class="sprite-halo" aria-hidden="true"></div>
+          <div class="firefly-sprite-slot">
+            <video id="fireflyMotion" class="firefly-sprite" width="630" height="560" autoplay loop muted playsinline controls preload="auto" poster="assets/firefly-official-pixel.png" aria-label="官方 PV 中流萤挥动武器的原生像素循环动画"><source src="assets/firefly-official-pixel-loop.mp4" type="video/mp4">您的浏览器暂不支持播放这段动画。</video>
+            <button class="motion-toggle" type="button" data-motion-toggle aria-label="暂停流萤动画" hidden>Ⅱ 暂停</button>
+          </div>
+          <div class="sprite-platform" aria-hidden="true"></div>
+          <span class="stage-spark spark-one" aria-hidden="true">✦</span><span class="stage-spark spark-two" aria-hidden="true">✧</span><span class="stage-spark spark-three" aria-hidden="true">✦</span>
+          <figcaption>FIREFLY<span>流萤</span></figcaption>
+        </figure>
+      </div>
+      <div class="window-bottom"><span class="mechanical-ticks" aria-hidden="true">▰ ▰ ▰</span><span>把微小的光，留给明天。</span><span class="bottom-code" aria-hidden="true">TYPE-IV</span></div>
+    </section>
+  </main>
+  <footer class="contact-footer"><span>© 2026 ChenC</span><a href="https://www.bilibili.com/video/BV1wYdWB5EVF/" target="_blank" rel="noopener noreferrer">流萤像素素材 · 官方 PV</a><span class="footer-sign">愿此行，终抵群星。</span></footer>
+  <dialog class="secret-arcade" id="secretArcade" aria-labelledby="arcadeTitle">
+    <div class="arcade-heading"><div><small>CHENC / POCKET ARCADE</small><h2 id="arcadeTitle">隐藏小游戏</h2></div><button type="button" data-close aria-label="关闭小游戏">✕</button></div>
+    <div class="arcade-playfield"><canvas class="arcade-board" width="300" height="300" tabindex="0" aria-label="游戏画面"></canvas><div class="arcade-stats"><span>得分</span><strong data-score>0</strong><span>最佳</span><strong data-best>0</strong><div class="arcade-next"><span>下一个</span><canvas width="96" height="96" data-next aria-label="下一个方块"></canvas></div></div></div>
+    <p class="arcade-status" data-status role="status"></p>
+    <div class="arcade-actions"><button type="button" data-action="pause">开始</button><button type="button" data-action="restart">重新开始</button></div>
+    <div class="arcade-directions" aria-label="游戏操作"><button type="button" data-action="left" aria-label="向左">←</button><button type="button" data-action="up" aria-label="向上或旋转">↑</button><button type="button" data-action="down" aria-label="向下">↓</button><button type="button" data-action="right" aria-label="向右">→</button><button type="button" data-action="drop">落到底</button></div>
+  </dialog>
+  <script src="js/secret-arcade.js?v=20261003-snake2"></script>
+  <script src="js/firefly-motion.js?v=20261003"></script>
+</body>
+</html>

@@ -3,6 +3,15 @@
   const STORAGE_KEY = 'chengc_posts';
   const DEFAULT_POSTS = [
   {
+    "id": "building-this-site",
+    "title": "我的小站是这样搭的：静态页面、博客系统与增量部署",
+    "category": "study",
+    "content": "没有框架、没有构建步骤，一个人维护的纯静态小站是怎么把博客、动画背景、音乐播放器和隐藏小游戏都装进去，还能稳定上线的？这篇从头拆一遍。",
+    "date": "2026/10/03",
+    "builtin": true,
+    "url": "posts/building-this-site.html"
+  },
+  {
     "id": "multi-book-qa",
     "title": "我把 6 本书的知识点，做成了一个离线问答台",
     "category": "study",
@@ -81,15 +90,20 @@
     } catch { return ''; }
   }
   function renderPosts() {
-    const shown = posts.filter(p => (currentFilter === 'all' || p.category === currentFilter) && (!searchQuery || `${p.title} ${p.content}`.toLowerCase().includes(searchQuery))).sort((a, b) => String(b.date).localeCompare(String(a.date)));
-    $('postCount').textContent = `共 ${shown.length} 条`;
+    const candidates = posts.filter(p => currentFilter === 'all' || p.category === currentFilter);
+    const search = globalThis.ChenCBlogSearch;
+    const shown = search ? search.find(candidates, searchQuery) : candidates.filter(p => !searchQuery || `${p.title} ${p.content}`.toLowerCase().includes(searchQuery)).sort((a,b) => String(b.date).localeCompare(String(a.date)));
+    $('postCount').textContent = searchQuery ? `找到 ${shown.length} / ${posts.length} 篇` : `共 ${shown.length} 条`;
     if (!shown.length) {
       $('postsContainer').innerHTML = '<div class="empty-state"><strong>没有找到匹配记录</strong><p>换个关键词或分类试试。</p></div>';
       return;
     }
     $('postsContainer').innerHTML = shown.map(p => {
       const url = destination(p), id = escapeHtml(p.id), title = escapeHtml(p.title);
-      const info = `<div class="post-top"><span class="post-tag tag-${p.category}">${p.category === 'study' ? '学习' : '生活'}</span><time>${escapeHtml(p.date.replaceAll('/', '.'))}</time></div><h3 class="post-title">${title}</h3><p class="post-content" id="content-${id}">${escapeHtml(p.content)}</p>`;
+      const displayTitle = search ? search.highlight(p.title, searchQuery) : title;
+      const snippet = searchQuery && search ? search.excerpt(p, searchQuery) : p.content;
+      const displayContent = search ? search.highlight(snippet, searchQuery) : escapeHtml(snippet);
+      const info = `<div class="post-top"><span class="post-tag tag-${p.category}">${p.category === 'study' ? '学习' : '生活'}</span><time>${escapeHtml(p.date.replaceAll('/', '.'))}</time></div><h3 class="post-title">${displayTitle}</h3><p class="post-content" id="content-${id}">${displayContent}</p>`;
       const body = url ? `<a class="post-link" href="${escapeHtml(url)}">${info}<span class="read-more">阅读全文 <span aria-hidden="true">↗</span></span></a>` : `<div class="local-post">${info}<button class="text-button" type="button" data-expand="${id}" aria-expanded="false" aria-controls="content-${id}">展开全文 ↓</button></div>`;
       return `<article class="post-card" data-post-id="${id}">${body}${p.builtin ? '' : `<div class="post-actions"><button class="delete-btn" type="button" data-delete-id="${id}" aria-label="删除《${title}》">删除</button></div>`}</article>`;
     }).join('');
@@ -103,7 +117,7 @@
     });
     renderPosts();
   }));
-  $('searchInput').addEventListener('input', event => { searchQuery = event.target.value.trim().toLowerCase(); renderPosts(); });
+  if (!globalThis.ChenCBlogSearch) $('searchInput').addEventListener('input', event => { searchQuery = event.target.value.trim().toLowerCase(); renderPosts(); });
   $('postsContainer').addEventListener('click', event => {
     const expand = event.target.closest('[data-expand]');
     if (expand) {
@@ -132,4 +146,5 @@
   const refreshHeader = () => header.classList.toggle('scrolled', scrollY > 40);
   addEventListener('scroll', refreshHeader, {passive:true}); refreshHeader();
   loadPosts(); renderPosts();
+  globalThis.ChenCBlogSearch?.connect({getPosts: () => posts, destination, onQuery: query => { searchQuery = query; renderPosts(); }});
 })();

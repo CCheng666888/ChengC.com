@@ -4,7 +4,7 @@
   // Classic scripts carry the same image bytes as data URLs for local HTML use.
   const scriptURL = document.currentScript.src;
   const images = new Map(), pending = new Map();
-  const bundles = {day: 'scene-day-data.js', night: 'scene-night-data.js'};
+  const bundles = {day: 'scene-day-data.js', night: 'scene-night-data.js', dayMobile: 'scene-day-mobile-data.js', nightMobile: 'scene-night-mobile-data.js'};
 
   function embeddedImage(key) {
     if (!Object.hasOwn(bundles, key)) return Promise.reject(new Error('Unknown scene image'));

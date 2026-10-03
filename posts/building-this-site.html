@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>我的小站是这样搭的：静态页面、博客系统与增量部署 · ChenC</title>
+  <meta name="description" content="没有框架、没有构建步骤，一个人维护的纯静态小站是怎么把博客、动画背景、音乐播放器和隐藏小游戏都装进去，还能稳定上线的？这篇从头拆一遍。">
+  <meta name="theme-color" content="#090910">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/theme.js"></script>
+</head>
+<body class="article-page">
+  <div class="landscape" aria-hidden="true"><div class="landscape-art"></div><div class="scene-shade"></div></div>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="文章导航">
+      <a class="brand" href="../index.html">ChenC</a>
+      <div class="article-nav"><a href="../index.html#blog">← 返回博客</a><button id="articleTheme" class="theme-btn" type="button" aria-label="切换主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3v2m0 14v2M3 12h2m14 0h2M6 6l1.5 1.5m9 9L18 18m0-12-1.5 1.5m-9 9L6 18M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5z"/></svg></button></div>
+    </nav>
+  </header>
+  <main class="article-shell">
+    <article>
+      <header class="article-header">
+        <a class="article-category" href="../index.html#blog">学习</a>
+        <h1>我的小站是这样搭的：静态页面、博客系统与增量部署</h1>
+        <p class="article-lead">没有框架、没有构建步骤，一个人维护的纯静态小站，是怎么把博客、动画背景、音乐播放器和隐藏小游戏都装进去，还能稳定上线的？这篇从头拆一遍。</p>
+        <div class="article-meta"><time datetime="2026-10-03">2026 年 10 月 3 日</time><span>约 8 分钟阅读</span></div>
+      </header>
+      <div class="article-body">
+        <p>现在打开这个站，你会看到一片会动的苍山洱海、一篇篇文章，还有几款能直接试玩的游戏。很多人以为这种站点背后有一套复杂系统，其实它就是一堆 <strong>HTML、CSS 和 JavaScript 文件</strong>：没有框架，也没有构建步骤，改完文件直接传上去就能上线。这篇把整个站拆开讲一遍，也记录一下最近的一些折腾。</p>
+
+        <h2>整体长什么样</h2>
+        <p>站点根目录下的文件就是全部源码，主要入口这么几个：</p>
+        <table>
+          <thead><tr><th>文件 / 目录</th><th>作用</th></tr></thead>
+          <tbody>
+            <tr><td><code>index.html</code></td><td>首页：博客、动态、关于都在这一页</td></tr>
+            <tr><td><code>about.html</code></td><td>个人空间（里面还藏了两个小游戏，后面说）</td></tr>
+            <tr><td><code>tools.html</code> / <code>games.html</code></td><td>工具与游戏的作品展示页</td></tr>
+            <tr><td><code>posts/</code></td><td>文章目录，每篇博客一个 HTML 文件</td></tr>
+            <tr><td><code>css/</code> <code>js/</code> <code>assets/</code></td><td>样式、脚本和图片音乐等素材</td></tr>
+          </tbody>
+        </table>
+        <p>各个页面共用同一套样式和脚本，文章的正文则独立成页、互不依赖。想加一个新页面，复制一个模板改改内容就行，成本很低。</p>
+
+        <h2>博客系统：一篇文章就是一个文件</h2>
+        <p>每篇文章放在 <code>posts/</code> 下，是一份完整的 HTML。主页的「最新文章」卡片并不在页面里写死，而是由 <code>js/app.js</code> 里的一份文章列表驱动的：每一条包含标题、分类（学习 / 生活）、摘要、日期和文章链接，脚本加载后按日期排序、渲染成卡片。</p>
+        <p>这个设计带来两个顺手的功能：</p>
+        <ul>
+          <li><strong>搜索和筛选在本地完成</strong>：主页的搜索框和「全部 / 学习 / 生活」筛选按钮，全部在浏览器里对这份列表做匹配，不请求任何服务器接口；</li>
+          <li><strong>没有脚本也能看</strong>：页面里保留了同样的静态卡片作为兜底，万一脚本加载失败，文章入口依然都在，只是少了搜索和筛选。</li>
+        </ul>
+        <p>所以新增一篇文章要做三件事：写一个文章页面、在脚本的文章列表里加一条、在首页补一张静态卡片。改完刷新就能看到，不需要重新构建。</p>
+
+        <blockquote>这也是为什么这个站几乎不会「挂」：内容全部是静态文件，服务器只负责把文件发给浏览器，剩下的都在浏览器本地运行。</blockquote>
+
+        <h2>山水背景：一个会动的封面</h2>
+        <p>首页顶部是一幅「苍山 · 洱海」，用 Canvas 画出来的：湖面有沿透视扩散的波纹，点水或拖动会漾开水波，带动倒影和水光；点一下山，山间的云雾会随风移动，山体保持稳定。右下角还有一排风景控制按钮，可以只看背景、暂停动画，或者打开设置面板。</p>
+        <p>设置面板里是五个滑块——<strong>湖面起伏、风的速度、山间云雾、水面微光、渔灯密度</strong>，外加一个「切换夜色」。夜色模式下渔灯会亮起来，湖面泛起细碎微光。</p>
+        <p>最近一次比较大的折腾，是<strong>手机端的性能优化</strong>。原来的背景图晨光约 310KB，而且动画在任何设备上都按同一规格跑，手机容易卡。现在的做法：</p>
+        <ul>
+          <li>背景图换成 WebP 压缩版，晨光从 310KB 降到约 88KB；</li>
+          <li>手机的水波网格降到 <strong>128 × 96</strong>（原来的四分之一），帧率上限 24fps，每帧渲染像素上限约 42 万；</li>
+          <li>页面先显示静态背景，动画等首屏画完再启动；滚动离开首屏或切到后台就停止，回来再恢复。</li>
+        </ul>
+        <p>本地模拟的手机端数据（390×844 屏幕、3 倍像素密度、1.6Mbps 网速下）：背景下载完成约从 2.5 秒降到 1.5 秒，动画首帧约从 2.9 秒降到 2.2 秒。数据来自本地模拟，不代表所有手机的实测结果，但方向是对的——手机先看到图，动画随后再来。</p>
+
+        <h2>给网站配点声音</h2>
+        <p>导航栏右侧有个音符按钮，点开是音乐播放器，里面放了 <strong>11 首歌</strong>。播放后列表收起，变成一个可以拖动的小窗：上一首、下一首、暂停、拖动进度条，随时停止。</p>
+
+        <h2>藏在关于页里的小游戏</h2>
+        <p>个人空间里藏了两个彩蛋，不看提示基本发现不了：</p>
+        <ul>
+          <li><strong>「ABOUT ME」前面的细红横线</strong>，点一下会打开一个五乘五的贪吃蛇；</li>
+          <li><strong>标题「ChenC.」末尾的红色句点</strong>，点开是俄罗斯方块。</li>
+        </ul>
+        <p>两个小游戏都有得分和最佳记录，支持暂停、重新开始，键盘和屏幕上的按钮都能操作。它们的存在让「关于我」这页多了点意外，也算是我最喜欢的部分之一。</p>
+
+        <h2>游戏和工具有了自己的作品页</h2>
+        <p>最近把做过的作品整理成了两个展示页，左右滑动浏览，每个作品都配了不同的动态场景背景：</p>
+        <ul>
+          <li><strong>游戏（4 款）</strong>：大明风华录 · 山河一统（单人大战略）、羽境 · 火柴人羽毛球、海绵宝宝大战僵尸鱼（同人小游戏）、海底塔防（独立在线项目）；</li>
+          <li><strong>工具（2 款）</strong>：多书知识问答台（6 本教材 326 条知识点，语义检索 + 引用溯源）、Note to Site（Obsidian 插件，把笔记转成文章 HTML 和彩色思维导图）。</li>
+        </ul>
+        <p>其中多书问答台和空课查询系统之前都写过开发记录，可以顺着博客列表往回翻。</p>
+
+        <h2>怎么把它送上线的</h2>
+        <p>源码放在 GitHub，站点托管在 Netlify，域名 <code>chenc.com.cn</code> 通过 CNAME 记录指向站点。部署用的是<strong>增量直传</strong>的方式：一个脚本负责对比并上传有变化的文件，不重传整个站。每次更新前设置站点目录、站点 ID 和部署凭据，运行脚本后等发布状态变成 ready，再打开线上页面确认一遍。</p>
+        <p>另外有一条自己定的规矩：每次更新网站，都要在更新记录里登记——改了什么、部署了没有、部署结果如何。这样几个月后回头看，每个改动都有据可查。</p>
+
+        <blockquote>静态站的好处就一个字：省。不用服务器、不用数据库、没有构建环节，成本低，出问题也好排查。缺点也有，比如没有后台，发文章要靠改文件，但对一个人维护的小站来说，这反而是最稳的方式。</blockquote>
+
+        <p>接下来打算继续写博客，把文章写成这个站最核心的内容；工具和游戏也会接着打磨。网站是一点一点长出来的，这篇记录的只是它目前的样子。</p>
+      </div>
+      <footer class="article-footer"><a class="button secondary" href="../index.html#blog">← 返回博客列表</a><a class="button primary" href="../index.html#journal">看看最近动态</a></footer>
+    </article>
+  </main>
+  
+</body>
+</html>

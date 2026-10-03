@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>海绵宝宝大战僵尸鱼 · 设计开发历程 · ChenC</title>
+  <meta name="description" content="海绵宝宝大战僵尸鱼的设计目的、思路、实现过程、困难与更新记录：海绵宝宝主题同人小游戏，抵御僵尸鱼挑战更高分数，网页与 Windows 双版本。">
+  <meta name="theme-color" content="#0b2431">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/showcase.css">
+  <link rel="stylesheet" href="../css/work-gallery-v2.css?v=20261002-v2">
+  <link rel="stylesheet" href="../css/work-detail.css?v=20261003-b">
+  <script src="../js/theme.js"></script>
+</head>
+<body class="article-page work-detail-page">
+  <div class="landscape work-landscape" aria-hidden="true"><canvas id="workScene"></canvas><div class="scene-shade"></div></div>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="作品详情导航">
+      <a class="brand" href="../index.html">ChenC</a>
+      <div class="article-nav"><a href="../games.html">← 返回游戏页</a><button id="articleTheme" class="theme-btn" type="button" aria-label="切换浅色主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3v2m0 14v2M3 12h2m14 0h2M6 6l1.5 1.5m9 9L18 18m0-12-1.5 1.5m-9 9L6 18M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5z"/></svg></button></div>
+    </nav>
+  </header>
+  <main class="article-shell">
+    <article>
+      <header class="article-header">
+        <a class="article-category" href="../games.html">游戏</a>
+        <h1>比奇堡的同人小游戏：守住每一波僵尸鱼</h1>
+        <p class="article-lead">喜欢海绵宝宝，也玩过植物大战僵尸，于是做了这个同人小游戏：抵御不断出现的僵尸鱼，挑战更高的分数。</p>
+        <div class="article-meta"><time>v1.0</time><span>Windows / 网页</span><span>同人小游戏</span></div>
+      </header>
+      <div class="article-body">
+
+        <h2>设计目的</h2>
+        <p>初衷很直接：<strong>把「植物大战僵尸」的防守玩法套到海绵宝宝的世界里</strong>，做一款同人小游戏——在比奇堡场景里抵御一波波出现的僵尸鱼，挑战更高分数。没打算做得很大，先保证「打开就能玩、能打出分数」。</p>
+
+        <h2>设计思路</h2>
+        <ul>
+          <li><strong>玩法</strong>：类 PVZ 的防守玩法，僵尸鱼不断出现，玩家的目标是在守住的同时拿到更高分数；</li>
+          <li><strong>单文件承载</strong>：游戏本体做成单文件 HTML（约 3.6MB），网页直接打开就能玩；</li>
+          <li><strong>双入口</strong>：网页版在线试玩；Windows 版把同一份游戏打包成 EXE（约 20MB），双击即玩；网页版另有一个 Next.js 壳，带全屏按钮。</li>
+        </ul>
+
+        <h2>实现过程</h2>
+        <ul>
+          <li>先做网页版玩法原型，跑通核心循环后，再打包 Windows 成品；</li>
+          <li>素材单独整理：角色贴图、多张背景、应用图标放在素材目录，游戏成品里内嵌引用；</li>
+          <li>进度用 JSON 存档保存在本地，并在存档结构变化时做迁移处理。</li>
+        </ul>
+
+        <h2>遇到的困难</h2>
+        <ul>
+          <li><strong>存档兼容</strong>：存档字段改过一轮，旧存档需要迁移、自动补齐新字段，处理不好会让玩家丢进度（当时专门留了迁移前的备份）；</li>
+          <li><strong>关卡退出异常</strong>：修过一次「退出关卡」相关的逻辑异常，改动前同样留了代码备份，方便对比回归；</li>
+          <li><strong>打包体积</strong>：Windows 成品约 20MB，主要是素材和运行时，属于能接受但偏大的水平。</li>
+        </ul>
+
+        <h2>做了哪些优化</h2>
+        <ul>
+          <li>存档机制迁移过一次：旧存档自动补齐新增字段，避免读档失败；</li>
+          <li>修复了关卡退出的异常逻辑，保证退出/重开流程稳定；</li>
+          <li>提供「网页在线试玩 + Windows 成品下载」双入口，网页版支持全屏游玩。</li>
+        </ul>
+
+        <h2>更新记录</h2>
+        <ul class="detail-timeline">
+          <li>
+            <time>v1.0（当前）</time>
+            <strong>双版本发布</strong>
+            <p>网页在线试玩 + Windows 成品下载；单文件 HTML 承载全部游戏内容。</p>
+          </li>
+          <li>
+            <time>8 月迭代</time>
+            <strong>存档与稳定性修复</strong>
+            <p>存档字段迁移（旧档自动补齐）、关卡退出异常修复，改动前后均有备份对比。</p>
+          </li>
+          <li>
+            <time>更早版本</time>
+            <strong>网页原型</strong>
+            <p>先跑通「僵尸鱼出现 → 防守 → 计分」的核心循环。</p>
+          </li>
+        </ul>
+
+        <h2>试玩</h2>
+        <p>同人小游戏，题材设定来自海绵宝宝动画。打开即可在线试玩，也可以下载 Windows 成品离线玩。</p>
+        <p><a class="button primary" href="../game.html">在线试玩 ↗</a> <a class="button ghost" href="../downloads/spongebob-vs-zombie-fish-windows.zip" download>下载 Windows 版</a></p>
+      </div>
+      <footer class="article-footer"><a class="button secondary" href="../games.html">← 返回游戏页</a><a class="button primary" href="../game.html" target="_blank" rel="noopener">在线试玩 ↗</a></footer>
+    </article>
+  </main>
+  <div class="tools" aria-label="风景控制">
+    <button class="tool" id="sceneToggle" type="button" aria-pressed="false">只看背景</button>
+    <button class="tool" id="pauseToggle" type="button" aria-pressed="false">暂停动画</button>
+    <button class="tool" id="settingsToggle" type="button" aria-expanded="false" aria-controls="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="#0b283a"/><circle cx="15" cy="17" r="3" fill="#0b283a"/></svg>风景设置</button>
+  </div>
+  <aside class="settings" id="settings" aria-label="风景设置" hidden>
+    <div class="settings-head"><h2>风景设置</h2><button class="close" id="settingsClose" type="button" aria-label="关闭风景设置">×</button></div>
+    <label class="slider" for="density"><span class="slider-top"><span>环境粒子</span><output id="densityValue" for="density">65%</output></span><input id="density" type="range" min="0" max="100" value="65"></label>
+    <label class="slider" for="speed"><span class="slider-top"><span>动画速度</span><output id="speedValue" for="speed">35%</output></span><input id="speed" type="range" min="0" max="100" value="35"></label>
+    <label class="slider" for="mist"><span class="slider-top"><span>环境光</span><output id="mistValue" for="mist">40%</output></span><input id="mist" type="range" min="0" max="100" value="40"></label>
+    <label class="slider" for="glow"><span class="slider-top"><span>微光强度</span><output id="glowValue" for="glow">60%</output></span><input id="glow" type="range" min="0" max="100" value="60"></label>
+    <div class="settings-foot"><button type="button" id="nightToggle" aria-pressed="false">柔和背景</button><button type="button" id="reset">恢复默认</button></div>
+    <p class="settings-note" id="motionNote">每个作品有自己的像素场景；环境动画、微光和交互都在同一画面中绘制。</p>
+  </aside>
+  <script src="../js/work-scenes.js?v=20261002-v2"></script>
+  <script>window.WorkScenes?.setTheme('fish');</script>
+</body>
+</html>

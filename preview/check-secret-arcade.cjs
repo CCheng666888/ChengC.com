@@ -10,18 +10,22 @@ vm.createContext(context);
 let source=fs.readFileSync('js/secret-arcade.js','utf8');
 source=source.replace(/\}\)\(\);\s*$/,"globalThis.test={input,tick,reset,food,take,lock,spawn,hit,get game(){return game},get running(){return running},get finished(){return finished}};})();");
 vm.runInContext(source,context);const a=context.test;const eq=(actual,expected)=>assert.equal(JSON.stringify(actual),JSON.stringify(expected));
-snake.events.click();assert.equal(selectors.canvas.width,300);assert.equal(selectors.canvas.height,300);
-a.input('pause');a.game.food={x:3,y:2};a.tick();assert.equal(a.game.score,1);assert.equal(a.game.snake.length,3);
+snake.events.click();assert.equal(selectors.canvas.width,360);assert.equal(selectors.canvas.height,240);
+a.input('pause');a.game.food={x:11,y:10};a.tick();assert.equal(a.game.score,1);assert.equal(a.game.snake.length,5);
 a.input('left');assert.equal(a.game.queued,null,'snake cannot reverse');
 a.input('up');a.input('down');eq(a.game.queued,{x:0,y:-1});a.tick();eq(a.game.dir,{x:0,y:-1});
-a.game.snake=[{x:4,y:2},{x:3,y:2}];a.game.dir={x:1,y:0};a.game.food={x:0,y:0};a.tick();assert.equal(a.finished,true);assert.equal(timers.size,0);
-a.reset();a.input('pause');a.game.snake=[{x:1,y:1},{x:1,y:2},{x:2,y:2},{x:2,y:1}];a.game.dir={x:1,y:0};a.game.food={x:4,y:4};a.tick();assert.equal(a.finished,false,'vacated tail is a legal cell');
+// The old 5x5 edge is now traversable; every actual screen edge still collides.
+a.game.snake=[{x:4,y:10},{x:3,y:10}];a.game.dir={x:1,y:0};a.game.food={x:0,y:0};a.tick();assert.equal(a.finished,false);eq(a.game.snake[0],{x:5,y:10});
+for(const [head,dir] of [[{x:29,y:10},{x:1,y:0}],[{x:0,y:10},{x:-1,y:0}],[{x:10,y:0},{x:0,y:-1}],[{x:10,y:19},{x:0,y:1}]]){
+  a.reset();a.input('pause');a.game.snake=[head];a.game.dir=dir;a.game.food={x:5,y:5};a.tick();assert.equal(a.finished,true);assert.equal(timers.size,0);
+}
+a.reset();a.input('pause');a.game.snake=[{x:1,y:1},{x:1,y:2},{x:2,y:2},{x:2,y:1}];a.game.dir={x:1,y:0};a.game.food={x:29,y:19};a.tick();assert.equal(a.finished,false,'vacated tail is a legal cell');
 a.game.snake=[{x:1,y:1},{x:2,y:1},{x:2,y:2},{x:1,y:2}];a.game.dir={x:1,y:0};a.tick();assert.equal(a.finished,true,'body collision ends game');
-a.reset();a.input('pause');const cells=[];for(let y=0;y<5;y++)for(let x=0;x<5;x++)if(x!==4||y!==4)cells.push({x,y});a.game.snake=[{x:3,y:4},...cells.filter(p=>p.x!==3||p.y!==4)];a.game.dir={x:1,y:0};a.game.food={x:4,y:4};a.tick();assert.equal(a.game.snake.length,25);assert.match(selectors['[data-status]'].textContent,/你赢了/);
+a.reset();a.input('pause');const cells=[];for(let y=0;y<20;y++)for(let x=0;x<30;x++)if(x!==29||y!==19)cells.push({x,y});a.game.snake=[{x:28,y:19},...cells.filter(p=>p.x!==28||p.y!==19)];a.game.dir={x:1,y:0};a.food();eq(a.game.food,{x:29,y:19});a.tick();assert.equal(a.game.snake.length,600);assert.match(selectors['[data-status]'].textContent,/你赢了/);
 tetris.events.click();assert.equal(selectors.canvas.height,480);a.game.bag=[];const bag=Array.from({length:7},()=>JSON.stringify(a.take()));assert.equal(new Set(bag).size,7,'all seven pieces appear once per bag');
 a.input('pause');a.game.board[19]=Array(10).fill(1);a.game.board[19][4]=a.game.board[19][5]=0;a.game.piece={shape:[[2,2],[2,2]],x:4,y:18};a.lock();assert.equal(a.game.lines,1);assert.equal(a.game.score,100);assert.equal(a.game.board.length,20);assert.equal(a.game.board[19][4],2);
 a.game.piece={shape:[[1],[1],[1],[1]],x:9,y:4};a.input('up');assert.equal(a.hit(a.game.piece),false,'wall kick keeps rotation inside board');
 a.game.piece={shape:[[2,2],[2,2]],x:4,y:0};a.input('drop');assert.ok(a.game.score>100,'hard drop gives points');assert.equal(timers.size,1,'only one tick timer survives locking');
 a.input('pause');assert.equal(timers.size,0);a.input('pause');assert.equal(timers.size,1);dialog.close();assert.equal(timers.size,0,'closing stops the game');
 tetris.events.click();a.input('pause');a.game.board=Array.from({length:20},()=>Array(10).fill(1));a.spawn();assert.equal(a.finished,true);assert.equal(timers.size,0);
-console.log('PASS: 5x5 Snake growth/reversal/queued turns/walls/body/tail/win; Tetris bag/wall rotation/line clear/drop/game over; pause and dialog timer cleanup.');
+console.log('PASS: 30x20 classic Snake growth/reversal/queued turns/expanded playfield/four walls/body/tail/food/win; Tetris bag/wall rotation/line clear/drop/game over; pause and dialog timer cleanup.');

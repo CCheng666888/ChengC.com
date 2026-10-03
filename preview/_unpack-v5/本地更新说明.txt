@@ -1,0 +1,18 @@
+ChenC 本地 HTML 与样式更新包 · 2026-10-03
+
+解压到当前 ChengC.com 站点目录，保留目录层级并覆盖同名文件。
+这是覆盖更新包，不是独立运行的完整站点备份。
+
+包内包含全部当前公开 HTML、css/、js/ 与图片资源。
+个人空间：about.html；作品介绍入口：about.html#portfolio。
+首页：index.html；游戏：games.html；工具：tools.html。
+首页已增加本地图片纹理兼容；双击 index.html 时自动启用，无需浏览器安全设置修改。
+请覆盖 js/ 中新增的 scene-images.js、scene-day-data.js 和 scene-night-data.js。
+不要只复制一个 HTML，CSS、脚本和图片目录必须一同保留。
+products.html 保留为兼容跳转入口，旧分类锚点会接到个人页相应位置。
+
+原目录中的音乐、模型、下载包、工具数据及其他未修改的资源继续使用。
+未打包 Git、样例、历史预览、构建缓存或课表成员数据。
+本轮只更新本地文件，未部署线上网站。
+
+manifest.json 记录相对路径、文件大小与 SHA-256。

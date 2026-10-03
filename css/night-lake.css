@@ -1,8 +1,14 @@
 /* The generated night photograph keeps the original lake camera and shoreline. */
 .home-page:not(.collection-page) .landscape-art:after{content:'';position:absolute;inset:0;background:55% center/cover no-repeat;opacity:0;transition:opacity 1.7s}
 .home-page:not(.collection-page).night{--scene-brightness:1;--scene-saturation:1}
-.home-page:not(.collection-page).night .landscape-art:after{background-image:url('../assets/cangshan-erhai-night-v2.png');opacity:1}
+.home-page:not(.collection-page).night .landscape-art:after{background-image:url('../assets/cangshan-erhai-night.webp');opacity:1}
 .home-page:not(.collection-page).night .scene-shade{background:linear-gradient(180deg,#05102426,transparent 45%,#06132720)}
 .home-page:not(.collection-page).night:has(.site-header.scrolled) .scene-shade{background:linear-gradient(180deg,#06102455,#06102466)}
 @media(max-width:600px){.home-page:not(.collection-page) .landscape-art:after{background-position:60% center}}
 @media(prefers-reduced-motion:reduce){.home-page:not(.collection-page) .landscape-art:after{transition:none}}
+
+/* Keep the original camera framing; share this URL with the WebGL texture and preload. */
+@media(max-width:800px){
+  .home-page:not(.collection-page) .landscape-art{background-image:url('../assets/cangshan-erhai-mobile.webp')}
+  .home-page:not(.collection-page).night .landscape-art:after{background-image:url('../assets/cangshan-erhai-night-mobile.webp')}
+}

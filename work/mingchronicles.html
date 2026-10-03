@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>大明风华录 · 山河一统 · 设计开发历程 · ChenC</title>
+  <meta name="description" content="大明风华录 · 山河一统的设计目的、思路、实现过程、困难与更新记录：元末明初大战略原型，40 个战略辖区、120 条事件、靖难与秦篇剧本。">
+  <meta name="theme-color" content="#0b2431">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/showcase.css">
+  <link rel="stylesheet" href="../css/work-gallery-v2.css?v=20261002-v2">
+  <link rel="stylesheet" href="../css/work-detail.css?v=20261003-b">
+  <script src="../js/theme.js"></script>
+</head>
+<body class="article-page work-detail-page">
+  <div class="landscape work-landscape" aria-hidden="true"><canvas id="workScene"></canvas><div class="scene-shade"></div></div>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="作品详情导航">
+      <a class="brand" href="../index.html">ChenC</a>
+      <div class="article-nav"><a href="../games.html">← 返回游戏页</a><button id="articleTheme" class="theme-btn" type="button" aria-label="切换浅色主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3v2m0 14v2M3 12h2m14 0h2M6 6l1.5 1.5m9 9L18 18m0-12-1.5 1.5m-9 9L6 18M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5z"/></svg></button></div>
+    </nav>
+  </header>
+  <main class="article-shell">
+    <article>
+      <header class="article-header">
+        <a class="article-category" href="../games.html">游戏</a>
+        <h1>从元末明初开始，自己写一个历史大战略</h1>
+        <p class="article-lead">想做一款自己能玩的历史策略游戏：统筹钱粮、任命官员、经营辖区、调兵征战，不求商业游戏那么完整，重点是让想法真的跑起来。</p>
+        <div class="article-meta"><time>v2.1.0</time><span>网页 + Windows x64</span><span>历史策略</span></div>
+      </header>
+      <div class="article-body">
+
+        <h2>设计目的</h2>
+        <p>对历史策略类游戏一直感兴趣，但市面上的作品要么太复杂、要么不好改。就想自己做一个「元末明初」的大战略游戏：<strong>从 1360 年朱元璋开局，统筹钱粮、任命文武、经营辖区、调兵征战</strong>，把经营和打仗串成一个可玩的循环。不做完整的商业大战略，先把核心玩法做扎实。</p>
+
+        <h2>设计思路</h2>
+        <ul>
+          <li><strong>地图</strong>：基于 Natural Earth 地理轮廓，用 Lambert 等角圆锥投影；<strong>40 个战略辖区、12 组势力</strong>。疆界是参考历史势力分布做的游戏化复原，不是精确历史疆界；</li>
+          <li><strong>数值</strong>：按日推进经济、建设、研究、相邻行军、战争、停战与和平归附；<strong>没有「必须统一才结束」的固定胜利条件</strong>，失地后可以重整旗鼓；</li>
+          <li><strong>事件</strong>：<strong>120 条事件、360 个选项</strong>——24 条主线/分支事件，另有 12 类治理情境 × 8 个地区组成的 96 条地方变体；重大事件影响路线，地方事件提供 90–180 日增减益；</li>
+          <li><strong>官员</strong>：11 位文武官员、4 个任命槽位，任命实际影响赋税、粮食、建设、研究和作战；其中 26 位是参考史料的人物，24 个是明确标记的架空岗位；</li>
+          <li><strong>剧本</strong>：朱元璋开局之外，还有靖难之役（燕王朱棣视角，1399–1402 共 8 个史实战役节点）和「华夏」剧本库里的秦篇（从前 259 年嬴政出生到前 238 年加冠平乱）。</li>
+        </ul>
+
+        <h2>实现过程</h2>
+        <ul>
+          <li>用 Next.js + TypeScript 组织项目：规则在 <code>lib/campaign.ts</code>，历史数据在 <code>lib/history.ts</code>，地图在 <code>components/campaign-map.tsx</code>；</li>
+          <li>用脚本从 Natural Earth 源文件重建静态地图，地图支持全景、平移、势力图例与地图军令；</li>
+          <li>事件参考《明史》太祖本纪及人物列传，来源链接直接显示在游戏里；</li>
+          <li>构建单文件 HTML 网页版：脚本、样式、地图、事件数据和封面全部内嵌，双击即玩，不需要服务器或旁边的资源目录；</li>
+          <li>Windows x64 桌面版与网页版共用同一套战役逻辑。</li>
+        </ul>
+
+        <h2>遇到的困难</h2>
+        <ul>
+          <li><strong>历史与游戏的边界</strong>：地图疆界、事件日期是游戏化设计，和真实史料有差距，README 里也明确写了「不是精确的元末历史疆界 GIS，时间点、边界仍需史料地图进一步校准」——这个只能靠持续核对，不敢说做到了精确；</li>
+          <li><strong>事件系统的复杂度</strong>：120 条事件要管季节条件、局势条件、90 日间隔、同类限时效果替换、单项临时加成合计限 ±30%，规则多容易乱，主要靠测试兜底；</li>
+          <li><strong>存档兼容</strong>：版本迭代会改存档结构，要兼容格式 2 旧存档、自动补齐新增字段；0.1 存档分槽保留不能混读——改动存档格式时最怕把玩家进度弄丢。</li>
+        </ul>
+
+        <h2>做了哪些优化</h2>
+        <ul>
+          <li><strong>2.0.0</strong>：新增可直接双击运行的单文件 HTML 网页版，内嵌完整游戏，不需要服务器或资源目录；</li>
+          <li><strong>2.1.0（当前）</strong>：正式实现靖难之役、新增「华夏」剧本库与秦篇、周边国家娱乐征服（明确标注为架空）；达成山河一统、建国安民或诸邦和议才会永久解锁剧本库；</li>
+          <li><strong>细节修复</strong>：地图 SVG 标题多子节点导致服务端空 title 的问题、资源数字显式使用中文区域格式、势力配色调整（元廷玫紫、西南土司鲜绿、周边只读地理底图蓝灰虚线）；</li>
+          <li>构建流程：每次版本更新自动重建 release 目录的单文件 HTML，封面与版本号不再硬编码。</li>
+        </ul>
+
+        <h2>更新记录</h2>
+        <ul class="detail-timeline">
+          <li>
+            <time>v2.1.0（当前）</time>
+            <strong>剧本库、靖难与秦篇</strong>
+            <p>正式实现靖难之役（8 个史实战役节点、四类动态结局）；新增「华夏」剧本库和秦篇；周边国家娱乐征服（架空）；通关解锁剧本库。</p>
+          </li>
+          <li>
+            <time>v2.0.0</time>
+            <strong>单文件 HTML 网页版</strong>
+            <p>新增可直接双击运行的单文件网页版，与 Windows x64 桌面版共用战役逻辑。</p>
+          </li>
+          <li>
+            <time>v1.2.1 及更早</time>
+            <strong>原型迭代</strong>
+            <p>从 0.x 原型一路迭代：地图、辖区、事件、官员、存档等系统逐步成型。</p>
+          </li>
+        </ul>
+
+        <h2>试玩</h2>
+        <p>历史疆界与数值为游戏化设计，作品仍在持续完善。当前国际外交和非靖难剧本的跨国战争仍未实现，属于「可玩原型」，欢迎试玩后提意见。</p>
+        <p><a class="button primary" href="../play/mingchronicles.html">开始试玩 ↗</a> <a class="button ghost" href="https://chencgamedemo.netlify.app/downloads/mingchronicles-2.1.0-windows-x64.exe" download>下载 Windows 版</a></p>
+      </div>
+      <footer class="article-footer"><a class="button secondary" href="../games.html">← 返回游戏页</a><a class="button primary" href="../play/mingchronicles.html" target="_blank" rel="noopener">开始试玩 ↗</a></footer>
+    </article>
+  </main>
+  <div class="tools" aria-label="风景控制">
+    <button class="tool" id="sceneToggle" type="button" aria-pressed="false">只看背景</button>
+    <button class="tool" id="pauseToggle" type="button" aria-pressed="false">暂停动画</button>
+    <button class="tool" id="settingsToggle" type="button" aria-expanded="false" aria-controls="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="#0b283a"/><circle cx="15" cy="17" r="3" fill="#0b283a"/></svg>风景设置</button>
+  </div>
+  <aside class="settings" id="settings" aria-label="风景设置" hidden>
+    <div class="settings-head"><h2>风景设置</h2><button class="close" id="settingsClose" type="button" aria-label="关闭风景设置">×</button></div>
+    <label class="slider" for="density"><span class="slider-top"><span>环境粒子</span><output id="densityValue" for="density">65%</output></span><input id="density" type="range" min="0" max="100" value="65"></label>
+    <label class="slider" for="speed"><span class="slider-top"><span>动画速度</span><output id="speedValue" for="speed">35%</output></span><input id="speed" type="range" min="0" max="100" value="35"></label>
+    <label class="slider" for="mist"><span class="slider-top"><span>环境光</span><output id="mistValue" for="mist">40%</output></span><input id="mist" type="range" min="0" max="100" value="40"></label>
+    <label class="slider" for="glow"><span class="slider-top"><span>微光强度</span><output id="glowValue" for="glow">60%</output></span><input id="glow" type="range" min="0" max="100" value="60"></label>
+    <div class="settings-foot"><button type="button" id="nightToggle" aria-pressed="false">柔和背景</button><button type="button" id="reset">恢复默认</button></div>
+    <p class="settings-note" id="motionNote">每个作品有自己的像素场景；环境动画、微光和交互都在同一画面中绘制。</p>
+  </aside>
+  <script src="../js/work-scenes.js?v=20261002-v2"></script>
+  <script>window.WorkScenes?.setTheme('ming');</script>
+</body>
+</html>

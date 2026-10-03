@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>多书知识问答台 · 设计开发历程 · ChenC</title>
+  <meta name="description" content="多书知识问答台的设计目的、思路、实现过程、遇到的困难、优化内容与更新记录：6 本教材、326 条知识点，语义检索与引用溯源，模型随站托管。">
+  <meta name="theme-color" content="#0b2431">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/showcase.css">
+  <link rel="stylesheet" href="../css/work-gallery-v2.css?v=20261002-v2">
+  <link rel="stylesheet" href="../css/work-detail.css?v=20261003-b">
+  <script src="../js/theme.js"></script>
+</head>
+<body class="article-page work-detail-page">
+  <div class="landscape work-landscape" aria-hidden="true"><canvas id="workScene"></canvas><div class="scene-shade"></div></div>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="作品详情导航">
+      <a class="brand" href="../index.html">ChenC</a>
+      <div class="article-nav"><a href="../tools.html">← 返回工具页</a><button id="articleTheme" class="theme-btn" type="button" aria-label="切换浅色主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3v2m0 14v2M3 12h2m14 0h2M6 6l1.5 1.5m9 9L18 18m0-12-1.5 1.5m-9 9L6 18M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5z"/></svg></button></div>
+    </nav>
+  </header>
+  <main class="article-shell">
+    <article>
+      <header class="article-header">
+        <a class="article-category" href="../tools.html">工具</a>
+        <h1>把「翻书找知识点」的时间省下来</h1>
+        <p class="article-lead">复习最花时间的不是学，而是找。这个问答台把六本教材的 326 条知识点串起来，打开就能问，回答能指出处。</p>
+        <div class="article-meta"><time>v1.0 · 2026 年 9 月</time><span>学习工具</span><span>本站可体验</span></div>
+      </header>
+      <div class="article-body">
+
+        <h2>设计目的</h2>
+        <p>那阵子同时在啃密码学、Web 安全、数据库和计算机组成原理，再加上信息安全数学基础、数字电子技术，前后六本教材。知识点散落在不同书里，复习时最常卡住的不是「学不会」，而是「想不起这个知识点在哪本书、哪一章」——翻半天还不一定找对。</p>
+        <p>所以想做的其实很简单：<strong>把六本书的知识点整理成结构化数据，做一个打开就能问、回答能指出处的小工具</strong>，把翻书找知识点的时间省下来，花在真正需要理解的地方。</p>
+
+        <h2>设计思路</h2>
+        <p>数据先行：每条知识点按「书名 · 章节 · 标题」组织，带答案、公式、示例和关键词，一共 <strong>6 本书、326 条</strong>。检索分两级：</p>
+        <ul>
+          <li><strong>语义检索为主</strong>：问题先转成向量，和 326 条知识点逐一比对相似度，返回最相关的原文；</li>
+          <li><strong>词法匹配兜底</strong>：语义模型未就绪或加载失败时，自动降级为 BM25 词法匹配，保证任何时候都能查；</li>
+          <li><strong>引用溯源</strong>：每条回答都带「回答依据」卡片，列出命中的知识点（书名 · 章节 · 标题），点开能看原文——回答不是凭空生成的。</li>
+        </ul>
+        <p>数据、推理库（transformers.js + ONNX Runtime）和语义模型（bge-small-zh，约 23MB）<strong>全部随站点托管</strong>，不经过任何服务器，也不需要手动下载。</p>
+
+        <h2>实现过程</h2>
+        <ul>
+          <li>先把六本书按章节摘知识点，写成结构化 JSON——这一步最花时间，326 条是慢慢攒出来、逐条核对过的；</li>
+          <li>再用脚本为每条知识点生成向量索引，构建时注入页面；</li>
+          <li>前端做成问答界面：左侧选书范围（单本或全部）、输入框提问、结果带依据卡片，窗口旁还常驻一排「试一试」快捷问题；</li>
+          <li>最后用 pywebview 把同一个页面套进 Windows 桌面窗口，双击即用，适合不习惯开浏览器的场景。</li>
+        </ul>
+
+        <h2>遇到的困难</h2>
+        <ul>
+          <li><strong>模型放哪</strong>：语义模型约 23MB，最初版本依赖手动加载和外部下载，体验不稳定；</li>
+          <li><strong>模型没就绪时怎么办</strong>：语义引擎还没准备好时直接卡住体验很差，所以加了 BM25 兜底；</li>
+          <li><strong>数据整理枯燥且容易漏</strong>：326 条知识点逐条核对是主要工作量，靠章节为序分批整理，才没乱。</li>
+        </ul>
+
+        <h2>做了哪些优化</h2>
+        <ul>
+          <li>从「关键词匹配」升级为<strong>语义检索 + 引用溯源</strong>，回答质量和可信度提升了一个台阶；</li>
+          <li><strong>2026-09-23 更新</strong>：语义引擎改为随站托管，模型文件直接放在本站，页面一打开就自动准备，去掉手动加载和外部下载依赖，任何网络环境下打开即用；</li>
+          <li>增加「试一试」快捷问题，不知道问什么时点一个就能开练。</li>
+        </ul>
+
+        <h2>更新记录</h2>
+        <ul class="detail-timeline">
+          <li>
+            <time>2026-09-23</time>
+            <strong>语义引擎随站托管</strong>
+            <p>模型文件直接放本站，打开自动准备（约 23MB），彻底去掉手动加载和外部下载依赖。</p>
+          </li>
+          <li>
+            <time>2026-09（v1.0，当前）</time>
+            <strong>语义检索 + 引用溯源版</strong>
+            <p>从关键词匹配升级为语义检索，回答带出处；数据、推理库、模型全部随站托管；同时提供 Windows 桌面版。</p>
+          </li>
+          <li>
+            <time>更早版本</time>
+            <strong>关键词匹配原型</strong>
+            <p>先跑通「整理知识点 + 可检索」的基本流程，再逐步升级检索方式。</p>
+          </li>
+        </ul>
+
+        <h2>在线体验</h2>
+        <p>直接放到了本站，和整个站点的暗色风格保持一致。首次使用需加载语义模型（约 23MB，浏览器缓存后秒开）；模型未就绪时会自动用词法匹配兜底。</p>
+        <p><a class="button primary" href="../multi-book-qa/index.html">打开多书知识问答台 ↗</a></p>
+      </div>
+      <footer class="article-footer"><a class="button secondary" href="../tools.html">← 返回工具页</a><a class="button primary" href="../multi-book-qa/index.html" target="_blank" rel="noopener">打开问答台 ↗</a></footer>
+    </article>
+  </main>
+  <div class="tools" aria-label="风景控制">
+    <button class="tool" id="sceneToggle" type="button" aria-pressed="false">只看背景</button>
+    <button class="tool" id="pauseToggle" type="button" aria-pressed="false">暂停动画</button>
+    <button class="tool" id="settingsToggle" type="button" aria-expanded="false" aria-controls="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="#0b283a"/><circle cx="15" cy="17" r="3" fill="#0b283a"/></svg>风景设置</button>
+  </div>
+  <aside class="settings" id="settings" aria-label="风景设置" hidden>
+    <div class="settings-head"><h2>风景设置</h2><button class="close" id="settingsClose" type="button" aria-label="关闭风景设置">×</button></div>
+    <label class="slider" for="density"><span class="slider-top"><span>环境粒子</span><output id="densityValue" for="density">65%</output></span><input id="density" type="range" min="0" max="100" value="65"></label>
+    <label class="slider" for="speed"><span class="slider-top"><span>动画速度</span><output id="speedValue" for="speed">35%</output></span><input id="speed" type="range" min="0" max="100" value="35"></label>
+    <label class="slider" for="mist"><span class="slider-top"><span>环境光</span><output id="mistValue" for="mist">40%</output></span><input id="mist" type="range" min="0" max="100" value="40"></label>
+    <label class="slider" for="glow"><span class="slider-top"><span>微光强度</span><output id="glowValue" for="glow">60%</output></span><input id="glow" type="range" min="0" max="100" value="60"></label>
+    <div class="settings-foot"><button type="button" id="nightToggle" aria-pressed="false">柔和背景</button><button type="button" id="reset">恢复默认</button></div>
+    <p class="settings-note" id="motionNote">每个作品有自己的像素场景；环境动画、微光和交互都在同一画面中绘制。</p>
+  </aside>
+  <script src="../js/work-scenes.js?v=20261002-v2"></script>
+  <script>window.WorkScenes?.setTheme('qa');</script>
+</body>
+</html>

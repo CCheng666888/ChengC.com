@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>海底塔防 · 设计开发历程 · ChenC</title>
+  <meta name="description" content="海底塔防的设计目的、思路与过程：海绵宝宝大战僵尸鱼的独立在线塔防项目，在比奇堡布置伙伴，抵御一波波僵尸鱼。">
+  <meta name="theme-color" content="#0b2431">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/showcase.css">
+  <link rel="stylesheet" href="../css/work-gallery-v2.css?v=20261002-v2">
+  <link rel="stylesheet" href="../css/work-detail.css?v=20261003-b">
+  <script src="../js/theme.js"></script>
+</head>
+<body class="article-page work-detail-page">
+  <div class="landscape work-landscape" aria-hidden="true"><canvas id="workScene"></canvas><div class="scene-shade"></div></div>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="作品详情导航">
+      <a class="brand" href="../index.html">ChenC</a>
+      <div class="article-nav"><a href="../games.html">← 返回游戏页</a><button id="articleTheme" class="theme-btn" type="button" aria-label="切换浅色主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3v2m0 14v2M3 12h2m14 0h2M6 6l1.5 1.5m9 9L18 18m0-12-1.5 1.5m-9 9L6 18M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5z"/></svg></button></div>
+    </nav>
+  </header>
+  <main class="article-shell">
+    <article>
+      <header class="article-header">
+        <a class="article-category" href="../games.html">游戏</a>
+        <h1>把「抵御僵尸鱼」做成塔防试试</h1>
+        <p class="article-lead">这是《海绵宝宝大战僵尸鱼》的独立在线塔防项目：在比奇堡布置伙伴，抵御一波波僵尸鱼，看看塔防玩法能不能成立。</p>
+        <div class="article-meta"><span>独立在线项目</span><span>游戏 · 塔防 · 同人</span><span>公开在线体验</span></div>
+      </header>
+      <div class="article-body">
+
+        <h2>设计目的</h2>
+        <p>《海绵宝宝大战僵尸鱼》的玩法是「单场防守、挑战分数」。做完之后想再往前走一步：<strong>把「抵御僵尸鱼」做成多波次的塔防</strong>——伙伴不是临时上场，而是提前布置、守住一波又一波敌人。这是一个玩法延伸实验，先验证塔防的核心循环能不能跑通。</p>
+
+        <h2>设计思路</h2>
+        <ul>
+          <li><strong>海底主题塔防</strong>：场景沿用比奇堡的海底设定，敌人还是僵尸鱼，玩法换成「布置伙伴 + 守住多波」；</li>
+          <li><strong>独立在线项目</strong>：作为独立项目开发并部署在线，公开体验入口放在外站，本站做介绍与入口。</li>
+        </ul>
+
+        <h2>实现过程</h2>
+        <ul>
+          <li>以独立项目的方式开发：先搭塔防的核心循环（波次生成、伙伴布置、敌人推进、结算）；</li>
+          <li>玩法上沿用了本站海绵宝宝小游戏的题材设定，保持同一套世界观；</li>
+          <li>验证可玩后部署上线，公开在线体验。</li>
+        </ul>
+
+        <h2>遇到的困难</h2>
+        <ul>
+          <li><strong>塔防平衡</strong>：伙伴强度、波次节奏、经济节奏要反复调，调不好要么太简单要么守不住，这个项目的主要精力花在前期的玩法验证和平衡上。</li>
+        </ul>
+
+        <h2>做了哪些优化</h2>
+        <p>迭代主要集中在前期的玩法验证阶段：波次节奏、伙伴布置的手感和强度做过调整。公开的版本记录没有完整保留，这里就不编造具体的版本号和日期了。</p>
+
+        <h2>更新记录</h2>
+        <ul class="detail-timeline">
+          <li>
+            <time>当前</time>
+            <strong>在线公开体验版</strong>
+            <p>独立部署上线，公开在线体验；玩法为「布置伙伴、抵御多波僵尸鱼」的海底主题塔防。</p>
+          </li>
+        </ul>
+
+        <h2>体验</h2>
+        <p>同人塔防作品，在独立游戏网站打开。玩法还在迭代中，欢迎体验后反馈。</p>
+        <p><a class="button primary" href="https://spongebob-zombie-fish-defense.q3279619782.chatgpt.site" target="_blank" rel="noopener noreferrer">体验海底塔防 ↗</a></p>
+      </div>
+      <footer class="article-footer"><a class="button secondary" href="../games.html">← 返回游戏页</a><a class="button primary" href="https://spongebob-zombie-fish-defense.q3279619782.chatgpt.site" target="_blank" rel="noopener noreferrer">体验海底塔防 ↗</a></footer>
+    </article>
+  </main>
+  <div class="tools" aria-label="风景控制">
+    <button class="tool" id="sceneToggle" type="button" aria-pressed="false">只看背景</button>
+    <button class="tool" id="pauseToggle" type="button" aria-pressed="false">暂停动画</button>
+    <button class="tool" id="settingsToggle" type="button" aria-expanded="false" aria-controls="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="#0b283a"/><circle cx="15" cy="17" r="3" fill="#0b283a"/></svg>风景设置</button>
+  </div>
+  <aside class="settings" id="settings" aria-label="风景设置" hidden>
+    <div class="settings-head"><h2>风景设置</h2><button class="close" id="settingsClose" type="button" aria-label="关闭风景设置">×</button></div>
+    <label class="slider" for="density"><span class="slider-top"><span>环境粒子</span><output id="densityValue" for="density">65%</output></span><input id="density" type="range" min="0" max="100" value="65"></label>
+    <label class="slider" for="speed"><span class="slider-top"><span>动画速度</span><output id="speedValue" for="speed">35%</output></span><input id="speed" type="range" min="0" max="100" value="35"></label>
+    <label class="slider" for="mist"><span class="slider-top"><span>环境光</span><output id="mistValue" for="mist">40%</output></span><input id="mist" type="range" min="0" max="100" value="40"></label>
+    <label class="slider" for="glow"><span class="slider-top"><span>微光强度</span><output id="glowValue" for="glow">60%</output></span><input id="glow" type="range" min="0" max="100" value="60"></label>
+    <div class="settings-foot"><button type="button" id="nightToggle" aria-pressed="false">柔和背景</button><button type="button" id="reset">恢复默认</button></div>
+    <p class="settings-note" id="motionNote">每个作品有自己的像素场景；环境动画、微光和交互都在同一画面中绘制。</p>
+  </aside>
+  <script src="../js/work-scenes.js?v=20261002-v2"></script>
+  <script>window.WorkScenes?.setTheme('defense');</script>
+</body>
+</html>

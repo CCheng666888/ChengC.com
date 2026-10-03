@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "report": [
+    "Initial page keeps seven articles; search index and character media load on demand.",
+    "Search is in the top navigation. Sword reaches the text caret for typing, Home/arrows, middle insertion and horizontally scrolled text; character does not follow mouse hovering. Full-text and keyboard navigation pass.",
+    "No-result, clear, categories, submit, safe query rendering, Escape, blur and video cleanup pass.",
+    "IME composition does not prematurely filter or navigate.",
+    "320/390/768 px touch layouts, focused suggestions, tap navigation, menu and reduced-height viewport pass without horizontal overflow.",
+    "801/960 px desktop navigation keeps search, links and controls on the same row without overlap.",
+    "Light theme, reduced motion, file:// full-text search, failed-index fallback and retry, local records, blocked storage and seven no-JavaScript article links pass."
+  ],
+  "pageErrors": []
+}

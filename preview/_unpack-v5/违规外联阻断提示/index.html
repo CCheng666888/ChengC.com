@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>计算机安全提示</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230163ee'/%3E%3Cpath d='M32 13a10 10 0 0 0-10 10v7h-3.5a3 3 0 0 0-3 3v18a3 3 0 0 0 3 3h27a3 3 0 0 0 3-3V33a3 3 0 0 0-3-3h-3.5v-7a10 10 0 0 0-10-10zm-5.5 17v-7a5.5 5.5 0 0 1 11 0v7z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei",
+                 "PingFang SC", "Noto Sans SC", sans-serif;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* 蓝色区域铺满整个视口，平铺无边距，与截图效果一致 */
+  .alert {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding: 4.5vh 5vw 3.5vh;
+    background: url("assets/alert-bg-v3.png") no-repeat center center / 100% 100%;
+  }
+
+  .clock {
+    align-self: center;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 600;
+    letter-spacing: .08em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1.6vh;
+    min-height: 0;
+  }
+
+  .body h1 {
+    font-size: clamp(1.5rem, 5vw, 3.4rem);
+    font-weight: 700;
+    letter-spacing: .04em;
+  }
+
+  .body p {
+    font-size: clamp(1rem, 2.6vw, 1.7rem);
+    color: rgba(255, 255, 255, .92);
+    letter-spacing: .06em;
+  }
+
+  .orgs {
+    align-self: flex-end;
+    text-align: right;
+    font-size: clamp(.8rem, 1.8vw, 1.05rem);
+    line-height: 1.6;
+    letter-spacing: .06em;
+    color: rgba(255, 255, 255, .88);
+  }
+</style>
+</head>
+<body>
+  <section class="alert" aria-label="计算机安全提示">
+    <div class="clock" id="clock">--:--</div>
+    <div class="body">
+      <h1>此计算机因违规外联已被阻断</h1>
+      <p>请等待安全部门与你联系</p>
+    </div>
+    <footer class="orgs">
+      <div>中央保密委员会办公室</div>
+      <div>中央密码工作领导小组办公室</div>
+    </footer>
+  </section>
+
+  <script>
+    function pad(n) { return n < 10 ? "0" + n : String(n); }
+    function renderClock() {
+      var now = new Date();
+      document.getElementById("clock").textContent =
+        pad(now.getHours()) + ":" + pad(now.getMinutes());
+    }
+    renderClock();
+    setInterval(renderClock, 1000);
+  </script>
+</body>
+</html>

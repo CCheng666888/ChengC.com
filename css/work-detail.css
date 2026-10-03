@@ -1,0 +1,36 @@
+/* 作品详情页：动态像素场景背景 + 玻璃文章内容 */
+.work-detail-page{background:var(--bg)}
+.work-detail-page .site-header{position:fixed;inset:0 0 auto;z-index:1000}
+.work-detail-page .landscape.work-landscape{position:fixed;inset:0;z-index:0}
+.work-detail-page .article-shell{position:relative;z-index:1;margin:118px auto 60px;padding:40px 42px}
+.work-detail-page .article-header{margin-bottom:38px}
+.work-detail-page .article-header h1{font-size:clamp(30px,5vw,48px);line-height:1.3;letter-spacing:-.035em;font-weight:600;margin:18px 0 14px;background:none;color:var(--text)}
+.work-detail-page .article-lead{font-size:clamp(15px,2.2vw,18px);line-height:1.9}
+.work-detail-page .article-meta{justify-content:center;gap:18px;flex-wrap:wrap}
+/* 版本时间线 */
+.detail-timeline{list-style:none;margin:0 0 8px;padding:0}
+.detail-timeline li{position:relative;padding:0 0 30px 24px;border-left:1px solid var(--border);margin-left:5px}
+.detail-timeline li:last-child{padding-bottom:2px}
+.detail-timeline li:before{content:'';position:absolute;left:-5px;top:8px;width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px #ffffff12}
+.detail-timeline time{display:block;font-size:11px;letter-spacing:.06em;color:var(--accent)}
+.detail-timeline strong{display:block;color:var(--text);font-size:15px;font-weight:600;margin-top:4px}
+.detail-timeline p{font-size:14px;line-height:1.9;color:var(--muted);margin-top:5px}
+.detail-timeline p:last-child{margin-bottom:0}
+/* 敬请期待页：居中的柔和说明 */
+.coming-detail .article-shell{text-align:center}
+.coming-detail .article-body{text-align:left}
+/* 场景控制按钮的生效规则（与轮播页一致）：
+   只看背景：隐藏玻璃文章，仅保留动态场景与操作条 */
+.work-detail-page.scene-only .article-shell{visibility:hidden}
+.work-detail-page.scene-only{overflow:hidden}
+/* 柔和背景：与轮播页相同的画布亮度/饱和度调整 */
+.work-detail-page.scene-soft .work-landscape canvas{filter:brightness(.75) saturate(.85)}
+@media(max-width:800px){
+  .work-detail-page .article-shell{padding:32px 26px;margin-top:98px;margin-bottom:44px}
+}
+@media(max-width:480px){
+  .work-detail-page .article-shell{padding:28px 22px;margin-top:88px;margin-bottom:36px;border-radius:12px}
+  .work-detail-page .article-header h1{font-size:31px}
+  .detail-timeline li{padding-left:20px}
+}
+@media(prefers-reduced-motion:reduce){.work-detail-page .landscape canvas{animation:none}}

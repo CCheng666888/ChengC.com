@@ -1,0 +1,13 @@
+/* 作品卡片可点击跳转：封面角标提示 + 当前卡片点击态 */
+.showcase-page .work-card.is-current{cursor:pointer}
+.showcase-page .work-card.is-current .work-art{cursor:pointer}
+.work-detail-chip{position:absolute;top:14px;right:14px;z-index:4;display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:99px;background:rgba(7,14,22,.7);border:1px solid #ffffff42;color:#f4f7ee;font-size:10px;line-height:1;letter-spacing:.14em;backdrop-filter:blur(8px);pointer-events:none;opacity:0;transform:translateY(-4px);transition:opacity .3s,transform .3s,background .3s}
+.work-detail-chip .chip-arrow{font-size:11px;transition:transform .25s}
+.showcase-page .work-card.is-current .work-detail-chip{opacity:1;transform:none}
+.showcase-page .work-card.is-current .work-art:hover .work-detail-chip{background:rgba(236,240,230,.2)}
+.showcase-page .work-card.is-current .work-art:hover .work-detail-chip .chip-arrow{transform:translate(2px,-2px)}
+.showcase-page .coming-card .work-detail-chip{top:18px;right:18px;background:rgba(24,48,66,.55);border-color:#ffffff5e;letter-spacing:.12em}
+.showcase-page .coming-card.is-current .work-detail-chip{opacity:1;transform:none}
+@media(max-width:800px){
+  .work-detail-chip{top:11px;right:11px;padding:6px 11px;font-size:9px}
+}

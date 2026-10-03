@@ -8,23 +8,26 @@
   const pauseButton = dialog.querySelector('[data-action="pause"]');
   const nextCanvas = dialog.querySelector('[data-next]'), nextCtx = nextCanvas.getContext('2d');
   let mode, game, timer, running = false, finished = false, best = 0;
+  const snakeGrid = {cols:30,rows:20,cell:12,interval:180};
+  const snakeLCD = {background:'#aabc82',ink:'#263820'};
   const shapes = [ [[1,1,1,1]], [[2,2],[2,2]], [[0,3,0],[3,3,3]], [[0,4,4],[4,4,0]], [[5,5,0],[0,5,5]], [[6,0,0],[6,6,6]], [[0,0,7],[7,7,7]] ];
   const colors = ['#101614','#75e9d1','#eac876','#b69be9','#98ca9b','#e17c88','#87a5e3','#dca66b'];
-  function saveBest() { if (game.score > best) { best = game.score; try { localStorage.setItem('chenc-secret-' + mode, best); } catch {} } }
+  function bestKey() { return 'chenc-secret-' + (mode === 'snake' ? 'snake-classic' : mode); }
+  function saveBest() { if (game.score > best) { best = game.score; try { localStorage.setItem(bestKey(), best); } catch {} } }
   function stop() { clearInterval(timer); timer = null; }
   function message(text) { status.textContent = text; }
-  function schedule() { stop(); if (running) timer = setInterval(tick, mode === 'snake' ? 420 : Math.max(110, 650 - game.lines * 16)); }
+  function schedule() { stop(); if (running) timer = setInterval(tick, mode === 'snake' ? snakeGrid.interval : Math.max(110, 650 - game.lines * 16)); }
   function end(text) { running = false; finished = true; stop(); saveBest(); message(text); pauseButton.disabled = true; draw(); }
   function reset() {
     stop(); running = false; finished = false;
-    if (mode === 'snake') game = {snake:[{x:2,y:2},{x:1,y:2}],dir:{x:1,y:0},queued:null,food:null,score:0};
+    if (mode === 'snake') game = {snake:[{x:10,y:10},{x:9,y:10},{x:8,y:10},{x:7,y:10}],dir:{x:1,y:0},queued:null,food:null,score:0};
     else game = {board:Array.from({length:20},()=>Array(10).fill(0)),bag:[],piece:null,next:null,score:0,lines:0};
     if (mode === 'snake') food(); else { game.next = take(); spawn(); }
-    pauseButton.disabled = false; pauseButton.textContent = '开始'; message(mode === 'snake' ? '5 × 5 的小世界。方向键 / WASD 移动。' : '方向键移动，↑ 旋转，空格落到底。'); draw();
+    pauseButton.disabled = false; pauseButton.textContent = '开始'; message(mode === 'snake' ? '吃点心，慢慢长大。方向键 / WASD 或下方按键移动。' : '方向键移动，↑ 旋转，空格落到底。'); draw();
   }
   function food() {
     const free = [];
-    for(let y=0;y<5;y++) for(let x=0;x<5;x++) if(!game.snake.some(p=>p.x===x&&p.y===y)) free.push({x,y});
+    for(let y=0;y<snakeGrid.rows;y++) for(let x=0;x<snakeGrid.cols;x++) if(!game.snake.some(p=>p.x===x&&p.y===y)) free.push({x,y});
     game.food = free.length ? free[Math.floor(Math.random()*free.length)] : null;
   }
   function take() {
@@ -48,8 +51,8 @@
       const head={x:game.snake[0].x+game.dir.x,y:game.snake[0].y+game.dir.y};
       const eat=head.x===game.food.x&&head.y===game.food.y;
       const body=eat?game.snake:game.snake.slice(0,-1);
-      if(head.x<0||head.y<0||head.x>=5||head.y>=5||body.some(p=>p.x===head.x&&p.y===head.y)) return end('撞到了！再来一局？');
-      game.snake.unshift(head); if(!eat) game.snake.pop(); else { game.score++; saveBest(); food(); if(!game.food) return end('25 格全部点亮，你赢了！'); }
+      if(head.x<0||head.y<0||head.x>=snakeGrid.cols||head.y>=snakeGrid.rows||body.some(p=>p.x===head.x&&p.y===head.y)) return end('撞到了！再来一局？');
+      game.snake.unshift(head); if(!eat) game.snake.pop(); else { game.score++; saveBest(); food(); if(!game.food) return end('整个屏幕都填满了，你赢了！'); }
     } else {
       game.piece.y++; if(hit(game.piece)) { game.piece.y--; lock(); }
     }
@@ -76,24 +79,31 @@
   function block(c,x,y,size,color) { c.fillStyle=color; c.fillRect(x*size+2,y*size+2,size-4,size-4); c.fillStyle='#ffffff22'; c.fillRect(x*size+4,y*size+4,size-8,3); }
   function draw() {
     scoreEl.textContent=game.score; bestEl.textContent=best;
-    ctx.fillStyle=colors[0]; ctx.fillRect(0,0,canvas.width,canvas.height);
-    const size=mode==='snake'?60:24, cols=mode==='snake'?5:10, rows=mode==='snake'?5:20;
-    ctx.strokeStyle='#ffffff0b';ctx.lineWidth=1;
-    for(let x=0;x<=cols;x++){ctx.beginPath();ctx.moveTo(x*size,0);ctx.lineTo(x*size,rows*size);ctx.stroke();}
-    for(let y=0;y<=rows;y++){ctx.beginPath();ctx.moveTo(0,y*size);ctx.lineTo(cols*size,y*size);ctx.stroke();}
-    if(mode==='snake') { game.snake.forEach((p,i)=>block(ctx,p.x,p.y,size,i?'#7da963':'#b3dd8d')); if(game.food) block(ctx,game.food.x,game.food.y,size,'#e57669'); }
+    ctx.fillStyle=mode==='snake'?snakeLCD.background:colors[0]; ctx.fillRect(0,0,canvas.width,canvas.height);
+    const size=mode==='snake'?snakeGrid.cell:24;
+    if(mode==='snake') {
+      ctx.fillStyle=snakeLCD.ink;
+      game.snake.forEach(p=>ctx.fillRect(p.x*size+1,p.y*size+1,size-1,size-1));
+      if(game.food) {
+        const x=game.food.x*size,y=game.food.y*size;
+        ctx.fillRect(x+4,y+2,4,8); ctx.fillRect(x+2,y+4,8,4);
+      }
+    }
     else {
+      ctx.strokeStyle='#ffffff0b';ctx.lineWidth=1;
+      for(let x=0;x<=10;x++){ctx.beginPath();ctx.moveTo(x*size,0);ctx.lineTo(x*size,20*size);ctx.stroke();}
+      for(let y=0;y<=20;y++){ctx.beginPath();ctx.moveTo(0,y*size);ctx.lineTo(10*size,y*size);ctx.stroke();}
       game.board.forEach((row,y)=>row.forEach((v,x)=>{if(v)block(ctx,x,y,size,colors[v]);}));
       const p=game.piece;
       p.shape.forEach((row,y)=>row.forEach((v,x)=>{if(v)block(ctx,p.x+x,p.y+y,size,colors[v]);}));
       nextCtx.clearRect(0,0,96,96);game.next.forEach((row,y)=>row.forEach((v,x)=>{if(v)block(nextCtx,x,y,22,colors[v]);}));
     }
-    canvas.setAttribute('aria-label',(mode==='snake'?'五乘五贪吃蛇':'俄罗斯方块')+'，得分 '+game.score);
+    canvas.setAttribute('aria-label',(mode==='snake'?'经典贪吃蛇':'俄罗斯方块')+'，得分 '+game.score);
   }
   document.querySelectorAll('[data-secret-game]').forEach(button=>button.addEventListener('click',()=>{
-    mode=button.dataset.secretGame; dialog.dataset.game=mode; title.textContent=mode==='snake'?'像素贪吃蛇':'俄罗斯方块';
-    canvas.width=mode==='snake'?300:240;canvas.height=mode==='snake'?300:480;
-    try { best=Number(localStorage.getItem('chenc-secret-'+mode))||0; } catch { best=0; }
+    mode=button.dataset.secretGame; dialog.dataset.game=mode; title.textContent=mode==='snake'?'经典贪吃蛇':'俄罗斯方块';
+    canvas.width=mode==='snake'?snakeGrid.cols*snakeGrid.cell:240;canvas.height=mode==='snake'?snakeGrid.rows*snakeGrid.cell:480;
+    try { best=Number(localStorage.getItem(bestKey()))||0; } catch { best=0; }
     reset();dialog.showModal();document.body.classList.add('arcade-open');
   }));
   dialog.querySelector('[data-close]').addEventListener('click',()=>dialog.close());

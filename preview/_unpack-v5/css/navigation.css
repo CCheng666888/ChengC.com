@@ -1,0 +1,45 @@
+/* Shared button feedback and page transitions. Native links remain usable without JS. */
+.hero-actions .portal-link{position:relative;overflow:hidden;isolation:isolate;gap:10px;min-width:138px;transition:background .2s,box-shadow .2s,transform .2s}
+.portal-link svg{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.hero-actions .portal-link:hover{transform:translateY(-3px);box-shadow:0 8px 24px #071b3426}
+.hero-actions .portal-link:active{transform:translateY(0) scale(.97)}
+.link-ripple{position:absolute;left:var(--ripple-x);top:var(--ripple-y);width:20px;height:20px;margin:-10px;border-radius:50%;background:#fff7;pointer-events:none;z-index:-1;animation:link-ripple .65s ease-out forwards}
+.primary .link-ripple{background:#57767f33}
+@keyframes link-ripple{to{transform:scale(22);opacity:0}}
+.page-transition{position:fixed;inset:0;z-index:200;pointer-events:none;opacity:0;background:#071c3533;backdrop-filter:blur(0);transition:opacity .24s,backdrop-filter .24s}
+.page-leaving .page-transition{opacity:1;backdrop-filter:blur(7px)}
+.home-page .hero-content,.home-page main>.section,.collection-footer{transition:opacity .24s,transform .24s}
+.page-leaving .hero-content,.page-leaving main>.section,.page-leaving .collection-footer{opacity:0;transform:translateY(-10px)}
+.js .collection-page .hero-content{animation:collection-arrive .65s cubic-bezier(.2,.7,.2,1) both}
+@keyframes collection-arrive{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+/* Tool and game pages share the mountain-and-lake scene; content is intentionally empty. */
+.collection-page .hero-content{width:min(660px,calc(100% - 40px));padding:116px 0 132px}
+.collection-emblem{display:grid;place-items:center;width:68px;height:68px;margin:0 auto 24px;color:#fff;border:1px solid #ffffff6b;border-radius:21px;background:#ffffff0c;backdrop-filter:blur(8px)}
+.collection-emblem svg{width:32px;height:32px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.collection-page .hero h1{font-size:64px;letter-spacing:-.035em;margin:18px 0 20px}
+.collection-page .hero-copy{max-width:430px;font-size:16px}
+.collection-content{width:min(370px,100%);margin:30px auto 0;padding:24px 0 0;border-top:1px solid #ffffff42;color:#f3f5ed;line-height:1.8}
+.collection-status{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.08em}
+.collection-status:before{content:'';width:5px;height:5px;background:#edf1dc;border-radius:50%;box-shadow:0 0 12px #fff7}
+.collection-content p{font-size:13px;margin-top:10px;color:#eef2eb;text-shadow:0 1px 7px #071b3480}
+.collection-page .hero-actions{margin-top:32px}
+.collection-page .nav-links a[aria-current=page]{color:#fff;border-bottom-color:#ffffff9c}
+.collection-footer{position:absolute;left:24px;bottom:26px;color:#e8f0e8;z-index:2;font-size:11px;text-shadow:0 1px 8px #071b3499}
+.collection-page .scene-caption{display:none}.scene-only .collection-footer{display:none}
+@media(max-width:480px){
+  .home-page .hero-actions{flex-wrap:nowrap;gap:8px;width:100%;margin-inline:auto}
+  .home-page .hero-actions .portal-link{min-width:0;flex:1;padding:11px 10px;font-size:12px;gap:6px;white-space:nowrap}
+  .home-page .hero-actions .portal-link svg{width:14px;height:14px}
+  .collection-page .hero-content{padding:114px 0 148px}
+  .collection-page .hero h1{font-size:52px}
+  .collection-page .hero-actions{max-width:300px}
+  .collection-page .hero-copy{font-size:15px}
+  .collection-emblem{width:62px;height:62px;margin-bottom:22px;border-radius:19px}
+  .collection-footer{left:20px;bottom:74px;font-size:10px}
+}
+@media(max-width:360px){.home-page .hero-actions .portal-link{font-size:11px;padding-inline:8px;gap:5px}}
+@media(prefers-reduced-motion:reduce){
+  .link-ripple,.js .collection-page .hero-content{animation:none}
+  .page-transition{display:none}
+  .hero-actions .portal-link,.home-page .hero-content,.home-page main>.section,.collection-footer{transition:none}
+}

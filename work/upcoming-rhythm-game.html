@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>下一个游戏 · 音游（全力更新中）· ChenC</title>
+  <meta name="description" content="ChenC 的下一款游戏方向：音游。还在全力更新中：节拍判定、按键映射、谱面编辑都在打磨，具体玩法成型后会第一时间放出。">
+  <meta name="theme-color" content="#0b2431">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/showcase.css">
+  <link rel="stylesheet" href="../css/work-gallery-v2.css?v=20261002-v2">
+  <link rel="stylesheet" href="../css/work-detail.css?v=20261003-b">
+  <script src="../js/theme.js"></script>
+</head>
+<body class="article-page work-detail-page coming-detail">
+  <div class="landscape work-landscape" aria-hidden="true"><canvas id="workScene"></canvas><div class="scene-shade"></div></div>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="作品详情导航">
+      <a class="brand" href="../index.html">ChenC</a>
+      <div class="article-nav"><a href="../games.html">← 返回游戏页</a><button id="articleTheme" class="theme-btn" type="button" aria-label="切换浅色主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3v2m0 14v2M3 12h2m14 0h2M6 6l1.5 1.5m9 9L18 18m0-12-1.5 1.5m-9 9L6 18M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5z"/></svg></button></div>
+    </nav>
+  </header>
+  <main class="article-shell">
+    <article>
+      <header class="article-header">
+        <a class="article-category" href="../games.html">游戏</a>
+        <h1>下一个游戏，是一把音游</h1>
+        <p class="article-lead">前面几款游戏是策略、运动和防守，这次想做点不一样的：节奏类的音游。目前全力更新中，先占个位告诉大家方向。</p>
+        <div class="article-meta"><time>COMING SOON</time><span>音游（暂定方向）</span><span>全力更新中</span></div>
+      </header>
+      <div class="article-body">
+
+        <h2>设计方向</h2>
+        <p>初步想做一款<strong>下落式音游的简化版</strong>：音符沿判定线落下，在节拍点按下对应按键，按判定的精度计分。核心就三个问题——<strong>节拍判定、按键映射、谱面怎么做</strong>，目前都在打磨，一个都还没完全定下来。</p>
+
+        <h2>当前进度</h2>
+        <p>还在玩法验证阶段：先要确认「跟着节拍按下去」这件事在网页上做起来手感对不对。曲库、难度、结算界面都还没排上日程，所以这里先放一个占位页，不夸什么。</p>
+
+        <h2>计划中</h2>
+        <ul>
+          <li>先做 1–2 首曲子的完整谱面，验证判定手感和按键方案；</li>
+          <li>再补选曲、结算和简单的设置界面；</li>
+          <li>预计先出网页版，能玩会第一时间放出来。</li>
+        </ul>
+
+        <h2>更新记录</h2>
+        <ul class="detail-timeline">
+          <li>
+            <time>COMING SOON</time>
+            <strong>全力更新中</strong>
+            <p>玩法还没到可以试玩的阶段，这里先记录方向，等具体内容成型后回填。</p>
+          </li>
+        </ul>
+
+        <h2>想玩的话</h2>
+        <p>等它能玩了，我会直接放到游戏页。先记个期待，回来看看有没有惊喜。</p>
+      </div>
+      <footer class="article-footer"><a class="button secondary" href="../games.html">← 返回游戏页</a></footer>
+    </article>
+  </main>
+  <div class="tools" aria-label="风景控制">
+    <button class="tool" id="sceneToggle" type="button" aria-pressed="false">只看背景</button>
+    <button class="tool" id="pauseToggle" type="button" aria-pressed="false">暂停动画</button>
+    <button class="tool" id="settingsToggle" type="button" aria-expanded="false" aria-controls="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="#0b283a"/><circle cx="15" cy="17" r="3" fill="#0b283a"/></svg>风景设置</button>
+  </div>
+  <aside class="settings" id="settings" aria-label="风景设置" hidden>
+    <div class="settings-head"><h2>风景设置</h2><button class="close" id="settingsClose" type="button" aria-label="关闭风景设置">×</button></div>
+    <label class="slider" for="density"><span class="slider-top"><span>环境粒子</span><output id="densityValue" for="density">65%</output></span><input id="density" type="range" min="0" max="100" value="65"></label>
+    <label class="slider" for="speed"><span class="slider-top"><span>动画速度</span><output id="speedValue" for="speed">35%</output></span><input id="speed" type="range" min="0" max="100" value="35"></label>
+    <label class="slider" for="mist"><span class="slider-top"><span>环境光</span><output id="mistValue" for="mist">40%</output></span><input id="mist" type="range" min="0" max="100" value="40"></label>
+    <label class="slider" for="glow"><span class="slider-top"><span>微光强度</span><output id="glowValue" for="glow">60%</output></span><input id="glow" type="range" min="0" max="100" value="60"></label>
+    <div class="settings-foot"><button type="button" id="nightToggle" aria-pressed="false">柔和背景</button><button type="button" id="reset">恢复默认</button></div>
+    <p class="settings-note" id="motionNote">每个作品有自己的像素场景；环境动画、微光和交互都在同一画面中绘制。</p>
+  </aside>
+  <script src="../js/work-scenes.js?v=20261002-v2"></script>
+  <script>window.WorkScenes?.setTheme('soon');</script>
+</body>
+</html>

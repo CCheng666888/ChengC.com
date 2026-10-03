@@ -4,21 +4,26 @@
   const photo = new Image(), nightPhoto = new Image(), art = $('landscapeArt');
   const water = $('water'), birdsCanvas = $('particles'), ctx = birdsCanvas.getContext('2d');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)'), coarse = matchMedia('(pointer: coarse)');
+  const smallScreen = matchMedia('(max-width: 800px)');
+  const lightweight = smallScreen.matches || coarse.matches;
+  const saveData = Boolean(navigator.connection?.saveData);
+  const frameInterval = lightweight ? 1000/24 : 30;
   const config = { density: 65, speed: 35, mist: 40, glow: 60, lanterns: 55 };
   const defaultConfig = {...config};
   const source = getComputedStyle(art).backgroundImage.match(/url\(["']?(.*?)["']?\)$/)?.[1];
   const embeddedImages = location.protocol === 'file:' || art.dataset.textureMode === 'embedded';
   const sceneNote = $('motionNote').textContent;
-  let nightLoading = false;
+  let nightLoading = false, sceneRequested = false, initQueued = false, initializing = false, initGeneration = 0;
+  photo.decoding = nightPhoto.decoding = 'async';
   const random = (a,b) => a+Math.random()*(b-a), clamp = (v,a,b) => Math.min(b,Math.max(a,v));
   // Simulate in a horizontal world plane, then project through the scene camera.
   const projection=window.LakeProjection,{camera,bounds}=projection;
-  const cols=256, rows=192, length=cols*rows;
+  const cols=lightweight?128:256, rows=lightweight?96:192, length=cols*rows;
   const spacingX=(bounds.maxX-bounds.minX)/(cols-1),spacingZ=(bounds.maxZ-bounds.minZ)/(rows-1);
   const waveStep=.0055,weightX=(waveStep/spacingX)**2,weightZ=(waveStep/spacingZ)**2;
   const heights=new Float32Array(length), velocity=new Float32Array(length), pixels=new Uint8Array(length*4);
   let width=1,height=1,shore=.55,clock=0,previous=0,raf=0,visible=true;
-  let paused=reduced.matches,ready=false,gl=null,program=null,locations={},heightTexture=null,nightTexture=null,nightReady=false;
+  let paused=reduced.matches||saveData,ready=false,gl=null,program=null,locations={},heightTexture=null,nightTexture=null,nightReady=false;
   let accumulator=0,nextWind=0,nextFlock=12,night=0,birds=[],motes=[],lastStroke=-1;
   const touch={x:.5,y:.4,held:false,region:'',force:0,started:-10,dx:0,dy:0};
 
@@ -101,6 +106,7 @@
       float reflectedLight=clamp(1.0+(gradient.x*.30-gradient.y*.45)*light,.89,1.12);
       color*=mix(1.0,reflectedLight,lake);
       // Daylight glints stay on the water surface.
+      if(nightMix<.999 && light>0.0){
       vec2 dayGrid=world*vec2(42.0,60.0),dayCell=floor(dayGrid),dayLocal=fract(dayGrid);
       float daySeed=hash(dayCell),dayPhase=hash(dayCell+19.0);
       vec2 dayCenter=vec2(.2+.6*hash(dayCell+7.0),.2+.6*dayPhase);
@@ -113,8 +119,11 @@
       float dayIntensity=daySparkle*pulse*light*smoothstep(.558,.59,original.y)*(.17+.40*sunPath);
       color+=mix(vec3(.67,.82,.84),vec3(1.0,.87,.65),sunPath)*dayIntensity*(1.0-nightMix);
 
+      }
+
       // Small stable lamp heads project through the scene camera. Only their reflections
       // use the displaced water sample, so a lamp stays round while its reflection ripples.
+      if(nightMix>.001 && lanternDensity>0.0 && light>0.0){
       vec2 lampGrid=world*vec2(26.0,18.0),lampCell=floor(lampGrid);
       float seed=hash(lampCell+53.0),phase=hash(lampCell+29.0);
       vec2 center=vec2(.24+.52*hash(lampCell+11.0),.24+.52*phase);
@@ -144,14 +153,26 @@
       float lampLight=(head+halo+flare+reflection)*present*steadiness*light*nightMix*smoothstep(.558,.585,original.y);
       vec3 lampColor=mix(vec3(1.0,.96,.84),vec3(1.0,.79,.50),hash(lampCell+41.0)*.42);
       color+=lampColor*lampLight*2.1;
+      }
       gl_FragColor=vec4(color,1.0);
     }
   `;
-  function compile(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error('Scene unavailable');return s;}
-  function initialize(){
+  // Compile together, then poll completion without synchronously waiting on each shader.
+  function compile(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);return s;}
+  async function initialize(){
+    if(initializing||ready)return;
+    initializing=true;
+    const generation=++initGeneration;
     try{
       gl=water.getContext('webgl',{alpha:false,antialias:false,powerPreference:'low-power'});if(!gl)throw new Error('Scene unavailable');
       program=gl.createProgram();gl.attachShader(program,compile(gl.VERTEX_SHADER,vertex));gl.attachShader(program,compile(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);
+      const parallel=gl.getExtension('KHR_parallel_shader_compile');
+      if(parallel){
+        while(!gl.getProgramParameter(program,parallel.COMPLETION_STATUS_KHR)){
+          await new Promise(resolve=>setTimeout(resolve,16));
+          if(generation!==initGeneration||!gl||gl.isContextLost())return;
+        }
+      }
       if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error('Scene unavailable');gl.useProgram(program);
       const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
       const attribute=gl.getAttribLocation(program,'position');gl.enableVertexAttribArray(attribute);gl.vertexAttribPointer(attribute,2,gl.FLOAT,false,0,0);
@@ -168,7 +189,25 @@
       ready=true;resize();water.classList.add('ready');$('pauseToggle').hidden=false;
       $('motionNote').textContent=paused&&reduced.matches?'系统已启用减少动画。点击“继续动画”可播放山水背景。':sceneNote;
       syncPause();
-    }catch(error){failScene(error);}
+      if(document.body.classList.contains('night'))loadNight();
+    }catch(error){if(generation===initGeneration)failScene(error);}
+    finally{if(generation===initGeneration)initializing=false;}
+  }
+  function loadScene(){
+    if(sceneRequested||paused||!visible||document.hidden)return;
+    sceneRequested=true;
+    const key=source?.includes('cangshan-erhai-mobile.webp')?'dayMobile':'day';
+    window.SceneImages.assign(photo,source,key,embeddedImages).catch(failScene);
+  }
+  function queueInitialization(){
+    if(initQueued||initializing||ready||paused||!visible||document.hidden||!photo.naturalWidth)return;
+    initQueued=true;
+    // Let the static landscape and navigation paint before preparing animation.
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      const run=()=>{initQueued=false;if(!paused&&visible&&!document.hidden)initialize();};
+      if('requestIdleCallback'in window)requestIdleCallback(run,{timeout:1800});
+      else setTimeout(run,150);
+    }));
   }
   function failScene(error){
     ready=false;gl=null;paused=true;water.classList.remove('ready');$('pauseToggle').hidden=true;syncPause();
@@ -192,12 +231,15 @@
   }
   function loadNight(){
     if(nightLoading||nightReady)return;
-    nightLoading=true;window.SceneImages.assign(nightPhoto,art.dataset.nightImage,'night',embeddedImages).catch(failNight);
+    nightLoading=true;
+    const mobile=smallScreen.matches;
+    window.SceneImages.assign(nightPhoto,mobile?art.dataset.nightImageMobile:art.dataset.nightImage,mobile?'nightMobile':'night',embeddedImages).catch(failNight);
   }
   function resize(){
     width=innerWidth;height=innerHeight;
-    const dpr=Math.min(devicePixelRatio||1,coarse.matches?1.25:1.5);
-    water.width=Math.round(width*Math.min(dpr,1.25));water.height=Math.round(height*Math.min(dpr,1.25));
+    const dpr=Math.min(devicePixelRatio||1,lightweight?1:1.5);
+    const scale=lightweight?Math.min(dpr,Math.sqrt(420000/(width*height))):Math.min(dpr,1.25);
+    water.width=Math.floor(width*scale);water.height=Math.floor(height*scale);
     birdsCanvas.width=Math.round(width*dpr);birdsCanvas.height=Math.round(height*dpr);ctx?.setTransform(dpr,0,0,dpr,0,0);
     const cover=Math.max(width/(photo.naturalWidth||1672),height/(photo.naturalHeight||940));
     const ratio=height/((photo.naturalHeight||940)*cover);shore=clamp((.55-(1-ratio)*.5)/ratio,.1,.85);
@@ -279,16 +321,20 @@
   function frame(now){
     raf=0;if(paused||!visible||document.hidden||!ready){previous=0;return;}
     if(!previous)previous=now;
-    if(now-previous>=30){const dt=Math.min((now-previous)/1000,.075);previous=now;clock+=dt;simulate(dt);
+    if(now-previous>=frameInterval){const dt=Math.min((now-previous)/1000,.075);previous=now;clock+=dt;simulate(dt);
       night+=(Number(document.body.classList.contains('night')&&nightReady)-night)*Math.min(1,dt*2);
       for(const b of birds){b.x-=dt*b.speed;b.y+=Math.sin(clock*.6+b.phase)*dt*1.8;}birds=birds.filter(b=>b.x>-20);
       if(clock>nextFlock){if(birds.length<10)addFlock();nextFlock=clock+random(13,20);}draw();
     }schedule();
   }
   function stop(){cancelAnimationFrame(raf);raf=0;previous=0;}
-  function schedule(){if(!raf&&!paused&&visible&&!document.hidden&&ready)raf=requestAnimationFrame(frame);}
+  function schedule(){
+    if(paused||!visible||document.hidden)return;
+    if(!ready){loadScene();if(photo.complete&&photo.naturalWidth)queueInitialization();return;}
+    if(!raf)raf=requestAnimationFrame(frame);
+  }
   function release(){if(touch.held&&touch.region==='mountain'&&clock-touch.started>1.25)touch.started=clock-1.25;touch.held=false;}
-  function syncPause(){document.body.classList.toggle('paused',paused);$('pauseToggle').textContent=paused?'继续动画':'暂停动画';$('pauseToggle').setAttribute('aria-pressed',String(paused));$('sceneHint').textContent=paused?'动画已暂停':'点水拨动倒影 · 点山吹动云雾';if(paused){release();stop();draw();}else schedule();}
+  function syncPause(){document.body.classList.toggle('paused',paused);$('pauseToggle').textContent=paused?'继续动画':'暂停动画';$('pauseToggle').setAttribute('aria-pressed',String(paused));$('sceneHint').textContent=paused?'动画已暂停':ready?'点水拨动倒影 · 点山吹动云雾':'苍山 · 洱海';if(paused){release();stop();draw();}else schedule();}
   function panel(open){$('settings').hidden=!open;$('settingsToggle').setAttribute('aria-expanded',String(open));(open?$('settingsClose'):$('settingsToggle')).focus();}
   function position(event){return {x:clamp(event.clientX/width,0,1),y:clamp(event.clientY/height,0,1)};}
   function eligible(event){return ready&&visible&&!paused&&event.clientY<height&&scrollY<height*.5&&!event.target.closest('a,button,input,textarea,.settings,.section,.showcase-head,.carousel-track,.carousel-controls,.profile-card,.profile-interests,footer,.site-header,.music-panel,.music-mini,.modal-overlay');}
@@ -313,17 +359,16 @@
   for(const key of Object.keys(config))$(key).addEventListener('input',e=>{config[key]=Number(e.target.value);$(key+'Value').value=config[key]+'%';if(paused)draw();});
   $('sceneToggle').addEventListener('click',()=>{const only=document.body.classList.toggle('scene-only');$('sceneToggle').textContent=only?(document.body.classList.contains('collection-page')?'显示内容':'显示首页'):'只看风景';$('sceneToggle').setAttribute('aria-pressed',String(only));if(only)scrollTo({top:0,behavior:'instant'});});
   document.querySelectorAll('.nav-links a, a[href="#blog"], a[data-animate], .brand').forEach(a=>a.addEventListener('click',()=>{document.body.classList.remove('scene-only');$('sceneToggle').textContent='只看风景';$('sceneToggle').setAttribute('aria-pressed','false');}));
-  $('nightToggle').addEventListener('click',()=>{const n=document.body.classList.toggle('night');if(n)loadNight();$('nightToggle').textContent=n?'切换晨光':'切换夜色';$('nightToggle').setAttribute('aria-pressed',String(n));if(paused){night=Number(n);draw();}});
-  $('reset').addEventListener('click',()=>{Object.assign(config,defaultConfig);for(const key of Object.keys(config)){$(key).value=config[key];$(key+'Value').value=config[key]+'%';}heights.fill(0);velocity.fill(0);release();touch.force=touch.dx=touch.dy=0;touch.started=-10;document.body.classList.remove('night');$('nightToggle').textContent='切换夜色';$('nightToggle').setAttribute('aria-pressed','false');night=0;paused=reduced.matches;syncPause();draw();});
+  $('nightToggle').addEventListener('click',()=>{const n=document.body.classList.toggle('night');if(n&&ready)loadNight();$('nightToggle').textContent=n?'切换晨光':'切换夜色';$('nightToggle').setAttribute('aria-pressed',String(n));if(paused){night=Number(n);draw();}});
+  $('reset').addEventListener('click',()=>{Object.assign(config,defaultConfig);for(const key of Object.keys(config)){$(key).value=config[key];$(key+'Value').value=config[key]+'%';}heights.fill(0);velocity.fill(0);release();touch.force=touch.dx=touch.dy=0;touch.started=-10;document.body.classList.remove('night');$('nightToggle').textContent='切换夜色';$('nightToggle').setAttribute('aria-pressed','false');night=0;paused=reduced.matches||saveData;syncPause();draw();});
   let timer;addEventListener('resize',()=>{clearTimeout(timer);timer=setTimeout(resize,120);});
   document.addEventListener('visibilitychange',()=>{if(document.hidden){release();stop();}else schedule();});
-  if('IntersectionObserver'in window)new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(!visible){release();stop();}else schedule();}).observe(document.querySelector('.landscape'));
+  if('IntersectionObserver'in window)new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(!visible){release();stop();}else schedule();}).observe(document.querySelector('.hero'));
   reduced.addEventListener('change',()=>{paused=reduced.matches;syncPause();});
-  water.addEventListener('webglcontextlost',e=>{e.preventDefault();ready=false;paused=true;water.classList.remove('ready');$('pauseToggle').hidden=true;syncPause();});
-  water.addEventListener('webglcontextrestored',()=>{paused=reduced.matches;$('pauseToggle').hidden=false;initialize();});
+  water.addEventListener('webglcontextlost',e=>{e.preventDefault();initGeneration++;initializing=false;ready=false;paused=true;water.classList.remove('ready');$('pauseToggle').hidden=true;syncPause();});
+  water.addEventListener('webglcontextrestored',()=>{paused=reduced.matches||saveData;$('pauseToggle').hidden=false;syncPause();});
   nightPhoto.onload=uploadNight;nightPhoto.onerror=()=>failNight(new Error('Night image could not be decoded'));
-  if(document.body.classList.contains('night'))loadNight();
-  photo.onload=initialize;photo.onerror=()=>failScene(new Error('Day image could not be decoded'));
-  window.SceneImages.assign(photo,source,'day',embeddedImages).catch(failScene);
+  photo.onload=queueInitialization;photo.onerror=()=>failScene(new Error('Day image could not be decoded'));
+  if(paused)$('motionNote').textContent=reduced.matches?'系统已启用减少动画。点击“继续动画”可播放山水背景。':'已开启节省流量，先显示静态风景。点击“继续动画”可播放山水背景。';
   resize();syncPause();
 })();
