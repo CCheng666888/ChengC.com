@@ -44,7 +44,8 @@ def build():
         parser.feed(page.read_text(encoding="utf-8"))
         text = re.sub(r"\s+", " ", "".join(parser.parts)).strip()
         if not text:
-            raise ValueError(f"Missing article-body in {page.name}")
+            print(f"Skip {page.name} (no article-body)")
+            continue
         entries.append({"id": page.stem, "text": text})
     payload = json.dumps(entries, ensure_ascii=False, separators=(",", ":"))
     target = ROOT / "js" / "blog-search-index.js"

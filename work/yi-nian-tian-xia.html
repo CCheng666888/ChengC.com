@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>一念天下 · ChenC</title>
+  <meta name="description" content="一念天下：从秦开始的历史卡牌策略游戏，以历史事件为关卡，用有限的权力、信息与资源做出选择。设计阶段。">
+  <meta name="theme-color" content="#0b2431">
+  <!-- delivery:start -->
+  <link rel="stylesheet" href="../css/delivery-4fc05811ea8f.css" data-sources="css/style.css">
+  <link rel="stylesheet" href="../css/delivery-777c0a378e30.css" data-sources="css/showcase.css css/work-gallery-v2.css css/work-detail.css css/navigation.css">
+  <script data-theme-source="js/theme.js">(() => {
+  'use strict';
+  const system = matchMedia('(prefers-color-scheme: light)');
+  let preference = null;
+  try { preference = localStorage.getItem('theme'); } catch {}
+  if (!['light', 'dark'].includes(preference)) preference = null;
+  function apply(theme) {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.classList.toggle('dark', theme !== 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === 'light' ? '#f3f7f5' : '#0b2431';
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.setAttribute('aria-label', theme === 'light' ? '切换深色主题' : '切换浅色主题');
+    });
+  }
+  apply(preference || (system.matches ? 'light' : 'dark'));
+  document.documentElement.classList.add('js');
+  system.addEventListener('change', () => { if (!preference) apply(system.matches ? 'light' : 'dark'); });
+  function connect() {
+    apply(preference || (system.matches ? 'light' : 'dark'));
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.addEventListener('click', () => {
+        preference = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+        apply(preference);
+        try { localStorage.setItem('theme', preference); } catch {}
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', connect);
+  else connect();
+})();</script>
+  <script defer src="../js/navigation.js?v=c4790bd167ef"></script>
+  <script defer src="../js/delivery-135b7b2d99f7.js" data-sources="js/work-scenes.js"></script>
+  <!-- delivery:end -->
+</head>
+<body class="article-page work-detail-page coming-detail" data-scene-theme="soon">
+  <div class="landscape work-landscape" aria-hidden="true"><canvas id="workScene"></canvas><div class="scene-shade"></div></div>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="作品详情导航">
+      <a class="brand" href="../index.html">ChenC</a>
+      <div class="article-nav"><a href="../games.html">← 返回游戏页</a><button id="articleTheme" class="theme-btn" type="button" aria-label="切换浅色主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3v2m0 14v2M3 12h2m14 0h2M6 6l1.5 1.5m9 9L18 18m0-12-1.5 1.5m-9 9L6 18M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5z"/></svg></button></div>
+    </nav>
+  </header>
+  <main class="article-shell">
+    <article>
+      <header class="article-header">
+        <a class="article-category" href="../games.html">游戏</a>
+        <h1>一念天下</h1>
+        <p class="article-lead">从秦开始的历史卡牌策略：每关一个历史事件，用有限的权力、信息与资源做出选择，不同的解法走向不同的结局。</p>
+        <div class="article-meta"><span>设计阶段</span><span>历史卡牌策略</span><span>网页 / Windows</span></div>
+      </header>
+      <div class="article-body">
+        <h2>为什么要做</h2>
+        <p>之前的作品《大明风华录》制作周期和游玩周期都比较长，对新手也不算友好；而且明朝并不是第一个大一统王朝。这次准备从秦开始，做一款更轻量、更容易上手的历史卡牌策略游戏。</p>
+        <h2>玩法预览</h2>
+        <ul>
+          <li><strong>角色</strong>：扮演少年嬴政，从一个没有完全掌握权力的秦王开始，通过一次次历史抉择逐渐成长；</li>
+          <li><strong>卡牌</strong>：卡牌不是战斗单位，而是可以调动的政治资源，分为人物、权柄、情报、资源与谋略五类；</li>
+          <li><strong>关卡</strong>：每个关卡对应一个历史事件，在有限的信息、权力与资源下解决问题，通关方式不唯一；</li>
+          <li><strong>选择</strong>：不同的解法会影响后续剧情、可获得的卡牌、人物关系与初始局势，重要的选择会留下记录。</li>
+        </ul>
+        <h2>当前进度</h2>
+        <p>设计阶段：已完成教程《第一课：王的位置》与第一章「邯郸归秦」、第二章「少年秦王」的关卡设计，后续章节规划中。游戏做好后会在本站上线。</p>
+        <h2>史实说明</h2>
+        <p>历史人物、事件与时代背景符合基本史实；具体对话、隐藏信息、卡牌效果与分支路线属于游戏设计，会做合理的艺术加工。</p>
+      </div>
+      <footer class="article-footer"><a class="button secondary" href="../games.html">← 返回游戏页</a></footer>
+    </article>
+  </main>
+  <div class="tools" aria-label="风景控制">
+    <button class="tool" id="sceneToggle" type="button" aria-pressed="false">只看背景</button>
+    <button class="tool" id="pauseToggle" type="button" aria-pressed="false">暂停动画</button>
+    <button class="tool" id="settingsToggle" type="button" aria-expanded="false" aria-controls="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="#0b283a"/><circle cx="15" cy="17" r="3" fill="#0b283a"/></svg>风景设置</button>
+  </div>
+  <aside class="settings" id="settings" aria-label="风景设置" hidden>
+    <div class="settings-head"><h2>风景设置</h2><button class="close" id="settingsClose" type="button" aria-label="关闭风景设置">×</button></div>
+    <label class="slider" for="density"><span class="slider-top"><span>环境粒子</span><output id="densityValue" for="density">65%</output></span><input id="density" type="range" min="0" max="100" value="65"></label>
+    <label class="slider" for="speed"><span class="slider-top"><span>动画速度</span><output id="speedValue" for="speed">35%</output></span><input id="speed" type="range" min="0" max="100" value="35"></label>
+    <label class="slider" for="mist"><span class="slider-top"><span>环境光</span><output id="mistValue" for="mist">40%</output></span><input id="mist" type="range" min="0" max="100" value="40"></label>
+    <label class="slider" for="glow"><span class="slider-top"><span>微光强度</span><output id="glowValue" for="glow">60%</output></span><input id="glow" type="range" min="0" max="100" value="60"></label>
+    <div class="settings-foot"><button type="button" id="nightToggle" aria-pressed="false">柔和背景</button><button type="button" id="reset">恢复默认</button></div>
+    <p class="settings-note" id="motionNote">每个作品有自己的像素场景；环境动画、微光和交互都在同一画面中绘制。</p>
+  </aside>
+
+  <script>window.WorkScenes?.setTheme('soon');</script>
+</body>
+</html>

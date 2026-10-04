@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101f24">
+  <title>星间文献库 · ChenC 的萤火通讯</title>
+  <meta name="description" content="《大语言模型驱动 Web 应用的跨层安全研究》的 22 条参考文献与文中原始链接。">
+  <!-- delivery:start -->
+  <link rel="stylesheet" href="../css/delivery-64377ca92dfc.css" data-sources="css/secret-arcade.css css/contact.css css/navigation.css css/night-lake.css">
+  <script data-theme-source="js/theme.js">(() => {
+  'use strict';
+  const system = matchMedia('(prefers-color-scheme: light)');
+  let preference = null;
+  try { preference = localStorage.getItem('theme'); } catch {}
+  if (!['light', 'dark'].includes(preference)) preference = null;
+  function apply(theme) {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.classList.toggle('dark', theme !== 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === 'light' ? '#f3f7f5' : '#0b2431';
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.setAttribute('aria-label', theme === 'light' ? '切换深色主题' : '切换浅色主题');
+    });
+  }
+  apply(preference || (system.matches ? 'light' : 'dark'));
+  document.documentElement.classList.add('js');
+  system.addEventListener('change', () => { if (!preference) apply(system.matches ? 'light' : 'dark'); });
+  function connect() {
+    apply(preference || (system.matches ? 'light' : 'dark'));
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.addEventListener('click', () => {
+        preference = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+        apply(preference);
+        try { localStorage.setItem('theme', preference); } catch {}
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', connect);
+  else connect();
+})();</script>
+  <script defer src="../js/navigation.js?v=c4790bd167ef"></script>
+  <!-- delivery:end -->
+</head>
+<body class="contact-page">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="pixel-stars" aria-hidden="true"></div>
+  <header class="contact-header">
+    <a class="contact-brand" href="../index.html">ChenC<span>.</span></a>
+    <span class="header-frequency">FIREFLY FREQUENCY / 03</span>
+    <a class="back-link" href="ai-web-security.html">返回手记</a>
+  </header>
+  <main id="main" class="contact-main">
+    <div class="page-label"><span class="pixel-cross" aria-hidden="true">✦</span><span>论文的足迹与出处</span><span class="label-code">CHENC / REFERENCES</span></div>
+    <h1>星间文献库<span class="heading-dot" aria-hidden="true">.</span></h1>
+    <section class="firefly-window" aria-labelledby="refsTitle">
+      <div class="window-bar">
+        <span class="window-name"><span class="window-mark" aria-hidden="true"></span>萤火通讯 · 文献索引</span>
+        <div class="window-controls">
+          <a class="window-return" href="ai-web-security.html" aria-label="关闭文献库，返回手记">×</a>
+        </div>
+      </div>
+      <div class="window-body" style="display:block;border-left:0;border-right:0">
+        <div class="refs-body" id="refsTitle">
+          <header class="refs-head">
+            <p class="channel-label"><span aria-hidden="true">[</span> SOURCES / 来源清单 <span aria-hidden="true">]</span></p>
+            <h2>《大语言模型驱动 Web 应用的跨层安全研究》<em>参考文献</em></h2>
+            <p class="refs-note">共 22 条。每条均保留论文原文中的来源类型（会议官方页面 / 作者公开版本 / 官方指南 / 漏洞记录），点击「原文」可跳转到对应链接；部分条目附有第二来源。</p>
+          </header>
+          <ol class="ref-list" start="1">
+            <li class="ref-item" id="ref1">
+              <span class="ref-num">[1]</span>
+              <div class="ref-main"><p class="ref-title">WebArena: A Realistic Web Environment for Building Autonomous Agents</p><p class="ref-src">ZHOU S, et al. ICLR 2024 · 会议官方页面</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://proceedings.iclr.cc/paper_files/paper/2024/hash/4410c0711e9154a7a2d26f9b3816d1ef-Abstract-Conference.html" target="_blank" rel="noopener noreferrer">原文 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref2">
+              <span class="ref-num">[2]</span>
+              <div class="ref-main"><p class="ref-title">Not What You've Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection</p><p class="ref-src">GRESHAKE K, et al. arXiv:2302.12173v2, 2023 · 作者公开版本</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://arxiv.org/abs/2302.12173v2" target="_blank" rel="noopener noreferrer">原文 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref3">
+              <span class="ref-num">[3]</span>
+              <div class="ref-main"><p class="ref-title">InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated Large Language Model Agents</p><p class="ref-src">ZHAN Q, et al. Findings of ACL 2024 · 会议官方页面</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://aclanthology.org/2024.findings-acl.624/" target="_blank" rel="noopener noreferrer">原文 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref4">
+              <span class="ref-num">[4]</span>
+              <div class="ref-main"><p class="ref-title">AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents</p><p class="ref-src">DEBENEDETTI E, et al. NeurIPS 2024 Datasets &amp; Benchmarks · 会议官方页面</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/97091a5177d8dc64b1da8bf3e1f6fb54-Abstract-Datasets_and_Benchmarks_Track.html" target="_blank" rel="noopener noreferrer">原文 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref5">
+              <span class="ref-num">[5]</span>
+              <div class="ref-main"><p class="ref-title">OWASP Top 10 for LLM Applications 2025</p><p class="ref-src">OWASP · 官方目录</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener noreferrer">原文 ↗</a><a class="ref-link" href="https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/" target="_blank" rel="noopener noreferrer">版本资源页 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref6">
+              <span class="ref-num">[6]</span>
+              <div class="ref-main"><p class="ref-title">NIST AI 600-1: Artificial Intelligence Risk Management Framework — Generative AI Profile</p><p class="ref-src">NIST, 2024 · 官方报告</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf" target="_blank" rel="noopener noreferrer">原文 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref7">
+              <span class="ref-num">[7]</span>
+              <div class="ref-main"><p class="ref-title">The Protection of Information in Computer Systems</p><p class="ref-src">SALTZER J H, SCHROEDER M D. Proceedings of the IEEE, 1975 · 作者存档</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://web.mit.edu/Saltzer/www/publications/protection/" target="_blank" rel="noopener noreferrer">作者存档 ↗</a><a class="ref-link" href="https://web.mit.edu/Saltzer/www/publications/protection/Basic.html" target="_blank" rel="noopener noreferrer">基本原则章节 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref8">
+              <span class="ref-num">[8]</span>
+              <div class="ref-main"><p class="ref-title">LLM06:2025 Excessive Agency（过度代理）</p><p class="ref-src">OWASP · 官方条目</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://genai.owasp.org/llmrisk/llm062025-excessive-agency/" target="_blank" rel="noopener noreferrer">原文 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref9">
+              <span class="ref-num">[9]</span>
+              <div class="ref-main"><p class="ref-title">SQL Injection Prevention Cheat Sheet</p><p class="ref-src">OWASP · 官方指南</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">原文 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref10">
+              <span class="ref-num">[10]</span>
+              <div class="ref-main"><p class="ref-title">Cross Site Scripting Prevention Cheat Sheet</p><p class="ref-src">OWASP · 官方指南</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">原文 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref11">
+              <span class="ref-num">[11]</span>
+              <div class="ref-main"><p class="ref-title">Authorization Cheat Sheet</p><p class="ref-src">OWASP · 官方指南</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">原文 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref12">
+              <span class="ref-num">[12]</span>
+              <div class="ref-main"><p class="ref-title">PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models</p><p class="ref-src">ZOU W, et al. 34th USENIX Security Symposium, 2025 · 官方页面</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://www.usenix.org/conference/usenixsecurity25/presentation/zou-poisonedrag" target="_blank" rel="noopener noreferrer">原文 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref13">
+              <span class="ref-num">[13]</span>
+              <div class="ref-main"><p class="ref-title">LLM05:2025 Improper Output Handling（不当输出处理）</p><p class="ref-src">OWASP · 官方条目</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://genai.owasp.org/llmrisk/llm052025-improper-output-handling/" target="_blank" rel="noopener noreferrer">原文 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref14">
+              <span class="ref-num">[14]</span>
+              <div class="ref-main"><p class="ref-title">Server Side Request Forgery Prevention Cheat Sheet</p><p class="ref-src">OWASP · 官方指南</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">原文 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref15">
+              <span class="ref-num">[15]</span>
+              <div class="ref-main"><p class="ref-title">CVE-2025-32711: M365 Copilot Information Disclosure Vulnerability</p><p class="ref-src">Microsoft, 2025-06-11 · 漏洞记录</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://cveawg.mitre.org/api/cve/CVE-2025-32711" target="_blank" rel="noopener noreferrer">CVE 记录 ↗</a><a class="ref-link" href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-32711" target="_blank" rel="noopener noreferrer">MSRC 公告 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref16">
+              <span class="ref-num">[16]</span>
+              <div class="ref-main"><p class="ref-title">Extracting Training Data from Large Language Models</p><p class="ref-src">CARLINI N, et al. 30th USENIX Security Symposium, 2021 · 官方页面</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://www.usenix.org/conference/usenixsecurity21/presentation/carlini-extracting" target="_blank" rel="noopener noreferrer">原文 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref17">
+              <span class="ref-num">[17]</span>
+              <div class="ref-main"><p class="ref-title">LLM10:2025 Unbounded Consumption（无界资源消耗）</p><p class="ref-src">OWASP · 官方条目</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/" target="_blank" rel="noopener noreferrer">原文 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref18">
+              <span class="ref-num">[18]</span>
+              <div class="ref-main"><p class="ref-title">YuraScanner: Leveraging LLMs for Task-driven Web App Scanning</p><p class="ref-src">STAFEEV A, et al. NDSS 2025 · 会议官方页面与正式论文</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://www.ndss-symposium.org/ndss-paper/yurascanner-leveraging-llms-for-task-driven-web-app-scanning/" target="_blank" rel="noopener noreferrer">会议页面 ↗</a><a class="ref-link" href="https://www.ndss-symposium.org/wp-content/uploads/2025-388-paper.pdf" target="_blank" rel="noopener noreferrer">正式论文 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref19">
+              <span class="ref-num">[19]</span>
+              <div class="ref-main"><p class="ref-title">Asleep at the Keyboard? Assessing the Security of GitHub Copilot's Code Contributions</p><p class="ref-src">PEARCE H, et al. IEEE S&amp;P 2022 · 会议官方名单 / arXiv 作者版本</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://www.ieee-security.org/TC/SP2022/program-papers.html" target="_blank" rel="noopener noreferrer">会议名单 ↗</a><a class="ref-link" href="https://arxiv.org/abs/2108.09293v3" target="_blank" rel="noopener noreferrer">arXiv 版本 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref20">
+              <span class="ref-num">[20]</span>
+              <div class="ref-main"><p class="ref-title">From Chatbots to Phishbots?: Phishing Scam Generation in Commercial Large Language Models</p><p class="ref-src">ROY S S, et al. IEEE S&amp;P 2024 · 会议官方程序 / arXiv 作者版本</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://sp2024.ieee-security.org/program.html" target="_blank" rel="noopener noreferrer">会议程序 ↗</a><a class="ref-link" href="https://arxiv.org/abs/2310.19181v2" target="_blank" rel="noopener noreferrer">arXiv 版本 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref21">
+              <span class="ref-num">[21]</span>
+              <div class="ref-main"><p class="ref-title">LLM01:2025 Prompt Injection（提示注入）</p><p class="ref-src">OWASP · 官方条目</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/" target="_blank" rel="noopener noreferrer">原文 ↗</a></div>
+            </li>
+            <li class="ref-item" id="ref22">
+              <span class="ref-num">[22]</span>
+              <div class="ref-main"><p class="ref-title">Defeating Prompt Injections by Design</p><p class="ref-src">DEBENEDETTI E, et al. arXiv:2503.18813v2, 2025 · 作者公开版本</p></div>
+              <div class="ref-links"><a class="ref-link" href="https://arxiv.org/abs/2503.18813v2" target="_blank" rel="noopener noreferrer">摘要页 ↗</a><a class="ref-link" href="https://arxiv.org/html/2503.18813v2" target="_blank" rel="noopener noreferrer">全文 ↗</a></div>
+            </li>
+          </ol>
+        </div>
+      </div>
+      <div class="window-bottom"><span class="mechanical-ticks" aria-hidden="true">▰ ▰ ▰</span><span>把微小的光，留给明天。</span><span class="bottom-code" aria-hidden="true">TYPE-IV</span></div>
+    </section>
+    <div class="contact-strip">
+      <div>
+        <p class="contact-kicker">BACK TO / 回到手记</p>
+        <h2>大模型"动手"之后</h2>
+        <p>回到那篇约 800 字的博客，重温 AI 安全与 Web 安全的交叉地带。</p>
+      </div>
+      <a class="pixel-link" href="ai-web-security.html"><span>←</span>返回手记<small>博客正文</small></a>
+    </div>
+  </main>
+  <footer class="contact-footer"><span>© 2026 ChenC</span><a href="https://www.bilibili.com/video/BV1wYdWB5EVF/" target="_blank" rel="noopener noreferrer">流萤像素素材 · 官方 PV</a><a class="back-link" href="ai-web-security.html" style="padding:0">返回手记</a><span class="footer-sign">愿此行，终抵群星。</span></footer>
+</body>
+</html>

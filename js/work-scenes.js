@@ -8,7 +8,7 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const coarse = matchMedia('(pointer:coarse)');
   const BAY = [0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
-  const names = new Set(['ming','badminton','fish','defense','qa','notes','soon']);
+  const names = new Set(['ming','badminton','fish','defense','qa','notes','beat','soon']);
   const settings = {density:65,speed:35,mist:40,glow:60}, defaults = {...settings};
   const cache = new Map(), glows = new Map();
   let W=640,H=360,viewW=640,theme='soon',from=null,changed=0,time=0,last=0,frame=0;
@@ -128,11 +128,33 @@
     }
     const plant=W*.89;rect(x,plant-q(10),H*.89,q(20),q(13),'#94705b');for(let i=-3;i<=3;i++){line(x,plant,H*.89,plant+q(i*6),H*.79-q(Math.abs(i)*2),'#426d66');disk(x,plant+q(i*6),H*.79-q(Math.abs(i)*2),q(4),q(7),'#668c72');}
   }
+  // Four note lanes, speaker cabinets and a sequencer stage, all in the same pixel raster.
+  function rhythm(x,r){
+    gradient(x,W,H,['#101c32','#23324a','#34334d','#26374a','#152a3b'],149);stars(x,r,85,.45);
+    rect(x,0,H*.13,W,q(2),'#384a5d');
+    for(let i=0;i<10;i++){const a=W*(.05+i*.1);rect(x,a,H*.125,q(8),q(5),i%2?'#8a7da5':'#72a7a7');}
+    for(let i=0;i<W;i+=q(3)){const yy=H*.23+Math.sin(i/W*36)*q(5)+Math.sin(i/W*17)*q(3);rect(x,i,yy,q(2),1,'#50697b');}
+    const top=H*.64;
+    rect(x,0,top,W,H-top,'#172d3e');line(x,0,top,W,top,'#496879');
+    poly(x,[[W*.38,top],[W*.62,top],[W*.93,H],[W*.07,H]],'#21394a');
+    for(let lane=0;lane<=4;lane++)line(x,W*(.38+lane*.06),top,W*(.07+lane*.215),H,lane%2?'#526276':'#406d75');
+    for(let i=1;i<9;i++){const f=i/9,yy=top+(H-top)*f*f,span=W*(.12+.31*f*f);line(x,W*.5-span,yy,W*.5+span,yy,'#314e60');}
+    line(x,W*.12,H*.91,W*.88,H*.91,'#9bcac4');line(x,W*.12,H*.915,W*.88,H*.915,'#466d79');
+    for(const a of [.12,.88]){
+      const sx=W*a-q(21),sy=H*.33,sw=q(42),sh=q(109);
+      rect(x,sx,sy,sw,sh,'#152737');rect(x,sx+q(3),sy+q(3),sw-q(6),sh-q(6),'#2a4053');
+      for(const [yy,rr] of [[sy+q(24),q(12)],[sy+q(69),q(16)]]){disk(x,W*a,yy,rr,rr,'#506578');disk(x,W*a,yy,rr-q(2),rr-q(2),'#182b3a');disk(x,W*a,yy,q(4),q(4),'#7ea5af');}
+      rect(x,sx+q(5),sy+sh-q(8),sw-q(10),q(2),'#567b82');
+    }
+    for(let i=0;i<16;i++){const a=W*(.04+i*.06),yy=H*.77;rect(x,a,yy,q(4),q(2),i%2?'#756b91':'#4c8189');}
+    for(let lane=0;lane<4;lane++){const a=W*(.25+lane/6);rect(x,a-q(10),H*.95,q(20),q(7),'#3d5d6b');rect(x,a-q(8),H*.95+q(2),q(16),q(2),lane%2?'#9784af':'#7fb9b5');}
+    for(let i=0;i<65;i++)rect(x,r()*W,H*.68+r()*H*.32,q(2+r()*5),1,'#2b4557');
+  }
   function workshop(x,r){gradient(x,W,H,['#142b45','#365169','#706a7a','#b29b96','#4b6170'],139);stars(x,r,110,.42);mountains(x,H*.74,'#263e56',q(42),2);rect(x,0,H*.78,W,H*.22,'#283b4f');for(let i=0;i<100;i++)rect(x,r()*W,H*.8+r()*H*.2,q(2+r()*9),1,'#4b5e6a');disk(x,W*.73,H*.25,q(12),q(12),'#e7d4b5');glow(x,W*.73,H*.25,q(52),'#d9c1c6',.35);}
   function build(id){
     if(cache.has(id))return cache.get(id);
     const [base,x]=surface(W,H),r=random([...id].reduce((a,c)=>a+c.charCodeAt(0),0));
-    if(id==='ming')ming(x,r);else if(id==='badminton')court(x,r);else if(id==='fish'||id==='defense')reef(x,r,id==='defense');else if(id==='qa'||id==='notes')library(x,r,id==='notes');else workshop(x,r);
+    if(id==='ming')ming(x,r);else if(id==='badminton')court(x,r);else if(id==='fish'||id==='defense')reef(x,r,id==='defense');else if(id==='qa'||id==='notes')library(x,r,id==='notes');else if(id==='beat')rhythm(x,r);else workshop(x,r);
     const particles=Array.from({length:160},()=>({x:r()*W,y:r()*H,p:r()*6.3,v:.4+r(),size:r()}));
     const [moving,mx]=surface(W,H);const value={base,moving,mx,particles,id};cache.set(id,value);return value;
   }
@@ -153,6 +175,21 @@
       for(let i=0;i<12;i++){const dir=i%2?1:-1,xx=((particles[i].x+dir*t*q(3+particles[i].v))%(W+q(30))+W+q(30))%(W+q(30))-q(15);fish(x,xx,H*(.28+i*.025)+Math.sin(t*.6+i)*q(2),2+i%3,dir,'#629da8');}
       for(let i=0;i<12;i++){const a=i<6?W*(i*.026):W*(.85+(i-6)*.026),yy=H-q(i%3*3);line(x,a,yy,a+Math.sin(t*.8+i)*q(4),yy-q(26+i%3*9),'#497d74');}
       if(id==='defense')for(const [a,b] of [[.14,.76],[.36,.84],[.52,.60],[.79,.75]])glow(x,a*W,b*H-q(23),q(17),'#a2e2c9',light*(.30+.25*Math.sin(t*2+a*17)**2));
+    }else if(id==='beat'){
+      const pulse=.5+.5*Math.cos(t*Math.PI*4),top=H*.64;
+      // Small, steady local pulses keep the typography readable; no full-screen flashes.
+      for(const a of [.12,.88])glow(x,W*a,H*.33+q(69),q(32),'#85c9cc',light*(.12+.15*pulse));
+      for(let i=0;i<16;i++){
+        const a=W*(.04+i*.06),level=.3+.7*Math.sin(t*2.3+i*.77)**2,blocks=2+Math.floor(level*12);
+        for(let j=0;j<blocks;j++)rect(x,a,H*.77-q(3+j*3),q(4),q(2),j>10?'#baa0c4':i%2?'#817fa8':'#65a6ad');
+      }
+      for(let lane=0;lane<4;lane++)for(let j=0;j<3;j++){
+        const f=(t*.24+j/3+lane*.17)%1,yy=top+(H-top)*f,span=W*(.12+.31*f),a=W*.5+(lane-1.5)*span/2,size=q(4+8*f);
+        rect(x,a-size/2,yy,size,q(2+f),lane%2?'#b59dca':'#87d6cf');
+        if(j===1&&lane===1)rect(x,a-q(1),yy-q(12),q(2),q(12),'#527e89');
+      }
+      for(let lane=0;lane<4;lane++){const a=W*(.25+lane/6),active=Math.floor(t*2)%4===lane;glow(x,a,H*.96,q(14),lane%2?'#bca7d2':'#8fdbd0',light*(active?.4:.12));}
+      for(let i=0;i<n*.3;i++){const p=particles[i],yy=H*.16+((p.y-t*q(.9*p.v)+H)%(H*.67));x.globalAlpha=.12+.13*Math.sin(t+p.p)**2;rect(x,p.x,yy,1,1,'#b3c6d8');}x.globalAlpha=1;
     }else if(id==='qa'||id==='notes'){
       glow(x,W*.21,H*.72,q(64),id==='qa'?'#eec183':'#d7c5b6',light*(.33+.02*Math.sin(t*2)));
       for(let i=0;i<n*.7;i++){const p=particles[i],xx=(p.x+Math.sin(t*.20+p.p)*q(8))%W,yy=H*.18+((p.y+t*q(.9*p.v))%(H*.70));x.globalAlpha=.10+.25*Math.sin(t*.9+p.p)**2;rect(x,xx,yy,1,1,id==='qa'?'#e9d2a3':'#cec7e0');}x.globalAlpha=1;
@@ -185,7 +222,7 @@
   function pause(){paused=!paused;syncPause();if(paused){cancelAnimationFrame(frame);frame=0;from=null;draw();}else schedule();}
   function syncPause(){const b=document.getElementById('pauseToggle');b.textContent=paused?'继续动画':'暂停动画';b.setAttribute('aria-pressed',String(paused));document.getElementById('motionNote').textContent=reduced.matches?'已按你的减少动态偏好暂停场景；仍可切换作品和背景。':'每个作品有自己的像素场景；环境动画、微光和交互都在同一画面中绘制。';}
   window.WorkScenes={setTheme};
-  theme=document.querySelector('.work-card')?.dataset.scene||'soon';document.body.dataset.sceneTheme=theme;
+  theme=document.querySelector('.work-card')?.dataset.scene||document.body.dataset.sceneTheme||'soon';document.body.dataset.sceneTheme=theme;
   syncPause();
   // Paint navigation and cards before constructing the decorative raster scene.
   requestAnimationFrame(()=>requestAnimationFrame(()=>{sceneReady=true;resize();schedule();}));

@@ -3,6 +3,15 @@
   const STORAGE_KEY = 'chengc_posts';
   const DEFAULT_POSTS = [
   {
+    "id": "ai-web-security",
+    "title": "大模型“动手”之后：AI 安全与 Web 安全正在变成同一件事",
+    "category": "study",
+    "content": "当大模型开始替你操作网页和工具，AI 安全与 Web 安全就不再是两条平行线。这篇安全笔记整理了一篇跨层安全研究综述：间接提示注入、检索知识污染、不当输出处理与过度代理，以及防御的落点。",
+    "date": "2026/10/04",
+    "builtin": true,
+    "url": "posts/ai-web-security.html"
+  },
+  {
     "id": "building-this-site",
     "title": "我的小站是这样搭的：静态页面、博客系统与增量部署",
     "category": "study",

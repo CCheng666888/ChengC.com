@@ -11,3 +11,6 @@
 @media(max-width:800px){
   .work-detail-chip{top:11px;right:11px;padding:6px 11px;font-size:9px}
 }
+
+/* The next-game placeholder has no destination yet. */
+.showcase-page .coming-card.is-current,.showcase-page .coming-card.is-current .work-art{cursor:default}

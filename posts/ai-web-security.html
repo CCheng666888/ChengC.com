@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101f24">
+  <title>大模型"动手"之后 · ChenC 的萤火通讯</title>
+  <meta name="description" content="当大模型开始替你操作网页和工具，AI 安全与 Web 安全就不再是两条平行线。">
+  <!-- delivery:start -->
+  <link rel="stylesheet" href="../css/delivery-64377ca92dfc.css" data-sources="css/secret-arcade.css css/contact.css css/navigation.css css/night-lake.css">
+  <script data-theme-source="js/theme.js">(() => {
+  'use strict';
+  const system = matchMedia('(prefers-color-scheme: light)');
+  let preference = null;
+  try { preference = localStorage.getItem('theme'); } catch {}
+  if (!['light', 'dark'].includes(preference)) preference = null;
+  function apply(theme) {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.classList.toggle('dark', theme !== 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === 'light' ? '#f3f7f5' : '#0b2431';
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.setAttribute('aria-label', theme === 'light' ? '切换深色主题' : '切换浅色主题');
+    });
+  }
+  apply(preference || (system.matches ? 'light' : 'dark'));
+  document.documentElement.classList.add('js');
+  system.addEventListener('change', () => { if (!preference) apply(system.matches ? 'light' : 'dark'); });
+  function connect() {
+    apply(preference || (system.matches ? 'light' : 'dark'));
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.addEventListener('click', () => {
+        preference = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+        apply(preference);
+        try { localStorage.setItem('theme', preference); } catch {}
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', connect);
+  else connect();
+})();</script>
+  <script defer src="../js/navigation.js?v=c4790bd167ef"></script>
+  <!-- delivery:end -->
+</head>
+<body class="contact-page">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="pixel-stars" aria-hidden="true"></div>
+  <header class="contact-header">
+    <a class="contact-brand" href="../index.html">ChenC<span>.</span></a>
+    <span class="header-frequency">FIREFLY FREQUENCY / 02</span>
+    <a class="back-link" href="../index.html#blog">返回博客</a>
+  </header>
+  <main id="main" class="contact-main">
+    <div class="page-label"><span class="pixel-cross" aria-hidden="true">✦</span><span>一篇关于 AI 与 Web 安全的笔记</span><span class="label-code">CHENC / POST</span></div>
+    <h1>大模型"动手"之后<span class="heading-dot" aria-hidden="true">.</span></h1>
+    <section class="firefly-window" aria-labelledby="articleTitle">
+      <div class="window-bar">
+        <span class="window-name"><span class="window-mark" aria-hidden="true"></span>萤火通讯 · 技术手记</span>
+        <div class="window-controls">
+          <a class="window-return" href="../index.html#blog" aria-label="关闭手记，返回博客">×</a>
+        </div>
+      </div>
+      <div class="window-body" style="display:block;border-left:0;border-right:0">
+        <div class="article-body" id="articleTitle">
+          <header class="article-head">
+            <p class="channel-label"><span aria-hidden="true">[</span> SECURITY / 安全笔记 <span aria-hidden="true">]</span></p>
+            <h2>大模型<em>"动手"</em>之后：AI 安全与 Web 安全正在变成同一件事</h2>
+            <p class="article-meta"><time datetime="2026-10-04">2026 年 10 月 4 日</time><span>约 3 分钟阅读</span><span>源自《大语言模型驱动 Web 应用的跨层安全研究》</span></p>
+          </header>
+
+          <p>最近整理了一篇关于大语言模型与 Web 安全融合研究的综述，核心观点可以浓缩成一句话：<strong>当模型开始替你操作网页和工具，AI 安全与 Web 安全就不再是两条平行线。</strong></p>
+
+          <h3>从对话框走向真实操作</h3>
+          <p>过去我们用 LLM 只做对话，输入输出都在对话框里。现在不一样了：模型要读网页、检索知识库、调用业务接口、提交表单。WebArena 这类环境已经把电子商务、论坛等真实网站作为智能体测试场<a class="ref-sup" href="ai-web-security-references.html#ref1">[1]</a>，安全评价的范围也从"生成了什么文本"扩展到"执行了什么操作、动了谁的数据、调用了哪个工具"。</p>
+
+          <h3>威胁从哪来</h3>
+          <p>最典型的是<strong>间接提示注入</strong>。攻击者不用直接和模型对话，只要把恶意指令藏进网页、文档或工具返回值里，模型读到就会照做。InjecAgent 的基准测试中，约 24% 的攻击用例成功<a class="ref-sup" href="ai-web-security-references.html#ref3">[3]</a>。这类内容不执行任何脚本，传统的 XSS 检测根本看不见它。</p>
+          <p>第二类是<strong>检索知识污染</strong>。RAG 系统把外部资料喂给模型，攻击者往知识库里掺入恶意文本，模型就会针对特定问题给出攻击者想要的答案<a class="ref-sup" href="ai-web-security-references.html#ref12">[12]</a>。先受损的是答案可信度，而且它和"劫持指令"是两回事，要分开检验。</p>
+          <p>第三类是<strong>模型输出被当成可执行内容</strong>。模型生成的 HTML 直接插进页面、生成的 URL 被后端拿去发请求、生成的 SQL 交给数据库执行——XSS、SSRF、SQL 注入可能以新的入口卷土重来<a class="ref-sup" href="ai-web-security-references.html#ref13">[13]</a>。OWASP 2025 版 LLM 风险清单把"不当输出处理"单列为一项，CVE-2025-32711（Microsoft 365 Copilot 信息泄露）就是真实产品中的实例<a class="ref-sup" href="ai-web-security-references.html#ref15">[15]</a>。</p>
+          <p>还有一种更隐蔽：接口调用完全合法，却执行了用户没授权的操作，这就是<strong>过度代理</strong><a class="ref-sup" href="ai-web-security-references.html#ref8">[8]</a>。接口可用、账号有权限、任务没许可——三件事必须分开判断。</p>
+
+          <h3>AI 也不全是风险</h3>
+          <p>YuraScanner 用 LLM 引导工作流探索，在 20 个 Web 应用里找到 12 个零日 XSS<a class="ref-sup" href="ai-web-security-references.html#ref18">[18]</a>，说明语义驱动的探索能到达传统扫描器够不到的深层状态。但论文提醒：AI 辅助测试要区分"探索状态"和"证明漏洞"，AI 生成的代码和钓鱼内容同样需要独立验证。</p>
+
+          <h3>防御的落点</h3>
+          <p>论文给的防御框架很朴素，全部落在系统层而不是模型层：外部内容保留来源标签；工具调用由后端按身份和对象授权；模型输出按目的地处理（渲染走文本路径、SQL 走绑定参数、URL 走目标白名单）；任务设置预算和审计日志。评价一个系统，既要看正常任务完成率，也要看攻击成功率和策略违反情况。</p>
+
+          <blockquote class="article-quote">结论：大模型只是把不可信内容、模型决策和业务执行串在了一条链上。安全没有捷径，权限和数据流约束仍然是最可靠的护栏。</blockquote>
+
+          <p class="refs-entry"><span aria-hidden="true">🔗</span> 论文的 22 条参考文献与文中链接，见<a class="back-link" href="ai-web-security-references.html" style="padding:0;font-weight:700">《星间文献库》→</a></p>
+        </div>
+      </div>
+      <div class="window-bottom"><span class="mechanical-ticks" aria-hidden="true">▰ ▰ ▰</span><span>把微小的光，留给明天。</span><span class="bottom-code" aria-hidden="true">TYPE-IV</span></div>
+    </section>
+    <div class="contact-strip">
+      <div>
+        <p class="contact-kicker">NEXT STOP / 下一站</p>
+        <h2>星间文献库</h2>
+        <p>论文的全部 22 条参考文献，以及文中出现的原始链接，均可一键跳转原文。</p>
+      </div>
+      <a class="pixel-link" href="ai-web-security-references.html"><span>↗</span>进入文献库<small>22 条原始链接</small></a>
+    </div>
+  </main>
+  <footer class="contact-footer"><span>© 2026 ChenC</span><a href="https://www.bilibili.com/video/BV1wYdWB5EVF/" target="_blank" rel="noopener noreferrer">流萤像素素材 · 官方 PV</a><a class="back-link" href="ai-web-security-references.html" style="padding:0">星间文献库</a><span class="footer-sign">愿此行，终抵群星。</span></footer>
+</body>
+</html>

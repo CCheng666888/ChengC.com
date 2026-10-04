@@ -1,11 +1,11 @@
 {
-  "revision": "6cfe66384844",
+  "revision": "695bd28749ad",
   "pages": {
     "index.html": [
       "css/delivery-4fc05811ea8f.css",
       "css/delivery-6f0a8adcf6d6.css",
       "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-7656376ebd25.js",
+      "js/delivery-a6c99e2522d5.js",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
@@ -17,17 +17,17 @@
     ],
     "tools.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-0fa4794171c5.css",
+      "css/delivery-f45e4b252cbe.css",
       "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-f6209dcf798f.js",
+      "js/delivery-a004e67a5fb9.js",
       "assets/products/qa-cover-v1-desktop.webp",
       "assets/products/qa-cover-v1-mobile.webp"
     ],
     "games.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-0fa4794171c5.css",
+      "css/delivery-f45e4b252cbe.css",
       "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-f6209dcf798f.js",
+      "js/delivery-a004e67a5fb9.js",
       "assets/products/ming-cover-desktop.webp",
       "assets/products/ming-cover-mobile.webp"
     ],
@@ -35,6 +35,18 @@
       "css/delivery-4d3dae6c70db.css",
       "js/navigation.js?v=c4790bd167ef",
       "js/delivery-54d5f16e1f04.js"
+    ],
+    "posts/ai-web-security-references.html": [
+      "css/delivery-64377ca92dfc.css",
+      "js/navigation.js?v=c4790bd167ef",
+      "assets/cangshan-erhai.webp",
+      "assets/cangshan-erhai-mobile.webp"
+    ],
+    "posts/ai-web-security.html": [
+      "css/delivery-64377ca92dfc.css",
+      "js/navigation.js?v=c4790bd167ef",
+      "assets/cangshan-erhai.webp",
+      "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/building-this-site.html": [
       "css/delivery-4fc05811ea8f.css",
@@ -89,43 +101,43 @@
       "css/delivery-4fc05811ea8f.css",
       "css/delivery-777c0a378e30.css",
       "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-fd5edb1d8053.js"
+      "js/delivery-135b7b2d99f7.js"
     ],
     "work/multi-book-qa.html": [
       "css/delivery-4fc05811ea8f.css",
       "css/delivery-777c0a378e30.css",
       "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-fd5edb1d8053.js"
+      "js/delivery-135b7b2d99f7.js"
     ],
     "work/note-to-site.html": [
       "css/delivery-4fc05811ea8f.css",
       "css/delivery-777c0a378e30.css",
       "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-fd5edb1d8053.js"
+      "js/delivery-135b7b2d99f7.js"
     ],
     "work/spongebob-vs-zombie-fish.html": [
       "css/delivery-4fc05811ea8f.css",
       "css/delivery-777c0a378e30.css",
       "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-fd5edb1d8053.js"
+      "js/delivery-135b7b2d99f7.js"
     ],
     "work/underwater-defense.html": [
       "css/delivery-4fc05811ea8f.css",
       "css/delivery-777c0a378e30.css",
       "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-fd5edb1d8053.js"
+      "js/delivery-135b7b2d99f7.js"
     ],
     "work/upcoming-rhythm-game.html": [
       "css/delivery-4fc05811ea8f.css",
       "css/delivery-777c0a378e30.css",
       "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-fd5edb1d8053.js"
+      "js/delivery-135b7b2d99f7.js"
     ],
     "work/yujing.html": [
       "css/delivery-4fc05811ea8f.css",
       "css/delivery-777c0a378e30.css",
       "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-fd5edb1d8053.js"
+      "js/delivery-135b7b2d99f7.js"
     ]
   },
   "assets": [
@@ -149,23 +161,24 @@
     "assets/products/notes-cover-v1-mobile.webp",
     "assets/products/qa-cover-v1-desktop.webp",
     "assets/products/qa-cover-v1-mobile.webp",
-    "css/delivery-0fa4794171c5.css",
     "css/delivery-4d3dae6c70db.css",
     "css/delivery-4fc05811ea8f.css",
+    "css/delivery-64377ca92dfc.css",
     "css/delivery-6f0a8adcf6d6.css",
     "css/delivery-777c0a378e30.css",
     "css/delivery-966e3ec2628f.css",
     "css/delivery-af6c556458d6.css",
+    "css/delivery-f45e4b252cbe.css",
     "js/app.js",
     "js/blog-search-index.js",
     "js/blog-search.js",
     "js/carousel.js",
     "js/collection.js",
+    "js/delivery-135b7b2d99f7.js",
     "js/delivery-54d5f16e1f04.js",
-    "js/delivery-7656376ebd25.js",
+    "js/delivery-a004e67a5fb9.js",
+    "js/delivery-a6c99e2522d5.js",
     "js/delivery-d7fe2128be56.js",
-    "js/delivery-f6209dcf798f.js",
-    "js/delivery-fd5edb1d8053.js",
     "js/firefly-motion.js",
     "js/lake-projection.js",
     "js/landscape.js",

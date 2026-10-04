@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>下一个游戏 · 音游（全力更新中）· ChenC</title>
-  <meta name="description" content="ChenC 的下一款游戏方向：音游。还在全力更新中：节拍判定、按键映射、谱面编辑都在打磨，具体玩法成型后会第一时间放出。">
+  <title>节拍失控！BEAT.exe · ChenC</title>
+  <meta name="description" content="节拍失控！BEAT.exe：四轨下落式音游，八首原创曲目、四种难度，支持键盘与触屏，本站直接试玩并自动保存游戏进度。">
   <meta name="theme-color" content="#0b2431">
   <!-- delivery:start -->
   <link rel="stylesheet" href="../css/delivery-4fc05811ea8f.css" data-sources="css/style.css">
@@ -41,10 +41,10 @@
   else connect();
 })();</script>
   <script defer src="../js/navigation.js?v=c4790bd167ef"></script>
-  <script defer src="../js/delivery-fd5edb1d8053.js" data-sources="js/work-scenes.js"></script>
+  <script defer src="../js/delivery-135b7b2d99f7.js" data-sources="js/work-scenes.js"></script>
   <!-- delivery:end -->
 </head>
-<body class="article-page work-detail-page coming-detail">
+<body class="article-page work-detail-page coming-detail" data-scene-theme="beat">
   <div class="landscape work-landscape" aria-hidden="true"><canvas id="workScene"></canvas><div class="scene-shade"></div></div>
   <header class="site-header">
     <nav class="nav-shell" aria-label="作品详情导航">
@@ -56,38 +56,57 @@
     <article>
       <header class="article-header">
         <a class="article-category" href="../games.html">游戏</a>
-        <h1>下一个游戏，是一把音游</h1>
-        <p class="article-lead">前面几款游戏是策略、运动和防守，这次想做点不一样的：节奏类的音游。目前全力更新中，先占个位告诉大家方向。</p>
-        <div class="article-meta"><time>COMING SOON</time><span>音游（暂定方向）</span><span>全力更新中</span></div>
+        <h1>节拍失控！BEAT.exe</h1>
+        <p class="article-lead">跟上节拍，连接你的频率。四轨下落式音游，带着八首原创音乐，邀请你在一次次挑战中找到自己的节奏。</p>
+        <div class="article-meta"><span>v1.0.0</span><span>音乐节奏游戏</span><span>网页 / Windows</span></div>
       </header>
       <div class="article-body">
-
-        <h2>设计方向</h2>
-        <p>初步想做一款<strong>下落式音游的简化版</strong>：音符沿判定线落下，在节拍点按下对应按键，按判定的精度计分。核心就三个问题——<strong>节拍判定、按键映射、谱面怎么做</strong>，目前都在打磨，一个都还没完全定下来。</p>
-
-        <h2>当前进度</h2>
-        <p>还在玩法验证阶段：先要确认「跟着节拍按下去」这件事在网页上做起来手感对不对。曲库、难度、结算界面都还没排上日程，所以这里先放一个占位页，不夸什么。</p>
-
-        <h2>计划中</h2>
+        <h2>跟着音符，找到节奏</h2>
+        <p>音符沿四条音轨落下，抵达判定线时操作。普通音符点击，长按音符按住至尾部，滑动音符沿提示换轨；键盘使用 <strong>D、F、J、K</strong>，手机直接触控音轨。根据时机获得 PERFECT、GREAT、GOOD 或 MISS，结算会记录分数、最大连击与通关评级。</p>
+        <h2>从第一拍，到更高难度</h2>
+        <p>八首原创曲目涵盖电子、氛围与摇滚风格，提供 EASY、NORMAL、HARD、INSANE 四种难度。通过游玩解锁曲目、背景、难度与特殊谱面，成就记录每一次突破。</p>
+        <h2>进度会留在这里</h2>
+        <p>网页会自动将成绩、解锁与设置保存在当前浏览器中，下次回来即可继续。游戏设置还支持导出和导入存档，方便备份或换设备。Windows 版也可以离线游玩。</p>
+        <h2>设计目的</h2>
+        <p>想做一个打开就能玩的节奏游戏：<strong>四条音轨、原创音乐、键盘和触屏都能操作</strong>，不依赖外部服务器，网页版与 Windows 版都能随时玩。</p>
+        <h2>设计思路</h2>
         <ul>
-          <li>先做 1–2 首曲子的完整谱面，验证判定手感和按键方案；</li>
-          <li>再补选曲、结算和简单的设置界面；</li>
-          <li>预计先出网页版，能玩会第一时间放出来。</li>
+          <li><strong>操作</strong>：音符沿四轨下落，普通音符点击、长按音符按住至尾部、滑动音符沿提示换轨；键盘使用 <strong>D、F、J、K</strong>，手机直接触控音轨；</li>
+          <li><strong>判定与结算</strong>：按时机给出 PERFECT、GREAT、GOOD 或 MISS，结算记录分数、最大连击与通关评级，成绩保存在当前浏览器；</li>
+          <li><strong>内容与解锁</strong>：八首原创曲目（电子、氛围与摇滚），EASY、NORMAL、HARD、INSANE 四种难度；通过游玩逐步解锁曲目、难度、背景与特殊谱面，成就记录每一次突破；</li>
+          <li><strong>双端</strong>：网页单文件内嵌音乐与图片，Windows 版可离线游玩。</li>
         </ul>
-
+        <h2>实现过程</h2>
+        <ul>
+          <li>游戏作为独立 HTML 交付：<code>play/beat-exe.html</code> 把音乐、图片与游戏代码全部内嵌，站内直接试玩，不跳转外部域名；</li>
+          <li>专属像素节拍舞台：四轨下落音符、扬声器、动态均衡器与节拍灯，卡片和详情页共用同一套 <code>beat</code> 像素场景；</li>
+          <li>进度、解锁与设置自动保存在浏览器本地，支持导出/导入存档；</li>
+          <li>Windows 成品与网页版共用同一套游戏内容。</li>
+        </ul>
+        <h2>遇到的困难</h2>
+        <ul>
+          <li><strong>音画同步</strong>：下落谱面最怕延迟，游戏设置里提供延迟校准，让判定线和音乐对齐；</li>
+          <li><strong>双操作适配</strong>：键盘四键与手机多指触控要共用同一套判定逻辑，触屏上多轨同时按下也需要单独处理；</li>
+          <li><strong>单文件体积</strong>：八首音乐和图片内嵌后文件较大，因此独立游戏不纳入主站预加载与页面缓存，需要时再打开。</li>
+        </ul>
+        <h2>做了哪些优化</h2>
+        <ul>
+          <li><strong>专属像素舞台</strong>：按反馈为音游增加独立 <code>beat</code> 背景，四轨音符、扬声器、动态均衡器与节拍灯随音乐变化；</li>
+          <li><strong>站内试玩</strong>：游戏页第五张卡片接入音游，封面为像素音轨，试玩与 Windows 下载都在本站完成，不跳外部；</li>
+          <li><strong>观谱练习</strong>：提供练习模式，熟悉谱面后再挑战正式成绩。</li>
+        </ul>
         <h2>更新记录</h2>
         <ul class="detail-timeline">
           <li>
-            <time>COMING SOON</time>
-            <strong>全力更新中</strong>
-            <p>玩法还没到可以试玩的阶段，这里先记录方向，等具体内容成型后回填。</p>
+            <time>v1.0.0（当前）</time>
+            <strong>正式上线</strong>
+            <p>八首原创曲目、四种难度、成就与进度保存；接入游戏页第五张卡片；新增专属像素节拍舞台；站内单文件试玩与 Windows 下载。</p>
           </li>
         </ul>
-
-        <h2>想玩的话</h2>
-        <p>等它能玩了，我会直接放到游戏页。先记个期待，回来看看有没有惊喜。</p>
+        <h2>开始试玩</h2>
+        <p>本站的试玩 HTML 已包含音乐和图片，打开后选择曲目即可开始。建议佩戴耳机，在游戏设置中校准延迟，让每一拍更贴合你的操作。</p>
       </div>
-      <footer class="article-footer"><a class="button secondary" href="../games.html">← 返回游戏页</a></footer>
+      <footer class="article-footer"><a class="button primary" href="../play/beat-exe.html">开始试玩</a><a class="button secondary" href="../downloads/BEAT-exe-1.0.0-windows.exe" download>下载 Windows 版</a><a class="button secondary" href="../games.html">← 返回游戏页</a></footer>
     </article>
   </main>
   <div class="tools" aria-label="风景控制">
@@ -105,6 +124,6 @@
     <p class="settings-note" id="motionNote">每个作品有自己的像素场景；环境动画、微光和交互都在同一画面中绘制。</p>
   </aside>
 
-  <script>window.WorkScenes?.setTheme('soon');</script>
+  <script>window.WorkScenes?.setTheme('beat');</script>
 </body>
 </html>

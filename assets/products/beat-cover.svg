@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="BEAT.exe 像素音轨" shape-rendering="crispEdges">
+  <rect width="800" height="450" fill="#10162c"/>
+  <path fill="#17243c" d="M0 330H40V285H80V300H120V265H160V310H200V275H240V330H280V295H320V450H0ZM800 330H760V270H720V300H680V280H640V320H600V265H560V330H520V450H800Z"/>
+  <g fill="#70949b" opacity=".55"><path d="M60 50h8v8h-8zM140 95h4v4h-4zM250 42h6v6h-6zM565 55h5v5h-5zM670 105h8v8h-8zM742 48h4v4h-4zM205 158h4v4h-4zM620 180h6v6h-6z"/></g>
+  <g stroke="#294255" stroke-width="2"><path d="M320 185 270 415M360 185 335 415M400 185V415M440 185 465 415M480 185 530 415"/></g>
+  <g fill="#75ddcc"><path d="M336 210h28v10h-28zM286 343h46v14h-46zM341 290h43v12h-43z"/></g>
+  <g fill="#d29ef2"><path d="M442 245h34v12h-34zM408 335h44v14h-44zM478 378h46v14h-46z"/></g>
+  <path fill="#75ddcc" opacity=".28" d="M353 228h9v59h-9z"/>
+  <path fill="#b8ecda" d="M265 409h270v4H265z"/>
+  <g fill="#75ddcc" opacity=".6"><path d="M80 372h8v25h-8zM96 350h8v47h-8zM112 363h8v34h-8zM128 334h8v63h-8zM144 357h8v40h-8zM656 360h8v37h-8zM672 334h8v63h-8zM688 348h8v49h-8zM704 374h8v23h-8zM720 359h8v38h-8z"/></g>
+  <text x="400" y="111" text-anchor="middle" fill="#e5f5ef" font-family="monospace" font-weight="bold" font-size="61" letter-spacing="5" shape-rendering="geometricPrecision">BEAT.exe</text>
+  <text x="400" y="151" text-anchor="middle" fill="#86c6ba" font-family="monospace" font-size="13" letter-spacing="5" shape-rendering="geometricPrecision">FIND YOUR FREQUENCY</text>
+  <text x="33" y="34" fill="#86a39e" font-family="monospace" font-size="10" letter-spacing="2" shape-rendering="geometricPrecision">CHENC / RHYTHM LAB</text>
+</svg>
