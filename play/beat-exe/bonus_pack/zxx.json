@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "id": "unknown07",
+  "code": "zxx",
+  "song": {
+    "id": "unknown07",
+    "title": "UNKNOWN_07",
+    "cn": "未识别信号",
+    "artist": "UNKNOWN / FILE 07",
+    "genre": "ANOMALY",
+    "bpm": 128,
+    "bars": 34,
+    "root": 45,
+    "seed": 107,
+    "color": "#b0f5d3",
+    "color2": "#c88cff",
+    "unlock": 999,
+    "level": 5,
+    "hidden": true,
+    "duration": 252.8,
+    "audio": "songs/unknown07.wav",
+    "cover": "images/unknown07.svg"
+  },
+  "chart": "charts/unknown07.json",
+  "bossImage": "images/boss-zxx.png",
+  "backgroundImage": "images/memory-stage.png",
+  "video": "videos/zxx-stage.mp4",
+  "bossName": "ZXX · 静默主宰",
+  "title": "隐藏玩家认证成功",
+  "verdict": "本局评分：朋友无法接受",
+  "unlock": {
+    "plays": 3,
+    "accuracy": 90,
+    "song": "neon"
+  },
+  "stages": {
+    "bossStart": 20,
+    "videoStart": 30
+  },
+  "videoIncludesIntro": true,
+  "continueOnMiss": true
+}

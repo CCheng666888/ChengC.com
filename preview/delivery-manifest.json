@@ -1,5 +1,5 @@
 {
-  "revision": "695bd28749ad",
+  "revision": "b466fe6a3e94",
   "pages": {
     "index.html": [
       "css/delivery-4fc05811ea8f.css",
@@ -28,8 +28,7 @@
       "css/delivery-f45e4b252cbe.css",
       "js/navigation.js?v=c4790bd167ef",
       "js/delivery-a004e67a5fb9.js",
-      "assets/products/ming-cover-desktop.webp",
-      "assets/products/ming-cover-mobile.webp"
+      "assets/products/yinian-cover.png"
     ],
     "contact.html": [
       "css/delivery-4d3dae6c70db.css",
@@ -133,6 +132,12 @@
       "js/navigation.js?v=c4790bd167ef",
       "js/delivery-135b7b2d99f7.js"
     ],
+    "work/yi-nian-tian-xia.html": [
+      "css/delivery-4fc05811ea8f.css",
+      "css/delivery-777c0a378e30.css",
+      "js/navigation.js?v=c4790bd167ef",
+      "js/delivery-135b7b2d99f7.js"
+    ],
     "work/yujing.html": [
       "css/delivery-4fc05811ea8f.css",
       "css/delivery-777c0a378e30.css",
@@ -161,6 +166,7 @@
     "assets/products/notes-cover-v1-mobile.webp",
     "assets/products/qa-cover-v1-desktop.webp",
     "assets/products/qa-cover-v1-mobile.webp",
+    "assets/products/yinian-cover.png",
     "css/delivery-4d3dae6c70db.css",
     "css/delivery-4fc05811ea8f.css",
     "css/delivery-64377ca92dfc.css",

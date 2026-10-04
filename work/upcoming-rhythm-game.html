@@ -58,7 +58,7 @@
         <a class="article-category" href="../games.html">游戏</a>
         <h1>节拍失控！BEAT.exe</h1>
         <p class="article-lead">跟上节拍，连接你的频率。四轨下落式音游，带着八首原创音乐，邀请你在一次次挑战中找到自己的节奏。</p>
-        <div class="article-meta"><span>v1.0.0</span><span>音乐节奏游戏</span><span>网页 / Windows</span></div>
+        <div class="article-meta"><span>v1.0.1</span><span>音乐节奏游戏</span><span>网页 / Windows</span></div>
       </header>
       <div class="article-body">
         <h2>跟着音符，找到节奏</h2>
@@ -74,11 +74,11 @@
           <li><strong>操作</strong>：音符沿四轨下落，普通音符点击、长按音符按住至尾部、滑动音符沿提示换轨；键盘使用 <strong>D、F、J、K</strong>，手机直接触控音轨；</li>
           <li><strong>判定与结算</strong>：按时机给出 PERFECT、GREAT、GOOD 或 MISS，结算记录分数、最大连击与通关评级，成绩保存在当前浏览器；</li>
           <li><strong>内容与解锁</strong>：八首原创曲目（电子、氛围与摇滚），EASY、NORMAL、HARD、INSANE 四种难度；通过游玩逐步解锁曲目、难度、背景与特殊谱面，成就记录每一次突破；</li>
-          <li><strong>双端</strong>：网页单文件内嵌音乐与图片，Windows 版可离线游玩。</li>
+          <li><strong>双端</strong>：网页在本站按需加载曲目与素材，Windows 版包含全部内容，可离线游玩。</li>
         </ul>
         <h2>实现过程</h2>
         <ul>
-          <li>游戏作为独立 HTML 交付：<code>play/beat-exe.html</code> 把音乐、图片与游戏代码全部内嵌，站内直接试玩，不跳转外部域名；</li>
+          <li>游戏在 <code>play/beat-exe.html</code> 直接打开，素材保存在本站配套目录中，选曲后按需加载，不跳转外部试玩域名；</li>
           <li>专属像素节拍舞台：四轨下落音符、扬声器、动态均衡器与节拍灯，卡片和详情页共用同一套 <code>beat</code> 像素场景；</li>
           <li>进度、解锁与设置自动保存在浏览器本地，支持导出/导入存档；</li>
           <li>Windows 成品与网页版共用同一套游戏内容。</li>
@@ -87,7 +87,7 @@
         <ul>
           <li><strong>音画同步</strong>：下落谱面最怕延迟，游戏设置里提供延迟校准，让判定线和音乐对齐；</li>
           <li><strong>双操作适配</strong>：键盘四键与手机多指触控要共用同一套判定逻辑，触屏上多轨同时按下也需要单独处理；</li>
-          <li><strong>单文件体积</strong>：八首音乐和图片内嵌后文件较大，因此独立游戏不纳入主站预加载与页面缓存，需要时再打开。</li>
+          <li><strong>媒体加载</strong>：试玩入口改为轻量 HTML，曲目和视频在需要时加载，独立游戏不纳入主站预加载与页面缓存。</li>
         </ul>
         <h2>做了哪些优化</h2>
         <ul>
@@ -97,16 +97,17 @@
         </ul>
         <h2>更新记录</h2>
         <ul class="detail-timeline">
+          <li><time>v1.0.1（当前）</time><strong>手机入口与播放优化</strong><p>轻量站内试玩、适配手机键盘的系统连接入口、有声播放与暂停恢复优化；兼容原有进度存档。</p></li>
           <li>
-            <time>v1.0.0（当前）</time>
+            <time>v1.0.0（首发）</time>
             <strong>正式上线</strong>
             <p>八首原创曲目、四种难度、成就与进度保存；接入游戏页第五张卡片；新增专属像素节拍舞台；站内单文件试玩与 Windows 下载。</p>
           </li>
         </ul>
         <h2>开始试玩</h2>
-        <p>本站的试玩 HTML 已包含音乐和图片，打开后选择曲目即可开始。建议佩戴耳机，在游戏设置中校准延迟，让每一拍更贴合你的操作。</p>
+        <p>本站试玩打开后即可选曲，音乐与素材会按需加载。建议佩戴耳机，在游戏设置中校准延迟，让每一拍更贴合你的操作。</p>
       </div>
-      <footer class="article-footer"><a class="button primary" href="../play/beat-exe.html">开始试玩</a><a class="button secondary" href="../downloads/BEAT-exe-1.0.0-windows.exe" download>下载 Windows 版</a><a class="button secondary" href="../games.html">← 返回游戏页</a></footer>
+      <footer class="article-footer"><a class="button primary" href="../play/beat-exe.html">开始试玩</a><a class="button secondary" href="../downloads/BEAT-exe-1.0.1-windows.exe" download>下载 Windows 版</a><a class="button secondary" href="../games.html">← 返回游戏页</a></footer>
     </article>
   </main>
   <div class="tools" aria-label="风景控制">
