@@ -12,7 +12,7 @@
   const settings = {density:65,speed:35,mist:40,glow:60}, defaults = {...settings};
   const cache = new Map(), glows = new Map();
   let W=640,H=360,viewW=640,theme='soon',from=null,changed=0,time=0,last=0,frame=0;
-  let paused=reduced.matches,mouse=0,aim=0,effects=[];
+  let paused=reduced.matches,mouse=0,aim=0,effects=[],sceneReady=false;
   const rgb = hex => [1,3,5].map(i=>parseInt(hex.slice(i,i+2),16));
   const clamp = (x,a,b)=>Math.max(a,Math.min(b,x));
   function random(seed) {
@@ -172,20 +172,23 @@
     return moving;
   }
   function draw(now=performance.now()){
+    if(!sceneReady)return;
     ctx.imageSmoothingEnabled=false;
     const crop=(W-viewW)/2+Math.round(mouse*q(3));
     if(from){ctx.globalAlpha=1;ctx.drawImage(paintScene(build(from)),crop,0,viewW,H,0,0,viewW,H);const f=clamp((now-changed)/700,0,1);ctx.globalAlpha=f*f*(3-2*f);ctx.drawImage(paintScene(build(theme)),crop,0,viewW,H,0,0,viewW,H);if(f===1)from=null;ctx.globalAlpha=1;}
     else ctx.drawImage(paintScene(build(theme)),crop,0,viewW,H,0,0,viewW,H);
   }
   function loop(now){frame=0;if(document.hidden||paused)return;const dt=Math.min(.06,(now-last)/1000);if(now-last>1000/(innerWidth<700?24:30)){time+=dt*(.12+settings.speed/100*1.9);last=now;mouse+=(aim-mouse)*.045;effects=effects.filter(e=>time-e.t<1.7);draw(now);}frame=requestAnimationFrame(loop);}
-  function schedule(){if(!frame&&!paused&&!document.hidden){last=performance.now();frame=requestAnimationFrame(loop);}}
+  function schedule(){if(sceneReady&&!frame&&!paused&&!document.hidden){last=performance.now();frame=requestAnimationFrame(loop);}}
   function resize(){const px=Math.max(2,Math.round(innerHeight/360));viewW=Math.ceil(innerWidth/px);H=Math.ceil(innerHeight/px);W=Math.max(viewW+q(10),Math.ceil(H*16/9));canvas.width=viewW;canvas.height=H;cache.clear();glows.clear();effects=[];draw();}
-  function setTheme(id){id=names.has(id)?id:'soon';if(id===theme)return;build(id);from=paused?null:theme;theme=id;changed=performance.now();document.body.dataset.sceneTheme=id;draw();schedule();}
+  function setTheme(id){id=names.has(id)?id:'soon';if(id===theme)return;if(!sceneReady){theme=id;document.body.dataset.sceneTheme=id;return;}build(id);from=paused?null:theme;theme=id;changed=performance.now();document.body.dataset.sceneTheme=id;draw();schedule();}
   function pause(){paused=!paused;syncPause();if(paused){cancelAnimationFrame(frame);frame=0;from=null;draw();}else schedule();}
   function syncPause(){const b=document.getElementById('pauseToggle');b.textContent=paused?'继续动画':'暂停动画';b.setAttribute('aria-pressed',String(paused));document.getElementById('motionNote').textContent=reduced.matches?'已按你的减少动态偏好暂停场景；仍可切换作品和背景。':'每个作品有自己的像素场景；环境动画、微光和交互都在同一画面中绘制。';}
   window.WorkScenes={setTheme};
   theme=document.querySelector('.work-card')?.dataset.scene||'soon';document.body.dataset.sceneTheme=theme;
-  resize();syncPause();schedule();
+  syncPause();
+  // Paint navigation and cards before constructing the decorative raster scene.
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{sceneReady=true;resize();schedule();}));
   let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(resize,100);});
   document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;}else schedule();});
   reduced.addEventListener('change',()=>{paused=reduced.matches;from=null;syncPause();draw();schedule();});

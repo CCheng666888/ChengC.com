@@ -51,7 +51,7 @@
 .profile-portfolio .window-top i:nth-child(3){background:#78bc8c}
 .profile-portfolio .window-top span{font-size:8px;color:#92959b;margin:auto;letter-spacing:.05em}
 .profile-portfolio .hero-site{width:63%;left:18.5%;top:0;z-index:3;transform:rotate(-2deg)}
-.profile-portfolio .hero-site-screen{aspect-ratio:1.85;position:relative;background:url('assets/cangshan-erhai.webp') center/cover;color:#fff;text-align:left;padding:14px 25px}
+.profile-portfolio .hero-site-screen{aspect-ratio:1.85;position:relative;background:url('../assets/cangshan-erhai-mobile.webp') center/cover;color:#fff;text-align:left;padding:14px 25px}
 .profile-portfolio .hero-site-screen:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0e252d70,transparent 70%)}
 .profile-portfolio .hero-site-screen>*{position:relative}
 .profile-portfolio .tiny-brand{font-size:11px;font-weight:600}

@@ -19,3 +19,7 @@
 - 自定义域名：`chenc.com.cn`（根目录 `CNAME` 文件）
 - 历史 Netlify 部署脚本 `D:\编译\C.txt\deploy.py` 不再用于本网站部署，仅作参考，不要按旧 Netlify 流程部署。
 - 部署细节见 `网站更新记录/最新版与部署说明.md`。
+
+## 性能资源维护
+
+主站 19 个展示/文章页面使用带内容哈希的 CSS/JS 合并资源，以及 `sw.js` 的有限缓存。修改这些页面的 HTML 或其原始 CSS/JS 后，必须运行 `node preview/build-delivery.cjs`，再验证并发布生成的 `css/delivery-*`、`js/delivery-*` 和 `sw.js`；不要直接编辑生成的合并文件。该脚本根据 HTML 的 `data-sources` 保留原始资源清单，自动更新资源哈希和缓存版本。部署仍是静态 GitHub Pages，无需在线构建。

@@ -6,14 +6,43 @@
   <title>海绵宝宝大战僵尸鱼 · 设计开发历程 · ChenC</title>
   <meta name="description" content="海绵宝宝大战僵尸鱼的设计目的、思路、实现过程、困难与更新记录：海绵宝宝主题同人小游戏，抵御僵尸鱼挑战更高分数，网页与 Windows 双版本。">
   <meta name="theme-color" content="#0b2431">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/showcase.css">
-  <link rel="stylesheet" href="../css/work-gallery-v2.css?v=20261002-v2">
-  <link rel="stylesheet" href="../css/work-detail.css?v=20261003-b">
-  <script src="../js/theme.js"></script>
+  <!-- delivery:start -->
+  <link rel="stylesheet" href="../css/delivery-4fc05811ea8f.css" data-sources="css/style.css">
+  <link rel="stylesheet" href="../css/delivery-777c0a378e30.css" data-sources="css/showcase.css css/work-gallery-v2.css css/work-detail.css css/navigation.css">
+  <script data-theme-source="js/theme.js">(() => {
+  'use strict';
+  const system = matchMedia('(prefers-color-scheme: light)');
+  let preference = null;
+  try { preference = localStorage.getItem('theme'); } catch {}
+  if (!['light', 'dark'].includes(preference)) preference = null;
+  function apply(theme) {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.classList.toggle('dark', theme !== 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === 'light' ? '#f3f7f5' : '#0b2431';
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.setAttribute('aria-label', theme === 'light' ? '切换深色主题' : '切换浅色主题');
+    });
+  }
+  apply(preference || (system.matches ? 'light' : 'dark'));
+  document.documentElement.classList.add('js');
+  system.addEventListener('change', () => { if (!preference) apply(system.matches ? 'light' : 'dark'); });
+  function connect() {
+    apply(preference || (system.matches ? 'light' : 'dark'));
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.addEventListener('click', () => {
+        preference = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+        apply(preference);
+        try { localStorage.setItem('theme', preference); } catch {}
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', connect);
+  else connect();
+})();</script>
+  <script defer src="../js/navigation.js?v=c4790bd167ef"></script>
+  <script defer src="../js/delivery-fd5edb1d8053.js" data-sources="js/work-scenes.js"></script>
+  <!-- delivery:end -->
 </head>
 <body class="article-page work-detail-page">
   <div class="landscape work-landscape" aria-hidden="true"><canvas id="workScene"></canvas><div class="scene-shade"></div></div>
@@ -104,7 +133,7 @@
     <div class="settings-foot"><button type="button" id="nightToggle" aria-pressed="false">柔和背景</button><button type="button" id="reset">恢复默认</button></div>
     <p class="settings-note" id="motionNote">每个作品有自己的像素场景；环境动画、微光和交互都在同一画面中绘制。</p>
   </aside>
-  <script src="../js/work-scenes.js?v=20261002-v2"></script>
+
   <script>window.WorkScenes?.setTheme('fish');</script>
 </body>
 </html>

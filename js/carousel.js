@@ -104,7 +104,7 @@
     }
     track.classList.add('is-switching');
     cards[destination].classList.remove('is-entering');
-    const began = performance.now(), duration = 850;
+    const began = performance.now(), duration = 360;
     requestAnimationFrame(() => cards[destination].classList.add('is-entering'));
     function frame(now) {
       const t = Math.min(1, (now - began) / duration);
@@ -122,11 +122,12 @@
   }
   function request(action) {
     if (count < 2) return;
-    if (animation || rebasing) {
-      if (action.type === 'absolute') queue = [];
-      queue.push(action);
+    if (rebasing) {
+      queue = [action];
       return;
     }
+    // A new press redirects the current motion instead of adding a long queue.
+    if (animation) stop();
     const logical = action.type === 'step' ? wrap(active + action.value) : wrap(action.value);
     if (logical === active) { drain(); return; }
     let destination = logical + offset;

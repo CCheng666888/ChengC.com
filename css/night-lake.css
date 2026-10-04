@@ -10,5 +10,6 @@
 /* Keep the original camera framing; share this URL with the WebGL texture and preload. */
 @media(max-width:800px){
   .home-page:not(.collection-page) .landscape-art{background-image:url('../assets/cangshan-erhai-mobile.webp')}
+  .article-page:not(.work-detail-page) .landscape-art{background-image:url('../assets/cangshan-erhai-mobile.webp')}
   .home-page:not(.collection-page).night .landscape-art:after{background-image:url('../assets/cangshan-erhai-night-mobile.webp')}
 }

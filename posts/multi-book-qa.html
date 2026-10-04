@@ -6,11 +6,42 @@
   <title>我把 6 本书的知识点，做成了一个离线问答台 · ChenC</title>
   <meta name="description" content="一个多书语义问答台：把密码学、Web 安全、数据库、计算机组成原理等 6 本书的 326 条知识点整理成语义检索问答，引用溯源、随站托管打开即用。">
   <meta name="theme-color" content="#090910">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css">
-  <script src="../js/theme.js"></script>
+  <!-- delivery:start -->
+  <link rel="stylesheet" href="../css/delivery-4fc05811ea8f.css" data-sources="css/style.css">
+  <link rel="stylesheet" href="../css/delivery-966e3ec2628f.css" data-sources="css/navigation.css css/night-lake.css">
+  <script data-theme-source="js/theme.js">(() => {
+  'use strict';
+  const system = matchMedia('(prefers-color-scheme: light)');
+  let preference = null;
+  try { preference = localStorage.getItem('theme'); } catch {}
+  if (!['light', 'dark'].includes(preference)) preference = null;
+  function apply(theme) {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.classList.toggle('dark', theme !== 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === 'light' ? '#f3f7f5' : '#0b2431';
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.setAttribute('aria-label', theme === 'light' ? '切换深色主题' : '切换浅色主题');
+    });
+  }
+  apply(preference || (system.matches ? 'light' : 'dark'));
+  document.documentElement.classList.add('js');
+  system.addEventListener('change', () => { if (!preference) apply(system.matches ? 'light' : 'dark'); });
+  function connect() {
+    apply(preference || (system.matches ? 'light' : 'dark'));
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.addEventListener('click', () => {
+        preference = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+        apply(preference);
+        try { localStorage.setItem('theme', preference); } catch {}
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', connect);
+  else connect();
+})();</script>
+  <script defer src="../js/navigation.js?v=c4790bd167ef"></script>
+  <!-- delivery:end -->
 </head>
 <body class="article-page">
   <div class="landscape" aria-hidden="true"><div class="landscape-art"></div><div class="scene-shade"></div></div>
@@ -57,6 +88,6 @@
       <footer class="article-footer"><a class="button secondary" href="../index.html#blog">← 返回博客列表</a><a class="button primary" href="../multi-book-qa/index.html" target="_blank" rel="noopener">打开问答台 ↗</a></footer>
     </article>
   </main>
-  
+
 </body>
 </html>

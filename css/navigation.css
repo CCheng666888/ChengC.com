@@ -1,4 +1,9 @@
-/* Shared button feedback and page transitions. Native links remain usable without JS. */
+/* Native transitions keep the previous page visible during navigation. */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:page-fade-out .16s ease-out both}
+::view-transition-new(root){animation:page-fade-in .16s ease-out both}
+@keyframes page-fade-out{to{opacity:0}}
+@keyframes page-fade-in{from{opacity:0}to{opacity:1}}
 .hero-actions .portal-link{position:relative;overflow:hidden;isolation:isolate;gap:10px;min-width:138px;transition:background .2s,box-shadow .2s,transform .2s}
 .portal-link svg{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .hero-actions .portal-link:hover{transform:translateY(-3px);box-shadow:0 8px 24px #071b3426}
@@ -6,10 +11,8 @@
 .link-ripple{position:absolute;left:var(--ripple-x);top:var(--ripple-y);width:20px;height:20px;margin:-10px;border-radius:50%;background:#fff7;pointer-events:none;z-index:-1;animation:link-ripple .65s ease-out forwards}
 .primary .link-ripple{background:#57767f33}
 @keyframes link-ripple{to{transform:scale(22);opacity:0}}
-.page-transition{position:fixed;inset:0;z-index:200;pointer-events:none;opacity:0;background:#071c3533;backdrop-filter:blur(0);transition:opacity .24s,backdrop-filter .24s}
-.page-leaving .page-transition{opacity:1;backdrop-filter:blur(7px)}
+.page-transition{display:none}
 .home-page .hero-content,.home-page main>.section,.collection-footer{transition:opacity .24s,transform .24s}
-.page-leaving .hero-content,.page-leaving main>.section,.page-leaving .collection-footer{opacity:0;transform:translateY(-10px)}
 .js .collection-page .hero-content{animation:collection-arrive .65s cubic-bezier(.2,.7,.2,1) both}
 @keyframes collection-arrive{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 /* Tool and game pages share the mountain-and-lake scene; content is intentionally empty. */
@@ -39,6 +42,8 @@
 }
 @media(max-width:360px){.home-page .hero-actions .portal-link{font-size:11px;padding-inline:8px;gap:5px}}
 @media(prefers-reduced-motion:reduce){
+  @view-transition{navigation:none}
+  ::view-transition-old(root),::view-transition-new(root){animation:none}
   .link-ripple,.js .collection-page .hero-content{animation:none}
   .page-transition{display:none}
   .hero-actions .portal-link,.home-page .hero-content,.home-page main>.section,.collection-footer{transition:none}

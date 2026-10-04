@@ -6,8 +6,42 @@
   <meta name="theme-color" content="#101f24">
   <title>联系作者 · ChenC 的萤火通讯</title>
   <meta name="description" content="联系 ChenC。新的故事与作品正在全力更新。">
-  <link rel="stylesheet" href="css/secret-arcade.css?v=20261003-snake2">
-  <link rel="stylesheet" href="css/contact.css?v=20261003">
+  <!-- delivery:start -->
+  <link rel="stylesheet" href="css/delivery-4d3dae6c70db.css" data-sources="css/secret-arcade.css css/contact.css css/navigation.css">
+  <script data-theme-source="js/theme.js">(() => {
+  'use strict';
+  const system = matchMedia('(prefers-color-scheme: light)');
+  let preference = null;
+  try { preference = localStorage.getItem('theme'); } catch {}
+  if (!['light', 'dark'].includes(preference)) preference = null;
+  function apply(theme) {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.classList.toggle('dark', theme !== 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === 'light' ? '#f3f7f5' : '#0b2431';
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.setAttribute('aria-label', theme === 'light' ? '切换深色主题' : '切换浅色主题');
+    });
+  }
+  apply(preference || (system.matches ? 'light' : 'dark'));
+  document.documentElement.classList.add('js');
+  system.addEventListener('change', () => { if (!preference) apply(system.matches ? 'light' : 'dark'); });
+  function connect() {
+    apply(preference || (system.matches ? 'light' : 'dark'));
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.addEventListener('click', () => {
+        preference = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+        apply(preference);
+        try { localStorage.setItem('theme', preference); } catch {}
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', connect);
+  else connect();
+})();</script>
+  <script defer src="js/navigation.js?v=c4790bd167ef"></script>
+  <script defer src="js/delivery-54d5f16e1f04.js" data-sources="js/secret-arcade.js js/firefly-motion.js"></script>
+  <!-- delivery:end -->
 </head>
 <body class="contact-page">
   <a class="skip-link" href="#main">跳到主要内容</a>
@@ -60,7 +94,7 @@
     <div class="arcade-actions"><button type="button" data-action="pause">开始</button><button type="button" data-action="restart">重新开始</button></div>
     <div class="arcade-directions" aria-label="游戏操作"><button type="button" data-action="left" aria-label="向左">←</button><button type="button" data-action="up" aria-label="向上或旋转">↑</button><button type="button" data-action="down" aria-label="向下">↓</button><button type="button" data-action="right" aria-label="向右">→</button><button type="button" data-action="drop">落到底</button></div>
   </dialog>
-  <script src="js/secret-arcade.js?v=20261003-snake2"></script>
-  <script src="js/firefly-motion.js?v=20261003"></script>
+
+
 </body>
 </html>

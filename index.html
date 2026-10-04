@@ -7,7 +7,43 @@
   <meta property="og:title" content="ChenC · 个人博客与独立游戏"><meta property="og:description" content="记录学习与生活，分享独立游戏作品。"><meta property="og:image" content="assets/cangshan-erhai.webp">
   <link rel="preload" as="image" href="assets/cangshan-erhai-mobile.webp" type="image/webp" media="(max-width:800px)" fetchpriority="high">
   <link rel="preload" as="image" href="assets/cangshan-erhai.webp" type="image/webp" media="(min-width:801px)" fetchpriority="high">
-  <link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/navigation.css"><link rel="stylesheet" href="css/night-lake.css?v=20261003-mobile-v1"><link rel="stylesheet" href="css/showcase.css"><link rel="stylesheet" href="css/home-search.css?v=20261003-search-v3"><script src="js/theme.js"></script>
+  <!-- delivery:start -->
+  <link rel="stylesheet" href="css/delivery-4fc05811ea8f.css" data-sources="css/style.css">
+  <link rel="stylesheet" href="css/delivery-6f0a8adcf6d6.css" data-sources="css/navigation.css css/night-lake.css css/showcase.css css/home-search.css">
+  <script data-theme-source="js/theme.js">(() => {
+  'use strict';
+  const system = matchMedia('(prefers-color-scheme: light)');
+  let preference = null;
+  try { preference = localStorage.getItem('theme'); } catch {}
+  if (!['light', 'dark'].includes(preference)) preference = null;
+  function apply(theme) {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.classList.toggle('dark', theme !== 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === 'light' ? '#f3f7f5' : '#0b2431';
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.setAttribute('aria-label', theme === 'light' ? '切换深色主题' : '切换浅色主题');
+    });
+  }
+  apply(preference || (system.matches ? 'light' : 'dark'));
+  document.documentElement.classList.add('js');
+  system.addEventListener('change', () => { if (!preference) apply(system.matches ? 'light' : 'dark'); });
+  function connect() {
+    apply(preference || (system.matches ? 'light' : 'dark'));
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.addEventListener('click', () => {
+        preference = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+        apply(preference);
+        try { localStorage.setItem('theme', preference); } catch {}
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', connect);
+  else connect();
+})();</script>
+  <script defer src="js/navigation.js?v=c4790bd167ef"></script>
+  <script defer src="js/delivery-7656376ebd25.js" data-sources="js/lake-projection.js js/scene-images.js js/landscape.js js/blog-search.js js/app.js js/search-firefly.js js/private.js js/music.js"></script>
+  <!-- delivery:end -->
 </head>
 <body class="home-page">
 <div class="landscape" aria-hidden="true"><div class="landscape-art" id="landscapeArt" data-night-image="assets/cangshan-erhai-night.webp" data-night-image-mobile="assets/cangshan-erhai-night-mobile.webp"></div><canvas id="water"></canvas><canvas id="particles"></canvas><div class="scene-shade"></div></div>
@@ -66,4 +102,4 @@
     <label class="slider" for="lanterns"><span class="slider-top"><span>渔灯密度</span><output id="lanternsValue" for="lanterns">55%</output></span><input id="lanterns" type="range" min="0" max="100" value="55"></label><div class="settings-foot"><button type="button" id="nightToggle" aria-pressed="false">切换夜色</button><button type="button" id="reset">恢复默认</button></div>
     <p class="settings-note" id="motionNote">点水或拖动：波动沿湖面透视扩散，远处更细、更扁，近处更明显，带动倒影和水光。点山：山间云雾随风移动，山体保持稳定，不触发鸟群。渔灯在夜色中出现，可单独调整密度。</p>
   </aside>
-<script defer src="js/lake-projection.js"></script><script defer src="js/scene-images.js?v=20261003-mobile-v1"></script><script defer src="js/landscape.js?v=20261003-mobile-v1"></script><script defer src="js/blog-search.js?v=20261003-search-v2"></script><script defer src="js/app.js?v=20261003-search-v2"></script><script defer src="js/search-firefly.js?v=20261003-search-v2"></script><script defer src="js/navigation.js"></script><script defer src="js/private.js"></script><script defer src="js/music.js"></script></body></html>
+</body></html>

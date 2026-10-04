@@ -13,6 +13,7 @@
 .work-art{position:relative;min-width:0;margin:0;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#0b1c2a}
 .work-art:before{content:'';position:absolute;inset:-20px;background:var(--cover) center/cover;filter:blur(22px) brightness(.72);opacity:.8}
 .work-art img{position:relative;display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;user-select:none;-webkit-user-drag:none}
+.work-art picture{position:relative;display:block;width:100%;min-width:0}
 .work-art figcaption{position:absolute;left:20px;bottom:17px;color:#fff;font-size:10px;letter-spacing:.12em;text-shadow:0 1px 6px #0008;z-index:1}
 .work-copy{padding:36px;display:flex;align-items:flex-start;flex-direction:column;min-width:0}
 .work-meta{display:flex;justify-content:space-between;gap:16px;width:100%;font-size:10px;line-height:1.7;color:var(--soft);letter-spacing:.06em}
@@ -48,8 +49,8 @@
 .collection-page .tools{position:relative;bottom:auto;right:auto;width:max-content;max-width:calc(100% - 36px);margin:0 max(18px,calc((100vw - 1120px)/2)) 24px auto}
 .collection-page.scene-only .tools{position:fixed;bottom:20px;right:24px;margin:0}
 .showcase-footer a{color:inherit}.showcase-footer a:hover{text-decoration:underline;text-underline-offset:4px}
-.js .showcase-main,.js .profile-main{animation:showcase-arrive .6s cubic-bezier(.2,.7,.2,1) both}
-@keyframes showcase-arrive{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.js .showcase-main,.js .profile-main{animation:showcase-arrive .18s ease-out both}
+@keyframes showcase-arrive{from{opacity:.8;transform:translateY(5px)}to{opacity:1;transform:none}}
 .page-leaving .showcase-main,.page-leaving .profile-main{opacity:0;transform:translateY(-10px);transition:opacity .24s,transform .24s}
 .scene-only .showcase-main,.scene-only .profile-main{visibility:hidden}.scene-only .showcase-footer{visibility:hidden}
 .private-brand{padding:0;border:0;background:none;font-family:inherit;cursor:pointer;text-align:left}

@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "report": [
+    "All 19 public editorial pages load, with no Google font dependency, missing resource or desktop overflow.",
+    "Rapid carousel clicks respond immediately; card detail navigation and scene controls pass.",
+    "Search-to-article navigation, saved theme, return links and active worker pass.",
+    "Previously prepared pages remain navigable when the network goes offline.",
+    "390/320px phones have no overflow, use mobile covers even at DPR 3, and menus pass.",
+    "Blocked worker, unsupported prerender, reduced motion, file:// and JavaScript-disabled native navigation pass."
+  ],
+  "errors": [],
+  "missing": []
+}
