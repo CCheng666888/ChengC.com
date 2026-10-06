@@ -3,6 +3,7 @@
   "architectures": [
     "BertModel"
   ],
+  "tokenizer_class": "BertTokenizer",
   "attention_probs_dropout_prob": 0.1,
   "classifier_dropout": null,
   "gradient_checkpointing": false,

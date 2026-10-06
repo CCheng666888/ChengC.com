@@ -3,81 +3,93 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#090910">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
-<title>多书语义问答 · ChenC</title>
+<title>多书语义问答 · 6 本教材知识库</title>
 <style>
 :root{
-  --bg:#090910; --bg2:#11111d; --card:rgba(20,20,34,.8); --line:rgba(255,255,255,.1);
-  --tx:#f5f3ff; --tx2:#a5a1b5; --acc:#b15cff; --acc2:#7547ff; --ok:#53d8aa; --warn:#ff8181;
+  --bg:#16263f; --bg2:#1d314d; --card:#223855; --line:#2e4a6d;
+  --tx:#e8eef6; --tx2:#9fb3cc; --acc:#4da3ff; --acc2:#7cc0ff; --ok:#56c271; --warn:#f0a63c;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--tx);font-family:Inter,'Noto Sans SC','Microsoft YaHei',system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column}
-header{background:rgba(9,9,16,.88);border-bottom:1px solid var(--line);backdrop-filter:blur(18px);padding:13px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
-.cc-brand{font-size:21px;font-weight:800;background:linear-gradient(135deg,#e6b8ff,var(--acc));background-clip:text;-webkit-background-clip:text;color:transparent;text-decoration:none;flex:0 0 auto}
-.h-title{font-size:19px;font-weight:800;letter-spacing:1px;color:var(--tx)}
+body{background:var(--bg);color:var(--tx);font-family:"Microsoft YaHei","PingFang SC","Noto Sans SC",system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+header{background:linear-gradient(135deg,#10202f,#1b3a5c);border-bottom:1px solid var(--line);padding:14px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.h-title{font-size:19px;font-weight:700;letter-spacing:1px}
 .h-title small{display:block;font-size:11px;color:var(--tx2);font-weight:400;letter-spacing:0;margin-top:2px}
 #modelBadge{margin-left:auto;font-size:12px;color:var(--tx2);background:var(--card);border:1px solid var(--line);padding:6px 12px;border-radius:20px;white-space:nowrap}
 #modelBadge.ok{color:var(--ok);border-color:var(--ok)}
 #modelBadge.busy{color:var(--warn);border-color:var(--warn)}
-.cc-back{margin-left:4px;color:var(--muted,#a5a1b5);font-size:14px;text-decoration:none;white-space:nowrap;padding:7px 13px;border:1px solid var(--line);border-radius:9px;background:var(--bg2)}
-.cc-back:hover{color:var(--acc);border-color:rgba(177,92,255,.5)}
 main{flex:1;display:flex;min-height:0}
-aside{width:230px;border-right:1px solid var(--line);padding:14px;overflow:auto;flex-shrink:0;background:var(--bg2)}
+aside{width:230px;border-right:1px solid var(--line);padding:14px;overflow:auto;flex-shrink:0}
 aside h3{font-size:12px;color:var(--tx2);margin-bottom:10px;letter-spacing:2px}
 .bk-item{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);color:var(--tx);padding:8px 10px;border-radius:8px;margin-bottom:7px;font-size:13px;cursor:pointer;transition:.15s}
 .bk-item:hover{border-color:var(--acc)}
-.bk-item.on{background:linear-gradient(135deg,var(--acc),var(--acc2));border-color:transparent;color:#fff;font-weight:600}
+.bk-item.on{background:var(--acc);border-color:var(--acc);color:#0b1626;font-weight:600}
 .q-chip{display:inline-block;background:var(--card);border:1px solid var(--line);color:var(--tx2);padding:5px 10px;border-radius:16px;font-size:12px;margin:3px 4px 0 0;cursor:pointer;transition:.15s}
 .q-chip:hover{color:var(--acc);border-color:var(--acc)}
 .sec{margin-top:16px}
 section.chat{flex:1;display:flex;flex-direction:column;min-width:0}
 .qa{flex:1;overflow:auto;padding:22px;display:flex;flex-direction:column;gap:16px}
 .msg{max-width:80%;padding:12px 16px;border-radius:12px;font-size:14.5px;line-height:1.85;white-space:pre-wrap;word-break:break-word}
-.msg.user{align-self:flex-end;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border-bottom-right-radius:4px;box-shadow:0 8px 24px rgba(117,71,255,.3)}
-.msg.bot{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:4px;color:var(--tx)}
-.cite{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-top:12px;max-width:80%;align-self:flex-start;font-size:13px}
-.cite b{color:var(--acc);font-size:12px;display:block;margin-bottom:6px}
-.cite .c{background:var(--card);border-left:3px solid var(--acc);padding:6px 10px;border-radius:0 6px 6px 0;margin:5px 0;cursor:pointer}
-.cite .c .h{color:var(--acc);font-size:13px;margin-bottom:2px}
+.msg.user{align-self:flex-end;background:var(--acc);color:#0b1626;border-bottom-right-radius:4px}
+.msg.bot{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:4px}
+.cite{background:#16304a;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-top:12px;max-width:80%;align-self:flex-start;font-size:13px}
+.cite b{color:var(--acc2);font-size:12px;display:block;margin-bottom:6px}
+.cite .c{background:var(--bg2);border-left:3px solid var(--acc);padding:6px 10px;border-radius:0 6px 6px 0;margin:5px 0;cursor:pointer}
+.cite .c .h{color:var(--acc2);font-size:13px;margin-bottom:2px}
 .cite .c .b{color:var(--tx2);font-size:12.5px;line-height:1.7;white-space:pre-wrap}
 /* 智能组装回答样式 */
 .ans{display:flex;flex-direction:column;gap:10px}
-.ans .lead{font-size:16px;font-weight:700;color:var(--acc);border-bottom:1px solid var(--line);padding-bottom:8px}
+.ans .lead{font-size:16px;font-weight:700;color:var(--acc2);border-bottom:1px solid var(--line);padding-bottom:8px}
 .ans .p{font-size:14.5px;line-height:1.9}
-.ans .frm{background:rgba(117,71,255,.12);border:1px solid rgba(177,92,255,.4);border-radius:8px;padding:8px 12px;font-family:Consolas,'Courier New',monospace;font-size:13.5px;color:#cba6ff}
-.ans .ex{background:rgba(83,216,170,.08);border:1px solid rgba(83,216,170,.35);border-radius:8px;padding:8px 12px;font-size:13.5px;color:#9fe8c8}
+.ans .frm{background:#12324e;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-family:Consolas,"Courier New",monospace;font-size:13.5px;color:#a8d4ff}
+.ans .ex{background:#123322;border:1px solid #1f4d35;border-radius:8px;padding:8px 12px;font-size:13.5px;color:#b7e4c0}
 .ans .sup{border-left:3px solid var(--acc);background:var(--bg2);padding:8px 12px;border-radius:0 8px 8px 0;font-size:13.5px}
-.ans .sup .h{color:var(--acc);font-weight:600;margin-bottom:3px}
+.ans .sup .h{color:var(--acc2);font-weight:600;margin-bottom:3px}
 .ans .sup .b{color:var(--tx2);line-height:1.7}
 .ans .rel{margin-top:4px;font-size:13px;color:var(--tx2)}
 .ans .rel .q-chip{margin-top:6px}
 .upgrade{font-size:12px;color:var(--warn);margin-top:8px}
+/* DeepSeek 生成回答样式 */
+.gen{display:flex;flex-direction:column;gap:8px}
+.gen .thinking{color:var(--tx2);font-size:13px}
+.gen .stream{font-size:14.5px;line-height:1.9;white-space:pre-wrap;word-break:break-word}
+.gen .stream b{color:var(--acc2)}
+.gen .stream code{background:var(--bg2);border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-family:Consolas,monospace;font-size:13px}
+.gen .stream pre{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow:auto;font-size:13px;line-height:1.6}
+.gen .stream pre code{background:none;border:0;padding:0}
+.gen .srcnote{font-size:12px;color:var(--tx2)}
+.gen .srcnote b{color:var(--ok)}
+.gen .srcnote.err b{color:#e05c5c}
+.errmsg{color:#e05c5c;font-size:13px;margin-top:6px}
+/* 设置面板 */
+.mask{position:fixed;inset:0;background:rgba(6,12,20,.62);display:none;align-items:center;justify-content:center;z-index:50}
+.mask.on{display:flex}
+.panel{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:22px;width:min(480px,92vw)}
+.panel h3{margin:0 0 6px;font-size:16px}
+.panel .sub{color:var(--tx2);font-size:12.5px;line-height:1.7;margin-bottom:14px}
+.panel input{width:100%;background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:8px;padding:10px 12px;font-size:13.5px;outline:none;margin-bottom:12px;font-family:Consolas,monospace}
+.panel input:focus{border-color:var(--acc)}
+.panel .btns{display:flex;gap:8px}
+.panel .btns button{flex:1}
+.panel .btns button.ghost{flex:0 0 auto}
+.ds-ok{color:var(--ok)}.ds-off{color:var(--warn)}
 .inputbar{display:flex;gap:10px;padding:14px 20px;border-top:1px solid var(--line);background:var(--bg2)}
 #q{flex:1;background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:10px;padding:12px 14px;font-size:14.5px;outline:none}
-#q:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(177,92,255,.15)}
-button{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:0;border-radius:10px;padding:11px 18px;font-size:14px;font-weight:600;cursor:pointer}
+#q:focus{border-color:var(--acc)}
+button{background:var(--acc);color:#0b1626;border:0;border-radius:10px;padding:11px 18px;font-size:14px;font-weight:600;cursor:pointer}
 button:hover{filter:brightness(1.1)}
 button.ghost{background:transparent;border:1px solid var(--line);color:var(--tx2);font-weight:400}
-button.ghost:hover{color:var(--acc);border-color:rgba(177,92,255,.5);filter:none}
 #progress{height:4px;background:var(--line);border-radius:2px;overflow:visible;display:none;position:relative;z-index:9}#progText{position:absolute;top:9px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--acc);font-weight:600;white-space:nowrap;text-shadow:0 1px 3px rgba(0,0,0,.5)}
 #progress i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .3s}
 .empty{color:var(--tx2);font-size:13.5px;line-height:1.9;text-align:center;padding:40px 20px}
 footer{font-size:11px;color:#5e7290;text-align:center;padding:8px}
-a{color:var(--acc)}
+a{color:var(--acc2)}
 @media(max-width:760px){aside{display:none}.msg{max-width:94%}.cite{max-width:94%}}
 </style>
-
-
 </head>
 <body>
 <header>
-  <a class='cc-brand' href='/'>ChenC</a>
-  <div class="h-title">多书语义问答<small>6 本教材 · 326 个知识点 · 语义检索 · 打开即用无需下载</small></div>
+  <div class="h-title">多书语义问答<small>6 本教材 · 326 个知识点 · 语义检索 + DeepSeek AI 生成</small></div>
   <span id="modelBadge">语义引擎：加载中…</span>
-  <a class='cc-back' href='/'>← 返回博客</a>
 </header>
 <div id="progress"><i id="progressBar"></i><span id="progText"></span></div>
 <main>
@@ -88,14 +100,14 @@ a{color:var(--acc)}
     <div class="sec"><h3>试一试</h3><div id="chips"></div></div>
   </aside>
   <section class="chat">
-    <div class="qa" id="qa"><div class="empty">输入一个问题开始问答。示例：「什么是完全剩余类？」「RSA 怎么加密解密？」「卡诺图怎么化简？」<br><br>打开即用、无需下载：页面加载后语义引擎自动准备（约 23MB，只需一次，之后浏览器缓存秒开）；准备好之前提问先用词法检索立即回答，随后自动升级为语义检索。</div></div>
+    <div class="qa" id="qa"><div class="empty">输入一个问题开始问答。示例：「什么是完全剩余类？」「RSA 怎么加密解密？」「卡诺图怎么化简？」<br><br>打开即用、无需下载：语义引擎自动准备，检索命中知识库后由 DeepSeek 生成完整回答（AI 经服务端安全通道，访客不可见 Key）。</div></div>
     <div class="inputbar">
       <input id="q" placeholder="输入你的问题，例如：完全剩余类是什么？" onkeydown="if(event.key==='Enter')window.__api && window.__api.ask()">
       <button onclick="window.__api && window.__api.ask()">提问</button>
     </div>
   </section>
 </main>
-<footer>知识库内容为学习整理 · 全部在浏览器本地运行，不经过任何服务器</footer>
+<footer>知识库内容为学习整理 · 语义检索在浏览器本地运行 · AI 回答由 DeepSeek 生成</footer>
 <script src="lib/ort.min.js"></script>
 <script type="module">
 import { pipeline, env } from './lib/transformers.min.js';
@@ -111,7 +123,8 @@ var items=window.DATA.items;
 var DOC_TOKS=null, DICT=null, IDF=null, AVGDL=0;
 
 /* 语义引擎随站点托管（models/Xenova/…），不依赖任何外部 CDN */
-env.remoteHost='https://chengcc.netlify.app/multi-book-qa/models/';
+/* 必须绝对 URL：transformers.js 文件探测只接受 http/https 协议，相对路径会被判定为文件不存在 */
+env.remoteHost=new URL('models',location.href).href.replace(/\/$/,'');
 env.allowLocalModels=false;
 if(env.backends&&env.backends.onnx&&env.backends.onnx.wasm){
   env.backends.onnx.wasm.wasmPaths={
@@ -222,6 +235,9 @@ async function loadEmb(){
   if(EMB)return true;
   showProg(true);setProg(5);
   try{env.progress_callback=function(p){handleProg(p,5,25);};}catch(e){}
+  /* 必须用绝对 URL：transformers.js 文件探测只接受 http/https 协议，相对路径会判定文件不存在 */
+  env.remoteHost=new URL('models',location.href).href.replace(/\/$/,'');
+  try{env.backends.onnx.wasm.wasmPaths={mjs:'./lib/ort-wasm-simd-threaded.asyncify.mjs',wasm:'./lib/ort-wasm-simd-threaded.asyncify.wasm'};}catch(e){}
   EMB=await pipeline('feature-extraction','Xenova/bge-small-zh-v1.5',{dtype:'q8',device:'wasm'});
   setProg(30);showProg(false);clearProgText();
   setBadge('语义引擎已就绪','ok');
@@ -275,6 +291,77 @@ function buildCite(hits){
   return c;
 }
 
+/* ===== DeepSeek AI 生成（经 Cloudflare Worker 代理，Key 不暴露给访客） ===== */
+var DS_ENDPOINT='https://ai.chenc.com.cn/api/chat';
+var DS_MODEL='deepseek-chat';
+function dsReady(){return !!DS_ENDPOINT;}
+function refreshBadge(){
+  var b=document.getElementById('modelBadge');
+  var base=EMB?'语义引擎已就绪':'语义引擎加载中';
+  var cls=EMB?'ok':'busy';
+  if(dsReady()){
+    b.textContent=base+' · AI 已接入（安全通道）';b.className=cls;
+  }else{
+    b.textContent=base+' · AI 待接入（知识库组装回答）';b.className='';
+  }
+}
+/* 极简 markdown 渲染：代码块 / 粗体 / 换行 */
+function renderMd(s){
+  s=String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  s=s.replace(/```([\s\S]*?)```/g,function(m,c){return '<pre>'+c.replace(/\n/g,'<br>')+'</pre>';});
+  s=s.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+  s=s.replace(/`([^`]+)`/g,'<code>$1</code>');
+  s=s.replace(/\n/g,'<br>');
+  return s;
+}
+/* 组装知识库上下文（与本地版一致） */
+function buildCtx(hits){
+  return hits.map(function(h,i){
+    var it=items[h.i];
+    return '['+(i+1)+']（'+it.bkt+'·'+it.ch+'）'+it.t+'：'+it.answer+(it.formula?'（公式：'+it.formula+'）':'')+(it.example?'（例：'+it.example+'）':'');
+  }).join('\n');
+}
+/* 调用 DeepSeek（经 Worker 代理，Key 在服务端，前端不携带） */
+async function chatDS(q,ctx,onToken,onError){
+  var sys='你是《多书知识问答》助手。你的回答必须完全基于下方【知识库资料】，禁止使用资料之外的知识，禁止编造，禁止自行扩展。'
+    +'资料能直接回答问题时：用通俗易懂的中文组织要点，涉及公式和例子时一并给出。'
+    +'资料不足以回答时：明确回答"知识库中没有相关内容"，然后仅列出最接近的知识点标题作为参考，不要自行补充解释。';
+  var res=await fetch(DS_ENDPOINT,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      model:DS_MODEL,
+      messages:[{role:'system',content:sys},{role:'user',content:'【知识库资料】\n'+ctx+'\n\n【用户问题】'+q}],
+      stream:true,temperature:0.4,max_tokens:1200
+    })
+  });
+  if(!res.ok){
+    var t=await res.text().catch(function(){return'';});
+    throw new Error('API '+res.status+' '+t.slice(0,120));
+  }
+  var reader=res.body.getReader();
+  var dec=new TextDecoder();
+  var buf='';
+  while(true){
+    var r=await reader.read();
+    if(r.done)break;
+    buf+=dec.decode(r.value,{stream:true});
+    var parts=buf.split('\n');
+    buf=parts.pop();
+    for(var i=0;i<parts.length;i++){
+      var line=parts[i].trim();
+      if(!line.startsWith('data:'))continue;
+      var d=line.slice(5).trim();
+      if(d==='[DONE]')continue;
+      try{
+        var o=JSON.parse(d);
+        var tok=o.choices&&o.choices[0]&&o.choices[0].delta&&o.choices[0].delta.content;
+        if(tok)onToken(tok);
+      }catch(e){}
+    }
+  }
+}
+
 /* ===== 问答 ===== */
 function addMsg(role,html){
   var d=document.createElement('div');
@@ -302,8 +389,55 @@ async function ask(){
     hint.innerHTML='知识库中没有检索到相关内容，换个问法试试。';
     return;
   }
-  hint.innerHTML=assembleAnswer(q,hits);
   var qa=document.getElementById('qa');
+  /* 低分拦截：语义检索命中分数过低 → 判定知识库无对应内容，不让 AI 发挥 */
+  if(!usedLex && hits[0].s < 0.42){
+    hint.innerHTML=assembleAnswer(q,hits);
+    var low=document.createElement('div');
+    low.className='upgrade';
+    low.textContent='检索相关度较低（与知识库内容匹配不足），未启用 AI 生成；以上为知识库中最接近的原文，仅供参考。';
+    hint.appendChild(low);
+    qa.appendChild(buildCite(hits));
+    qa.scrollTop=qa.scrollHeight;
+    return;
+  }
+  /* 已接入 Worker 代理：DeepSeek 流式生成 */
+  if(dsReady()){
+    hint.innerHTML='<div class="gen"><div class="thinking">已检索到 '+hits.length+' 条相关知识点，AI 正在组织回答…</div></div>';
+    qa.scrollTop=qa.scrollHeight;
+    var ok=false;
+    try{
+      await chatDS(q,buildCtx(hits),function(tok){
+        ok=true;
+        var g=hint.querySelector('.gen');
+        if(!g){return;}
+        var st=g.querySelector('.stream');
+        if(!st){st=document.createElement('div');st.className='stream';g.appendChild(st);}
+        st.innerHTML=renderMd(st.textContent+tok);
+        qa.scrollTop=qa.scrollHeight;
+      },null);
+      var g2=hint.querySelector('.gen');
+      if(g2&&ok){
+        var sn=document.createElement('div');
+        sn.className='srcnote';
+        sn.innerHTML='<b>来源</b>：'+hits.map(function(h){return esc(items[h.i].t);}).join(' · ');
+        g2.appendChild(sn);
+      }
+    }catch(e){
+      hint.innerHTML=assembleAnswer(q,hits);
+      var em=document.createElement('div');
+      em.className='errmsg';
+      em.textContent='AI 生成失败（'+(e&&e.message||e)+'），已改用知识库原文组装回答。';
+      hint.appendChild(em);
+    }
+  }else{
+    /* 未接入代理：知识库原文组装（降级） */
+    hint.innerHTML=assembleAnswer(q,hits);
+    var nt=document.createElement('div');
+    nt.className='upgrade';
+    nt.textContent='以上为知识库原文组装回答；AI 通道部署后自动启用完整回答。';
+    hint.appendChild(nt);
+  }
   qa.appendChild(buildCite(hits));
   qa.scrollTop=qa.scrollHeight;
   /* 若语义引擎尚未就绪：后台加载完成后自动升级检索结果 */
@@ -316,11 +450,13 @@ async function ask(){
         return retrieveSem(q).then(function(newHits){
           if(!newHits.length)return;
           var better=newHits[0].i!==hits[0].i;
-          hint.innerHTML=assembleAnswer(q,newHits);
-          var qa2=document.getElementById('qa');
-          qa2.appendChild(buildCite(newHits));
-          qa2.scrollTop=qa2.scrollHeight;
-          if(better)setBadge('语义引擎已就绪 · 本回答已升级','ok');
+          if(better){
+            hint.innerHTML='<div class="upgrade">检索已升级为语义检索，请重新提问获取更精准回答。</div>';
+            var qa3=document.getElementById('qa');
+            qa3.appendChild(buildCite(newHits));
+            qa3.scrollTop=qa3.scrollHeight;
+            setBadge('语义引擎已就绪','ok');
+          }
         });
       }
     }).catch(function(){});
@@ -344,9 +480,10 @@ async function ask(){
     cd.appendChild(s);
   });
   /* 打开页面即后台预加载语义引擎（无需用户操作） */
-  loadEmb().catch(function(){
+  loadEmb().then(function(){refreshBadge();}).catch(function(){
     setBadge('词法检索模式（语义引擎加载失败，可刷新重试）','');
   });
+  refreshBadge();
 })();
 function pickBook(k,el){
   CUR=k;
@@ -358,7 +495,7 @@ function pickBook(k,el){
 
 window.__api={ask:ask,bm25:bm25,pickBook:pickBook,items:items,
   askText:function(t){document.getElementById('q').value=t;ask();},
-  get state(){return {EMB:!!EMB,badge:document.getElementById('modelBadge').textContent}}};
+  get state(){return {EMB:!!EMB,ds:dsReady(),badge:document.getElementById('modelBadge').textContent}}};
 </script>
 </body>
 </html>
