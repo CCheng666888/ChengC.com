@@ -17,4 +17,7 @@
   const updateHeader = () => header.classList.toggle('scrolled', scrollY > 24);
   addEventListener('scroll', updateHeader, {passive:true});
   updateHeader();
+  // A browser back/forward restore should not leave a stale mobile menu over the page.
+  addEventListener('pageshow', () => { setMenu(false); updateHeader(); });
+  matchMedia('(max-width:800px)').addEventListener('change', () => setMenu(false));
 })();

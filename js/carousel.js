@@ -35,14 +35,23 @@
   const cards = [...track.querySelectorAll('.work-card')];
   let active = 0, slot = offset, animation = 0, rebasing = false, scrollFrame = 0, settleTimer = 0;
   let drag = null, suppressClickUntil = 0, queue = [];
+  let positions = [], reflectedSlot = -1, rememberedTitle = null, resizeFrame = 0;
+  const storageKey = 'chenc-work-position:' + location.pathname;
+  try { rememberedTitle = sessionStorage.getItem(storageKey); } catch {}
   document.querySelectorAll('.carousel-controls [hidden], .carousel-sides[hidden]').forEach(node => node.hidden = false);
   previous.disabled = next.disabled = count < 2;
 
-  function leftFor(index) {
+  function measure() {
     const padding = parseFloat(getComputedStyle(track).paddingLeft) || 0;
-    return Math.max(0, Math.min(cards[index].offsetLeft - track.offsetLeft - padding, track.scrollWidth - track.clientWidth));
+    const origin = track.offsetLeft, max = track.scrollWidth - track.clientWidth;
+    positions = cards.map(card => Math.max(0, Math.min(card.offsetLeft - origin - padding, max)));
+  }
+  function leftFor(index) {
+    return positions[index] ?? 0;
   }
   function reflect(index) {
+    if (reflectedSlot === index) return;
+    reflectedSlot = index;
     slot = index;
     active = wrap(index - offset);
     cards.forEach((card, i) => {
@@ -58,6 +67,11 @@
     window.WorkScenes?.setTheme(originals[active].dataset.scene);
     dots.forEach((dot, i) => dot.setAttribute('aria-pressed', String(i === active)));
     position.textContent = String(active + 1).padStart(2, '0') + ' / ' + String(count).padStart(2, '0') + ' · ' + originals[active].dataset.title;
+    const title = originals[active].dataset.title;
+    if (title !== rememberedTitle) {
+      rememberedTitle = title;
+      try { sessionStorage.setItem(storageKey, title); } catch {}
+    }
   }
   function nearest() {
     let index = slot, distance = Infinity;
@@ -215,14 +229,18 @@
     }
   }, true);
   track.addEventListener('dragstart', event => event.preventDefault());
-  addEventListener('resize', () => requestAnimationFrame(() => {
+  function align() {
+    resizeFrame = 0;
     const wanted = active;
     stop();
+    measure();
     track.classList.add('is-rebasing');
     reflect(wanted + offset);
     track.scrollTo({left:leftFor(slot), behavior:'instant'});
     requestAnimationFrame(() => track.classList.remove('is-rebasing'));
-  }));
+  }
+  addEventListener('resize', () => { if (!resizeFrame) resizeFrame = requestAnimationFrame(align); });
+  addEventListener('pageshow', event => { if (event.persisted) align(); });
   reduced.addEventListener('change', () => {
     if (reduced.matches) {
       stop();
@@ -231,7 +249,10 @@
     }
   });
   track.classList.add('is-rebasing');
-  reflect(offset);
-  track.scrollTo({left:leftFor(offset), behavior:'instant'});
+  measure();
+  const restored = originals.findIndex(card => card.dataset.title === rememberedTitle);
+  const initial = (restored < 0 ? 0 : restored) + offset;
+  reflect(initial);
+  track.scrollTo({left:leftFor(initial), behavior:'instant'});
   requestAnimationFrame(() => track.classList.remove('is-rebasing'));
 })();

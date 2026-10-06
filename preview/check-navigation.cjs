@@ -6,6 +6,7 @@ const {chromium}=createRequire('C:/Users/19152/.cache/codex-runtimes/codex-prima
 const root=path.resolve(__dirname,'..');
 const base=process.argv[2]||'http://127.0.0.1:8765/';
 const manifest=JSON.parse(fs.readFileSync(path.join(__dirname,'delivery-manifest.json')));
+const postCount=(fs.readFileSync(path.join(root,'index.html'),'utf8').match(/class="post-link"/g)||[]).length;
 const report=[], errors=[], missing=[];
 (async()=>{
   const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'});
@@ -19,17 +20,18 @@ const report=[], errors=[], missing=[];
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,name+' overflows');
       if(['index.html','about.html','tools.html','games.html'].includes(name)){await page.waitForTimeout(1000);await page.screenshot({path:path.join(__dirname,`navigation-${name.replace('.html','')}-desktop.jpg`),type:'jpeg',quality:85});}
     }
-    report.push('All 19 public editorial pages load, with no Google font dependency, missing resource or desktop overflow.');
+    report.push('All '+Object.keys(manifest.pages).length+' public editorial pages load, with no Google font dependency, missing resource or desktop overflow.');
     await page.goto(new URL('games.html',base).href);
-    // Six rapid clicks must land on the sixth target within one short motion, without a backlog.
-    await page.locator('#workNext').evaluate(button=>{for(let i=0;i<6;i++)button.click();});
+    // Seven rapid clicks traverse all six games and reach the second card, without a backlog.
+    await page.locator('.carousel-dot[data-work-index="0"]').click();await page.waitForTimeout(450);
+    await page.locator('#workNext').evaluate(button=>{for(let i=0;i<7;i++)button.click();});
     await page.waitForTimeout(550);
-    assert.match(await page.locator('#workPosition').textContent(),/^02 \/ 05/);
+    assert.match(await page.locator('#workPosition').textContent(),/^02 \/ 06/);
     assert.equal(await page.locator('#workTrack').evaluate(track=>track.classList.contains('is-switching')),false);
     await page.locator('#workPrevious').click();await page.waitForTimeout(450);
-    assert.match(await page.locator('#workPosition').textContent(),/^01 \/ 05/);
+    assert.match(await page.locator('#workPosition').textContent(),/^01 \/ 06/);
     await page.locator('.work-card.is-current:not([data-work-clone]) .work-copy h2').click();
-    await page.waitForURL('**/work/mingchronicles.html');
+    await page.waitForURL('**/work/yi-nian-tian-xia.html');
     await page.locator('#pauseToggle').click();
     assert.equal(await page.locator('#pauseToggle').getAttribute('aria-pressed'),'true');
     await page.locator('#sceneToggle').click();
@@ -80,15 +82,15 @@ const report=[], errors=[], missing=[];
     await plain.goto(new URL('tools.html',base).href);
     await plain.locator('#menuToggle').click();await plain.locator('#navLinks a[href="games.html"]').click();
     await plain.waitForURL('**/games.html');await plain.locator('#workNext').click();
-    assert.match(await plain.locator('#workPosition').textContent(),/^02 \/ 05/);
+    assert.match(await plain.locator('#workPosition').textContent(),/^02 \/ 06/);
     await fallback.close();
     const local=await browser.newPage();observe(local);
     await local.goto('file:///'+path.join(root,'index.html').replaceAll('\\','/'));
-    assert.equal(await local.locator('#postCount').textContent(),'共 7 条');
+    assert.equal(await local.locator('#postCount').textContent(),'共 '+postCount+' 条');
     await local.locator('.hero-actions a[href="tools.html"]').click();await local.waitForURL('**/tools.html');
     assert(await local.locator('#workTrack .work-card.is-current').count()>0);await local.close();
     const nojs=await browser.newPage({javaScriptEnabled:false});observe(nojs);
-    await nojs.goto(base);assert.equal(await nojs.locator('#postsContainer .post-link').count(),7);
+    await nojs.goto(base);assert.equal(await nojs.locator('#postsContainer .post-link').count(),postCount);
     await nojs.locator('.hero-actions a[href="tools.html"]').click();await nojs.waitForURL('**/tools.html');await nojs.close();
     report.push('Blocked worker, unsupported prerender, reduced motion, file:// and JavaScript-disabled native navigation pass.');
     assert.deepEqual(missing,[],'Missing public resources');assert.deepEqual(errors,[],'Page errors');

@@ -3,6 +3,7 @@
   'use strict';
   const root = new URL('../', document.currentScript.src);
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const mobile = matchMedia('(max-width:800px), (pointer:coarse)').matches;
   const connection = navigator.connection;
   const constrained = connection?.saveData || /(^|-)2g$/.test(connection?.effectiveType || '');
   const mainPages = ['index.html', 'tools.html', 'games.html', 'about.html', 'contact.html'];
@@ -38,6 +39,7 @@
   }
   window.ChenCNavigation = {warm};
   function intent(event) {
+    if (mobile) return;
     const target = event.target.closest?.('a[href], .work-card[data-detail]');
     if (!target || target.hasAttribute('download') || target.dataset.workClone || (target.target && target.target !== '_self')) return;
     warm(target.href || target.dataset.detail, true);
@@ -58,7 +60,7 @@
   });
   addEventListener('pageshow',()=>document.body.classList.remove('page-leaving'));
   function speculate() {
-    if (constrained || !HTMLScriptElement.supports?.('speculationrules')) return;
+    if (mobile || constrained || !HTMLScriptElement.supports?.('speculationrules')) return;
     // Only editorial pages; games, downloads, models and private pages are excluded.
     const selectors = mainPages.map(page=>`a[href="${page}"], a[href="../${page}"], a[href^="${page}#"], a[href^="../${page}#"]`);
     selectors.push('a[href^="posts/"]', 'a[href^="../posts/"]', 'a[href^="work/"]', 'a[href^="../work/"]');
@@ -76,11 +78,11 @@
         worker = registration.active;
         if (!navigator.serviceWorker.controller) await new Promise(resolve=>navigator.serviceWorker.addEventListener('controllerchange',resolve,{once:true}));
         pending.clear();
-        worker.postMessage({type:'WARM_PAGE',url:location.href,mobile:matchMedia('(max-width:800px)').matches});
+        if (!mobile && !constrained) worker.postMessage({type:'WARM_PAGE',url:location.href,mobile:false});
       } catch { /* Native links and HTTP caching still work when storage is disabled. */ }
     }
     speculate();
-    if (constrained) return;
+    if (mobile || constrained) return;
     // Prepare at most two destinations after the current page has painted.
     const links = [...document.querySelectorAll('.nav-links a[href], .hero-actions a[href], .contact-header a[href], .article-footer a[href]')];
     const next = [...new Set(links.map(link=>destination(link.href)?.href).filter(Boolean))].slice(0,2);

@@ -1,0 +1,96 @@
+{
+  "label": "after",
+  "cpuThrottle": 4,
+  "viewport": "390x844 DPR 3",
+  "pages": [
+    {
+      "name": "index.html",
+      "idleMainThreadMs": 21,
+      "drawsIn3Seconds": {},
+      "paints": {},
+      "prerender": false,
+      "overflow": false,
+      "pause": "true"
+    },
+    {
+      "name": "games.html",
+      "idleMainThreadMs": 8,
+      "drawsIn3Seconds": {
+        "workScene": 0
+      },
+      "paints": {
+        "workScene": 1
+      },
+      "prerender": false,
+      "overflow": false,
+      "pause": "true"
+    },
+    {
+      "name": "about.html",
+      "idleMainThreadMs": 7,
+      "drawsIn3Seconds": {},
+      "paints": {},
+      "prerender": false,
+      "overflow": false,
+      "pause": "true"
+    }
+  ],
+  "checks": [
+    "Chromium: real mobile video/audio playback, wrong code, keyboard viewport, delayed initialization, 20/30s phases, pause/resume, saved unlock and gesture-denial retry passed.",
+    "Chromium: regular NEON AFTERLIFE audio playback also passed.",
+    "WebKit: real mobile video/audio playback, wrong code, keyboard viewport, delayed initialization, 20/30s phases, pause/resume, saved unlock and gesture-denial retry passed.",
+    "WebKit: regular NEON AFTERLIFE audio playback also passed.",
+    "All 22 public pages passed 320px mobile / 1440px desktop layout and script checks.",
+    "No page errors; mobile decoration CPU and idle canvas paints measured."
+  ],
+  "ChromiumMediaStarts": [
+    {
+      "src": "http://127.0.0.1:61299/play/beat-exe/videos/zxx-stage-mobile.mp4",
+      "activation": true,
+      "muted": false,
+      "inline": true
+    },
+    {
+      "src": "http://127.0.0.1:61299/play/beat-exe/videos/zxx-stage-mobile.mp4",
+      "activation": true,
+      "muted": false,
+      "inline": true
+    },
+    {
+      "src": "http://127.0.0.1:61299/play/beat-exe/videos/zxx-stage-mobile.mp4",
+      "activation": true,
+      "muted": false,
+      "inline": true
+    },
+    {
+      "src": "http://127.0.0.1:61299/play/beat-exe/songs/neon.wav",
+      "activation": true,
+      "muted": false
+    }
+  ],
+  "WebKitMediaStarts": [
+    {
+      "src": "http://127.0.0.1:61299/play/beat-exe/videos/zxx-stage-mobile.mp4",
+      "activation": true,
+      "muted": false,
+      "inline": true
+    },
+    {
+      "src": "http://127.0.0.1:61299/play/beat-exe/videos/zxx-stage-mobile.mp4",
+      "activation": true,
+      "muted": false,
+      "inline": true
+    },
+    {
+      "src": "http://127.0.0.1:61299/play/beat-exe/videos/zxx-stage-mobile.mp4",
+      "activation": true,
+      "muted": false,
+      "inline": true
+    },
+    {
+      "src": "http://127.0.0.1:61299/play/beat-exe/songs/neon.wav",
+      "activation": true,
+      "muted": false
+    }
+  ]
+}

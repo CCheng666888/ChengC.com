@@ -1,0 +1,64 @@
+/* Public-site reading and touch improvements; retain the original scenery and layout. */
+body{transition:background-color .2s,color .2s}
+html{scroll-padding-top:90px}
+a,button,input,textarea,select{-webkit-tap-highlight-color:transparent}
+:where(a,button,input,textarea,select):focus-visible{outline:2px solid #80c7c5;outline-offset:4px}
+.light :where(a,button,input,textarea,select):focus-visible{outline-color:#235c64}
+.site-header .theme-btn,.site-header .menu-toggle{min-width:44px;min-height:44px}
+.site-header .nav-links>a{min-height:44px;display:inline-flex;align-items:center}
+.site-screen>picture,.catalog-art>picture{display:contents}
+
+/* Dense glass keeps letters separate from the animated landscape behind them. */
+.home-page .post-card,.home-page .about-card,.home-page .game-card,.article-page .article-shell{
+  background:linear-gradient(135deg,#ffffff08,transparent 65%),rgba(18,35,46,.92);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+}
+.light .home-page .post-card,.light .home-page .about-card,.light .home-page .game-card,.light .article-page .article-shell{
+  background:linear-gradient(135deg,#ffffff38,transparent 65%),rgba(247,250,243,.96);
+}
+.showcase-page .work-card{backdrop-filter:none;-webkit-backdrop-filter:none;filter:none}
+.showcase-page .work-card.is-current{filter:none}
+.showcase-page .work-copy{background:rgba(18,35,46,.95)}
+.light .showcase-page .work-copy{background:rgba(247,250,243,.97)}
+.showcase-page .work-description{font-size:13px}
+.showcase-page .work-meta,.showcase-page .work-note{font-size:11px}
+.showcase-page .carousel-position{font-variant-numeric:tabular-nums}
+.showcase-page .carousel-dot{width:32px;height:44px}
+.article-page .article-body{line-height:1.95}
+.article-page .article-body pre{max-width:100%;overflow:auto;overscroll-behavior-inline:contain}
+.article-page .article-body :where(pre,table){scrollbar-width:thin}
+.article-page .article-body a{text-underline-offset:3px}
+.article-page .article-body :where(h2,h3,h4){scroll-margin-top:90px}
+
+@media(max-width:800px){
+  .showcase-page{--work-width:calc(100vw - 100px)}
+  .showcase-page .carousel-sides .carousel-button{width:44px;height:44px}
+  .showcase-page .work-actions .button{min-height:44px;font-size:12px}
+  .showcase-page .work-features{font-size:11px}
+  .home-page .post-card,.home-page .about-card,.home-page .game-card,.article-page .article-shell{
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+  }
+  .home-page .post-content{font-size:14px;line-height:1.85}
+  .article-page .article-body{font-size:16px}
+  .article-page .article-body blockquote{font-size:16px;padding:20px}
+  .tools .tool,.settings .close,.settings-foot button{min-height:44px}
+  .tools{max-width:calc(100vw - 24px)}
+  .scene-only .tools{bottom:max(12px,env(safe-area-inset-bottom))}
+  .motion-toggle{min-height:44px;padding-inline:12px}
+}
+@media(max-width:480px){
+  .showcase-page{--work-width:calc(100vw - 72px)}
+  .showcase-page .carousel-sides{width:calc(100% - 8px)}
+  .showcase-page .work-copy{padding:22px 20px}
+  .showcase-page .work-copy h2{font-size:24px}
+  .showcase-page .work-tagline{font-size:14px}
+  .showcase-page .work-description{font-size:13px}
+  .showcase-page .work-meta{font-size:10px;letter-spacing:0}
+  .showcase-page .work-note{font-size:11px}
+  .showcase-page .carousel-controls{gap:4px}
+  .showcase-page .carousel-position{font-size:11px}
+  .article-page .article-shell{padding:26px 20px}
+  .article-page .article-body h2{font-size:26px}
+  .article-page .article-body h3{font-size:21px}
+}
+@media(prefers-reduced-motion:reduce){body{transition:none}html{scroll-behavior:auto}}

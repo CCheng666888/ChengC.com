@@ -1,0 +1,63 @@
+{
+  "label": "before",
+  "pages": [
+    {
+      "name": "index.html",
+      "width": 390,
+      "overflow": false,
+      "bytes": 232722,
+      "images": [
+        "http://127.0.0.1:49706/assets/avatar.jpg",
+        "http://127.0.0.1:49706/assets/avatar.jpg"
+      ]
+    },
+    {
+      "name": "games.html",
+      "width": 390,
+      "overflow": false,
+      "bytes": 2565451,
+      "images": [
+        "http://127.0.0.1:49706/assets/products/beat-cover.svg",
+        "http://127.0.0.1:49706/assets/products/yinian-cover.png",
+        "http://127.0.0.1:49706/assets/products/badminton-cover-mobile.webp",
+        "http://127.0.0.1:49706/assets/game-bg-mobile.webp",
+        "http://127.0.0.1:49706/assets/products/defense-cover-v1-mobile.webp",
+        "http://127.0.0.1:49706/assets/products/yinian-cover.png"
+      ],
+      "cover": "http://127.0.0.1:49706/assets/products/yinian-cover.png"
+    },
+    {
+      "name": "tools.html",
+      "width": 390,
+      "overflow": false,
+      "bytes": 151282,
+      "images": [
+        "http://127.0.0.1:49706/assets/products/notes-cover-v1-mobile.webp",
+        "http://127.0.0.1:49706/assets/products/qa-cover-v1-mobile.webp",
+        "http://127.0.0.1:49706/assets/products/notes-cover-v1-mobile.webp",
+        "http://127.0.0.1:49706/assets/products/qa-cover-v1-mobile.webp"
+      ],
+      "cover": "http://127.0.0.1:49706/assets/products/qa-cover-v1-mobile.webp"
+    },
+    {
+      "name": "about.html",
+      "width": 390,
+      "overflow": false,
+      "bytes": 427341,
+      "images": [
+        "http://127.0.0.1:49706/assets/avatar.jpg",
+        "http://127.0.0.1:49706/assets/cangshan-erhai.webp"
+      ]
+    },
+    {
+      "name": "contact.html",
+      "width": 390,
+      "overflow": false,
+      "bytes": 452813,
+      "images": []
+    }
+  ],
+  "errors": [],
+  "missing": [],
+  "checks": []
+}

@@ -1,7 +1,15 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id), E=BeatEngine, content=BEAT_CONTENT, KEY='beat_exe_save_v1', diffNames=E.DIFFICULTIES;
+const mobileMedia=matchMedia('(max-width:800px), (pointer:coarse)').matches;
 let songs=content.songs,pack=content.pack,save=E.defaults(),selected='neon',difficulty='NORMAL',page='home',filter='all',desktop=false,nativeTimer,toastTimer,modalOrigin;
 let session=null,audio=null,playing=false,paused=false,loading=false,assist=false,raf=0,timer=0,launchToken=0,lastTime=0,held=new Set(),particles=[],flashes=[0,0,0,0],judgeUntil=0,phase=-1,secretBuffer='',secretAt=0,pointerLanes=new Map(),lastResult=null;
+const missPhotos=new Map(),missFlash=BeatMedia.createMissFlash(src=>{
+  for(const [path,img] of missPhotos)img.classList.toggle('hidden',path!==src);
+  $('missPhotoFlash').classList.add('active');
+},()=>$('missPhotoFlash').classList.remove('active'));
+function prepareMissPhotos(p){
+  for(const src of p?.missImages||[]){const img=new Image();img.src=src;img.alt='';img.decoding='async';img.className='hidden';missPhotos.set(src,img);$('missPhotoFlash').appendChild(img);}
+}
 const achievements=[{id:'first',name:'第一次连接',desc:'完成任意一首普通曲目',icon:'◈'},{id:'combo',name:'节奏在手',desc:'达成 50 连击',icon:'〰'},{id:'grade',name:'频率共振',desc:'任意普通曲目达到 A 评级',icon:'✦'},{id:'three',name:'持续在线',desc:'累计完成 3 次正式游玩',icon:'⌁'},{id:'fc',name:'无缝连接',desc:'任意曲目达成 FULL COMBO',icon:'◇'},{id:'six',name:'跨越频段',desc:'通关 6 首不同普通曲目',icon:'⟁'},{id:'secret',name:'你发现了不属于这里的东西',desc:'连接到异常谱面系统',icon:'⌘',hidden:true},{id:'boss',name:'隐藏玩家认证',desc:'完成 UNKNOWN_07',icon:'♜',hidden:true}];
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 const timeLabel=n=>`${Math.floor(n/60)}:${String(Math.floor(n%60)).padStart(2,'0')}`;
@@ -10,12 +18,14 @@ function savedStatus(ok=true){$('saveStatus').innerHTML=ok?'<i class="green-dot"
 function persist(){save.updatedAt=Date.now();try{const previous=localStorage.getItem(KEY);if(previous)localStorage.setItem(KEY+'_backup',previous);localStorage.setItem(KEY,JSON.stringify(save));savedStatus()}catch{savedStatus(false)}if(desktop){clearTimeout(nativeTimer);nativeTimer=setTimeout(async()=>{try{const r=await fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(save)});if(!r.ok)throw Error();savedStatus()}catch{savedStatus(false);toast('本机存档暂时写入失败，请导出备份')}},180)}}
 async function init(){
   for(const key of [KEY,KEY+'_backup'])try{const raw=localStorage.getItem(key);if(raw){save=E.validateSave(JSON.parse(raw));break}}catch{}
+  // Show the first-run help before optional fetches, so it cannot replace a terminal opened while loading.
+  applySettings();render();if(!localStorageSafe('beat_exe_seen_help')){showHelp();try{localStorage.setItem('beat_exe_seen_help','1')}catch{}}
   if(location.protocol.startsWith('http')&&new URLSearchParams(location.search).has('desktop')&&['127.0.0.1','localhost'].includes(location.hostname))try{const r=await fetch('/api/platform');if(r.ok&&(await r.json()).desktop){desktop=true;const s=await fetch('/api/save');if(s.ok){const n=await s.json();if(n){let validated=E.validateSave(n);if(validated.updatedAt>=save.updatedAt)save=validated;}}}}catch{}
   if(location.protocol.startsWith('http')&&!window.BEAT_BUNDLED){
     try{const r=await fetch('bonus_pack/zxx.json',{cache:'no-cache'});if(r.ok){const p=await r.json();if(p.version===1&&p.id&&p.song&&p.stages){pack=p;content.pack=p;songs=songs.map(s=>s.id===p.song.id?{...s,...p.song,hidden:true}:s);const cr=await fetch(p.chart,{cache:'no-cache'});if(cr.ok){const ch=await cr.json();if(diffNames.every(d=>Array.isArray(ch[d])))content.charts[p.song.id]=ch;}}}}catch{console.warn('Bonus configuration unavailable; using bundled pack.')}
     try{const r=await fetch('bonus_pack/index.json',{cache:'no-cache'});if(r.ok){const files=await r.json();for(const file of files.packs||[]){const pr=await fetch(file,{cache:'no-cache'}),p=await pr.json();if(p.version!==1||!p.song||!p.chart)continue;const cr=await fetch(p.chart,{cache:'no-cache'}),ch=await cr.json();if(!diffNames.every(d=>Array.isArray(ch[d])))continue;songs=songs.filter(s=>s.id!==p.song.id).concat({...p.song,hidden:true,pack:p});content.charts[p.song.id]=ch;}}}catch{}
   }
-  applySettings();render();if(!playing&&!loading&&!localStorageSafe('beat_exe_seen_help')){showHelp();try{localStorage.setItem('beat_exe_seen_help','1')}catch{}}
+  if(!playing&&!loading){applySettings();render();}
 }
 function localStorageSafe(k){try{return localStorage.getItem(k)}catch{return null}}
 function applySettings(){document.body.classList.toggle('reduced',save.settings.reduceMotion)}
@@ -49,8 +59,9 @@ function openTerminal(){
 }
 function connectSecret(){
   if(playing||loading)return;
-  save.hiddenUnlocked=true;awardAchievement('secret');persist();selected=pack.song.id;difficulty='EASY';
-  document.activeElement?.blur();$('overlay').classList.add('hidden');navigate('library');toast('UNKNOWN_07 · 连接已建立');startGame();
+  save.hiddenUnlocked=true;selected=pack.song.id;difficulty='EASY';
+  // Reach media.play() before keyboard dismissal, storage or rebuilding the library on iOS.
+  startGame();document.activeElement?.blur();awardAchievement('secret');persist();toast('UNKNOWN_07 · 连接已建立');
 }
 function chartFor(s){return content.charts[s.id]?.[difficulty]||[]}
 async function startGame(){
@@ -61,19 +72,22 @@ async function startGame(){
   if(p){$('bossImage').src=p.bossImage;$('bossName').textContent=p.bossName;}
   if(p?.video&&p.videoIncludesIntro){
     // The intro music and the later original video audio share this one clock and element.
-    audio=video;video.src=p.video;video.muted=false;video.loop=false;video.playsInline=true;video.preload='auto';video.classList.remove('hidden');
+    audio=video;video.src=BeatMedia.videoSource(p,mobileMedia);video.muted=false;video.loop=false;video.playsInline=true;video.setAttribute('webkit-playsinline','');video.preload='auto';video.classList.remove('hidden');
   }else{
     audio=new Audio(s.audio);audio.id='soundtrack';audio.className='hidden';$('playScreen').appendChild(audio);audio.preload='auto';
   }
   audio.volume=save.settings.volume;const activeAudio=audio;
-  resizeCanvas();drawStage(0);$('countdown').classList.remove('hidden');$('countdown').textContent='…';
+  $('countdown').classList.remove('hidden');$('countdown').textContent='正在连接音轨…';
   // Do not defer play() until after network loading or a timer: touch activation must reach it.
   const request=BeatMedia.beginPlayback(activeAudio);
-  try{await request;if(token!==launchToken){activeAudio.pause();return;}
+  prepareMissPhotos(p);
+  resizeCanvas();drawStage(0);
+  try{await request;if(token!==launchToken){if(audio!==activeAudio)activeAudio.pause();return;}
     loading=false;playing=true;paused=false;$('countdown').classList.add('hidden');raf=requestAnimationFrame(frame);
-  }catch(err){if(token===launchToken){loading=false;returnToMenu();toast(err.name==='NotAllowedError'?'浏览器尚未允许播放，请点击开始游戏重试':err.message+'，请检查媒体资源');}}
+  }catch(err){if(token===launchToken){loading=false;activeAudio.pause();$('countdown').classList.add('hidden');showDialog(`<p class="eyebrow">CONNECTION WAITING</p><h2>点一下，继续连接。</h2><p>${esc(err.name==='NotAllowedError'?'浏览器需要你直接点击按钮，才能播放有声内容。':err.message)}</p><div class="button-row"><button class="primary" data-action="retry">播放并进入 ▶</button><button class="secondary" data-action="menu">回到曲目库</button></div>`);}}
 }
 function stopMedia(){
+  missFlash.clear();missPhotos.clear();$('missPhotoFlash').replaceChildren();
   const video=$('stageVideo');
   if(audio){audio.pause();audio.removeAttribute('src');audio.load();if(audio!==video)audio.remove();audio=null;}
   video.pause();video.removeAttribute('src');video.load();video.classList.add('hidden');video.muted=false;video.loop=false;
@@ -81,7 +95,7 @@ function stopMedia(){
 }
 function clockTime(){return audio?audio.currentTime-save.settings.offset/1000:0}
 function frame(){if(!playing||paused)return;const t=clockTime();lastTime=t;session.update(t,held,assist);if(song().hidden&&activePack().continueOnMiss){session.health=Math.max(1,session.health);session.failed=false;}updatePhase(audio.currentTime);drawStage(t);$('liveScore').textContent=String(session.score).padStart(7,'0');$('liveAccuracy').textContent=session.accuracy.toFixed(2)+'%';$('healthBar').style.height=session.health+'%';$('songProgress').style.width=Math.min(100,audio.currentTime/song().duration*100)+'%';if(session.failed&&!assist){finishGame(true);return}if(audio.ended||audio.currentTime>=song().duration-.035){finishGame(false);return}raf=requestAnimationFrame(frame)}
-function onJudge({grade,n,tail}){const colors={PERFECT:'#c7b0ff',GREAT:'#93e7d1',GOOD:'#f5cd8e',MISS:'#ee8d9b'};$('judgement').textContent=grade;$('judgement').style.color=colors[grade];$('judgement').classList.remove('pop');void $('judgement').offsetWidth;$('judgement').classList.add('pop');judgeUntil=performance.now()+500;$('comboDisplay').querySelector('b').textContent=session.combo;flashes[tail&&n.type==='slide'?n.target:n.lane]=grade==='MISS'?.15:.8;if(!save.settings.reduceMotion&&grade!=='MISS')for(let i=0;i<8;i++)particles.push({lane:tail&&n.type==='slide'?n.target:n.lane,x:(Math.random()-.5)*70,y:0,vx:(Math.random()-.5)*3,vy:-Math.random()*4-1,life:1,color:colors[grade]})}
+function onJudge({grade,n,tail}){const colors={PERFECT:'#c7b0ff',GREAT:'#93e7d1',GOOD:'#f5cd8e',MISS:'#ee8d9b'};$('judgement').textContent=grade;$('judgement').style.color=colors[grade];$('judgement').classList.remove('pop');void $('judgement').offsetWidth;$('judgement').classList.add('pop');judgeUntil=performance.now()+500;$('comboDisplay').querySelector('b').textContent=session.combo;flashes[tail&&n.type==='slide'?n.target:n.lane]=grade==='MISS'?.15:.8;if(playing&&!paused)missFlash.trigger(grade,audio.currentTime,activePack(),song().hidden);if(!save.settings.reduceMotion&&grade!=='MISS')for(let i=0;i<8;i++)particles.push({lane:tail&&n.type==='slide'?n.target:n.lane,x:(Math.random()-.5)*70,y:0,vx:(Math.random()-.5)*3,vy:-Math.random()*4-1,life:1,color:colors[grade]})}
 function updatePhase(t){
   if(!song().hidden)return;
   const p=activePack(),next=BeatMedia.phaseAt(t,p);if(next===phase)return;phase=next;
@@ -93,7 +107,7 @@ function updatePhase(t){
   resizeCanvas();
 }
 const canvas=$('stageCanvas'),ctx=canvas.getContext('2d');let cw=innerWidth,ch=innerHeight,geometry;
-function resizeCanvas(){cw=innerWidth;ch=innerHeight;const ratio=Math.min(devicePixelRatio||1,2);canvas.width=cw*ratio;canvas.height=ch*ratio;ctx.setTransform(ratio,0,0,ratio,0,0);let width=Math.min(520,cw*.9),left=(cw-width)/2,hit=ch*.79,top=$('playScreen').classList.contains('video-visible')?Math.max(130,ch*.46):95;geometry={width,left,hit,top,lane:width/4,travel:(hit-top)/(1.75/save.settings.speed)}}
+function resizeCanvas(){cw=innerWidth;ch=innerHeight;const ratio=Math.min(devicePixelRatio||1,mobileMedia?1.25:2);canvas.width=cw*ratio;canvas.height=ch*ratio;ctx.setTransform(ratio,0,0,ratio,0,0);let width=Math.min(520,cw*.9),left=(cw-width)/2,hit=ch*.79,top=$('playScreen').classList.contains('video-visible')?Math.max(130,ch*.46):95;geometry={width,left,hit,top,lane:width/4,travel:(hit-top)/(1.75/save.settings.speed)}}
 function drawStage(t){if(!geometry)resizeCanvas();const {width,left,hit,top,lane,travel}=geometry;ctx.clearRect(0,0,cw,ch);
   if(!save.settings.reduceMotion){ctx.fillStyle='#b9a0ed44';for(let i=0;i<35;i++){let x=(i*197.3)%cw,y=(i*83.7+t*(7+i%5))%ch;ctx.fillRect(x,y,i%3===0?2:1,i%3===0?2:1)}if(cw>900){ctx.strokeStyle='#a48ac322';ctx.lineWidth=1;for(const side of [-1,1]){ctx.beginPath();for(let i=0;i<100;i++){const x=cw/2+side*(width/2+35+i*2),y=ch*.57+Math.sin(i*.2+t*song().bpm/30)*Math.sin(i*.04)*20;ctx.lineTo(x,y)}ctx.stroke()}}}
   const bg=ctx.createLinearGradient(0,top,0,hit+20);bg.addColorStop(0,'#12101810');bg.addColorStop(1,song().hidden&&phase>=2?'#0d0b15dd':'#181323dd');ctx.fillStyle=bg;ctx.fillRect(left,top,width,hit-top+20);
@@ -112,14 +126,14 @@ function press(lane){if(!playing||paused||assist||held.has(lane))return;held.add
 function release(lane){if(!held.has(lane))return;held.delete(lane);if(playing&&!paused&&!assist)session.release(lane,clockTime());setLane(lane,false)}
 function setLane(lane,down){$('laneControls').querySelector(`[data-lane="${lane}"]`).classList.toggle('down',down)}
 function clearPointers(){pointerLanes.clear();held.clear();document.querySelectorAll('.lane-controls button').forEach(b=>b.classList.remove('down'))}
-function pauseGame(){if(loading){returnToMenu();return}if(!playing||paused)return;paused=true;audio.pause();$('stageVideo').pause();cancelAnimationFrame(raf);clearPointers();showDialog(`<p class="eyebrow">CONNECTION ON HOLD</p><h2>暂停。节拍等你。</h2><p>${esc(song().title)} / ${difficulty}<br>恢复后，长按音符可重新按住。音频与谱面将同步继续。</p><div class="button-row"><button class="primary" data-action="resume">继续游戏 ▶</button><button class="secondary" data-action="retry">重新开始 ↻</button><button class="secondary" data-action="menu">回到曲目库</button></div>`)}
+function pauseGame(){if(loading){returnToMenu();return}if(!playing||paused)return;paused=true;missFlash.clear();audio.pause();$('stageVideo').pause();cancelAnimationFrame(raf);clearPointers();showDialog(`<p class="eyebrow">CONNECTION ON HOLD</p><h2>暂停。节拍等你。</h2><p>${esc(song().title)} / ${difficulty}<br>恢复后，长按音符可重新按住。音频与谱面将同步继续。</p><div class="button-row"><button class="primary" data-action="resume">继续游戏 ▶</button><button class="secondary" data-action="retry">重新开始 ↻</button><button class="secondary" data-action="menu">回到曲目库</button></div>`)}
 function resumeGame(){
   if(!paused||loading)return;loading=true;const token=launchToken;
   const request=BeatMedia.beginPlayback(audio);
   request.then(()=>{if(token!==launchToken)return;paused=false;loading=false;$('overlay').classList.add('hidden');$('countdown').classList.add('hidden');raf=requestAnimationFrame(frame);}).catch(()=>{if(token===launchToken){loading=false;toast('请再次点击继续游戏，以恢复有声播放');}});
 }
 function returnToMenu(){++launchToken;playing=false;paused=false;loading=false;stopMedia();clearPointers();$('overlay').classList.add('hidden');$('playScreen').classList.add('hidden');$('app').classList.remove('hidden');document.body.classList.remove('playing');navigate('library')}
-function finishGame(failed){if(!playing)return;playing=false;audio.pause();cancelAnimationFrame(raf);clearPointers();let result=failed?session.result():session.finish();result.failed=failed||result.failed;if(result.failed)result.grade='F';lastResult=result;const s=song(),prev=save.records[`${s.id}:${difficulty}`];let newBest=!result.failed&&(!prev||prev.grade==='F'||result.score>prev.score),recordBest=!prev||newBest||!prev.cleared&&result.score>prev.score,fragment=false;
+function finishGame(failed){if(!playing)return;playing=false;missFlash.clear();audio.pause();cancelAnimationFrame(raf);clearPointers();let result=failed?session.result():session.finish();result.failed=failed||result.failed;if(result.failed)result.grade='F';lastResult=result;const s=song(),prev=save.records[`${s.id}:${difficulty}`];let newBest=!result.failed&&(!prev||prev.grade==='F'||result.score>prev.score),recordBest=!prev||newBest||!prev.cleared&&result.score>prev.score,fragment=false;
   if(!assist){save.plays++;if(!result.failed){save.clears++;if(!s.hidden)awardAchievement('first');if(s.hidden){save.hiddenCleared=true;awardAchievement('boss')}}
     if(result.maxCombo>=50)awardAchievement('combo');if(!s.hidden&&result.accuracy>=90&&!result.failed)awardAchievement('grade');if(save.plays>=3)awardAchievement('three');if(result.fullCombo&&!result.failed)awardAchievement('fc');
     let key=`${s.id}:${difficulty}`;save.records[key]={...(recordBest?{score:result.score,accuracy:result.accuracy,maxCombo:result.maxCombo,grade:result.grade,fullCombo:result.fullCombo}:prev),maxCombo:Math.max(result.maxCombo,prev?.maxCombo||0),cleared:!result.failed||prev?.cleared===true,plays:(prev?.plays||0)+1};

@@ -22,9 +22,10 @@
     "cover": "images/unknown07.svg"
   },
   "chart": "charts/unknown07.json",
-  "bossImage": "images/boss-zxx.png",
+  "bossImage": "images/boss-zxx.webp",
   "backgroundImage": "images/memory-stage.png",
   "video": "videos/zxx-stage.mp4",
+  "mobileVideo": "videos/zxx-stage-mobile.mp4",
   "bossName": "ZXX · 静默主宰",
   "title": "隐藏玩家认证成功",
   "verdict": "本局评分：朋友无法接受",
@@ -38,5 +39,10 @@
     "videoStart": 30
   },
   "videoIncludesIntro": true,
-  "continueOnMiss": true
+  "continueOnMiss": true,
+  "missImages": [
+    "images/miss-photo-01.png",
+    "images/miss-photo-02.png"
+  ],
+  "missFlashDuration": 0.5
 }

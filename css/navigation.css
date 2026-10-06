@@ -48,3 +48,19 @@
   .page-transition{display:none}
   .hero-actions .portal-link,.home-page .hero-content,.home-page main>.section,.collection-footer{transition:none}
 }
+/* Avoid repeatedly sampling a full-screen background while a phone scrolls. */
+@media(max-width:800px), (pointer:coarse){
+  @view-transition{navigation:none}
+  .site-header,.nav-links,.post-card,.game-card,.about-card,.article-shell,.work-card,.tools,.settings,.filters,.search-control,.nav-search .search-control,.search-box,.music-panel,.music-mini,.modal-overlay,.hero .ghost,.profile-actions .button,.carousel-button,.text-button,.collection-emblem{
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  }
+  .home-page .site-header,.article-page .site-header,.showcase-page .site-header{background:#102735ed!important}
+  .home-page .site-header .menu-toggle,.article-page .site-header .menu-toggle,.showcase-page .site-header .menu-toggle{color:#f5f6ee}
+  .home-page .post-card,.home-page .about-card,.article-page .article-shell,.showcase-page .work-card{background-color:var(--card)!important}
+  .showcase-page .work-card{filter:none!important;transition:transform .25s,opacity .25s,border-color .25s}
+  .work-art:before{display:none}
+  .landscape-art,#water{filter:none;transition:opacity .2s}
+  .hero-actions .portal-link:hover{transform:none;box-shadow:none}
+  .profile-portfolio .local-header{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+  .profile-portfolio .product-dialog::backdrop{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+}

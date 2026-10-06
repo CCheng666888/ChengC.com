@@ -10,8 +10,9 @@ const read = name => fs.readFileSync(path.join(root,name),'utf8').replace(/\r\n/
 const write = (name,content) => fs.writeFileSync(path.join(root,name),content);
 const hash = content => crypto.createHash('sha256').update(content).digest('hex').slice(0,12);
 const pages = ['index.html','about.html','tools.html','games.html','contact.html',...['posts','work'].flatMap(dir=>fs.readdirSync(path.join(root,dir)).filter(name=>name.endsWith('.html')).map(name=>`${dir}/${name}`))];
-const covers = ['assets/products/qa-cover-v1.png','assets/products/notes-cover-v1.png','assets/products/defense-cover-v1.png','assets/products/ming-cover.webp','assets/products/badminton-cover.webp','assets/game-bg.jpg'];
+const covers = ['assets/products/qa-cover-v1.png','assets/products/notes-cover-v1.png','assets/products/defense-cover-v1.png','assets/products/ming-cover.webp','assets/products/badminton-cover.webp','assets/products/yinian-cover.png','assets/game-bg.jpg'];
 const coverNames = new Map(covers.map(name=>[name,name.replace(/\.(png|webp|jpg)$/,'-desktop.webp')]));
+const losslessImages = new Map(['assets/firefly-official-pixel.png','assets/magpie-original-detective.png'].map(name=>[name,name.replace('.png','.webp')]));
 const resolve = (page,name) => path.posix.normalize(path.posix.join(path.posix.dirname(page),name));
 const href = (page,name) => path.posix.relative(path.posix.dirname(page),name);
 const attr = (tag,name) => tag.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1];
@@ -45,16 +46,26 @@ function bundle(kind,files) {
       await sharp(path.join(root,original)).resize({width:640,withoutEnlargement:true}).webp({quality:72,effort:6}).toFile(path.join(root,mobile));
       console.log(`${original}: ${fs.statSync(path.join(root,original)).size} -> ${fs.statSync(path.join(root,desktop)).size} / ${fs.statSync(path.join(root,mobile)).size} bytes`);
     }
+    for(const [original,compressed] of losslessImages){
+      await sharp(path.join(root,original)).webp({lossless:true,effort:6}).toFile(path.join(root,compressed));
+      console.log(`${original}: lossless ${fs.statSync(path.join(root,original)).size} -> ${fs.statSync(path.join(root,compressed)).size} bytes`);
+    }
   }
   for(const page of pages) {
     let html = read(page);
     // External font CSS delayed article rendering on networks that cannot reach Google.
     html=html.replace(/<link\b[^>]*(?:fonts\.googleapis\.com|fonts\.gstatic\.com)[^>]*>\s*/g,'');
     for(const [original,replacement] of coverNames) html=html.replaceAll(original,replacement);
+    for(const [original,replacement] of losslessImages) html=html.replaceAll(original,replacement);
     html=html.replace(/<img\b[^>]*>/g,tag=>{
       const source=attr(tag,'src');
+      if(source?.endsWith('assets/cangshan-erhai.webp') && !tag.includes('srcset=')){
+        const mobile=source.replace('cangshan-erhai.webp','cangshan-erhai-mobile.webp');
+        const image=tag.replace(/>$/,` decoding="async" srcset="${mobile} 960w, ${source} 1672w" sizes="100vw">`);
+        return `<picture><source media="(max-width:800px)" srcset="${mobile}">${image}</picture>`;
+      }
       if(!source?.includes('-desktop.webp') || tag.includes('srcset='))return tag;
-      return tag.replace(/>$/,` decoding="async" srcset="${source.replace('-desktop.','-mobile.')} 640w, ${source} 1280w" sizes="(max-width:480px) calc(100vw - 110px), (max-width:800px) calc(100vw - 140px), 740px"${attr(tag,'loading')==='eager'?' fetchpriority="high"':''}>`);
+      return tag.replace(/>$/,`${attr(tag,'decoding')?'':' decoding="async"'} srcset="${source.replace('-desktop.','-mobile.')} 640w, ${source} 1280w" sizes="(max-width:480px) calc(100vw - 72px), (max-width:800px) calc(100vw - 100px), 740px"${attr(tag,'loading')==='eager'&&!attr(tag,'fetchpriority')?' fetchpriority="high"':''}>`);
     });
     html=html.replace(/(<figure\b[^>]*>)\s*(<img\b[^>]*>)/g,(match,figure,image)=>{
       const source=attr(image,'src');
@@ -62,7 +73,7 @@ function bundle(kind,files) {
       return `${figure}<picture><source media="(max-width:800px)" srcset="${source.replace('-desktop.','-mobile.')}">${image}</picture>`;
     });
     // Aggregate each page's extra styles; the common stylesheet remains shared.
-    const css=[];
+    let css=[];
     html=html.replace(/<link\b[^>]*rel="stylesheet"[^>]*>/g,tag=>{
       const source=attr(tag,'data-sources');
       if(source)css.push(...source.split(' '));
@@ -72,6 +83,9 @@ function bundle(kind,files) {
     if(!css.includes('css/navigation.css'))css.push('css/navigation.css');
     // Give article landscapes the same responsive background as the home page.
     if(page.startsWith('posts/')&&!css.includes('css/night-lake.css'))css.push('css/night-lake.css');
+    // Shared reading, contrast and touch refinements are last so page styles stay intact.
+    css=css.filter(file=>file!=='css/site-refinements.css');
+    css.push('css/site-refinements.css');
     const uniqueCss=[...new Set(css)], common=uniqueCss.filter(file=>file==='css/style.css'), extra=uniqueCss.filter(file=>file!=='css/style.css');
     const js=[];
     html=html.replace(/<script\b[^>]*(?:src="[^"]*"|data-theme-source="[^"]*")[^>]*>[\s\S]*?<\/script>/g,tag=>{
@@ -104,6 +118,7 @@ function bundle(kind,files) {
     write(page,html.replace(/[ \t]+$/gm,''));
   }
   const assets=new Set(Object.values(routes).flat().map(name=>name.split('?')[0]));
+  for(const name of losslessImages.values())assets.add(name);
   // Runtime caches also include small, optional resources; never audio, video or games.
   for(const name of fs.readdirSync(path.join(root,'js')))if(name.endsWith('.js')&&!name.startsWith('scene-')&&!name.startsWith('delivery-'))assets.add(`js/${name}`);
   for(const name of ['assets/cangshan-erhai-night.webp','assets/cangshan-erhai-night-mobile.webp','assets/avatar.jpg','assets/magpie-original-detective.png','assets/game-bg.jpg','assets/douyin-game-bg.jpg',...coverNames.values(),...[...coverNames.values()].map(name=>name.replace('-desktop.','-mobile.'))])assets.add(name);

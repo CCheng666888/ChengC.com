@@ -44,7 +44,7 @@
   }
   sceneToggle.addEventListener('click', () => setScene(!body.classList.contains('scene-only')));
   document.addEventListener('keydown', event => { if (event.key === 'Escape' && body.classList.contains('scene-only')) { setScene(false); sceneToggle.focus(); } });
-  let userPaused = false;
+  let userPaused = matchMedia('(max-width:800px), (pointer:coarse)').matches || Boolean(navigator.connection?.saveData);
   function updateMotion() {
     const paused = userPaused || reduced.matches;
     body.classList.toggle('motion-paused', paused);

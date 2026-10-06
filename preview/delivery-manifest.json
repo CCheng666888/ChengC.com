@@ -1,148 +1,149 @@
 {
-  "revision": "b466fe6a3e94",
+  "revision": "e142950367d1",
   "pages": {
     "index.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-6f0a8adcf6d6.css",
-      "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-a6c99e2522d5.js",
+      "css/delivery-11773a3012d1.css",
+      "js/navigation.js?v=ab7985e942a9",
+      "js/delivery-06254d3c26b7.js",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "about.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-af6c556458d6.css",
-      "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-d7fe2128be56.js"
+      "css/delivery-2118c4ae1d43.css",
+      "js/navigation.js?v=ab7985e942a9",
+      "js/delivery-012d6bd35d0a.js"
     ],
     "tools.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-f45e4b252cbe.css",
-      "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-a004e67a5fb9.js",
+      "css/delivery-148d979c97ba.css",
+      "js/navigation.js?v=ab7985e942a9",
+      "js/delivery-52eb1a0325c0.js",
       "assets/products/qa-cover-v1-desktop.webp",
       "assets/products/qa-cover-v1-mobile.webp"
     ],
     "games.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-f45e4b252cbe.css",
-      "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-a004e67a5fb9.js",
-      "assets/products/yinian-cover.png"
+      "css/delivery-148d979c97ba.css",
+      "js/navigation.js?v=ab7985e942a9",
+      "js/delivery-52eb1a0325c0.js",
+      "assets/products/yinian-cover-desktop.webp",
+      "assets/products/yinian-cover-mobile.webp"
     ],
     "contact.html": [
-      "css/delivery-4d3dae6c70db.css",
-      "js/navigation.js?v=c4790bd167ef",
+      "css/delivery-e8717698b389.css",
+      "js/navigation.js?v=ab7985e942a9",
       "js/delivery-54d5f16e1f04.js"
     ],
     "posts/ai-web-security-references.html": [
-      "css/delivery-64377ca92dfc.css",
-      "js/navigation.js?v=c4790bd167ef",
+      "css/delivery-103f143cebc2.css",
+      "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/ai-web-security.html": [
-      "css/delivery-64377ca92dfc.css",
-      "js/navigation.js?v=c4790bd167ef",
+      "css/delivery-103f143cebc2.css",
+      "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/building-this-site.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-966e3ec2628f.css",
-      "js/navigation.js?v=c4790bd167ef",
+      "css/delivery-8a57b359a0ec.css",
+      "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/hello-world.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-966e3ec2628f.css",
-      "js/navigation.js?v=c4790bd167ef",
+      "css/delivery-8a57b359a0ec.css",
+      "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/linux-commands.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-966e3ec2628f.css",
-      "js/navigation.js?v=c4790bd167ef",
+      "css/delivery-8a57b359a0ec.css",
+      "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/multi-book-qa.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-966e3ec2628f.css",
-      "js/navigation.js?v=c4790bd167ef",
+      "css/delivery-8a57b359a0ec.css",
+      "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/painting-the-countryside.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-966e3ec2628f.css",
-      "js/navigation.js?v=c4790bd167ef",
+      "css/delivery-8a57b359a0ec.css",
+      "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/schedule-query.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-966e3ec2628f.css",
-      "js/navigation.js?v=c4790bd167ef",
+      "css/delivery-8a57b359a0ec.css",
+      "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/summer-support-teaching.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-966e3ec2628f.css",
-      "js/navigation.js?v=c4790bd167ef",
+      "css/delivery-8a57b359a0ec.css",
+      "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "work/mingchronicles.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-777c0a378e30.css",
-      "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-135b7b2d99f7.js"
+      "css/delivery-60a1f8db85d9.css",
+      "js/navigation.js?v=ab7985e942a9",
+      "js/delivery-ebbd9da173ec.js"
     ],
     "work/multi-book-qa.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-777c0a378e30.css",
-      "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-135b7b2d99f7.js"
+      "css/delivery-60a1f8db85d9.css",
+      "js/navigation.js?v=ab7985e942a9",
+      "js/delivery-ebbd9da173ec.js"
     ],
     "work/note-to-site.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-777c0a378e30.css",
-      "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-135b7b2d99f7.js"
+      "css/delivery-60a1f8db85d9.css",
+      "js/navigation.js?v=ab7985e942a9",
+      "js/delivery-ebbd9da173ec.js"
     ],
     "work/spongebob-vs-zombie-fish.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-777c0a378e30.css",
-      "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-135b7b2d99f7.js"
+      "css/delivery-60a1f8db85d9.css",
+      "js/navigation.js?v=ab7985e942a9",
+      "js/delivery-ebbd9da173ec.js"
     ],
     "work/underwater-defense.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-777c0a378e30.css",
-      "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-135b7b2d99f7.js"
+      "css/delivery-60a1f8db85d9.css",
+      "js/navigation.js?v=ab7985e942a9",
+      "js/delivery-ebbd9da173ec.js"
     ],
     "work/upcoming-rhythm-game.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-777c0a378e30.css",
-      "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-135b7b2d99f7.js"
+      "css/delivery-60a1f8db85d9.css",
+      "js/navigation.js?v=ab7985e942a9",
+      "js/delivery-ebbd9da173ec.js"
     ],
     "work/yi-nian-tian-xia.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-777c0a378e30.css",
-      "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-135b7b2d99f7.js"
+      "css/delivery-60a1f8db85d9.css",
+      "js/navigation.js?v=ab7985e942a9",
+      "js/delivery-ebbd9da173ec.js"
     ],
     "work/yujing.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-777c0a378e30.css",
-      "js/navigation.js?v=c4790bd167ef",
-      "js/delivery-135b7b2d99f7.js"
+      "css/delivery-60a1f8db85d9.css",
+      "js/navigation.js?v=ab7985e942a9",
+      "js/delivery-ebbd9da173ec.js"
     ]
   },
   "assets": [
@@ -152,10 +153,12 @@
     "assets/cangshan-erhai-night.webp",
     "assets/cangshan-erhai.webp",
     "assets/douyin-game-bg.jpg",
+    "assets/firefly-official-pixel.webp",
     "assets/game-bg-desktop.webp",
     "assets/game-bg-mobile.webp",
     "assets/game-bg.jpg",
     "assets/magpie-original-detective.png",
+    "assets/magpie-original-detective.webp",
     "assets/products/badminton-cover-desktop.webp",
     "assets/products/badminton-cover-mobile.webp",
     "assets/products/defense-cover-v1-desktop.webp",
@@ -166,25 +169,26 @@
     "assets/products/notes-cover-v1-mobile.webp",
     "assets/products/qa-cover-v1-desktop.webp",
     "assets/products/qa-cover-v1-mobile.webp",
-    "assets/products/yinian-cover.png",
-    "css/delivery-4d3dae6c70db.css",
+    "assets/products/yinian-cover-desktop.webp",
+    "assets/products/yinian-cover-mobile.webp",
+    "css/delivery-103f143cebc2.css",
+    "css/delivery-11773a3012d1.css",
+    "css/delivery-148d979c97ba.css",
+    "css/delivery-2118c4ae1d43.css",
     "css/delivery-4fc05811ea8f.css",
-    "css/delivery-64377ca92dfc.css",
-    "css/delivery-6f0a8adcf6d6.css",
-    "css/delivery-777c0a378e30.css",
-    "css/delivery-966e3ec2628f.css",
-    "css/delivery-af6c556458d6.css",
-    "css/delivery-f45e4b252cbe.css",
+    "css/delivery-60a1f8db85d9.css",
+    "css/delivery-8a57b359a0ec.css",
+    "css/delivery-e8717698b389.css",
     "js/app.js",
     "js/blog-search-index.js",
     "js/blog-search.js",
     "js/carousel.js",
     "js/collection.js",
-    "js/delivery-135b7b2d99f7.js",
+    "js/delivery-012d6bd35d0a.js",
+    "js/delivery-06254d3c26b7.js",
+    "js/delivery-52eb1a0325c0.js",
     "js/delivery-54d5f16e1f04.js",
-    "js/delivery-a004e67a5fb9.js",
-    "js/delivery-a6c99e2522d5.js",
-    "js/delivery-d7fe2128be56.js",
+    "js/delivery-ebbd9da173ec.js",
     "js/firefly-motion.js",
     "js/lake-projection.js",
     "js/landscape.js",

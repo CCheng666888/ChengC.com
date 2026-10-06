@@ -1,0 +1,45 @@
+{
+  "label": "before",
+  "cpuThrottle": 4,
+  "viewport": "390x844 DPR 3",
+  "pages": [
+    {
+      "name": "index.html",
+      "idleMainThreadMs": 657,
+      "drawsIn3Seconds": {
+        "water": 71
+      },
+      "paints": {
+        "water": 111
+      },
+      "prerender": false,
+      "overflow": false,
+      "pause": "false"
+    },
+    {
+      "name": "games.html",
+      "idleMainThreadMs": 302,
+      "drawsIn3Seconds": {
+        "workScene": 71
+      },
+      "paints": {
+        "workScene": 114
+      },
+      "prerender": false,
+      "overflow": false,
+      "pause": "false"
+    },
+    {
+      "name": "about.html",
+      "idleMainThreadMs": 945,
+      "drawsIn3Seconds": {},
+      "paints": {},
+      "prerender": false,
+      "overflow": false,
+      "pause": "false"
+    }
+  ],
+  "checks": [
+    "No page errors; mobile decoration CPU and idle canvas paints measured."
+  ]
+}

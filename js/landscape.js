@@ -7,7 +7,7 @@
   const smallScreen = matchMedia('(max-width: 800px)');
   const lightweight = smallScreen.matches || coarse.matches;
   const saveData = Boolean(navigator.connection?.saveData);
-  const frameInterval = lightweight ? 1000/24 : 30;
+  const frameInterval = lightweight ? 1000/20 : 30;
   const config = { density: 65, speed: 35, mist: 40, glow: 60, lanterns: 55 };
   const defaultConfig = {...config};
   const source = getComputedStyle(art).backgroundImage.match(/url\(["']?(.*?)["']?\)$/)?.[1];
@@ -18,12 +18,12 @@
   const random = (a,b) => a+Math.random()*(b-a), clamp = (v,a,b) => Math.min(b,Math.max(a,v));
   // Simulate in a horizontal world plane, then project through the scene camera.
   const projection=window.LakeProjection,{camera,bounds}=projection;
-  const cols=lightweight?128:256, rows=lightweight?96:192, length=cols*rows;
+  const cols=lightweight?64:256, rows=lightweight?48:192, length=cols*rows;
   const spacingX=(bounds.maxX-bounds.minX)/(cols-1),spacingZ=(bounds.maxZ-bounds.minZ)/(rows-1);
   const waveStep=.0055,weightX=(waveStep/spacingX)**2,weightZ=(waveStep/spacingZ)**2;
   const heights=new Float32Array(length), velocity=new Float32Array(length), pixels=new Uint8Array(length*4);
   let width=1,height=1,shore=.55,clock=0,previous=0,raf=0,visible=true;
-  let paused=reduced.matches||saveData,ready=false,gl=null,program=null,locations={},heightTexture=null,nightTexture=null,nightReady=false;
+  let paused=lightweight||reduced.matches||saveData,scrolling=false,ready=false,gl=null,program=null,locations={},heightTexture=null,nightTexture=null,nightReady=false;
   let accumulator=0,nextWind=0,nextFlock=12,night=0,birds=[],motes=[],lastStroke=-1;
   const touch={x:.5,y:.4,held:false,region:'',force:0,started:-10,dx:0,dy:0};
 
@@ -238,7 +238,7 @@
   function resize(){
     width=innerWidth;height=innerHeight;
     const dpr=Math.min(devicePixelRatio||1,lightweight?1:1.5);
-    const scale=lightweight?Math.min(dpr,Math.sqrt(420000/(width*height))):Math.min(dpr,1.25);
+    const scale=lightweight?Math.min(dpr,Math.sqrt(200000/(width*height))):Math.min(dpr,1.25);
     water.width=Math.floor(width*scale);water.height=Math.floor(height*scale);
     birdsCanvas.width=Math.round(width*dpr);birdsCanvas.height=Math.round(height*dpr);ctx?.setTransform(dpr,0,0,dpr,0,0);
     const cover=Math.max(width/(photo.naturalWidth||1672),height/(photo.naturalHeight||940));
@@ -319,7 +319,7 @@
   }
   function addFlock(x=width+15,y=random(height*.12,height*.3)){for(let i=0;i<5;i++)birds.push({x:x+i*26,y:y+Math.abs(i-2)*8,size:random(3,5),speed:random(34,45),phase:random(0,6)});}
   function frame(now){
-    raf=0;if(paused||!visible||document.hidden||!ready){previous=0;return;}
+    raf=0;if(paused||scrolling||!visible||document.hidden||!ready){previous=0;return;}
     if(!previous)previous=now;
     if(now-previous>=frameInterval){const dt=Math.min((now-previous)/1000,.075);previous=now;clock+=dt;simulate(dt);
       night+=(Number(document.body.classList.contains('night')&&nightReady)-night)*Math.min(1,dt*2);
@@ -329,7 +329,7 @@
   }
   function stop(){cancelAnimationFrame(raf);raf=0;previous=0;}
   function schedule(){
-    if(paused||!visible||document.hidden)return;
+    if(paused||scrolling||!visible||document.hidden)return;
     if(!ready){loadScene();if(photo.complete&&photo.naturalWidth)queueInitialization();return;}
     if(!raf)raf=requestAnimationFrame(frame);
   }
@@ -360,15 +360,17 @@
   $('sceneToggle').addEventListener('click',()=>{const only=document.body.classList.toggle('scene-only');$('sceneToggle').textContent=only?(document.body.classList.contains('collection-page')?'显示内容':'显示首页'):'只看风景';$('sceneToggle').setAttribute('aria-pressed',String(only));if(only)scrollTo({top:0,behavior:'instant'});});
   document.querySelectorAll('.nav-links a, a[href="#blog"], a[data-animate], .brand').forEach(a=>a.addEventListener('click',()=>{document.body.classList.remove('scene-only');$('sceneToggle').textContent='只看风景';$('sceneToggle').setAttribute('aria-pressed','false');}));
   $('nightToggle').addEventListener('click',()=>{const n=document.body.classList.toggle('night');if(n&&ready)loadNight();$('nightToggle').textContent=n?'切换晨光':'切换夜色';$('nightToggle').setAttribute('aria-pressed',String(n));if(paused){night=Number(n);draw();}});
-  $('reset').addEventListener('click',()=>{Object.assign(config,defaultConfig);for(const key of Object.keys(config)){$(key).value=config[key];$(key+'Value').value=config[key]+'%';}heights.fill(0);velocity.fill(0);release();touch.force=touch.dx=touch.dy=0;touch.started=-10;document.body.classList.remove('night');$('nightToggle').textContent='切换夜色';$('nightToggle').setAttribute('aria-pressed','false');night=0;paused=reduced.matches||saveData;syncPause();draw();});
+  $('reset').addEventListener('click',()=>{Object.assign(config,defaultConfig);for(const key of Object.keys(config)){$(key).value=config[key];$(key+'Value').value=config[key]+'%';}heights.fill(0);velocity.fill(0);release();touch.force=touch.dx=touch.dy=0;touch.started=-10;document.body.classList.remove('night');$('nightToggle').textContent='切换夜色';$('nightToggle').setAttribute('aria-pressed','false');night=0;paused=lightweight||reduced.matches||saveData;syncPause();draw();});
+  let scrollTimer;
+  if(lightweight)addEventListener('scroll',()=>{scrolling=true;release();stop();clearTimeout(scrollTimer);scrollTimer=setTimeout(()=>{scrolling=false;schedule();},200);},{passive:true});
   let timer;addEventListener('resize',()=>{clearTimeout(timer);timer=setTimeout(resize,120);});
   document.addEventListener('visibilitychange',()=>{if(document.hidden){release();stop();}else schedule();});
   if('IntersectionObserver'in window)new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(!visible){release();stop();}else schedule();}).observe(document.querySelector('.hero'));
-  reduced.addEventListener('change',()=>{paused=reduced.matches;syncPause();});
+  reduced.addEventListener('change',()=>{paused=lightweight||reduced.matches||saveData;syncPause();});
   water.addEventListener('webglcontextlost',e=>{e.preventDefault();initGeneration++;initializing=false;ready=false;paused=true;water.classList.remove('ready');$('pauseToggle').hidden=true;syncPause();});
-  water.addEventListener('webglcontextrestored',()=>{paused=reduced.matches||saveData;$('pauseToggle').hidden=false;syncPause();});
+  water.addEventListener('webglcontextrestored',()=>{paused=lightweight||reduced.matches||saveData;$('pauseToggle').hidden=false;syncPause();});
   nightPhoto.onload=uploadNight;nightPhoto.onerror=()=>failNight(new Error('Night image could not be decoded'));
   photo.onload=queueInitialization;photo.onerror=()=>failScene(new Error('Day image could not be decoded'));
-  if(paused)$('motionNote').textContent=reduced.matches?'系统已启用减少动画。点击“继续动画”可播放山水背景。':'已开启节省流量，先显示静态风景。点击“继续动画”可播放山水背景。';
+  if(paused)$('motionNote').textContent=reduced.matches?'系统已启用减少动画。点击“继续动画”可播放山水背景。':saveData?'已开启节省流量，先显示静态风景。点击“继续动画”可播放山水背景。':'手机默认显示静态风景，滑动更流畅。点击“继续动画”可播放山水背景。';
   resize();syncPause();
 })();

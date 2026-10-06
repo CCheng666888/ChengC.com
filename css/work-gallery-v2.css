@@ -29,6 +29,7 @@
 .showcase-page:has(.site-header.scrolled) .work-landscape .scene-shade{background:linear-gradient(180deg,#040d1a44,#040d1a33)}
 .showcase-page.scene-soft .work-landscape canvas{filter:brightness(.75) saturate(.85)}
 .showcase-page[data-scene-theme=ming]{--work-accent:#f3c896}
+.showcase-page[data-scene-theme=qin]{--work-accent:#c49a52}
 .showcase-page[data-scene-theme=badminton]{--work-accent:#b1e2d4}
 .showcase-page[data-scene-theme=fish],.showcase-page[data-scene-theme=defense]{--work-accent:#a7dfe5}
 .showcase-page[data-scene-theme=qa]{--work-accent:#edcb9a}
