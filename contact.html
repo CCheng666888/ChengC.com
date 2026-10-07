@@ -3,11 +3,184 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101f24">
-  <title>联系作者 · ChenC 的萤火通讯</title>
-  <meta name="description" content="联系 ChenC。新的故事与作品正在全力更新。">
+  <meta name="theme-color" content="#f2f3ef">
+  <title>联系作者 · ChenC</title>
+  <meta name="description" content="联系 ChenC，聊聊项目、合作，或只是打个招呼。">
+  <style>
+    /* Contact architecture. Paper, ink, typography and spacing follow
+       the site's personal-space page. The Firefly page is backed up separately. */
+    :root {
+      color-scheme: light;
+      --paper: #f2f3ef;
+      --ink: #131311;
+      --muted: #626965;
+      --rule: #d5d9d4;
+      --blue: #244bff;
+      --brand-red: #c91e36;
+      --near-y: 0px;
+      --far-y: 0px;
+      --point-x: 0px;
+      --point-y: 0px;
+    }
+    * { box-sizing: border-box; }
+    html { min-width: 280px; background: var(--paper); }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; }
+    a, button { -webkit-tap-highlight-color: transparent; }
+    :is(a, button):focus-visible { outline: 2px solid var(--blue); outline-offset: 6px; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+    }
+    .skip-link {
+      position: fixed; top: 12px; left: 12px; z-index: 10; padding: 10px 16px;
+      background: var(--ink); color: var(--paper); transform: translateY(-180%);
+    }
+    .skip-link:focus { transform: none; }
+    .site-head {
+      position: relative; z-index: 2; width: 87.5%; max-width: 1440px;
+      min-height: 86px; margin: auto; display: flex; align-items: center;
+      justify-content: space-between; gap: 24px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .brand {
+      font: 28px/1.1 Georgia, "Times New Roman", serif;
+      letter-spacing: -.05em; padding-block: 12px;
+    }
+    .brand span { color: var(--brand-red); }
+    .back-link {
+      display: inline-flex; min-height: 44px; align-items: center; gap: 12px;
+      font-size: 12px; color: var(--muted);
+      transition: color 160ms ease;
+    }
+    .back-link svg { width: 20px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.2; }
+    .back-link:hover { color: var(--ink); }
+    .architecture {
+      position: fixed; inset: 0; z-index: 0; overflow: hidden;
+      pointer-events: none; user-select: none; contain: paint;
+    }
+    .structure { display: block; width: 100%; height: 100%; }
+    .structure-mobile { display: none; }
+    .structure .line { fill: none; stroke: #cbd1ca; stroke-width: 1; vector-effect: non-scaling-stroke; }
+    .structure .near { transform: translateY(var(--near-y)); }
+    .structure .far { transform: translateY(var(--far-y)); }
+    .structure .reference { transform: translate(var(--point-x), var(--point-y)); }
+    .contact-stage {
+      position: relative; z-index: 1; min-height: calc(100svh - 86px);
+      width: 87.5%; max-width: 1440px; margin: auto;
+      padding: clamp(54px, 8vh, 100px) 0 80px;
+    }
+    .contact-content { width: min(510px, 48%); }
+    h1 {
+      margin: 0; font-family: Georgia, "Times New Roman", serif; font-weight: 400;
+      font-size: clamp(62px, 6.4vw, 96px); letter-spacing: -.055em; line-height: 1.1;
+    }
+    .intro { margin: 22px 0 0; color: var(--muted); font-size: 14px; line-height: 1.9; }
+    .contact-list { margin: 47px 0 0; padding: 0; }
+    .contact-row { position: relative; padding: 0 0 22px; margin-bottom: 23px; }
+    .contact-row::after {
+      content: ""; position: absolute; bottom: 0; left: 0; height: 1px;
+      width: 100%; background: var(--rule); pointer-events: none;
+    }
+    .contact-row:first-child::after {
+      width: calc(100% + 15vw);
+      background: linear-gradient(90deg, var(--rule) 0%, var(--rule) 58%, #d5d9d459 87%, transparent);
+    }
+    .contact-row:nth-child(3)::after {
+      width: calc(100% + 6vw);
+      background: linear-gradient(90deg, var(--rule) 0%, var(--rule) 74%, transparent);
+    }
+    .contact-row:last-child { margin-bottom: 0; }
+    dt { margin: 0 0 8px; color: var(--muted); font-size: 10px; font-weight: 500; letter-spacing: .18em; }
+    dd { margin: 0; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    .contact-value {
+      min-width: 0; font-size: clamp(23px, 2.2vw, 31px); line-height: 1.4;
+      font-weight: 400; letter-spacing: -.025em; overflow-wrap: anywhere;
+    }
+    .contact-row:first-child .contact-value { font-size: clamp(27px, 2.7vw, 38px); }
+    .contact-value.is-placeholder { font-size: 25px; letter-spacing: .02em; }
+    .contact-row:first-child .contact-value.is-placeholder { font-size: 29px; }
+    a.contact-value { transition: color 160ms ease; }
+    a.contact-value:hover { color: var(--blue); }
+    .link-arrow { display: inline-block; margin-left: 9px; font-size: .58em; vertical-align: .18em; }
+    .copy-action {
+      flex: none; min-width: 64px; min-height: 44px; padding: 8px 0 8px 12px;
+      border: 0; background: transparent; font-size: 11px; color: var(--muted);
+      cursor: pointer; text-align: right; transition: color 160ms ease;
+    }
+    .copy-action:hover { color: var(--blue); }
+    .copy-action[data-copied] { color: var(--ink); }
+    .continuation { position: relative; z-index: 1; height: clamp(330px, 66svh, 660px); pointer-events: none; overflow: hidden; }
+    .echo { width: 100%; height: 100%; display: block; }
+    .echo .line { fill: none; stroke: #cbd1ca; stroke-width: 1; vector-effect: non-scaling-stroke; }
+    .site-foot {
+      position: relative; z-index: 1; width: 87.5%; max-width: 1440px;
+      margin: auto; padding: 24px 0 30px; border-top: 1px solid var(--rule);
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      color: var(--muted); font-size: 10px;
+    }
+    .site-foot a { display: inline-flex; align-items: center; min-height: 44px; }
+    .site-foot a:hover { color: var(--ink); }
+    @media (min-width: 1700px) {
+      .contact-stage { padding-top: 100px; }
+      .contact-content { width: 560px; }
+      .contact-value { font-size: 32px; }
+      .contact-row:first-child .contact-value { font-size: 40px; }
+    }
+    @media (max-width: 1000px) {
+      .site-head, .contact-stage, .site-foot { width: calc(100% - 64px); }
+      .contact-content { width: min(490px, 65%); }
+      .structure .tablet-hide { display: none; }
+      h1 { font-size: 68px; }
+    }
+    @media (max-width: 600px) {
+      .site-head, .contact-stage, .site-foot { width: calc(100% - 48px); }
+      .site-head { min-height: 68px; gap: 14px; }
+      .brand { font-size: 25px; }
+      .back-link { gap: 8px; font-size: 11px; }
+      .back-link svg { width: 16px; }
+      .structure-desktop { display: none; }
+      .structure-mobile { display: block; }
+      .contact-stage { min-height: calc(100svh - 68px); padding: 36px 0 42px; }
+      .contact-content { width: 100%; max-width: 430px; }
+      h1 { font-size: clamp(45px, 12.8vw, 64px); line-height: 1.08; }
+      .intro { font-size: 12px; line-height: 1.9; margin-top: 16px; max-width: 310px; }
+      .contact-list { margin-top: 31px; }
+      .contact-row { padding-bottom: 15px; margin-bottom: 17px; }
+      dt { font-size: 9px; margin-bottom: 6px; letter-spacing: .16em; }
+      .contact-value, .contact-row:first-child .contact-value { font-size: 22px; line-height: 1.45; }
+      .contact-value.is-placeholder { font-size: 20px; }
+      .contact-row:first-child .contact-value.is-placeholder { font-size: 23px; }
+      .contact-row:first-child::after { width: calc(100% + 24px); }
+      .contact-row:nth-child(3)::after { width: 100%; }
+      .copy-action { min-width: 54px; font-size: 10px; }
+      .continuation { height: 47svh; min-height: 270px; }
+      .echo-desktop { display: none; }
+      .site-foot { font-size: 9px; padding: 12px 0 18px; }
+    }
+    @media (min-width: 601px) { .echo-mobile { display: none; } }
+    @media (max-height: 720px) and (min-width: 601px) {
+      .contact-stage { padding-top: 38px; padding-bottom: 44px; }
+      h1 { font-size: 66px; }
+      .contact-list { margin-top: 28px; }
+      .contact-row { padding-bottom: 15px; margin-bottom: 17px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .structure .near, .structure .far, .structure .reference { transform: none !important; }
+    }
+  </style>
   <!-- delivery:start -->
-  <link rel="stylesheet" href="css/delivery-e8717698b389.css" data-sources="css/secret-arcade.css css/contact.css css/navigation.css css/site-refinements.css">
+  <link rel="stylesheet" href="css/delivery-df3cb6a513c6.css" data-sources="css/navigation.css css/site-refinements.css">
   <script data-theme-source="js/theme.js">(() => {
   'use strict';
   const system = matchMedia('(prefers-color-scheme: light)');
@@ -40,61 +213,225 @@
   else connect();
 })();</script>
   <script defer src="js/navigation.js?v=ab7985e942a9"></script>
-  <script defer src="js/delivery-54d5f16e1f04.js" data-sources="js/secret-arcade.js js/firefly-motion.js"></script>
   <!-- delivery:end -->
 </head>
-<body class="contact-page">
-  <a class="skip-link" href="#main">跳到主要内容</a>
-  <div class="pixel-stars" aria-hidden="true"></div>
-  <header class="contact-header">
-    <a class="contact-brand" href="index.html">ChenC<span>.</span></a>
-    <span class="header-frequency">FIREFLY FREQUENCY / 01</span>
-    <a class="back-link" href="about.html">返回个人空间</a>
+<body class="contact-architecture">
+  <a class="skip-link" href="#main">跳到联系方式</a>
+
+  <div class="architecture" aria-hidden="true">
+    <svg class="structure structure-desktop" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="wall-wash" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#fafbf6" stop-opacity=".92"/>
+          <stop offset="1" stop-color="#fafbf6" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="line-distance" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#cbd1ca" stop-opacity=".78"/>
+          <stop offset="1" stop-color="#cbd1ca" stop-opacity=".16"/>
+        </linearGradient>
+        <!-- The same open joint returns later without a label or explanation. -->
+        <path id="open-joint" d="M166 0H20V104H166M20 104L44 84V20H152M44 84H124"/>
+      </defs>
+      <g class="near">
+        <path d="M590 -160H-240V137H590Z" fill="url(#wall-wash)"/>
+        <path class="line" opacity=".68" d="M-240 137H590V-160M-240 148H574V-160"/>
+        <path class="line" opacity=".45" d="M590 137L1190 650M574 148L1179 650"/>
+        <path d="M1472 -200V410L1670 335V-200Z" fill="#e5e9e2" opacity=".28"/>
+        <path class="line" opacity=".76" d="M1670 335L1472 410V-200M1472 410L1324 483V-130"/>
+        <path class="line" opacity=".4" d="M1484 -200V404M1484 404L1335 477"/>
+        <path class="line" opacity=".42" d="M-150 388H-18V1060M-150 405H-33V1060"/>
+      </g>
+      <g class="far">
+        <path d="M1324 483L1190 650M1472 410L1190 650M700 1080L1190 650L1880 805M-220 840L1190 650" fill="none" stroke="url(#line-distance)" stroke-width="1"/>
+        <path class="line" opacity=".38" d="M1146 454L1264 425V516L1146 549V454M1264 425L1280 433V522"/>
+        <use href="#open-joint" class="line" opacity=".64" transform="translate(924 218) rotate(-7) scale(.8)"/>
+        <path class="line tablet-hide" opacity=".23" d="M1560 725L1404 690V807M1001 705L1013 724L1060 713"/>
+        <path class="line" opacity=".26" d="M1190 650L1208 638V668L1190 677"/>
+      </g>
+      <g class="reference"><circle cx="1190" cy="650" r="3" fill="#244bff"/></g>
+    </svg>
+
+    <svg class="structure structure-mobile" viewBox="0 0 390 700" preserveAspectRatio="xMidYMid slice">
+      <g class="near">
+        <path fill="#fafbf6" opacity=".65" d="M-90 -70H282V78H-90Z"/>
+        <path class="line" opacity=".66" d="M-90 78H282V-70M-90 85H275V-70"/>
+        <path class="line" opacity=".45" d="M282 78L348 576"/>
+        <path fill="#e5e9e2" opacity=".2" d="M451 190L370 238V735L451 690Z"/>
+        <path class="line" opacity=".72" d="M451 190L370 238V735M451 204L379 246V735"/>
+        <path class="line" opacity=".3" d="M-110 423H8V810"/>
+      </g>
+      <g class="far">
+        <path class="line" opacity=".4" d="M370 238L348 576M-90 690L348 576L516 629"/>
+        <path class="line" opacity=".28" d="M317 415L352 425V465L317 454"/>
+        <use href="#open-joint" class="line" opacity=".63" transform="translate(302 176) rotate(-7) scale(.29)"/>
+      </g>
+      <g class="reference"><circle cx="348" cy="576" r="2.5" fill="#244bff"/></g>
+    </svg>
+  </div>
+
+  <header class="site-head contact-header">
+    <a class="brand" href="index.html" aria-label="ChenC 首页">ChenC<span>.</span></a>
+    <a class="back-link" href="about.html"><svg viewBox="0 0 24 12" aria-hidden="true"><path d="M23 6H2M7 1L2 6L7 11"/></svg>返回个人空间</a>
   </header>
-  <main id="main" class="contact-main">
-    <div class="page-label"><span class="pixel-cross" aria-hidden="true">✦</span><span>一封来自星间的信</span><span class="label-code">CHENC / CONTACT</span></div>
-    <h1>联系作者<span class="heading-dot" aria-hidden="true">.</span></h1>
-    <section class="firefly-window" aria-labelledby="updateTitle">
-      <div class="window-bar">
-        <span class="window-name"><span class="window-mark" aria-hidden="true"></span>萤火通讯</span>
-        <div class="window-controls">
-          <button type="button" class="window-secret spark-control" data-secret-game="snake" aria-label="萤火星标"><span aria-hidden="true">✦</span></button>
-          <button type="button" class="window-secret tile-control" data-secret-game="tetris" aria-label="窗口方块"><span aria-hidden="true"></span></button>
-          <a class="window-return" href="about.html" aria-label="关闭通讯，返回个人空间">×</a>
-        </div>
-      </div>
-      <div class="window-body">
-        <div class="update-copy">
-          <p class="channel-label"><span aria-hidden="true">[</span> FIREFLY / 星间频道 <span aria-hidden="true">]</span></p>
-          <h2 id="updateTitle">正在<br><span>全力更新</span><span class="pixel-cursor" aria-hidden="true"></span></h2>
-          <p class="update-note">想做的事，还有很多。<br>让新的故事，慢慢亮起来。</p>
-          <div class="update-loading" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-          <p class="update-caption">故事还在继续<span aria-hidden="true"> . . .</span></p>
-        </div>
-        <figure class="firefly-stage">
-          <div class="stage-coordinate" aria-hidden="true"><span>星间的萤火</span><span>01 / FIREFLY</span></div>
-          <div class="sprite-halo" aria-hidden="true"></div>
-          <div class="firefly-sprite-slot">
-            <video id="fireflyMotion" class="firefly-sprite" width="630" height="560" autoplay loop muted playsinline controls preload="auto" poster="assets/firefly-official-pixel.webp" aria-label="官方 PV 中流萤挥动武器的原生像素循环动画"><source src="assets/firefly-official-pixel-loop.mp4" type="video/mp4">您的浏览器暂不支持播放这段动画。</video>
-            <button class="motion-toggle" type="button" data-motion-toggle aria-label="暂停流萤动画" hidden>Ⅱ 暂停</button>
+
+  <main id="main">
+    <section class="contact-stage" aria-labelledby="contact-title">
+      <div class="contact-content">
+        <h1 id="contact-title">CONTACT</h1>
+        <p class="intro">欢迎聊聊项目、合作，或只是打个招呼。</p>
+        <dl class="contact-list" id="contact-list" aria-label="联系方式">
+          <div class="contact-row" data-channel="email">
+            <dt>EMAIL</dt><dd><span class="contact-value is-placeholder">邮箱待填写</span></dd>
           </div>
-          <div class="sprite-platform" aria-hidden="true"></div>
-          <span class="stage-spark spark-one" aria-hidden="true">✦</span><span class="stage-spark spark-two" aria-hidden="true">✧</span><span class="stage-spark spark-three" aria-hidden="true">✦</span>
-          <figcaption>FIREFLY<span>流萤</span></figcaption>
-        </figure>
+          <div class="contact-row" data-channel="wechat">
+            <dt>WECHAT</dt><dd><span class="contact-value is-placeholder">微信待填写</span></dd>
+          </div>
+          <div class="contact-row" data-channel="qq">
+            <dt>QQ</dt><dd><span class="contact-value is-placeholder">QQ 待填写</span></dd>
+          </div>
+        </dl>
       </div>
-      <div class="window-bottom"><span class="mechanical-ticks" aria-hidden="true">▰ ▰ ▰</span><span>把微小的光，留给明天。</span><span class="bottom-code" aria-hidden="true">TYPE-IV</span></div>
     </section>
+    <div class="continuation" aria-hidden="true">
+      <svg class="echo echo-desktop" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMid slice">
+        <path d="M-250 425L1045 236L1900 390" class="line" opacity=".25"/>
+        <path d="M-95 -100V310H245M-82 -100V298H245" class="line" opacity=".45"/>
+        <use href="#open-joint" class="line" opacity=".72" transform="translate(1030 205) rotate(11) scale(1.1)"/>
+        <path d="M1186 235L1710 -80M1182 347L1750 555" class="line" opacity=".25"/>
+      </svg>
+      <svg class="echo echo-mobile" viewBox="0 0 390 340" preserveAspectRatio="xMidYMid slice">
+        <path d="M-90 285L256 171L520 248M-10 -80V117H82" class="line" opacity=".28"/>
+        <use href="#open-joint" class="line" opacity=".65" transform="translate(256 151) rotate(11) scale(.48)"/>
+      </svg>
+    </div>
   </main>
-  <footer class="contact-footer"><span>© 2026 ChenC</span><a href="https://www.bilibili.com/video/BV1wYdWB5EVF/" target="_blank" rel="noopener noreferrer">流萤像素素材 · 官方 PV</a><span class="footer-sign">愿此行，终抵群星。</span></footer>
-  <dialog class="secret-arcade" id="secretArcade" aria-labelledby="arcadeTitle">
-    <div class="arcade-heading"><div><small>CHENC / POCKET ARCADE</small><h2 id="arcadeTitle">隐藏小游戏</h2></div><button type="button" data-close aria-label="关闭小游戏">✕</button></div>
-    <div class="arcade-playfield"><canvas class="arcade-board" width="300" height="300" tabindex="0" aria-label="游戏画面"></canvas><div class="arcade-stats"><span>得分</span><strong data-score>0</strong><span>最佳</span><strong data-best>0</strong><div class="arcade-next"><span>下一个</span><canvas width="96" height="96" data-next aria-label="下一个方块"></canvas></div></div></div>
-    <p class="arcade-status" data-status role="status"></p>
-    <div class="arcade-actions"><button type="button" data-action="pause">开始</button><button type="button" data-action="restart">重新开始</button></div>
-    <div class="arcade-directions" aria-label="游戏操作"><button type="button" data-action="left" aria-label="向左">←</button><button type="button" data-action="up" aria-label="向上或旋转">↑</button><button type="button" data-action="down" aria-label="向下">↓</button><button type="button" data-action="right" aria-label="向右">→</button><button type="button" data-action="drop">落到底</button></div>
-  </dialog>
+  <footer class="site-foot"><span>© 2026 ChenC</span><a href="index.html">返回首页 <span aria-hidden="true">&nbsp;↗</span></a></footer>
+  <p class="sr-only" id="copy-status" role="status" aria-live="polite" aria-atomic="true"></p>
 
+  <!-- Fill real, public contact values here. Empty core channels remain clearly labelled
+       placeholders; extra channels appear only when populated. Nothing is invented.
+       Example shape for other: [{"label":"CHANNEL","value":"","href":""}]. -->
+  <script type="application/json" id="contact-data">
+    {"email":{"value":"1915250812@qq.com"},"wechat":{"value":"a1927848263"},"qq":{"value":"1915250812"},"other":[]}
+  </script>
+  <script>
+    (() => {
+      'use strict';
+      // This page keeps its paper surface while other pages retain the saved theme.
+      function syncPaperChrome() {
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.content = '#f2f3ef';
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', syncPaperChrome, {once: true});
+      else syncPaperChrome();
+      matchMedia('(prefers-color-scheme: light)').addEventListener('change', syncPaperChrome);
+      const list = document.getElementById('contact-list');
+      const status = document.getElementById('copy-status');
+      const timers = new WeakMap();
+      let contacts = {};
+      try { contacts = JSON.parse(document.getElementById('contact-data').textContent) || {}; } catch {}
+      const text = value => typeof value === 'string' ? value.trim() : '';
+      function destination(channel, contact, value) {
+        if (channel === 'email' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          return 'mailto:' + encodeURIComponent(value).replace(/%40/g, '@');
+        }
+        const candidate = text(contact.href) || (channel === 'github' && /^(https?:\/\/)?github\.com\//i.test(value) ? value : '');
+        if (!candidate) return '';
+        try {
+          const url = new URL(/^github\.com\//i.test(candidate) ? 'https://' + candidate : candidate);
+          return ['https:', 'http:'].includes(url.protocol) ? url.href : '';
+        } catch { return ''; }
+      }
+      function fallbackCopy(value) {
+        const active = document.activeElement;
+        const selection = window.getSelection();
+        const ranges = selection ? Array.from({length: selection.rangeCount}, (_, i) => selection.getRangeAt(i).cloneRange()) : [];
+        const input = document.createElement('textarea');
+        input.value = value; input.readOnly = true; input.tabIndex = -1;
+        input.setAttribute('aria-hidden', 'true');
+        input.style.cssText = 'position:fixed;left:-9999px;top:0;';
+        document.body.append(input);
+        input.select();
+        let success = false;
+        try { success = document.execCommand('copy'); } catch {}
+        input.remove();
+        if (active instanceof HTMLElement) active.focus({preventScroll: true});
+        if (selection) { selection.removeAllRanges(); ranges.forEach(range => selection.addRange(range)); }
+        return success;
+      }
+      function populate(row, channel, contact) {
+        const value = text(contact && contact.value);
+        if (!value) return;
+        const label = row.querySelector('dt').textContent;
+        const details = row.querySelector('dd');
+        const href = destination(channel, contact, value);
+        const valueNode = document.createElement(href ? 'a' : 'span');
+        valueNode.className = 'contact-value'; valueNode.textContent = value;
+        if (href) {
+          valueNode.href = href;
+          if (/^https?:/.test(href)) { valueNode.target = '_blank'; valueNode.rel = 'noopener noreferrer'; }
+          const arrow = document.createElement('span');
+          arrow.className = 'link-arrow'; arrow.textContent = '↗'; arrow.setAttribute('aria-hidden', 'true');
+          valueNode.append(arrow);
+        }
+        const button = document.createElement('button');
+        button.type = 'button'; button.className = 'copy-action'; button.textContent = '复制';
+        button.setAttribute('aria-label', '复制 ' + label);
+        button.addEventListener('click', async () => {
+          let copied = false;
+          try {
+            if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(value); copied = true; }
+          } catch {}
+          if (!copied) copied = fallbackCopy(value);
+          clearTimeout(timers.get(button));
+          button.textContent = copied ? 'Copied' : '请选中复制';
+          button.toggleAttribute('data-copied', copied);
+          status.textContent = copied ? label + ' 已复制' : '自动复制暂不可用，请选中联系方式后复制。';
+          timers.set(button, setTimeout(() => {
+            button.textContent = '复制'; button.removeAttribute('data-copied'); status.textContent = '';
+          }, 1500));
+        });
+        details.replaceChildren(valueNode, button);
+        row.classList.add('has-value');
+      }
+      ['email', 'wechat', 'qq'].forEach(channel => populate(list.querySelector('[data-channel="' + channel + '"]'), channel, contacts[channel]));
+      if (Array.isArray(contacts.other)) contacts.other.forEach(contact => {
+        if (!text(contact && contact.value)) return;
+        const row = document.createElement('div'); row.className = 'contact-row';
+        const label = document.createElement('dt'); label.textContent = text(contact.label) || 'OTHER';
+        row.append(label, document.createElement('dd')); list.append(row);
+        populate(row, 'other', contact);
+      });
 
+      // A single frame is scheduled only after a view change. There is no idle loop.
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+      const root = document.documentElement;
+      let frame = 0;
+      function reset() {
+        ['--near-y', '--far-y', '--point-x', '--point-y'].forEach(name => root.style.removeProperty(name));
+      }
+      function update() {
+        frame = 0;
+        if (reduced.matches || document.hidden) { reset(); return; }
+        const amount = Math.min(1, Math.max(0, scrollY / Math.max(innerHeight * 1.2, 1)));
+        root.style.setProperty('--near-y', (-32 * amount).toFixed(2) + 'px');
+        root.style.setProperty('--far-y', (-11 * amount).toFixed(2) + 'px');
+        root.style.setProperty('--point-x', (-12 * amount).toFixed(2) + 'px');
+        root.style.setProperty('--point-y', (9 * amount).toFixed(2) + 'px');
+      }
+      function schedule() {
+        if (!frame && !reduced.matches && !document.hidden) frame = requestAnimationFrame(update);
+      }
+      function motionChanged() {
+        if (frame) { cancelAnimationFrame(frame); frame = 0; }
+        if (reduced.matches) reset(); else schedule();
+      }
+      addEventListener('scroll', schedule, {passive: true});
+      addEventListener('resize', schedule, {passive: true});
+      addEventListener('pageshow', motionChanged);
+      document.addEventListener('visibilitychange', motionChanged);
+      reduced.addEventListener('change', motionChanged);
+    })();
+  </script>
 </body>
 </html>

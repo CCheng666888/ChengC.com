@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f5f0e5">
+  <meta name="description" content="带着一只好奇的小狗，去公园走一走。探索、玩耍，然后成为它最好的朋友。">
+  <title>DOG WALK · 一起出去走走</title>
+  <link rel="icon" href="./public/paw.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./src/style.css">
+  <!-- Match the host site's native navigation transition; respect reduced motion. -->
+  <style>@view-transition{navigation:auto}@media(prefers-reduced-motion:reduce){@view-transition{navigation:none}}</style>
+</head>
+<body>
+  <main id="app">
+    <canvas id="world" aria-label="狗狗散步的公园。使用 WASD 或方向键移动，E 互动。"></canvas>
+    <div id="interface"></div>
+    <div id="dialogs"></div>
+    <div id="toasts" aria-live="polite"></div>
+    <div id="archive" hidden></div>
+  </main>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

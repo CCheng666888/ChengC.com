@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DOG WALK · ChenC</title>
+  <meta name="description" content="DOG WALK v1.0.0：一款可以直接试玩的遛狗小游戏。三只狗狗、随机事件、飞盘、找骨头与听指令，散步进度自动保存。">
+  <meta name="theme-color" content="#0b2431">
+  <link rel="icon" href="../assets/avatar.jpg" type="image/jpeg">
+  <!-- delivery:start -->
+  <link rel="stylesheet" href="../css/delivery-4fc05811ea8f.css" data-sources="css/style.css">
+  <link rel="stylesheet" href="../css/delivery-d42595478b0a.css" data-sources="css/showcase.css css/work-gallery-v2.css css/work-detail.css css/navigation.css css/site-refinements.css">
+  <script data-theme-source="js/theme.js">(() => {
+  'use strict';
+  const system = matchMedia('(prefers-color-scheme: light)');
+  let preference = null;
+  try { preference = localStorage.getItem('theme'); } catch {}
+  if (!['light', 'dark'].includes(preference)) preference = null;
+  function apply(theme) {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.classList.toggle('dark', theme !== 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === 'light' ? '#f3f7f5' : '#0b2431';
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.setAttribute('aria-label', theme === 'light' ? '切换深色主题' : '切换浅色主题');
+    });
+  }
+  apply(preference || (system.matches ? 'light' : 'dark'));
+  document.documentElement.classList.add('js');
+  system.addEventListener('change', () => { if (!preference) apply(system.matches ? 'light' : 'dark'); });
+  function connect() {
+    apply(preference || (system.matches ? 'light' : 'dark'));
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.addEventListener('click', () => {
+        preference = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+        apply(preference);
+        try { localStorage.setItem('theme', preference); } catch {}
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', connect);
+  else connect();
+})();</script>
+  <script defer src="../js/navigation.js?v=ab7985e942a9"></script>
+  <script defer src="../js/delivery-f785be9160cf.js" data-sources="js/work-scenes.js"></script>
+  <!-- delivery:end -->
+</head>
+<body class="article-page work-detail-page dog-walk-detail" data-scene-theme="dogwalk">
+  <div class="landscape work-landscape" aria-hidden="true"><canvas id="workScene"></canvas><div class="scene-shade"></div></div>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="作品详情导航">
+      <a class="brand" href="../index.html">ChenC</a>
+      <div class="article-nav"><a href="../games.html">← 返回游戏页</a><button id="articleTheme" class="theme-btn" type="button" aria-label="切换浅色主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3v2m0 14v2M3 12h2m14 0h2M6 6l1.5 1.5m9 9L18 18m0-12-1.5 1.5m-9 9L6 18M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5z"/></svg></button></div>
+    </nav>
+  </header>
+  <main class="article-shell">
+    <article>
+      <header class="article-header">
+        <a class="article-category" href="../games.html">游戏</a>
+        <h1>DOG WALK</h1>
+        <p class="article-lead">牵好绳子，带狗狗出门走一走。一段轻松的遛狗散步，移动、互动、小游戏，还有路上随时会发生的随机事件。</p>
+        <div class="article-meta"><span>v1.0.0</span><span>休闲遛狗</span><span>键盘与触屏</span></div>
+      </header>
+      <div class="article-body">
+
+        <div class="work-actions"><a class="button primary" href="../play/dog-walk/">开始试玩</a><a class="button secondary" href="../downloads/DOG-WALK-1.0.0-web.zip" download>下载网页版</a></div>
+        <h2>一段有自己节奏的散步</h2>
+        <p>DOG WALK 是一款打开网页就能玩的遛狗小游戏：你带着一只狗狗在公园里散步，<strong>移动、遛狗、与狗互动、接飞盘、随机事件、分数、狗狗状态与成就</strong>组成了每一段散步。轻松、直接，不需要攻略也能玩得明白。</p>
+
+        <h2>设计目的</h2>
+        <p>让「遛狗」这个日常动作本身变得好玩：<strong>打开就能走，也可以停下来玩</strong>。小鸟、另一只狗、掉落的食物和一只飞盘，都可能改变这次散步的节奏。狗狗会好奇、兴奋、分心，也会累；一根牵引绳连接着两个各有想法的伙伴。</p>
+
+        <h2>现在可以怎么玩</h2>
+        <ul>
+          <li><strong>移动与遛狗</strong>：WASD / 方向键自由移动；手机使用虚拟摇杆。三只性格不同的狗狗会跟随、探索、奔跑或休息，牵引绳限制彼此距离；</li>
+          <li><strong>与狗互动</strong>：抚摸、召回和休息，照顾快乐、体力、服从、好奇与信任五项状态；</li>
+          <li><strong>随机事件</strong>：发现飞盘、看见小鸟、遇到其他狗狗或路边食物时，选择不同的应对方式；</li>
+          <li><strong>三种小游戏</strong>：调整角度和力度扔飞盘，观察狗狗提示寻找骨头，快速选择坐下、过来、等待或握手；</li>
+          <li><strong>状态与结算</strong>：散步结束后按距离、互动和状态评出分数与星级，解锁正常成就，也可以重新出发。</li>
+        </ul>
+
+        <h2>进度会留在这里</h2>
+        <ul>
+          <li>散步途中自动保存，刷新后可以继续；最高分、成就、累计散步次数、距离与信任记录保存在当前浏览器；</li>
+          <li>设置中可调整音量与画面，也可以在二次确认后重置存档；</li>
+          <li>直接打开站内试玩即可游玩。下载包包含游戏源码和本地素材，解压后运行 <code>npm install</code>、<code>npm run dev</code>；支持 <code>npm run build</code> 构建静态版本。</li>
+        </ul>
+
+        <h2>更新记录</h2>
+        <ul class="detail-timeline">
+          <li>
+            <time>2026-10-07</time>
+            <strong>v1.0.0 · 第一段散步</strong>
+            <p>完成公园探索、狗狗 AI、随机事件、三种小游戏、散步评分、成就、自动存档与触屏操作。加入站内试玩、网页版下载和专属公园像素背景。</p>
+          </li>
+          <li>
+            <time>2026-10-06</time>
+            <strong>玩法筹备</strong>
+            <p>确定遛狗散步、互动、随机事件、小游戏与状态结算的玩法方向。</p>
+          </li>
+        </ul>
+      </div>
+      <footer class="article-footer"><a class="button secondary" href="../games.html">← 返回游戏页</a></footer>
+    </article>
+  </main>
+  <div class="tools" aria-label="风景控制">
+    <button class="tool" id="sceneToggle" type="button" aria-pressed="false">只看背景</button>
+    <button class="tool" id="pauseToggle" type="button" aria-pressed="false">暂停动画</button>
+    <button class="tool" id="settingsToggle" type="button" aria-expanded="false" aria-controls="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="#0b283a"/><circle cx="15" cy="17" r="3" fill="#0b283a"/></svg>风景设置</button>
+  </div>
+  <aside class="settings" id="settings" aria-label="风景设置" hidden>
+    <div class="settings-head"><h2>风景设置</h2><button class="close" id="settingsClose" type="button" aria-label="关闭风景设置">×</button></div>
+    <label class="slider" for="density"><span class="slider-top"><span>环境粒子</span><output id="densityValue" for="density">65%</output></span><input id="density" type="range" min="0" max="100" value="65"></label>
+    <label class="slider" for="speed"><span class="slider-top"><span>动画速度</span><output id="speedValue" for="speed">35%</output></span><input id="speed" type="range" min="0" max="100" value="35"></label>
+    <label class="slider" for="mist"><span class="slider-top"><span>环境光</span><output id="mistValue" for="mist">40%</output></span><input id="mist" type="range" min="0" max="100" value="40"></label>
+    <label class="slider" for="glow"><span class="slider-top"><span>微光强度</span><output id="glowValue" for="glow">60%</output></span><input id="glow" type="range" min="0" max="100" value="60"></label>
+    <div class="settings-foot"><button type="button" id="nightToggle" aria-pressed="false">柔和背景</button><button type="button" id="reset">恢复默认</button></div>
+    <p class="settings-note" id="motionNote">每个作品有自己的像素场景；环境动画、微光和交互都在同一画面中绘制。</p>
+  </aside>
+
+  <script>window.WorkScenes?.setTheme('dogwalk');</script>
+</body>
+</html>

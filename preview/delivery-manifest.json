@@ -1,5 +1,5 @@
 {
-  "revision": "e142950367d1",
+  "revision": "eb3ea3104187",
   "pages": {
     "index.html": [
       "css/delivery-4fc05811ea8f.css",
@@ -17,24 +17,23 @@
     ],
     "tools.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-148d979c97ba.css",
+      "css/delivery-6fe72c5a3028.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-52eb1a0325c0.js",
+      "js/delivery-8461ac1ddd2b.js",
       "assets/products/qa-cover-v1-desktop.webp",
       "assets/products/qa-cover-v1-mobile.webp"
     ],
     "games.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-148d979c97ba.css",
+      "css/delivery-6fe72c5a3028.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-52eb1a0325c0.js",
+      "js/delivery-8461ac1ddd2b.js",
       "assets/products/yinian-cover-desktop.webp",
       "assets/products/yinian-cover-mobile.webp"
     ],
     "contact.html": [
-      "css/delivery-e8717698b389.css",
-      "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-54d5f16e1f04.js"
+      "css/delivery-df3cb6a513c6.css",
+      "js/navigation.js?v=ab7985e942a9"
     ],
     "posts/ai-web-security-references.html": [
       "css/delivery-103f143cebc2.css",
@@ -99,51 +98,57 @@
     ],
     "work/mingchronicles.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-60a1f8db85d9.css",
+      "css/delivery-d42595478b0a.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-ebbd9da173ec.js"
+      "js/delivery-f785be9160cf.js"
     ],
     "work/multi-book-qa.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-60a1f8db85d9.css",
+      "css/delivery-d42595478b0a.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-ebbd9da173ec.js"
+      "js/delivery-f785be9160cf.js"
     ],
     "work/note-to-site.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-60a1f8db85d9.css",
+      "css/delivery-d42595478b0a.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-ebbd9da173ec.js"
+      "js/delivery-f785be9160cf.js"
     ],
     "work/spongebob-vs-zombie-fish.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-60a1f8db85d9.css",
+      "css/delivery-d42595478b0a.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-ebbd9da173ec.js"
+      "js/delivery-f785be9160cf.js"
     ],
     "work/underwater-defense.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-60a1f8db85d9.css",
+      "css/delivery-d42595478b0a.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-ebbd9da173ec.js"
+      "js/delivery-f785be9160cf.js"
+    ],
+    "work/upcoming-dog-walk.html": [
+      "css/delivery-4fc05811ea8f.css",
+      "css/delivery-d42595478b0a.css",
+      "js/navigation.js?v=ab7985e942a9",
+      "js/delivery-f785be9160cf.js"
     ],
     "work/upcoming-rhythm-game.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-60a1f8db85d9.css",
+      "css/delivery-d42595478b0a.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-ebbd9da173ec.js"
+      "js/delivery-f785be9160cf.js"
     ],
     "work/yi-nian-tian-xia.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-60a1f8db85d9.css",
+      "css/delivery-d42595478b0a.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-ebbd9da173ec.js"
+      "js/delivery-f785be9160cf.js"
     ],
     "work/yujing.html": [
       "css/delivery-4fc05811ea8f.css",
-      "css/delivery-60a1f8db85d9.css",
+      "css/delivery-d42595478b0a.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-ebbd9da173ec.js"
+      "js/delivery-f785be9160cf.js"
     ]
   },
   "assets": [
@@ -173,12 +178,12 @@
     "assets/products/yinian-cover-mobile.webp",
     "css/delivery-103f143cebc2.css",
     "css/delivery-11773a3012d1.css",
-    "css/delivery-148d979c97ba.css",
     "css/delivery-2118c4ae1d43.css",
     "css/delivery-4fc05811ea8f.css",
-    "css/delivery-60a1f8db85d9.css",
+    "css/delivery-6fe72c5a3028.css",
     "css/delivery-8a57b359a0ec.css",
-    "css/delivery-e8717698b389.css",
+    "css/delivery-d42595478b0a.css",
+    "css/delivery-df3cb6a513c6.css",
     "js/app.js",
     "js/blog-search-index.js",
     "js/blog-search.js",
@@ -186,9 +191,8 @@
     "js/collection.js",
     "js/delivery-012d6bd35d0a.js",
     "js/delivery-06254d3c26b7.js",
-    "js/delivery-52eb1a0325c0.js",
-    "js/delivery-54d5f16e1f04.js",
-    "js/delivery-ebbd9da173ec.js",
+    "js/delivery-8461ac1ddd2b.js",
+    "js/delivery-f785be9160cf.js",
     "js/firefly-motion.js",
     "js/lake-projection.js",
     "js/landscape.js",

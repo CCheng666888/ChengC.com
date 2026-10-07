@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2f3ef">
+  <title>联系作者 · ChenC</title>
+  <meta name="description" content="联系 ChenC。欢迎聊聊项目、合作，或只是打个招呼。">
+  <link rel="stylesheet" href="css/contact-digital-space.css">
+</head>
+<body class="contact-space">
+  <a class="skip-link" href="#main">跳到联系方式</a>
+  <svg class="space-field" aria-hidden="true" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+    <g class="near-structure">
+      <path class="architecture-wash" d="M-220 -120H540V170H-220ZM1500 -160H1810V420L1500 505Z" />
+      <path class="architecture-line" d="M-220 170H540V-120M-220 184H525V-120M540 170L1172 648M525 184L1162 648M1810 420L1500 505V-160M1500 505L1320 588V-110M-120 392H-12V1030M-105 410H4V1030" />
+    </g>
+    <g class="distant-structure">
+      <path class="architecture-line" d="M-160 832L1172 648L1770 800M1172 648L1320 588M1500 505L1172 648M1130 462L1258 432V524L1130 558ZM1258 432L1275 441V530" />
+      <path class="architecture-line returning-joint" d="M1010 218H866V322H1010M866 322L890 302V238H996M890 302H968" />
+      <path class="architecture-line" opacity=".4" d="M1550 720L1394 684V810M980 704L1000 722L1048 711" />
+    </g>
+    <circle class="reference-point" cx="1172" cy="648" r="3" />
+  </svg>
+
+  <header class="space-header">
+    <a class="brand" href="index.html" aria-label="ChenC 首页">ChenC<span>.</span></a>
+    <span class="header-index">PERSONAL SPACE <i>/</i> CONTACT</span>
+    <a class="back-link" href="about.html"><span aria-hidden="true">←</span> 返回个人空间</a>
+  </header>
+
+  <main id="main" class="space-main">
+    <section class="contact-intro" aria-labelledby="page-title">
+      <p class="eyebrow">CONTACT <span class="eyebrow-index">/ CHENC</span></p>
+      <h1 id="page-title">CONTACT</h1>
+      <p class="intro-copy">I’d love to hear from you.</p>
+    </section>
+
+    <section class="contact-field" aria-label="联系方式">
+      <dl class="contact-list" id="contactList" aria-live="polite">
+        <div class="contact-node" data-channel="email"><dt class="node-label">EMAIL</dt><dd class="node-details"><span class="node-value is-placeholder">邮箱待填写</span></dd></div>
+        <div class="contact-node" data-channel="wechat"><dt class="node-label">WECHAT</dt><dd class="node-details"><span class="node-value is-placeholder">微信待填写</span></dd></div>
+        <div class="contact-node" data-channel="github"><dt class="node-label">GITHUB</dt><dd class="node-details"><span class="node-value is-placeholder">GitHub 待填写</span></dd></div>
+      </dl>
+      <script type="application/json" id="contactData">{"email":{"value":""},"wechat":{"value":""},"github":{"value":"","href":""},"other":[]}</script>
+    </section>
+  </main>
+
+  <div class="continuation" aria-hidden="true">
+    <svg viewBox="0 0 1600 540" preserveAspectRatio="xMidYMid slice">
+      <path class="architecture-line" d="M-180 398L1032 230L1770 402M-80 -80V298H238M-65 -80V286H238M1200 234L1700 -80M1194 345L1750 548" />
+      <path class="architecture-line returning-joint" d="M1050 188H890V304H1050M890 304L916 282V210H1034M916 282H1004" />
+    </svg>
+  </div>
+
+  <footer class="space-footer">
+    <span class="footer-mark" aria-hidden="true"></span>
+    <span>© 2026 ChenC</span>
+    <a href="index.html">返回首页 <span aria-hidden="true">↗</span></a>
+  </footer>
+  <p class="sr-only" id="copy-status" role="status" aria-live="polite" aria-atomic="true"></p>
+
+  <script>
+    (() => {
+      'use strict';
+      const list = document.getElementById('contactList');
+      const status = document.getElementById('copy-status');
+      const timers = new WeakMap();
+      const labels = { email: 'EMAIL', wechat: 'WECHAT', github: 'GITHUB' };
+      let contacts = {};
+      try { contacts = JSON.parse(document.getElementById('contactData').textContent) || {}; } catch {}
+
+      function text(value) { return typeof value === 'string' ? value.trim() : ''; }
+      function fallbackCopy(value) {
+        const input = document.createElement('textarea');
+        input.value = value;
+        input.readOnly = true;
+        input.tabIndex = -1;
+        input.setAttribute('aria-hidden', 'true');
+        input.style.cssText = 'position:fixed;left:-9999px;top:0';
+        document.body.append(input);
+        input.select();
+        let success = false;
+        try { success = document.execCommand('copy'); } catch {}
+        input.remove();
+        return success;
+      }
+      async function copyValue(value, button, label) {
+        let copied = false;
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(value);
+            copied = true;
+          }
+        } catch {}
+        if (!copied) copied = fallbackCopy(value);
+        clearTimeout(timers.get(button));
+        button.textContent = copied ? 'Copied' : '请选中复制';
+        status.textContent = copied ? label + ' 已复制' : '自动复制暂不可用，请选中联系方式后复制。';
+        timers.set(button, setTimeout(() => {
+          button.textContent = '复制';
+          status.textContent = '';
+        }, 1500));
+      }
+      function populate(row, channel, contact) {
+        const value = text(contact && contact.value);
+        if (!value) return;
+        const details = row.querySelector('dd');
+        let href = '';
+        if (channel === 'email' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          href = 'mailto:' + encodeURIComponent(value).replace(/%40/g, '@');
+        } else {
+          const candidate = text(contact.href) || (channel === 'github' && /^(https?:\/\/)?github\.com\/[\w.-]+\/?$/i.test(value) ? value : '');
+          try {
+            const url = new URL(/^github\.com\//i.test(candidate) ? 'https://' + candidate : candidate);
+            if (['https:', 'http:'].includes(url.protocol)) href = url.href;
+          } catch {}
+        }
+        const valueNode = document.createElement(href ? 'a' : 'span');
+        valueNode.className = 'node-value';
+        valueNode.textContent = value;
+        if (href) {
+          valueNode.href = href;
+          if (/^https?:/i.test(href)) {
+            valueNode.target = '_blank';
+            valueNode.rel = 'noopener noreferrer';
+          }
+        }
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'copy-action';
+        button.textContent = '复制';
+        button.setAttribute('aria-label', '复制 ' + (contact.label || labels[channel] || channel));
+        button.addEventListener('click', () => copyValue(text(contact.copy) || value, button, labels[channel] || channel));
+        details.replaceChildren(valueNode, button);
+        row.classList.add('has-value');
+      }
+      ['email', 'wechat', 'github'].forEach(channel => populate(list.querySelector('[data-channel="' + channel + '"]'), channel, contacts[channel]));
+      if (Array.isArray(contacts.other)) contacts.other.forEach(contact => {
+        if (!text(contact && contact.value)) return;
+        const row = document.createElement('div');
+        row.className = 'contact-node';
+        const label = document.createElement('dt');
+        label.className = 'node-label';
+        label.textContent = text(contact.label) || 'OTHER';
+        const details = document.createElement('dd');
+        row.append(label, details);
+        list.append(row);
+        populate(row, 'other', contact);
+      });
+
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+      const root = document.documentElement;
+      let frame = 0;
+      function updateSpace() {
+        frame = 0;
+        if (reduced.matches || document.hidden) return;
+        const amount = Math.min(1, Math.max(0, scrollY / Math.max(innerHeight * 1.2, 1)));
+        root.style.setProperty('--near-offset', (-24 * amount).toFixed(2) + 'px');
+        root.style.setProperty('--far-offset', (-8 * amount).toFixed(2) + 'px');
+        root.style.setProperty('--point-offset', (-10 * amount).toFixed(2) + 'px');
+      }
+      function scheduleSpace() {
+        if (!frame && !reduced.matches && !document.hidden) frame = requestAnimationFrame(updateSpace);
+      }
+      addEventListener('scroll', scheduleSpace, { passive: true });
+      addEventListener('pageshow', scheduleSpace);
+      document.addEventListener('visibilitychange', scheduleSpace);
+      reduced.addEventListener('change', () => {
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
+        if (reduced.matches) {
+          ['--near-offset', '--far-offset', '--point-offset'].forEach(name => root.style.removeProperty(name));
+        } else scheduleSpace();
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -10,7 +10,7 @@
   const lightweight = coarse.matches || matchMedia('(max-width:800px)').matches;
   const saveData = Boolean(navigator.connection?.saveData);
   const BAY = [0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
-  const names = new Set(['ming','qin','badminton','fish','defense','qa','notes','beat','soon']);
+  const names = new Set(['ming','qin','badminton','fish','defense','qa','notes','beat','dogwalk','soon']);
   const settings = {density:65,speed:35,mist:40,glow:60}, defaults = {...settings};
   const cache = new Map(), glows = new Map();
   let W=640,H=360,viewW=640,theme='soon',from=null,changed=0,time=0,last=0,frame=0;
@@ -257,10 +257,79 @@
     for(let i=0;i<65;i++)rect(x,r()*W,H*.68+r()*H*.32,q(2+r()*5),1,'#2b4557');
   }
   function workshop(x,r){gradient(x,W,H,['#142b45','#365169','#706a7a','#b29b96','#4b6170'],139);stars(x,r,110,.42);mountains(x,H*.74,'#263e56',q(42),2);rect(x,0,H*.78,W,H*.22,'#283b4f');for(let i=0;i<100;i++)rect(x,r()*W,H*.8+r()*H*.2,q(2+r()*9),1,'#4b5e6a');disk(x,W*.73,H*.25,q(12),q(12),'#e7d4b5');glow(x,W*.73,H*.25,q(52),'#d9c1c6',.35);}
+  function parkTree(x,a,b,size,r){
+    disk(x,a,b+q(2),q(size*.64),q(size*.14),'#3b5949');
+    rect(x,a-q(2),b-q(size*.8),q(5),q(size*.8),'#756849');
+    line(x,a,b-q(size*.5),a-q(size*.18),b-q(size*.8),'#756849');
+    disk(x,a,b-q(size),q(size*.48),q(size*.47),'#416958');
+    disk(x,a-q(size*.24),b-q(size*.85),q(size*.38),q(size*.35),'#54795a');
+    disk(x,a+q(size*.26),b-q(size*.9),q(size*.37),q(size*.32),'#63845e');
+    disk(x,a-q(size*.04),b-q(size*1.13),q(size*.32),q(size*.3),'#739265');
+    for(let i=0;i<28;i++)rect(x,a+q((r()-.5)*size*.65),b-q(size*(.84+r()*.4)),q(2),1,i%3?'#80986a':'#a4ac77');
+  }
+  function park(x,r){
+    // Keep the park at the site's existing raster scale and dithered light.
+    gradient(x,W,H,['#304e61','#719391','#c7b994','#eed1a0','#b4b390','#6e886f'],181);
+    glow(x,W*.73,H*.30,q(86),'#f5d8a3',.36);disk(x,W*.73,H*.30,q(13),q(13),'#f6dfb0');
+    mountains(x,H*.54,'#8aa39a',q(37),3);mountains(x,H*.57,'#648778',q(26),6);
+    rect(x,0,H*.56,W,H*.44,'#668366');
+    for(let i=0;i<460;i++)rect(x,r()*W,H*(.57+r()*.43),q(2+r()*5),1,['#77936a','#899b70','#57775e'][i%3]);
+    for(let i=0;i<38;i++)disk(x,W*i/37,H*.55,q(8+r()*6),q(8+r()*5),i%2?'#4c7560':'#588166');
+    // A winding path continues into the foreground beneath the walker.
+    poly(x,[[W*.53,H*.56],[W*.60,H*.56],[W*.41,H*.69],[W*.42,H*.73],[W*.74,H*.84],[W*.76,H*.91],[W*.57,H],[W*.28,H],[W*.62,H*.88],[W*.29,H*.76],[W*.28,H*.68]],'#aa9d7a');
+    poly(x,[[W*.55,H*.56],[W*.58,H*.56],[W*.36,H*.70],[W*.37,H*.74],[W*.70,H*.85],[W*.71,H*.90],[W*.48,H],[W*.35,H],[W*.66,H*.88],[W*.33,H*.75],[W*.32,H*.69]],'#c5b58c');
+    for(let i=0;i<18;i++){
+      const a=W*(.04+i*.055),b=H*.60;
+      rect(x,a,b-q(8),q(2),q(10),'#9ca487');line(x,a,b-q(5),a+W*.055,b-q(5),'#aeb096');
+    }
+    for(const [a,b,size] of [[.06,.72,58],[.23,.63,40],[.92,.72,60],[.80,.62,42]])parkTree(x,W*a,H*b,size,r);
+    const bench=(a,b)=>{
+      disk(x,a,b+q(4),q(22),q(4),'#4d6b54');
+      for(let i=0;i<3;i++)rect(x,a-q(19),b-q(16-i*4),q(38),q(3),i%2?'#b29468':'#c4a678');
+      rect(x,a-q(20),b-q(3),q(40),q(4),'#b4966b');
+      for(const side of [-1,1]){rect(x,a+side*q(15),b-q(14),q(2),q(22),'#435b54');rect(x,a+side*q(18),b-q(4),q(2),q(11),'#435b54');}
+    };
+    bench(W*.80,H*.79);bench(W*.34,H*.61);
+    const fx=W*.17,fy=H*.80;
+    disk(x,fx,fy+q(7),q(35),q(8),'#486c5b');disk(x,fx,fy,q(31),q(10),'#c1b493');disk(x,fx,fy-q(3),q(27),q(7),'#678c87');
+    rect(x,fx-q(3),fy-q(24),q(6),q(23),'#a3aa95');disk(x,fx,fy-q(23),q(17),q(4),'#d2c3a0');disk(x,fx,fy-q(25),q(14),q(3),'#81a59c');
+    rect(x,fx-q(2),fy-q(38),q(4),q(12),'#b8c2a8');
+    for(const [a,b] of [[.10,.67],[.87,.70]]){
+      const xx=W*a,yy=H*b;rect(x,xx,yy-q(45),q(2),q(47),'#3c5853');
+      rect(x,xx-q(4),yy-q(47),q(10),q(2),'#405b52');rect(x,xx-q(3),yy-q(44),q(8),q(6),'#eed39a');rect(x,xx-q(4),yy-q(38),q(10),q(2),'#526452');
+    }
+    // Flowers and resting toys refer to landmarks in the playable park.
+    for(const [a,b] of [[.08,.94],[.88,.91]]){
+      disk(x,W*a,H*b,q(32),q(9),'#405f4f');
+      for(let i=0;i<24;i++){const xx=W*a+q((r()-.5)*53),yy=H*b-q(r()*12);line(x,xx,yy+q(4),xx,yy,'#6c865d');rect(x,xx-q(1),yy,q(3),q(2),i%2?'#e2ba83':'#dba290');}
+    }
+    disk(x,W*.77,H*.88,q(7),q(2),'#d69768');rect(x,W*.77-q(3),H*.88,q(6),1,'#f0c39a');
+    disk(x,W*.26,H*.84,q(3),q(3),'#d1c589');rect(x,W*.26,H*.84-q(2),q(2),q(2),'#e9dfb5');
+  }
+  function parkWalk(x,t){
+    // Keep both companions inside the cropped park on a portrait phone.
+    const center=viewW<W*.65?.48:.56,span=Math.min(.16,viewW/W*.18);
+    const phase=t*.13,dir=Math.cos(phase)>=0?1:-1,step=Math.sin(t*3),a=W*(center+span*Math.sin(phase)),b=H*.90;
+    x.save();x.translate(Math.round(a),Math.round(b));x.scale(dir,1);
+    disk(x,0,q(2),q(8),q(2),'#8a8268');
+    line(x,q(-2),q(-10),q(-3+step*2),0,'#344f57');line(x,q(3),q(-10),q(4-step*2),0,'#344f57');
+    rect(x,q(-5),q(-26),q(11),q(17),'#b98868');rect(x,q(-4),q(-26),q(9),q(3),'#d6aa7e');
+    disk(x,q(1),q(-33),q(5),q(6),'#e5c39c');rect(x,q(-5),q(-40),q(11),q(4),'#5b6251');rect(x,q(-6),q(-37),q(14),q(2),'#71775a');
+    line(x,q(5),q(-23),q(9),q(-15+step),'#dab38b');
+    const dx=q(33+Math.sin(t*.8)*2),dy=q(1+Math.sin(t*3)*.4);
+    line(x,q(9),q(-15+step),dx-q(9),dy-q(10),'#e0cfac');
+    disk(x,dx,dy+q(1),q(14),q(2),'#8a8268');
+    for(const [leg,offset] of [[-7,1],[5,-1]])line(x,dx+q(leg),dy-q(5),dx+q(leg+step*offset*2),dy+q(1),'#b68a54');
+    disk(x,dx,dy-q(9),q(12),q(7),'#d5a463');rect(x,dx-q(2),dy-q(6),q(12),q(4),'#f0dcb0');disk(x,dx+q(11),dy-q(16),q(7),q(7),'#d5a463');
+    poly(x,[[dx+q(6),dy-q(20)],[dx+q(5),dy-q(27)],[dx+q(12),dy-q(22)]],'#c38f56');
+    rect(x,dx+q(12),dy-q(16),q(9),q(5),'#efd6a7');rect(x,dx+q(20),dy-q(16),q(2),q(2),'#3f5146');rect(x,dx+q(14),dy-q(20),1,1,'#334d44');
+    line(x,dx+q(5),dy-q(11),dx+q(10),dy-q(10),'#648b87');line(x,dx-q(11),dy-q(11),dx-q(16),dy-q(17+Math.sin(t*4)*2),'#d5a463');
+    x.restore();
+  }
   function build(id){
     if(cache.has(id))return cache.get(id);
     const [base,x]=surface(W,H),r=random([...id].reduce((a,c)=>a+c.charCodeAt(0),0));
-    if(id==='ming')ming(x,r);else if(id==='qin')qin(x,r);else if(id==='badminton')court(x,r);else if(id==='fish'||id==='defense')reef(x,r,id==='defense');else if(id==='qa'||id==='notes')library(x,r,id==='notes');else if(id==='beat')rhythm(x,r);else workshop(x,r);
+    if(id==='ming')ming(x,r);else if(id==='qin')qin(x,r);else if(id==='badminton')court(x,r);else if(id==='fish'||id==='defense')reef(x,r,id==='defense');else if(id==='qa'||id==='notes')library(x,r,id==='notes');else if(id==='beat')rhythm(x,r);else if(id==='dogwalk')park(x,r);else workshop(x,r);
     const particles=Array.from({length:160},()=>({x:r()*W,y:r()*H,p:r()*6.3,v:.4+r(),size:r()}));
     const [moving,mx]=surface(W,H);const value={base,moving,mx,particles,id};cache.set(id,value);return value;
   }
@@ -282,6 +351,21 @@
         x.globalAlpha=.10+.15*Math.sin(t*.6+p.p)**2;rect(x,p.x,yy,1,1,'#d5b98d');
       }x.globalAlpha=1;
       for(const a of [.20,.80])glow(x,W*a,H*.686,q(20),'#edb978',light*(.24+.06*Math.sin(t*1.4+a*9)));
+    }else if(id==='dogwalk'){
+      for(let i=0;i<4;i++){
+        const a=((W*(i*.28)+t*q(.8))%(W+q(90)))-q(70),b=H*(.12+i*.04);
+        x.globalAlpha=.12;rect(x,a,b,q(45+i*8),q(3),'#fff0cf');rect(x,a+q(12),b-q(2),q(26),q(2),'#fff0cf');
+      }x.globalAlpha=1;
+      const fx=W*.17,fy=H*.80;
+      for(const side of [-1,1])for(let i=0;i<12;i++){
+        const f=i/12,yy=fy-q(37)+q(f*35),xx=fx+side*q(Math.sin(f*Math.PI*.65)*24);
+        rect(x,xx+Math.sin(t*2+i)*q(.6),yy,1,q(2),i%3?'#c5ded1':'#94bcb2');
+      }
+      for(const a of [.10,.87])glow(x,W*a,H*(a===.10?.67:.70)-q(42),q(23),'#edcd91',light*.24);
+      for(let i=0;i<Math.min(n,40);i++){
+        const p=particles[i],a=(p.x+Math.sin(t*.4+p.p)*q(10)+t*q(p.v*.3))%W,b=H*.48+(p.y+t*q(.7*p.v))%(H*.49);
+        x.globalAlpha=.18+.2*Math.sin(t+p.p)**2;rect(x,a,b,q(1+p.size),1,i%4?'#e1d6a1':'#d69d78');
+      }x.globalAlpha=1;parkWalk(x,t);
     }else if(id==='badminton'){
       for(const a of [.055,.945])glow(x,W*a,H*.25,q(80),'#c1e2cf',light*(.23+.06*Math.sin(t*.7+a*10)));
       const f=(t*.15)%1,ax=W*(.28+.44*f),ay=H*(.68-.20*Math.sin(f*Math.PI));disk(x,ax,ay,q(2),q(2),'#e4e3c9');line(x,ax-q(6),ay-q(4),ax,ay,'#d3dbce');line(x,ax-q(5),ay-q(6),ax,ay,'#d3dbce');

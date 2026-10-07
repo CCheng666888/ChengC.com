@@ -1,0 +1,546 @@
+{
+  "time": "2026-10-07T13:44:57.717Z",
+  "assertions": [
+    {
+      "name": "8 canonical blog entries",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "22 retained recent records",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "12 project entrances",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Cover image loads",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Navigation begins below first viewport",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Initial page avoids legacy engine, audio and models",
+      "pass": true,
+      "detail": [
+        "http://127.0.0.1:51225/review-editorial/",
+        "http://127.0.0.1:51225/review-editorial/css/editorial.css",
+        "http://127.0.0.1:51225/review-editorial/js/theme.js",
+        "http://127.0.0.1:51225/assets/cangshan-erhai.webp",
+        "http://127.0.0.1:51225/review-editorial/js/cover-editions.js",
+        "http://127.0.0.1:51225/review-editorial/js/blog-search.js",
+        "http://127.0.0.1:51225/review-editorial/js/app.js",
+        "http://127.0.0.1:51225/review-editorial/js/review.js",
+        "http://127.0.0.1:51225/review-editorial/js/search-firefly.js",
+        "http://127.0.0.1:51225/review-editorial/js/music.js",
+        "http://127.0.0.1:51225/js/private.js",
+        "http://127.0.0.1:51225/assets/avatar.jpg",
+        "http://127.0.0.1:51225/assets/products/yinian-cover-desktop.webp",
+        "http://127.0.0.1:51225/review-editorial/js/blog-search-index.js?v=20261003-search-v2",
+        "http://127.0.0.1:51225/assets/firefly-official-pixel-loop.mp4",
+        "http://127.0.0.1:51225/assets/avatar.jpg",
+        "http://127.0.0.1:51225/assets/cangshan-erhai-night.webp",
+        "http://127.0.0.1:51225/review-editorial/posts/ai-web-security.html",
+        "http://127.0.0.1:51225/review-editorial/css/editorial.css",
+        "http://127.0.0.1:51225/review-editorial/js/theme.js",
+        "http://127.0.0.1:51225/review-editorial/js/article.js",
+        "http://127.0.0.1:51225/assets/avatar.jpg",
+        "http://127.0.0.1:51225/review-editorial/posts/ai-web-security-references.html",
+        "http://127.0.0.1:51225/review-editorial/css/editorial.css",
+        "http://127.0.0.1:51225/review-editorial/js/theme.js",
+        "http://127.0.0.1:51225/review-editorial/js/article.js",
+        "http://127.0.0.1:51225/assets/avatar.jpg",
+        "http://127.0.0.1:51225/review-editorial/posts/ai-web-security-references.html",
+        "http://127.0.0.1:51225/review-editorial/css/editorial.css",
+        "http://127.0.0.1:51225/review-editorial/js/theme.js",
+        "http://127.0.0.1:51225/review-editorial/js/article.js",
+        "http://127.0.0.1:51225/assets/avatar.jpg",
+        "http://127.0.0.1:51225/review-editorial/posts/ai-web-security.html",
+        "http://127.0.0.1:51225/review-editorial/css/editorial.css",
+        "http://127.0.0.1:51225/review-editorial/js/theme.js",
+        "http://127.0.0.1:51225/review-editorial/js/article.js",
+        "http://127.0.0.1:51225/assets/avatar.jpg",
+        "http://127.0.0.1:51225/review-editorial/posts/building-this-site.html",
+        "http://127.0.0.1:51225/review-editorial/css/editorial.css",
+        "http://127.0.0.1:51225/review-editorial/js/theme.js",
+        "http://127.0.0.1:51225/review-editorial/js/article.js",
+        "http://127.0.0.1:51225/assets/avatar.jpg",
+        "http://127.0.0.1:51225/review-editorial/posts/hello-world.html",
+        "http://127.0.0.1:51225/review-editorial/css/editorial.css",
+        "http://127.0.0.1:51225/review-editorial/js/theme.js",
+        "http://127.0.0.1:51225/review-editorial/js/article.js",
+        "http://127.0.0.1:51225/assets/avatar.jpg",
+        "http://127.0.0.1:51225/review-editorial/posts/linux-commands.html",
+        "http://127.0.0.1:51225/review-editorial/css/editorial.css",
+        "http://127.0.0.1:51225/review-editorial/js/theme.js",
+        "http://127.0.0.1:51225/review-editorial/js/article.js",
+        "http://127.0.0.1:51225/assets/avatar.jpg",
+        "http://127.0.0.1:51225/review-editorial/posts/multi-book-qa.html",
+        "http://127.0.0.1:51225/review-editorial/css/editorial.css",
+        "http://127.0.0.1:51225/review-editorial/js/theme.js",
+        "http://127.0.0.1:51225/review-editorial/js/article.js",
+        "http://127.0.0.1:51225/assets/avatar.jpg",
+        "http://127.0.0.1:51225/review-editorial/posts/painting-the-countryside.html",
+        "http://127.0.0.1:51225/review-editorial/css/editorial.css",
+        "http://127.0.0.1:51225/review-editorial/js/theme.js",
+        "http://127.0.0.1:51225/review-editorial/js/article.js",
+        "http://127.0.0.1:51225/assets/avatar.jpg",
+        "http://127.0.0.1:51225/review-editorial/posts/schedule-query.html",
+        "http://127.0.0.1:51225/review-editorial/css/editorial.css",
+        "http://127.0.0.1:51225/review-editorial/js/theme.js",
+        "http://127.0.0.1:51225/review-editorial/js/article.js",
+        "http://127.0.0.1:51225/assets/avatar.jpg",
+        "http://127.0.0.1:51225/review-editorial/posts/summer-support-teaching.html",
+        "http://127.0.0.1:51225/review-editorial/css/editorial.css",
+        "http://127.0.0.1:51225/review-editorial/js/theme.js",
+        "http://127.0.0.1:51225/review-editorial/js/article.js",
+        "http://127.0.0.1:51225/assets/avatar.jpg",
+        "http://127.0.0.1:51225/review-editorial/",
+        "http://127.0.0.1:51225/review-editorial/css/editorial.css",
+        "http://127.0.0.1:51225/review-editorial/js/theme.js",
+        "http://127.0.0.1:51225/assets/cangshan-erhai.webp",
+        "http://127.0.0.1:51225/review-editorial/js/cover-editions.js",
+        "http://127.0.0.1:51225/review-editorial/js/blog-search.js",
+        "http://127.0.0.1:51225/review-editorial/js/app.js",
+        "http://127.0.0.1:51225/review-editorial/js/review.js",
+        "http://127.0.0.1:51225/review-editorial/js/search-firefly.js",
+        "http://127.0.0.1:51225/review-editorial/js/music.js",
+        "http://127.0.0.1:51225/js/private.js",
+        "http://127.0.0.1:51225/assets/products/yinian-cover-desktop.webp",
+        "http://127.0.0.1:51225/assets/avatar.jpg",
+        "http://127.0.0.1:51225/assets/cangshan-erhai-night.webp",
+        "http://127.0.0.1:51225/js/lake-projection.js",
+        "http://127.0.0.1:51225/js/scene-images.js",
+        "http://127.0.0.1:51225/js/landscape.js"
+      ]
+    },
+    {
+      "name": "Desktop: no horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 1440,
+        "width": 1440,
+        "offenders": []
+      }
+    },
+    {
+      "name": "Wheel scroll responds immediately",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Life filter preserves all three life articles",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Fulltext search uses original index",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Project archive opens normally",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Expanded desktop archive has no horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 1440,
+        "width": 1440,
+        "offenders": []
+      }
+    },
+    {
+      "name": "Recent archive expands in page flow",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Paper transition settles once",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Existing parameter values update",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Night cover works without loading animation",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Existing music list retained",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Private entry retained",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Dark theme works",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Article reference anchors retained",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "22 references retained",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "References page has no horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 1440,
+        "width": 1440,
+        "offenders": []
+      }
+    },
+    {
+      "name": "390px cover: no horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 390,
+        "width": 390,
+        "offenders": []
+      }
+    },
+    {
+      "name": "390px: lightweight cover used",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "390px: paper effects disabled",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "390px blog: no horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 390,
+        "width": 390,
+        "offenders": []
+      }
+    },
+    {
+      "name": "390px: mobile navigation search works",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "390px: all sections reachable in menu",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "390px expanded projects: no horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 390,
+        "width": 390,
+        "offenders": []
+      }
+    },
+    {
+      "name": "390px article: no horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 390,
+        "width": 390,
+        "offenders": []
+      }
+    },
+    {
+      "name": "320px cover: no horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "width": 320,
+        "offenders": []
+      }
+    },
+    {
+      "name": "320px: lightweight cover used",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "320px: paper effects disabled",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "320px blog: no horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "width": 320,
+        "offenders": []
+      }
+    },
+    {
+      "name": "320px: mobile navigation search works",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "320px: all sections reachable in menu",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "320px expanded projects: no horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "width": 320,
+        "offenders": []
+      }
+    },
+    {
+      "name": "320px article: no horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "width": 320,
+        "offenders": []
+      }
+    },
+    {
+      "name": "768px cover: no horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 768,
+        "width": 768,
+        "offenders": []
+      }
+    },
+    {
+      "name": "768px: lightweight cover used",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "768px: paper effects disabled",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "768px blog: no horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 768,
+        "width": 768,
+        "offenders": []
+      }
+    },
+    {
+      "name": "768px: mobile navigation search works",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "768px: all sections reachable in menu",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "768px expanded projects: no horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 768,
+        "width": 768,
+        "offenders": []
+      }
+    },
+    {
+      "name": "768px article: no horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 768,
+        "width": 768,
+        "offenders": []
+      }
+    },
+    {
+      "name": "Reduced motion keeps static cover and full content",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Without JavaScript all content remains available",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "All nine copied article bodies retain their source text",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "320px ai-web-security-references.html: readable without horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "width": 320,
+        "offenders": []
+      }
+    },
+    {
+      "name": "320px ai-web-security.html: readable without horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "width": 320,
+        "offenders": []
+      }
+    },
+    {
+      "name": "320px building-this-site.html: readable without horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "width": 320,
+        "offenders": []
+      }
+    },
+    {
+      "name": "320px hello-world.html: readable without horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "width": 320,
+        "offenders": []
+      }
+    },
+    {
+      "name": "320px linux-commands.html: readable without horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "width": 320,
+        "offenders": []
+      }
+    },
+    {
+      "name": "320px multi-book-qa.html: readable without horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "width": 320,
+        "offenders": []
+      }
+    },
+    {
+      "name": "320px painting-the-countryside.html: readable without horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "width": 320,
+        "offenders": []
+      }
+    },
+    {
+      "name": "320px schedule-query.html: readable without horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "width": 320,
+        "offenders": []
+      }
+    },
+    {
+      "name": "320px summer-support-teaching.html: readable without horizontal overflow",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "width": 320,
+        "offenders": []
+      }
+    },
+    {
+      "name": "Legacy photo controls load only after opting in",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Opting into animation never hides blog content",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Legacy photo parameter adapter remains active",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Photo-only option still permits immediate normal scrolling",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Current Edition picks the active cover by date and priority",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "All copied internal links and assets resolve",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "Main site source files remain unchanged",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "Browser has no script errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "Browser has no failed static requests",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "bad": [],
+  "initialRequests": [
+    "http://127.0.0.1:51225/review-editorial/",
+    "http://127.0.0.1:51225/review-editorial/css/editorial.css",
+    "http://127.0.0.1:51225/review-editorial/js/theme.js",
+    "http://127.0.0.1:51225/assets/cangshan-erhai.webp",
+    "http://127.0.0.1:51225/review-editorial/js/cover-editions.js",
+    "http://127.0.0.1:51225/review-editorial/js/blog-search.js",
+    "http://127.0.0.1:51225/review-editorial/js/app.js",
+    "http://127.0.0.1:51225/review-editorial/js/review.js",
+    "http://127.0.0.1:51225/review-editorial/js/search-firefly.js",
+    "http://127.0.0.1:51225/review-editorial/js/music.js",
+    "http://127.0.0.1:51225/js/private.js",
+    "http://127.0.0.1:51225/assets/avatar.jpg",
+    "http://127.0.0.1:51225/assets/products/yinian-cover-desktop.webp",
+    "http://127.0.0.1:51225/review-editorial/js/blog-search-index.js?v=20261003-search-v2",
+    "http://127.0.0.1:51225/assets/firefly-official-pixel-loop.mp4",
+    "http://127.0.0.1:51225/assets/avatar.jpg"
+  ]
+}

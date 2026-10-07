@@ -1,0 +1,2 @@
+export const paw = `<svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><ellipse cx="17" cy="20" rx="6" ry="8" transform="rotate(-24 17 20)"/><ellipse cx="32" cy="14" rx="6" ry="8"/><ellipse cx="47" cy="21" rx="6" ry="8" transform="rotate(24 47 21)"/><path d="M15 44c0-10 9-21 17-21s18 12 18 22c0 12-12 4-18 4s-17 6-17-5"/></svg>`;
+export const button = (action,label,style='',extra='') => `<button type="button" class="btn ${style}" data-action="${action}" ${extra}>${label}</button>`;
