@@ -2,7 +2,7 @@ import { paw, button } from './icons.js';
 export function mainMenu(game) {
   const s=game.storage.data;
   return `<div class="menu-screen">
-    <header class="menu-header"><span class="small-brand">${paw} A CHENGC LITTLE GAME</span><span class="weather">☀ <span>A GOOD DAY TO GO OUT</span></span></header>
+    <header class="menu-header"><span class="small-brand">${paw} A CHENGC LITTLE GAME</span><span class="weather" data-secret>☀ <span>A GOOD DAY TO GO OUT</span></span></header>
     <section class="menu-content"><p class="eyebrow"><span class="line-mark"></span> TAKE YOUR TIME. TAKE A WALK.</p>
       <h1>DOG<br><span>WALK<i>${paw}</i></span></h1>
       <p class="tagline">A little walk with a<br>very unpredictable dog.</p>

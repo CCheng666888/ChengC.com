@@ -3,7 +3,7 @@ import { STAT_LABELS } from '../data/dogs.js';
 export function hud(game) {
   return `<div class="hud-screen">
     <header class="hud-top"><button class="walk-brand" data-action="pause" aria-label="暂停散步">${paw}<span>DOG WALK<small>MAPLE PARK</small></span></button>
-      <div class="walk-clock"><span class="clock-dot"></span><span data-hud="time">03:00</span><small>一小段好时光</small></div>
+      <div class="walk-clock" data-secret><span class="clock-dot"></span><span data-hud="time">03:00</span><small>一小段好时光</small></div>
       <div class="hud-top-actions">${button('sound','♫','icon','aria-label="切换声音"')}${button('pause','Ⅱ','icon','aria-label="暂停"')}</div>
     </header>
     <aside class="dog-card paper"><div class="dog-card-head"><canvas id="dog-portrait" width="90" height="82" aria-label="狗狗肖像"></canvas><div><h2>${game.dog.spec.name}<span>${game.dog.spec.breed}</span></h2><p data-hud="state">悠闲散步</p></div><span class="bond-heart">♡</span></div>

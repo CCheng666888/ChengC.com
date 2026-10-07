@@ -18,6 +18,15 @@
     <div id="dialogs"></div>
     <div id="toasts" aria-live="polite"></div>
     <div id="archive" hidden></div>
+    <div id="codeGate" hidden>
+      <form class="code-panel" autocomplete="off">
+        <p class="code-eyebrow">SOMETHING FAMILIAR</p>
+        <h3>如果还记得什么，就写下来。</h3>
+        <input id="code-input" type="text" spellcheck="false" autocapitalize="off" inputmode="text" maxlength="12" aria-label="档案口令">
+        <p class="code-error" id="code-error" hidden></p>
+        <div class="code-actions"><button type="submit">打开</button><button type="button" data-code-cancel>返回散步</button></div>
+      </form>
+    </div>
   </main>
   <script type="module" src="./src/main.js"></script>
 </body>
