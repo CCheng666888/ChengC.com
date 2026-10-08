@@ -44,7 +44,7 @@
   <script defer src="../js/delivery-f785be9160cf.js" data-sources="js/work-scenes.js"></script>
   <!-- delivery:end -->
 </head>
-<body class="article-page work-detail-page coming-detail" data-scene-theme="qin">
+<body class="article-page work-detail-page" data-scene-theme="qin">
   <div class="landscape work-landscape" aria-hidden="true"><canvas id="workScene"></canvas><div class="scene-shade"></div></div>
   <header class="site-header">
     <nav class="nav-shell" aria-label="作品详情导航">
@@ -58,29 +58,57 @@
         <a class="article-category" href="../games.html">游戏</a>
         <h1>一念天下</h1>
         <p class="article-lead">从秦开始的历史卡牌策略：每关一个历史事件，用有限的权力、信息与资源做出选择，不同的解法走向不同的结局。</p>
-        <div class="article-meta"><span>v0.3.0 试玩版</span><span>历史卡牌策略</span><span>网页 / Windows</span></div>
+        <div class="article-meta"><time>v0.3.0</time><span>历史卡牌策略</span><span>网页 / Windows</span></div>
       </header>
       <div class="article-body">
-        <h2>为什么要做</h2>
+        <h2>设计目的</h2>
         <p>之前的作品《大明风华录》制作周期和游玩周期都比较长，对新手也不算友好；而且明朝并不是第一个大一统王朝。这次准备从秦开始，做一款更轻量、更容易上手的历史卡牌策略游戏。</p>
-        <h2>玩法预览</h2>
+        <h2>设计思路</h2>
         <ul>
           <li><strong>角色</strong>：扮演少年嬴政，从一个没有完全掌握权力的秦王开始，通过一次次历史抉择逐渐成长；</li>
           <li><strong>卡牌</strong>：卡牌不是战斗单位，而是可以调动的政治资源，分为人物、权柄、情报、资源与谋略五类；</li>
           <li><strong>关卡</strong>：每个关卡对应一个历史事件，在有限的信息、权力与资源下解决问题，通关方式不唯一；</li>
           <li><strong>选择</strong>：不同的解法会影响后续剧情、可获得的卡牌、人物关系与初始局势，重要的选择会留下记录。</li>
         </ul>
-        <h2>当前版本</h2>
-        <p>试玩版包含 24 步实操教程《第一课：王的位置》、第一章「邯郸归秦」与第二章「少年秦王」。教程分 4 回合，两个章节各 5 回合，共 14 回合、34 条可行解法；逐一练习人物、权柄、情报、资源与谋略的作用、限制和配合方式。</p>
-        <p>每回合有独立小目标，行动点在回合开始重置；已核实的线索、人物关系与有限资源会保留。方案不成立时留在当前回合补救，不解锁下一章；全部最终大目标核验完成才通关，而非随便选卡就过关。</p>
-        <h2>保存与图片加载</h2>
-        <p>卡牌点击继续采用无刷新局部更新。回合、待执行方案、库存和教程步骤均自动保存；更新兼容旧版的完成记录、标签、关系与数值，原档保留升级备份，未完成的旧版单回合关卡从新版第一回合开始。提供 JSON 导入/导出和异常备份恢复，多窗口冲突会暂停写入，避免覆盖进度。</p>
-        <p>Windows 版存档保存到用户目录，不受启动端口或 EXE 版本影响。网页、独立 HTML 与 Windows 版可手动导入/导出转移，浏览器数据清理后无法保证保留，因此请定期导出。旧 Windows 版随机地址的浏览器存档不自动删除，但不保证能跨地址自动找回；如旧版仍能打开进度，请先备份再导入。</p>
-        <p>试玩场景采用轻量本地 WebP，加载失败可回退原图或点击重试；独立 HTML 将脚本、样式和图片全部内嵌，可直接离线打开。</p>
+        <h2>实现过程</h2>
+        <ul>
+          <li>先搭起章节结构与基础玩法循环，再做教程、章节与卡牌内容；</li>
+          <li>试玩版先做出八步实操教程《第一课：王的位置》、第一章「邯郸归秦」与第二章「少年秦王」，覆盖五类卡牌、行动点与长期结算；</li>
+          <li>v0.3.0 把教程重做为逐类教学，改为多回合、固定最终目标、每轮独立小目标与明确通关判定；选牌无刷新局部更新，进度自动保存，Windows 版存档放在用户目录。</li>
+        </ul>
+        <h2>遇到的困难</h2>
+        <ul>
+          <li><strong>通关判定太松</strong>：早期版本随便选卡也能过关，改成固定最终目标、未达标留在当前回合补救后，教程才真正教得会；</li>
+          <li><strong>图片体积</strong>：试玩场景图片一开始很大，改为轻量本地 WebP 后明显变小，加载失败也能回退；</li>
+          <li><strong>存档安全</strong>：浏览器数据清理会丢进度，做了旧档迁移备份与导入/导出保护，更新版本也不会覆盖原档。</li>
+        </ul>
         <h2>史实说明</h2>
         <p>历史人物、事件与时代背景符合基本史实；具体对话、隐藏信息、卡牌效果与分支路线属于游戏设计，会做合理的艺术加工。</p>
+
+        <h2>更新记录</h2>
+        <ul class="detail-timeline">
+          <li>
+            <time>v0.3.0（当前）</time>
+            <strong>教程重做与多回合目标</strong>
+            <p>逐类讲解五类卡牌的用途、限制与实践；改为多回合、固定最终目标、每轮独立小目标，未达标留在当前回合补救，明确通关判定。图片改轻量 WebP，旧档迁移保留备份保护。</p>
+          </li>
+          <li>
+            <time>v0.2.0</time>
+            <strong>试玩版发布</strong>
+            <p>八步实操教程《第一课：王的位置》、第一章「邯郸归秦」与第二章「少年秦王」，覆盖五类卡牌、行动点与长期结算；卡牌无刷新局部更新，进度本机自动保存。</p>
+          </li>
+          <li>
+            <time>更早 0.1.x</time>
+            <strong>基础框架成型</strong>
+            <p>章节结构与基础玩法循环逐步搭起，为试玩版打好底子。</p>
+          </li>
+        </ul>
+
+        <h2>试玩</h2>
+        <p>打开网页版或 Windows 版即可体验：教程分 4 回合，第一章「邯郸归秦」与第二章「少年秦王」各 5 回合，共 14 回合、34 条可行解法；行动点每回合重置，方案不成立时留在当前回合补救，进度自动保存。</p>
+        <p><a class="button primary" href="../play/yi-nian-tian-xia/">开始试玩 ↗</a> <a class="button ghost" href="../downloads/一念天下-v0.3.0-HTML试玩版.html" download>下载 HTML 版</a> <a class="button ghost" href="../downloads/一念天下-v0.3.0-windows.exe" download>下载 Windows 版</a></p>
       </div>
-      <footer class="article-footer"><a class="button secondary" href="../games.html">← 返回游戏页</a><a class="button primary" href="../play/yi-nian-tian-xia/">开始试玩</a><a class="button ghost" href="../downloads/一念天下-v0.3.0-HTML试玩版.html" download>下载 HTML 版</a><a class="button ghost" href="../downloads/一念天下-v0.3.0-windows.exe" download>下载 Windows 版</a></footer>
+      <footer class="article-footer"><a class="button secondary" href="../games.html">← 返回游戏页</a><a class="button primary" href="../play/yi-nian-tian-xia/">开始试玩 ↗</a></footer>
     </article>
   </main>
   <div class="tools" aria-label="风景控制">

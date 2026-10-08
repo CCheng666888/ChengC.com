@@ -7,7 +7,7 @@ export class SecretSystem {
     this.promptOpen=false;this.promptTimer=0;
     this.archive=new ArchivePanel(game,()=>this.release());
     window.addEventListener('keydown',event=>this.listen(event));
-    // 移动端/装饰入口：点击散步时钟或主菜单天气标签（data-secret）一次即打开口令层
+    // Decorative touch targets also support keyboards on handheld devices.
     window.addEventListener('click',event=>this.onTap(event));
     this.gate=document.querySelector('#codeGate');
     if(this.gate){
@@ -40,7 +40,7 @@ export class SecretSystem {
     this.promptOpen=true;this.buffer='';this.lastInput=0;
     this.game.suspended=true;this.game.input.clear();
     this.gate.hidden=false;this.inputEl.value='';this.errorEl.hidden=true;
-    setTimeout(()=>this.inputEl.focus(),60);
+    this.inputEl.focus({preventScroll:true});
   }
   submit() {
     if(!this.promptOpen)return;

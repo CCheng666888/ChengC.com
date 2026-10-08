@@ -6,7 +6,7 @@ export function hud(game) {
       <div class="walk-clock" data-secret><span class="clock-dot"></span><span data-hud="time">03:00</span><small>一小段好时光</small></div>
       <div class="hud-top-actions">${button('sound','♫','icon','aria-label="切换声音"')}${button('pause','Ⅱ','icon','aria-label="暂停"')}</div>
     </header>
-    <aside class="dog-card paper"><div class="dog-card-head"><canvas id="dog-portrait" width="90" height="82" aria-label="狗狗肖像"></canvas><div><h2>${game.dog.spec.name}<span>${game.dog.spec.breed}</span></h2><p data-hud="state">悠闲散步</p></div><span class="bond-heart">♡</span></div>
+    <aside class="dog-card paper"><div class="dog-card-head"><canvas id="dog-portrait" width="90" height="82" aria-label="狗狗肖像"></canvas><div><h2>${game.dog.spec.name}<span>${game.dog.spec.breed}</span></h2><p data-hud="state">悠闲散步</p></div><span class="bond-heart">♡</span>${button('stats','状态 ⌄','dog-status-toggle','aria-expanded="false"')}</div>
       <div class="stat-list">${Object.entries(STAT_LABELS).map(([id,label])=>`<div class="stat"><div><span>${label}</span><b data-stat-value="${id}">${Math.round(game.dog.stats[id])}</b></div><div class="stat-track"><span data-stat-bar="${id}" style="width:${game.dog.stats[id]}%"></span></div></div>`).join('')}</div>
       <p class="dog-card-caption">每一小步，都让你们更亲近。</p>
     </aside>

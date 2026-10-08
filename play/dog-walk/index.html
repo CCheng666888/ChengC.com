@@ -8,6 +8,7 @@
   <title>DOG WALK · 一起出去走走</title>
   <link rel="icon" href="./public/paw.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./src/style.css">
+  <link rel="stylesheet" href="./src/experience.css">
   <!-- Match the host site's native navigation transition; respect reduced motion. -->
   <style>@view-transition{navigation:auto}@media(prefers-reduced-motion:reduce){@view-transition{navigation:none}}</style>
 </head>
@@ -22,7 +23,7 @@
       <form class="code-panel" autocomplete="off">
         <p class="code-eyebrow">SOMETHING FAMILIAR</p>
         <h3>如果还记得什么，就写下来。</h3>
-        <input id="code-input" type="text" spellcheck="false" autocapitalize="off" inputmode="text" maxlength="12" aria-label="档案口令">
+        <input id="code-input" type="password" spellcheck="false" autocapitalize="off" inputmode="text" maxlength="12" aria-label="档案口令">
         <p class="code-error" id="code-error" hidden></p>
         <div class="code-actions"><button type="submit">打开</button><button type="button" data-code-cancel>返回散步</button></div>
       </form>

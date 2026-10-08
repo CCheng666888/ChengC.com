@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>物理实验室 · ChenC</title>
+  <meta name="description" content="物理实验室：用 2D 可视化图形复刻课本上的物理实验，参数可调、动画演示，一边看一边学。筹备中。">
+  <meta name="theme-color" content="#0b2431">
+  <!-- delivery:start -->
+  <link rel="stylesheet" href="../css/delivery-4fc05811ea8f.css" data-sources="css/style.css">
+  <link rel="stylesheet" href="../css/delivery-d42595478b0a.css" data-sources="css/showcase.css css/work-gallery-v2.css css/work-detail.css css/navigation.css css/site-refinements.css">
+  <script data-theme-source="js/theme.js">(() => {
+  'use strict';
+  const system = matchMedia('(prefers-color-scheme: light)');
+  let preference = null;
+  try { preference = localStorage.getItem('theme'); } catch {}
+  if (!['light', 'dark'].includes(preference)) preference = null;
+  function apply(theme) {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.classList.toggle('dark', theme !== 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === 'light' ? '#f3f7f5' : '#0b2431';
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.setAttribute('aria-label', theme === 'light' ? '切换深色主题' : '切换浅色主题');
+    });
+  }
+  apply(preference || (system.matches ? 'light' : 'dark'));
+  document.documentElement.classList.add('js');
+  system.addEventListener('change', () => { if (!preference) apply(system.matches ? 'light' : 'dark'); });
+  function connect() {
+    apply(preference || (system.matches ? 'light' : 'dark'));
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.addEventListener('click', () => {
+        preference = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+        apply(preference);
+        try { localStorage.setItem('theme', preference); } catch {}
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', connect);
+  else connect();
+})();</script>
+  <script defer src="../js/navigation.js?v=ab7985e942a9"></script>
+  <script defer src="../js/delivery-f785be9160cf.js" data-sources="js/work-scenes.js"></script>
+  <!-- delivery:end -->
+</head>
+<body class="article-page work-detail-page">
+  <div class="landscape work-landscape" aria-hidden="true"><canvas id="workScene"></canvas><div class="scene-shade"></div></div>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="作品详情导航">
+      <a class="brand" href="../index.html">ChenC</a>
+      <div class="article-nav"><a href="../tools.html">← 返回工具页</a><button id="articleTheme" class="theme-btn" type="button" aria-label="切换浅色主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3v2m0 14v2M3 12h2m14 0h2M6 6l1.5 1.5m9 9L18 18m0-12-1.5 1.5m-9 9L6 18M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5z"/></svg></button></div>
+    </nav>
+  </header>
+  <main class="article-shell">
+    <article>
+      <header class="article-header">
+        <a class="article-category" href="../tools.html">工具</a>
+        <h1>物理实验室</h1>
+        <p class="article-lead">用 2D 可视化图形复刻课本上的物理实验：参数自己调，过程看得见，一边看一边学。</p>
+        <div class="article-meta"><time>筹备中</time><span>学习工具</span><span>2D 可视化实验</span></div>
+      </header>
+      <div class="article-body">
+        <h2>设计目的</h2>
+        <p>课本上的物理实验，很多时候受器材和场地限制，只能看视频或者靠想象。想做一个在浏览器里就能动手玩的实验台：<strong>把实验过程用 2D 图形画出来，参数可以自己调</strong>，看着动画理解公式和原理，而不是死记结论。</p>
+        <h2>设计思路</h2>
+        <ul>
+          <li><strong>实验清单</strong>：先复刻课本里常见的经典实验——自由落体与抛体运动、单摆周期、胡克定律的弹簧、凸透镜成像等，每个实验对应一条能讲清楚的物理规律；</li>
+          <li><strong>可视化</strong>：用 2D 图形演示实验过程，关键物理量（速度、位移、周期、像距等）实时显示，参数调整后画面立即跟着变；</li>
+          <li><strong>学习方式</strong>：每个实验配一段简短的原理说明，先看演示、再动手调参数，观察规律变化。</li>
+        </ul>
+        <h2>实现过程</h2>
+        <ul>
+          <li>目前还处于筹备阶段：先确定第一批实验清单和每个实验的演示方式；</li>
+          <li>再做 2D 绘制与参数调节，让实验过程清晰、读数直观。</li>
+        </ul>
+        <h2>遇到的困难</h2>
+        <ul>
+          <li><strong>贴合课本</strong>：物理计算要按课本公式来，参数变化要即时反映在画面上，不能只是"看起来像"；</li>
+          <li><strong>演示清楚</strong>：2D 绘制要同时展示过程轨迹和关键读数，既不能挡画面，也不能让读数不明显。</li>
+        </ul>
+        <h2>更新记录</h2>
+        <ul class="detail-timeline">
+          <li>
+            <time>2026-10-07</time>
+            <strong>方向确定</strong>
+            <p>确定用 2D 可视化图形复刻课本物理实验，参数可调、动画演示，一边看一边学。</p>
+          </li>
+        </ul>
+        <h2>试玩</h2>
+        <p>实验台正在搭建，上线后会从这里打开。</p>
+      </div>
+      <footer class="article-footer"><a class="button secondary" href="../tools.html">← 返回工具页</a></footer>
+    </article>
+  </main>
+  <div class="tools" aria-label="风景控制">
+    <button class="tool" id="sceneToggle" type="button" aria-pressed="false">只看背景</button>
+    <button class="tool" id="pauseToggle" type="button" aria-pressed="false">暂停动画</button>
+    <button class="tool" id="settingsToggle" type="button" aria-expanded="false" aria-controls="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="#0b283a"/><circle cx="15" cy="17" r="3" fill="#0b283a"/></svg>风景设置</button>
+  </div>
+  <aside class="settings" id="settings" aria-label="风景设置" hidden>
+    <div class="settings-head"><h2>风景设置</h2><button class="close" id="settingsClose" type="button" aria-label="关闭风景设置">×</button></div>
+    <label class="slider" for="density"><span class="slider-top"><span>环境粒子</span><output id="densityValue" for="density">65%</output></span><input id="density" type="range" min="0" max="100" value="65"></label>
+    <label class="slider" for="speed"><span class="slider-top"><span>动画速度</span><output id="speedValue" for="speed">35%</output></span><input id="speed" type="range" min="0" max="100" value="35"></label>
+    <label class="slider" for="mist"><span class="slider-top"><span>环境光</span><output id="mistValue" for="mist">40%</output></span><input id="mist" type="range" min="0" max="100" value="40"></label>
+    <label class="slider" for="glow"><span class="slider-top"><span>微光强度</span><output id="glowValue" for="glow">60%</output></span><input id="glow" type="range" min="0" max="100" value="60"></label>
+    <div class="settings-foot"><button type="button" id="nightToggle" aria-pressed="false">柔和背景</button><button type="button" id="reset">恢复默认</button></div>
+    <p class="settings-note" id="motionNote">每个作品有自己的像素场景；环境动画、微光和交互都在同一画面中绘制。</p>
+  </aside>
+
+</body>
+</html>

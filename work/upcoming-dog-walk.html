@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>DOG WALK · ChenC</title>
-  <meta name="description" content="DOG WALK v1.0.0：一款可以直接试玩的遛狗小游戏。三只狗狗、随机事件、飞盘、找骨头与听指令，散步进度自动保存。">
+  <meta name="description" content="DOG WALK v1.1.0：带着有主见的小狗去公园散步。三种小游戏、随机事件、成就与存档；分别为电脑和手机设计，提供离线 HTML 试玩与 Windows 正式版。">
   <meta name="theme-color" content="#0b2431">
   <link rel="icon" href="../assets/avatar.jpg" type="image/jpeg">
   <!-- delivery:start -->
   <link rel="stylesheet" href="../css/delivery-4fc05811ea8f.css" data-sources="css/style.css">
-  <link rel="stylesheet" href="../css/delivery-d42595478b0a.css" data-sources="css/showcase.css css/work-gallery-v2.css css/work-detail.css css/navigation.css css/site-refinements.css">
+  <link rel="stylesheet" href="../css/delivery-47cf2f6708e3.css" data-sources="css/showcase.css css/work-gallery-v2.css css/work-detail.css css/navigation.css css/dog-walk-detail.css css/site-refinements.css">
   <script data-theme-source="js/theme.js">(() => {
   'use strict';
   const system = matchMedia('(prefers-color-scheme: light)');
@@ -59,18 +59,15 @@
         <a class="article-category" href="../games.html">游戏</a>
         <h1>DOG WALK</h1>
         <p class="article-lead">牵好绳子，带狗狗出门走一走。一段轻松的遛狗散步，移动、互动、小游戏，还有路上随时会发生的随机事件。</p>
-        <div class="article-meta"><span>v1.0.0</span><span>休闲遛狗</span><span>键盘与触屏</span></div>
+        <div class="article-meta"><time>v1.1.0</time><span>休闲遛狗</span><span>PC 与手机独立适配</span></div>
+        <div class="dog-detail-hero"><img src="../assets/products/dog-walk-cover.svg" width="900" height="540" alt="暖色公园里，主人牵着小狗慢慢走。" decoding="async"><div><p class="dog-edition">A LITTLE WALK, ANYWHERE.</p><h2>今天，也一起走走。</h2><p>三位伙伴，一个小公园。每次走走停停，都多一点信任。</p><a class="button primary" href="../play/dog-walk/">开始试玩 ↗</a><a class="dog-download-link" href="#editions">选择离线版本 ↓</a></div></div>
       </header>
       <div class="article-body">
 
-        <div class="work-actions"><a class="button primary" href="../play/dog-walk/">开始试玩</a><a class="button secondary" href="../downloads/DOG-WALK-1.0.0-web.zip" download>下载网页版</a></div>
-        <h2>一段有自己节奏的散步</h2>
-        <p>DOG WALK 是一款打开网页就能玩的遛狗小游戏：你带着一只狗狗在公园里散步，<strong>移动、遛狗、与狗互动、接飞盘、随机事件、分数、狗狗状态与成就</strong>组成了每一段散步。轻松、直接，不需要攻略也能玩得明白。</p>
-
         <h2>设计目的</h2>
-        <p>让「遛狗」这个日常动作本身变得好玩：<strong>打开就能走，也可以停下来玩</strong>。小鸟、另一只狗、掉落的食物和一只飞盘，都可能改变这次散步的节奏。狗狗会好奇、兴奋、分心，也会累；一根牵引绳连接着两个各有想法的伙伴。</p>
+        <p>让「遛狗」这个日常动作本身变得好玩：<strong>打开就能走，也可以停下来玩</strong>。小鸟、另一只狗、掉落的食物和一只飞盘，都可能改变这次散步的节奏。狗狗会好奇、兴奋、分心，也会累；一根牵引绳连接着两个各有想法的伙伴。轻松、直接，不需要攻略也能玩得明白。</p>
 
-        <h2>现在可以怎么玩</h2>
+        <h2>设计思路</h2>
         <ul>
           <li><strong>移动与遛狗</strong>：WASD / 方向键自由移动；手机使用虚拟摇杆。三只性格不同的狗狗会跟随、探索、奔跑或休息，牵引绳限制彼此距离；</li>
           <li><strong>与狗互动</strong>：抚摸、召回和休息，照顾快乐、体力、服从、好奇与信任五项状态；</li>
@@ -79,15 +76,27 @@
           <li><strong>状态与结算</strong>：散步结束后按距离、互动和状态评出分数与星级，解锁正常成就，也可以重新出发。</li>
         </ul>
 
-        <h2>进度会留在这里</h2>
+        <h2>实现过程</h2>
         <ul>
-          <li>散步途中自动保存，刷新后可以继续；最高分、成就、累计散步次数、距离与信任记录保存在当前浏览器；</li>
-          <li>设置中可调整音量与画面，也可以在二次确认后重置存档；</li>
-          <li>直接打开站内试玩即可游玩。下载包包含游戏源码和本地素材，解压后运行 <code>npm install</code>、<code>npm run dev</code>；支持 <code>npm run build</code> 构建静态版本。</li>
+          <li>公园作为主场景，狗狗 AI、牵引绳距离、随机事件、三种小游戏与状态结算都在一个单页里完成，打开网页就能玩；</li>
+          <li>电脑采用宽屏地图、键盘移动与完整状态面板；手机采用可展开状态条、左摇杆和右侧拇指按钮，竖屏与横屏分别调整；</li>
+          <li>网页和 HTML 试玩的进度保存在当前浏览器；Windows 版把进度固定保存到本机，重新启动也能接着走。设置里可以调整音量与画面，或二次确认后重置存档。</li>
+        </ul>
+
+        <h2>遇到的困难</h2>
+        <ul>
+          <li><strong>让狗狗像狗</strong>：三只狗狗性格不同，跟随、探索、奔跑、休息要自然，牵引绳还要限制彼此距离，不能太「程序化」；</li>
+          <li><strong>触屏与性能</strong>：移动、互动和小游戏要方便拇指操作；手机降低画布分辨率与刷新率，媒体使用轻量版本，播放时停止后台绘制，让设备把性能留给当前画面；</li>
+          <li><strong>事件与状态平衡</strong>：随机事件要改变散步节奏，又不能破坏轻松感；快乐、体力、服从、好奇与信任需要和事件、互动联动。</li>
         </ul>
 
         <h2>更新记录</h2>
         <ul class="detail-timeline">
+          <li>
+            <time>2026-10-08</time>
+            <strong>v1.1.0 · 随时出门</strong>
+            <p>重新优化电脑与手机界面、场景切换和媒体播放，新增单文件离线 HTML 试玩版与 Windows 正式版，完善磁盘存档和独立适配。</p>
+          </li>
           <li>
             <time>2026-10-07</time>
             <strong>v1.0.0 · 第一段散步</strong>
@@ -99,8 +108,16 @@
             <p>确定遛狗散步、互动、随机事件、小游戏与状态结算的玩法方向。</p>
           </li>
         </ul>
+
+        <h2 id="editions">试玩</h2>
+        <p>电脑用 WASD / 方向键移动、E 互动；手机用左下摇杆移动、右下按钮互动。竖着或横着拿都可以，离开页面会自动暂停。</p>
+        <div class="dog-editions">
+          <section><span>01 / BROWSER</span><h3>打开，就出门。</h3><p>电脑或手机直接玩，进度保存在当前浏览器。</p><a class="button primary" href="../play/dog-walk/">开始试玩 ↗</a></section>
+          <section><span>02 / HTML · 8.6 MB</span><h3>带走一整个公园。</h3><p>单个文件包含素材。下载后用浏览器打开，离线也能玩。</p><a class="button secondary" href="../downloads/DOG-WALK-v1.1.0-HTML试玩版.html" download>下载 HTML 试玩版 ↓</a></section>
+          <section><span>03 / WINDOWS · 12.7 MB</span><h3>下次，接着走。</h3><p>双击 EXE 开始，本机自动存档。使用系统 Microsoft Edge 运行。</p><a class="button secondary" href="../downloads/DOG-WALK-1.1.0-windows.exe" download>下载 Windows 正式版 ↓</a></section>
+        </div>
       </div>
-      <footer class="article-footer"><a class="button secondary" href="../games.html">← 返回游戏页</a></footer>
+      <footer class="article-footer"><a class="button secondary" href="../games.html">← 返回游戏页</a><a class="button primary" href="../play/dog-walk/" target="_blank" rel="noopener">开始试玩 ↗</a></footer>
     </article>
   </main>
   <div class="tools" aria-label="风景控制">

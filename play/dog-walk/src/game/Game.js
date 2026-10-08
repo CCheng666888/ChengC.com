@@ -12,10 +12,11 @@ import { UI } from '../ui/UI.js';
 import { DOGS } from '../data/dogs.js';
 import { approach, clamp, distance } from './math.js';
 import { drawDog, drawPlayer, drawLeash, ellipse } from './Art.js';
+import { device } from './Device.js';
 
 export class Game {
-  constructor(canvas) {
-    this.canvas=canvas;this.ctx=canvas.getContext('2d');this.storage=new Storage();this.world=new World();
+  constructor(canvas,backend) {
+    this.canvas=canvas;this.ctx=canvas.getContext('2d');this.storage=new Storage(backend);this.world=new World();
     this.state='menu';this.suspended=false;this.backgroundPaused=document.hidden;this.time=0;this.cooldown=0;
     this.player=new Player();this.dog=this.createDog();this.session=this.newSession();this.camera={x:this.player.x,y:this.player.y};
     this.audio=new AudioManager(this.storage.data.settings);this.input=new Input(key=>this.action(key));this.ui=new UI(this);
@@ -24,6 +25,7 @@ export class Game {
     window.addEventListener('resize',()=>this.resize());
     document.addEventListener('visibilitychange',()=>{this.backgroundPaused=document.hidden;if(document.hidden)this.saveWalk();});
     window.addEventListener('pagehide',()=>this.saveWalk());
+    window.addEventListener('native-save-status',e=>{this.storage.available=e.detail;if(!e.detail&&!this.nativeWarning){this.nativeWarning=true;this.ui.toast('磁盘暂时无法保存，请保持窗口开启后重试。','!');}if(e.detail)this.nativeWarning=false;});
     window.addEventListener('pointerdown',()=>this.audio.unlock(),{once:true});window.addEventListener('keydown',()=>this.audio.unlock(),{once:true});
     this.resize();this.ui.menu();this.last=performance.now();this.frame=this.frame.bind(this);requestAnimationFrame(this.frame);
   }
@@ -34,7 +36,7 @@ export class Game {
     const saved=resume&&this.storage.data.currentWalk;
     if(saved){Object.assign(this.player,saved.player);Object.assign(this.dog,saved.dog);this.dog.stats={...saved.stats};Object.assign(this.session,saved);this.session.visits=new Set(saved.visits);}
     this.state='playing';this.cooldown=0;this.autosave=0;this.input.clear();this.camera={x:this.player.x,y:this.player.y};this.saveWalk();this.ui.hud();
-    this.ui.toast(resume?'接着刚刚的路，慢慢走。':'去公园走走吧。靠近物品，按 E 互动。','☀');this.audio.play('success');
+    this.ui.toast(resume?'接着刚刚的路，慢慢走。':device.mobile?'用摇杆走走，靠近后点「和它互动」。':'去公园走走吧。靠近物品，按 E 互动。','☀');this.audio.play('success');
   }
   action(key) {
     if(this.suspended||this.state!=='playing')return;
@@ -76,10 +78,10 @@ export class Game {
     this.ui.results({score,stars,newBest:score>oldBest,title:['新手遛狗员','合格铲屎官','合格铲屎官','优秀铲屎官','狗狗最好的朋友'][stars-1]});this.audio.play('achievement');
   }
   toMenu() {this.saveWalk();this.mini.cancel();this.events.active=null;this.ui.closeModal();this.input.clear();this.state='menu';this.ui.menu();}
-  resize() {this.width=innerWidth;this.height=innerHeight;this.dpr=Math.min(devicePixelRatio||1,2);this.canvas.width=Math.round(this.width*this.dpr);this.canvas.height=Math.round(this.height*this.dpr);}
+  resize() {device.apply();this.width=innerWidth;this.height=innerHeight;this.dpr=device.pixelRatio;this.canvas.width=Math.round(this.width*this.dpr);this.canvas.height=Math.round(this.height*this.dpr);this.lastPaint=0;}
   frame(now) {
     const dt=Math.min((now-this.last)/1000,.05);this.last=now;
-    if(!this.backgroundPaused){this.time+=this.storage.data.settings.reducedMotion?dt*.15:dt;this.update(this.suspended?0:dt);this.render();}
+    if(!this.backgroundPaused&&!this.suspended){this.time+=this.storage.data.settings.reducedMotion?dt*.15:dt;this.update(dt);if(now-(this.lastPaint||0)>=1000/device.fps-1){this.lastPaint=now;this.render();}}
     requestAnimationFrame(this.frame);
   }
   update(dt) {
