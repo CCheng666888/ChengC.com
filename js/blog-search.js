@@ -42,7 +42,7 @@
     if (indexPromise) return indexPromise;
     indexPromise = new Promise((resolve, reject) => {
       const script = document.createElement('script');
-      script.src = 'js/blog-search-index.js?v=20261003-search-v2';
+      script.src = 'js/blog-search-index.js?v=20261012-content-v1';
       script.onload = () => {
         if (!Array.isArray(globalThis.ChenCBlogIndex)) { reject(new Error('Invalid index')); return; }
         globalThis.ChenCBlogIndex.forEach(item => documents.set(item.id, {text:item.text, normalized:normalize(item.text)}));

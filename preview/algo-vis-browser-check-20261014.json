@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-14",
+  "localOnly": true,
+  "template": "contact-firefly-backup.html + css/contact.css",
+  "latestPalette": "pale sage page and code blocks",
+  "checks": [
+    "No avatar or added promotional communications frame",
+    "Desktop exact sample layout and generated project cover inspected",
+    "320 px page and modal no horizontal overflow",
+    "390 px sample and generated cover verified before palette-only change",
+    "Hero step and modal seek-to-end verified after template migration",
+    "FAQ native details expands",
+    "Local tool card opens algo-vis.html",
+    "Mobile scene and hero start paused",
+    "All 14 algorithms checked to completion before template change",
+    "47 algorithm engine assertions passed"
+  ],
+  "screenshots": [
+    "algo-vis-light-desktop-20261014.jpg",
+    "algo-vis-light-code-20261014.jpg",
+    "algo-vis-light-code-mobile-320-20261014.jpg",
+    "algo-vis-generated-cover-tools-20261014.jpg"
+  ],
+  "limitations": [
+    "No physical phone or production deployment verification",
+    "Downloaded plugins not installed or executed"
+  ]
+}

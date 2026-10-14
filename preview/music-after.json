@@ -1,0 +1,90 @@
+{
+  "network": {
+    "bandwidthKbps": 750,
+    "latencyMs": 120,
+    "coldCache": true
+  },
+  "timings": [
+    {
+      "song": 0,
+      "startMs": 1189,
+      "duration": 325.868118,
+      "title": "冯沁苑(买辣椒也用券) - 起风了"
+    },
+    {
+      "song": 1,
+      "startMs": 1133,
+      "duration": 289.066667,
+      "title": "孙燕姿 - 我怀念的"
+    },
+    {
+      "song": 2,
+      "startMs": 1081,
+      "duration": 287,
+      "title": "林俊杰 - 修炼爱情"
+    },
+    {
+      "song": 3,
+      "startMs": 1082,
+      "duration": 251.293333,
+      "title": "林俊杰 - 当你"
+    },
+    {
+      "song": 4,
+      "startMs": 1106,
+      "duration": 263.293333,
+      "title": "梁静茹 - 情歌"
+    },
+    {
+      "song": 5,
+      "startMs": 1090,
+      "duration": 215.800816,
+      "title": "毛不易 - 一程山路"
+    },
+    {
+      "song": 6,
+      "startMs": 1075,
+      "duration": 224.516125,
+      "title": "汪苏泷 - 我想念"
+    },
+    {
+      "song": 7,
+      "startMs": 1076,
+      "duration": 257.532517,
+      "title": "郑润泽 - 如果呢"
+    },
+    {
+      "song": 8,
+      "startMs": 1107,
+      "duration": 250.543311,
+      "title": "陈奕迅 - 好久不见"
+    },
+    {
+      "song": 9,
+      "startMs": 1059,
+      "duration": 259.986667,
+      "title": "陈奕迅 - 爱情转移"
+    },
+    {
+      "song": 10,
+      "startMs": 1061,
+      "duration": 274.599184,
+      "title": "韦礼安 - 如果可以"
+    }
+  ],
+  "checks": [
+    "Real homepage: no audio requests before player interaction",
+    "Opening player prepares metadata without autoplay",
+    "Repeated song click retains playback position and decoded media",
+    "Pause, resume and seeking work",
+    "Previous/next and natural end advance correctly",
+    "Rapid selection plays the latest song without stale failure",
+    "Stop releases the audio source and hides player",
+    "Network failure is visible; retry resumes the selected song",
+    "Pause/stop while loading never starts delayed playback",
+    "Player fits 320/390/1440px, including status text",
+    "No unexpected browser exceptions",
+    "Data saver skips warming but permits intentional playback",
+    "Double-click file:// homepage still plays local MP3s"
+  ]
+}

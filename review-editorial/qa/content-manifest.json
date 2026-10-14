@@ -16,9 +16,9 @@
     },
     {
       "file": "building-this-site.html",
-      "title": "我的小站是这样搭的：静态页面、博客系统与增量部署",
-      "bodySourceHash": "7f94a7f0c7e2e85b06780cb971ac5576fbf58688d9f88a8fc8580ef7e53765f5",
-      "bodyCopyHash": "7f94a7f0c7e2e85b06780cb971ac5576fbf58688d9f88a8fc8580ef7e53765f5",
+      "title": "我的小站是这样搭的：静态页面、博客系统与发布流程",
+      "bodySourceHash": "3622e52f0d31bda3b8e2f72b6e739f5df0cf3a5e16667539df9e3c1b367ea715",
+      "bodyCopyHash": "3622e52f0d31bda3b8e2f72b6e739f5df0cf3a5e16667539df9e3c1b367ea715",
       "textRetained": true
     },
     {
@@ -38,8 +38,8 @@
     {
       "file": "multi-book-qa.html",
       "title": "我把 6 本书的知识点，做成了一个离线问答台",
-      "bodySourceHash": "f35a061a3a70f76c9a59e1ac133fb6d1ceb691b9520a5ce814a41b3ac7c6ca17",
-      "bodyCopyHash": "82f9bde85eaa323ce36798e12c400ef0c576c53041d10cfe9855e02655b9bf33",
+      "bodySourceHash": "219e338214fbd6735b865c949192c6b964ec9ab9f853c0760f6a1bc3508d7aee",
+      "bodyCopyHash": "6a3a55126448b999f7b56a6ce6296c37ce90b10e36e9d804f204475a98a9f0e2",
       "textRetained": true
     },
     {
@@ -66,5 +66,5 @@
   ],
   "posts": 8,
   "recent": 22,
-  "projects": 12
+  "projects": 11
 }

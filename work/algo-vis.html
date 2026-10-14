@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>算法动图 Algo-Vis · 项目详情 · ChenC</title>
+  <meta name="description" content="算法动图 Algo-Vis：VS Code 与 Obsidian 算法可视化插件，14 种经典算法、逐步讲解、代码行高亮与安装入口。">
+  <meta name="theme-color" content="#0b2431">
+  <!-- delivery:start -->
+  <link rel="stylesheet" href="../css/delivery-ca722b986c2c.css" data-sources="css/style.css">
+  <link rel="stylesheet" href="../css/delivery-9a99bf21530f.css" data-sources="css/showcase.css css/work-gallery-v2.css css/work-detail.css css/navigation.css css/site-refinements.css">
+  <script data-theme-source="js/theme.js">(() => {
+  'use strict';
+  const system = matchMedia('(prefers-color-scheme: light)');
+  let preference = null;
+  try { preference = localStorage.getItem('theme'); } catch {}
+  if (!['light', 'dark'].includes(preference)) preference = null;
+  function apply(theme) {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.classList.toggle('dark', theme !== 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === 'light' ? '#f3f7f5' : '#0b2431';
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.setAttribute('aria-label', theme === 'light' ? '切换深色主题' : '切换浅色主题');
+    });
+  }
+  apply(preference || (system.matches ? 'light' : 'dark'));
+  document.documentElement.classList.add('js');
+  system.addEventListener('change', () => { if (!preference) apply(system.matches ? 'light' : 'dark'); });
+  function connect() {
+    apply(preference || (system.matches ? 'light' : 'dark'));
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.addEventListener('click', () => {
+        preference = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+        apply(preference);
+        try { localStorage.setItem('theme', preference); } catch {}
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', connect);
+  else connect();
+})();</script>
+  <script defer src="../js/navigation.js?v=ab7985e942a9"></script>
+  <script defer src="../js/delivery-8483d4004d37.js" data-sources="js/work-scenes.js"></script>
+  <!-- delivery:end -->
+</head>
+<body class="article-page work-detail-page" data-scene-theme="algorithms">
+  <div class="landscape work-landscape" aria-hidden="true"><canvas id="workScene"></canvas><div class="scene-shade"></div></div>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="作品详情导航">
+      <a class="brand" href="../index.html">ChenC</a>
+      <div class="article-nav"><a href="../tools.html">← 返回工具页</a><button id="articleTheme" class="theme-btn" type="button" aria-label="切换浅色主题"><svg class="sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 3v2m0 14v2M3 12h2m14 0h2M6 6l1.5 1.5m9 9L18 18m0-12-1.5 1.5m-9 9L6 18M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg><svg class="moon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M20 15.5A9 9 0 0 1 8.5 4 9 9 0 1 0 20 15.5z"/></svg></button></div>
+    </nav>
+  </header>
+  <main class="article-shell" id="main">
+    <article>
+      <header class="article-header">
+        <a class="article-category" href="../tools.html">工具</a>
+        <h1>算法的每一步，都看得见</h1>
+        <p class="article-lead">算法动图 Algo-Vis 把选中的算法代码转换成动画，在数值变化、代码行与中文讲解之间建立联系。可以先在网页观看演示，再安装到自己的编辑器。</p>
+        <div class="article-meta"><span>v1.0.0 安装包</span><span>VS Code / Obsidian</span><span>14 种经典算法</span></div>
+      </header>
+      <div class="article-body">
+        <p><a class="button primary" href="../algo-vis.html">观看演示与安装说明 ↗</a></p>
+        <h2>设计目的</h2>
+        <p>阅读循环和变量时，容易跟丢数组当前的状态。把比较、交换和赋值放进同一个演示面板，让代码执行过程可以暂停、单步查看，再对照讲解理解每一步。</p>
+        <h2>如何使用</h2>
+        <ul><li><strong>VS Code</strong>：安装 VSIX 后选中代码，通过右键菜单、命令面板或 <code>Ctrl+Alt+A</code> 打开演示面板；支持 VS Code 1.70 及以上。</li><li><strong>Obsidian</strong>：把插件放进笔记库的 <code>.obsidian/plugins/algo-vis/</code> 并启用；可以选中代码，也可以使用 <code>algovis</code> 代码块或侧栏可视化台。</li><li><strong>网页演示</strong>：本站使用页提供实时冒泡排序演示与算法卡片，进入编辑器使用前可先查看效果。</li></ul>
+        <h2>当前功能</h2>
+        <p>演示面板同步展示比较与交换动画、正在执行的代码行、变量状态和中文说明，提供播放、暂停、单步与 0.5×–4× 调速。支持识别 C、C++、Java、Python 的常见算法代码模式。</p>
+        <ul><li><strong>8 种排序</strong>：冒泡、选择、插入、快速、归并、堆、计数、希尔排序。</li><li><strong>查找与窗口</strong>：二分查找、定长滑动窗口。</li><li><strong>数论与序列</strong>：试除法判素数、质因数分解、辗转相除 GCD、斐波那契数列。</li></ul>
+        <h2>识别与演示边界</h2>
+        <p>内置引擎根据代码模式识别算法，并使用演示参数；可通过声明式写法设置算法和输入。未匹配内置算法时会进入通用代码步进模式。演示用于学习代码流程，具体输入规则和支持范围以本站使用页的说明为准。</p>
+        <h2>下载与安装</h2>
+        <p>两个平台分别安装。最新安装包和说明统一从本站使用页获取。</p>
+        <p><a class="button primary" href="../algo-vis.html#install">选择平台并下载 ↗</a></p>
+        <h2>站内更新记录</h2>
+        <ul class="detail-timeline"><li><time datetime="2026-10-14">2026-10-14</time><strong>站内演示与算法主题封面</strong><p>加入作品轮播和个人空间目录，演示与安装说明迁入本站。使用页沿用现有流萤页面样本的布局，展示代码、比较和交换过程；新封面与像素计算工作室围绕排序、代码高亮和节点图展开。手机背景默认静态，可手动继续动画。</p></li></ul>
+        <p>功能依据：<a href="../algo-vis.html">算法动图 Algo-Vis 使用说明</a>（2026-10-14 核对）。</p>
+      </div>
+      <footer class="article-footer"><a class="button secondary" href="../tools.html">← 返回工具页</a><a class="button primary" href="../algo-vis.html">打开算法动图 ↗</a></footer>
+    </article>
+  </main>
+  <div class="tools" aria-label="风景控制">
+    <button class="tool" id="sceneToggle" type="button" aria-pressed="false">只看背景</button>
+    <button class="tool" id="pauseToggle" type="button" aria-pressed="false">暂停动画</button>
+    <button class="tool" id="settingsToggle" type="button" aria-expanded="false" aria-controls="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="#0b283a"/><circle cx="15" cy="17" r="3" fill="#0b283a"/></svg>风景设置</button>
+  </div>
+  <aside class="settings" id="settings" aria-label="风景设置" hidden>
+    <div class="settings-head"><h2>风景设置</h2><button class="close" id="settingsClose" type="button" aria-label="关闭风景设置">×</button></div>
+    <label class="slider" for="density"><span class="slider-top"><span>环境粒子</span><output id="densityValue" for="density">65%</output></span><input id="density" type="range" min="0" max="100" value="65"></label>
+    <label class="slider" for="speed"><span class="slider-top"><span>动画速度</span><output id="speedValue" for="speed">35%</output></span><input id="speed" type="range" min="0" max="100" value="35"></label>
+    <label class="slider" for="mist"><span class="slider-top"><span>环境光</span><output id="mistValue" for="mist">40%</output></span><input id="mist" type="range" min="0" max="100" value="40"></label>
+    <label class="slider" for="glow"><span class="slider-top"><span>微光强度</span><output id="glowValue" for="glow">60%</output></span><input id="glow" type="range" min="0" max="100" value="60"></label>
+    <div class="settings-foot"><button type="button" id="nightToggle" aria-pressed="false">柔和背景</button><button type="button" id="reset">恢复默认</button></div>
+    <p class="settings-note" id="motionNote">每个作品有自己的像素场景；环境动画、微光和交互都在同一画面中绘制。</p>
+  </aside>
+
+</body>
+</html>

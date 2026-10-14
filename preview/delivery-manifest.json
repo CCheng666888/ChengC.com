@@ -1,160 +1,171 @@
 {
-  "revision": "52197aea9ae4",
+  "revision": "9524fb7956e3",
   "pages": {
     "index.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-11773a3012d1.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-ff2d7f70a2ed.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-06254d3c26b7.js",
+      "js/delivery-16d9469a9937.js",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "about.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-2118c4ae1d43.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-27d492c12230.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-012d6bd35d0a.js"
+      "js/delivery-d22bbe7e4f71.js"
     ],
     "tools.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-6fe72c5a3028.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-6ebe6787b399.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-8461ac1ddd2b.js",
+      "js/delivery-f3dcf5577606.js",
       "assets/products/qa-cover-v1-desktop.webp",
       "assets/products/qa-cover-v1-mobile.webp"
     ],
     "games.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-6fe72c5a3028.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-6e1d2ef20e2c.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-8461ac1ddd2b.js",
+      "js/delivery-f3dcf5577606.js",
       "assets/products/yinian-cover-desktop.webp",
       "assets/products/yinian-cover-mobile.webp"
     ],
     "contact.html": [
-      "css/delivery-df3cb6a513c6.css",
+      "css/delivery-b80fbe927120.css",
       "js/navigation.js?v=ab7985e942a9"
     ],
+    "oj.html": [
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-e44c3a750045.css",
+      "js/navigation.js?v=ab7985e942a9",
+      "js/delivery-e13704fea9c8.js"
+    ],
+    "algo-vis.html": [
+      "css/delivery-682094e527a5.css",
+      "js/navigation.js?v=ab7985e942a9",
+      "js/delivery-95c8f11511cd.js"
+    ],
     "posts/ai-web-security-references.html": [
-      "css/delivery-103f143cebc2.css",
+      "css/delivery-537c596546e8.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/ai-web-security.html": [
-      "css/delivery-103f143cebc2.css",
+      "css/delivery-537c596546e8.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/building-this-site.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-8a57b359a0ec.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-a1478f018f1d.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/hello-world.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-8a57b359a0ec.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-a1478f018f1d.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/linux-commands.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-8a57b359a0ec.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-a1478f018f1d.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/multi-book-qa.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-8a57b359a0ec.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-a1478f018f1d.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/painting-the-countryside.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-8a57b359a0ec.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-a1478f018f1d.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/schedule-query.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-8a57b359a0ec.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-a1478f018f1d.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/summer-support-teaching.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-8a57b359a0ec.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-a1478f018f1d.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
-    "work/mingchronicles.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-d42595478b0a.css",
+    "work/algo-vis.html": [
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-9a99bf21530f.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-f785be9160cf.js"
+      "js/delivery-8483d4004d37.js"
     ],
     "work/multi-book-qa.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-d42595478b0a.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-9a99bf21530f.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-f785be9160cf.js"
+      "js/delivery-8483d4004d37.js"
     ],
     "work/note-to-site.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-d42595478b0a.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-9a99bf21530f.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-f785be9160cf.js"
+      "js/delivery-8483d4004d37.js"
     ],
     "work/spongebob-vs-zombie-fish.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-d42595478b0a.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-9a99bf21530f.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-f785be9160cf.js"
+      "js/delivery-8483d4004d37.js"
     ],
     "work/underwater-defense.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-d42595478b0a.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-9a99bf21530f.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-f785be9160cf.js"
+      "js/delivery-8483d4004d37.js"
     ],
     "work/upcoming-dog-walk.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-47cf2f6708e3.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-613a7d9cba7e.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-f785be9160cf.js"
+      "js/delivery-8483d4004d37.js"
     ],
     "work/upcoming-physics-lab.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-d42595478b0a.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-9a99bf21530f.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-f785be9160cf.js"
+      "js/delivery-8483d4004d37.js"
     ],
     "work/upcoming-rhythm-game.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-d42595478b0a.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-9a99bf21530f.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-f785be9160cf.js"
+      "js/delivery-8483d4004d37.js"
     ],
     "work/yi-nian-tian-xia.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-d42595478b0a.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-9a99bf21530f.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-f785be9160cf.js"
+      "js/delivery-8483d4004d37.js"
     ],
     "work/yujing.html": [
-      "css/delivery-4fc05811ea8f.css",
-      "css/delivery-d42595478b0a.css",
+      "css/delivery-ca722b986c2c.css",
+      "css/delivery-9a99bf21530f.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-f785be9160cf.js"
+      "js/delivery-8483d4004d37.js"
     ]
   },
   "assets": [
@@ -170,41 +181,50 @@
     "assets/game-bg.jpg",
     "assets/magpie-original-detective.png",
     "assets/magpie-original-detective.webp",
+    "assets/products/algo-vis-cover-v2-desktop.webp",
+    "assets/products/algo-vis-cover-v2-mobile.webp",
     "assets/products/badminton-cover-desktop.webp",
     "assets/products/badminton-cover-mobile.webp",
     "assets/products/defense-cover-v1-desktop.webp",
     "assets/products/defense-cover-v1-mobile.webp",
-    "assets/products/ming-cover-desktop.webp",
-    "assets/products/ming-cover-mobile.webp",
     "assets/products/notes-cover-v1-desktop.webp",
     "assets/products/notes-cover-v1-mobile.webp",
     "assets/products/qa-cover-v1-desktop.webp",
     "assets/products/qa-cover-v1-mobile.webp",
     "assets/products/yinian-cover-desktop.webp",
     "assets/products/yinian-cover-mobile.webp",
-    "css/delivery-103f143cebc2.css",
-    "css/delivery-11773a3012d1.css",
-    "css/delivery-2118c4ae1d43.css",
-    "css/delivery-47cf2f6708e3.css",
-    "css/delivery-4fc05811ea8f.css",
-    "css/delivery-6fe72c5a3028.css",
-    "css/delivery-8a57b359a0ec.css",
-    "css/delivery-d42595478b0a.css",
-    "css/delivery-df3cb6a513c6.css",
+    "css/delivery-27d492c12230.css",
+    "css/delivery-537c596546e8.css",
+    "css/delivery-613a7d9cba7e.css",
+    "css/delivery-682094e527a5.css",
+    "css/delivery-6e1d2ef20e2c.css",
+    "css/delivery-6ebe6787b399.css",
+    "css/delivery-9a99bf21530f.css",
+    "css/delivery-a1478f018f1d.css",
+    "css/delivery-b80fbe927120.css",
+    "css/delivery-ca722b986c2c.css",
+    "css/delivery-e44c3a750045.css",
+    "css/delivery-ff2d7f70a2ed.css",
+    "js/algo-vis-engine.js",
+    "js/algo-vis.js",
     "js/app.js",
     "js/blog-search-index.js",
     "js/blog-search.js",
     "js/carousel.js",
     "js/collection.js",
-    "js/delivery-012d6bd35d0a.js",
-    "js/delivery-06254d3c26b7.js",
-    "js/delivery-8461ac1ddd2b.js",
-    "js/delivery-f785be9160cf.js",
+    "js/delivery-16d9469a9937.js",
+    "js/delivery-8483d4004d37.js",
+    "js/delivery-95c8f11511cd.js",
+    "js/delivery-d22bbe7e4f71.js",
+    "js/delivery-e13704fea9c8.js",
+    "js/delivery-f3dcf5577606.js",
     "js/firefly-motion.js",
     "js/lake-projection.js",
     "js/landscape.js",
     "js/music.js",
     "js/navigation.js",
+    "js/oj-config.js",
+    "js/oj.js",
     "js/private.js",
     "js/products-redirect.js",
     "js/profile-products.js",

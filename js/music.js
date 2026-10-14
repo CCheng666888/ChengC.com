@@ -15,9 +15,11 @@
     '韦礼安 - 如果可以.mp3'
   ];
 
+  const musicRoot = new URL('../assets/music/', document.currentScript.src);
   const SONGS = SONG_FILES.map(f => ({
     title: f.replace(/\.mp3$/, ''),
-    src: 'assets/music/' + encodeURIComponent(f)
+    // A new URL prevents an old HTTP cache from retaining the large ID3 covers.
+    src: new URL(encodeURIComponent(f) + '?v=20261010-audio', musicRoot).href
   }));
 
   const $ = id => document.getElementById(id);
@@ -32,11 +34,23 @@
   const miniNext = $('musicMiniNext');
   const miniStop = $('musicMiniStop');
   const grip = $('musicMiniDrag');
+  const status = document.createElement('span');
+  status.id = 'musicMiniStatus';
+  status.className = 'music-mini-status';
+  status.setAttribute('role', 'status');
+  status.setAttribute('aria-live', 'polite');
+  miniTitle.after(status);
 
   const audio = new Audio();
   audio.preload = 'none';
   let index = -1;
+  let loadedIndex = -1;
+  let playAttempt = 0;
+  let wantsPlay = false;
+  let state = 'idle';
   let panelOpen = false;
+  const connection = navigator.connection;
+  const canWarm = !connection?.saveData && !/^(slow-)?2g$/.test(connection?.effectiveType || '');
 
   SONGS.forEach((s, i) => {
     const li = document.createElement('li');
@@ -46,6 +60,8 @@
     button.textContent = s.title;
     button.setAttribute('aria-pressed', 'false');
     button.addEventListener('click', () => playSong(i));
+    button.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') warmSong(i); });
+    button.addEventListener('focus', () => warmSong(i));
     li.appendChild(button);
     list.appendChild(li);
   });
@@ -64,35 +80,81 @@
   }
 
   function updatePauseBtn() {
-    miniPause.textContent = audio.paused ? '▶' : '⏸';
-    miniPause.setAttribute('aria-label', audio.paused ? '播放' : '暂停');
+    miniPause.textContent = state === 'error' ? '↻' : wantsPlay ? '⏸' : '▶';
+    miniPause.setAttribute('aria-label', state === 'error' ? '重试播放' : wantsPlay ? '暂停' : '播放');
+  }
+
+  function setState(next, message) {
+    state = next;
+    status.textContent = message;
+    mini.dataset.state = next;
+    mini.setAttribute('aria-busy', String(next === 'loading' || next === 'buffering'));
+    toggle.classList.toggle('playing', next === 'playing');
+    updatePauseBtn();
+  }
+
+  function prepareSong(i, reload = false) {
+    if (loadedIndex === i && !reload) return;
+    loadedIndex = i;
+    audio.preload = 'metadata';
+    audio.src = SONGS[i].src;
+  }
+
+  function warmSong(i) {
+    // Only prepare metadata after the visitor opens/focuses the player.
+    // Reuse this audio element on click; do not download a second copy.
+    if (canWarm && index < 0 && !audio.error) prepareSong(i);
+  }
+
+  function requestPlay() {
+    if (index < 0) return;
+    prepareSong(index, Boolean(audio.error));
+    const attempt = ++playAttempt;
+    wantsPlay = true;
+    setState('loading', '正在加载…');
+    // Keep play() inside the click event for mobile browser audio permission.
+    audio.play().catch(error => {
+      if (attempt !== playAttempt || index < 0 || !wantsPlay) return;
+      wantsPlay = false;
+      setState('error', error.name === 'NotAllowedError' ? '点重试播放' : '加载失败，点重试');
+    });
   }
 
   function playSong(i) {
+    if (i === index) {
+      if (!wantsPlay) requestPlay();
+      return;
+    }
+    ++playAttempt;
+    wantsPlay = false;
     index = i;
-    audio.src = SONGS[i].src;
-    audio.play().catch(() => {});
+    prepareSong(i);
     miniTitle.textContent = SONGS[i].title;
     miniSeek.value = 0;
-    toggle.classList.add('playing');
+    miniSeek.disabled = !Number.isFinite(audio.duration) || audio.duration <= 0;
     setMiniVisible(true);
     refreshActive();
-    updatePauseBtn();
+    requestPlay();
   }
 
   function next() { if (index < 0) return; playSong((index + 1) % SONGS.length); }
   function prev() { if (index < 0) return; playSong((index - 1 + SONGS.length) % SONGS.length); }
 
   function stop() {
-    audio.pause();
-    audio.currentTime = 0;
+    ++playAttempt;
+    wantsPlay = false;
     index = -1;
+    loadedIndex = -1;
+    audio.pause();
+    // Abort an outstanding download, including one still waiting to start.
+    audio.removeAttribute('src');
+    audio.load();
     miniTitle.textContent = '未在播放';
-    toggle.classList.remove('playing');
+    setState('idle', '');
     setMiniVisible(false);
     refreshActive();
     miniSeek.value = 0;
-    updatePauseBtn();
+    miniSeek.disabled = true;
   }
 
   function setPanelOpen(next) {
@@ -102,6 +164,7 @@
     panel.classList.toggle('open', next);
     panel.setAttribute('aria-hidden', String(!next));
     toggle.classList.toggle('panel-open', next);
+    if (next) warmSong(0);
   }
 
   toggle.addEventListener('click', () => {
@@ -116,7 +179,13 @@
   miniNext.addEventListener('click', next);
   miniPause.addEventListener('click', () => {
     if (index < 0) return;
-    if (audio.paused) audio.play().catch(() => {}); else audio.pause();
+    if (!wantsPlay) requestPlay();
+    else {
+      ++playAttempt;
+      wantsPlay = false;
+      audio.pause();
+      setState('paused', '已暂停');
+    }
   });
   miniStop.addEventListener('click', stop);
 
@@ -125,12 +194,29 @@
       miniSeek.value = (audio.currentTime / audio.duration) * 100;
     }
   });
-  audio.addEventListener('play', updatePauseBtn);
-  audio.addEventListener('pause', updatePauseBtn);
+  audio.addEventListener('loadedmetadata', () => {
+    miniSeek.disabled = index < 0 || !Number.isFinite(audio.duration) || audio.duration <= 0;
+  });
+  audio.addEventListener('playing', () => {
+    if (index >= 0 && wantsPlay) setState('playing', '播放中');
+  });
+  audio.addEventListener('waiting', () => {
+    if (index >= 0 && wantsPlay) setState('buffering', '正在缓冲…');
+  });
+  audio.addEventListener('pause', () => {
+    if (index < 0 || state === 'error' || !audio.paused) return;
+    wantsPlay = false;
+    setState('paused', '已暂停');
+  });
+  audio.addEventListener('error', () => {
+    if (index < 0 || !audio.error) return;
+    wantsPlay = false;
+    setState('error', '加载失败，点重试');
+  });
   audio.addEventListener('ended', next);
 
   miniSeek.addEventListener('input', () => {
-    if (index < 0 || !isFinite(audio.duration)) return;
+    if (index < 0 || !Number.isFinite(audio.duration) || audio.duration <= 0) return;
     audio.currentTime = (miniSeek.value / 100) * audio.duration;
   });
 

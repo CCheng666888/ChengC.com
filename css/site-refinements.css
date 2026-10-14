@@ -29,6 +29,9 @@ a,button,input,textarea,select{-webkit-tap-highlight-color:transparent}
 .article-page .article-body :where(pre,table){scrollbar-width:thin}
 .article-page .article-body a{text-underline-offset:3px}
 .article-page .article-body :where(h2,h3,h4){scroll-margin-top:90px}
+.article-body .content-update{margin:0 0 32px;padding:18px 20px;border:1px solid var(--line,#7294a34d);border-inline-start:3px solid #7294a3;background:#7294a30d;overflow-wrap:anywhere}
+.article-body .content-update p{margin:0 0 12px}
+.article-body .content-update p:last-child{margin-bottom:0}
 
 @media(max-width:800px){
   .showcase-page{--work-width:calc(100vw - 100px)}

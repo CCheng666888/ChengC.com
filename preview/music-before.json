@@ -1,0 +1,40 @@
+{
+  "network": {
+    "bandwidthKbps": 750,
+    "latencyMs": 120,
+    "coldCache": true
+  },
+  "timings": [
+    {
+      "song": 0,
+      "startMs": null,
+      "notStartedWithinMs": 45000,
+      "currentTime": 0,
+      "readyState": 0
+    }
+  ],
+  "checks": [],
+  "requests": [
+    {
+      "name": "/assets/music/冯沁苑(买辣椒也用券) - 起风了.mp3",
+      "start": 0,
+      "end": 14442774,
+      "sent": 3316875
+    }
+  ],
+  "media": {
+    "events": [
+      {
+        "type": "waiting",
+        "time": 115.90000000596046,
+        "src": "http://127.0.0.1:52225/assets/music/%E5%86%AF%E6%B2%81%E8%8B%91(%E4%B9%B0%E8%BE%A3%E6%A4%92%E4%B9%9F%E7%94%A8%E5%88%B8)%20-%20%E8%B5%B7%E9%A3%8E%E4%BA%86.mp3"
+      }
+    ],
+    "currentTime": 0,
+    "networkState": 2,
+    "readyState": 0,
+    "src": "http://127.0.0.1:52225/assets/music/%E5%86%AF%E6%B2%81%E8%8B%91(%E4%B9%B0%E8%BE%A3%E6%A4%92%E4%B9%9F%E7%94%A8%E5%88%B8)%20-%20%E8%B5%B7%E9%A3%8E%E4%BA%86.mp3"
+  },
+  "observation": "Original first track had not started after 45 seconds at 750 kbps; measurement stopped at timeout.",
+  "measurementTimeout": "page.waitForFunction: Timeout 45000ms exceeded.\n    at D:\\编译\\C.txt\\chenc.com.cn\\preview\\check-music.cjs:92:16"
+}

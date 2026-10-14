@@ -1,5 +1,6 @@
-<!doctype html><html lang="zh-CN" class="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f5f3ee"><meta name="robots" content="noindex,nofollow"><title>我的小站是这样搭的：静态页面、博客系统与增量部署 · ChenC / 审核副本</title><link rel="icon" href="../../assets/avatar.jpg"><link rel="stylesheet" href="../css/editorial.css"><script src="../js/theme.js"></script></head><body class="review-article"><a class="skip-link" href="#articleBody">跳到文章正文</a><header class="site-header"><div class="nav-shell"><a class="brand" href="../index.html" aria-label="ChenC 首页">ChenC<span>.</span></a><nav class="quick-nav" aria-label="常用导航"><a href="../index.html#blog">Blog</a><a href="../index.html#projects">Projects</a></nav><nav class="nav-links" id="navLinks" aria-label="主导航"><a href="../index.html#blog">Blog</a><a href="../index.html#projects">Projects</a><a href="../index.html#journal">Recent</a><a href="../index.html#about">About</a><a href="../index.html#contact">Contact</a></nav><div class="nav-actions"><button id="themeToggle" class="icon-button" type="button" aria-label="切换深色主题">◐</button><button id="menuToggle" class="icon-button menu-toggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="打开导航菜单">☰</button></div></div></header><main class="article-shell" id="main"><div class="article-breadcrumb"><a href="../index.html#blog">← 返回博客</a><span>CHENC / JOURNAL</span></div><article><header class="reading-header"><div class="reading-meta"><span>学习</span><time>2026.10.03</time></div><h1>我的小站是这样搭的：静态页面、博客系统与增量部署</h1><p class="reading-lead">没有框架、没有构建步骤，一个人维护的纯静态小站是怎么把博客、动画背景、音乐播放器和隐藏小游戏都装进去，还能稳定上线的？这篇从头拆一遍。</p><div class="reading-rule"><span>记录 / 2026</span><span>ChenC.</span></div></header><div class="article-body" id="articleBody">
-        <p>现在打开这个站，你会看到一片会动的苍山洱海、一篇篇文章，还有几款能直接试玩的游戏。很多人以为这种站点背后有一套复杂系统，其实它就是一堆 <strong>HTML、CSS 和 JavaScript 文件</strong>：没有框架，也没有构建步骤，改完文件直接传上去就能上线。这篇把整个站拆开讲一遍，也记录一下最近的一些折腾。</p>
+<!doctype html><html lang="zh-CN" class="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f5f3ee"><meta name="robots" content="noindex,nofollow"><title>我的小站是这样搭的：静态页面、博客系统与发布流程 · ChenC / 审核副本</title><link rel="icon" href="../../assets/avatar.jpg"><link rel="stylesheet" href="../css/editorial.css"><script src="../js/theme.js"></script></head><body class="review-article"><a class="skip-link" href="#articleBody">跳到文章正文</a><header class="site-header"><div class="nav-shell"><a class="brand" href="../index.html" aria-label="ChenC 首页">ChenC<span>.</span></a><nav class="quick-nav" aria-label="常用导航"><a href="../index.html#blog">Blog</a><a href="../index.html#projects">Projects</a></nav><nav class="nav-links" id="navLinks" aria-label="主导航"><a href="../index.html#blog">Blog</a><a href="../index.html#projects">Projects</a><a href="../index.html#journal">Recent</a><a href="../index.html#about">About</a><a href="../index.html#contact">Contact</a></nav><div class="nav-actions"><button id="themeToggle" class="icon-button" type="button" aria-label="切换深色主题">◐</button><button id="menuToggle" class="icon-button menu-toggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="打开导航菜单">☰</button></div></div></header><main class="article-shell" id="main"><div class="article-breadcrumb"><a href="../index.html#blog">← 返回博客</a><span>CHENC / JOURNAL</span></div><article><header class="reading-header"><div class="reading-meta"><span>学习</span><time>2026.10.03</time></div><h1>我的小站是这样搭的：静态页面、博客系统与发布流程</h1><p class="reading-lead">一个人维护的静态小站，如何组织博客、动画与作品入口，再通过本地资源打包和 GitHub Pages 发布？本文保留早期建站记录，并补充当前流程。</p><div class="reading-rule"><span>记录 / 2026</span><span>ChenC.</span></div></header><div class="article-body" id="articleBody">
+        <aside class="content-update" aria-label="当前发布方式"><p><strong>最近更新 · 2026 年 10 月 12 日</strong></p><p>主站目前通过 GitHub Pages 发布。网页仍以静态 HTML、CSS 和 JavaScript 组织，修改公共页面与资源后，先在本地打包样式和脚本、更新缓存版本并完成验证，再由站长发布。下文 Netlify 与增量直传的内容属于早期方案，已不作为当前主站的发布方法。</p></aside>
+        <p>现在打开这个站，你会看到一片会动的苍山洱海、一篇篇文章，还有几款能直接试玩的游戏。很多人以为这种站点背后有一套复杂系统，其实它就是一堆 <strong>HTML、CSS 和 JavaScript 文件</strong>：页面没有采用应用框架；现在发布前会在本地打包公共资源并更新缓存，再把静态文件交给 GitHub Pages。这篇把整个站拆开讲一遍，也记录一下最近的一些折腾。</p>
 
         <h2>整体长什么样</h2>
         <p>站点根目录下的文件就是全部源码，主要入口这么几个：</p>
@@ -22,7 +23,7 @@
           <li><strong>搜索和筛选在本地完成</strong>：主页的搜索框和「全部 / 学习 / 生活」筛选按钮，全部在浏览器里对这份列表做匹配，不请求任何服务器接口；</li>
           <li><strong>没有脚本也能看</strong>：页面里保留了同样的静态卡片作为兜底，万一脚本加载失败，文章入口依然都在，只是少了搜索和筛选。</li>
         </ul>
-        <p>所以新增一篇文章要做三件事：写一个文章页面、在脚本的文章列表里加一条、在首页补一张静态卡片。改完刷新就能看到，不需要重新构建。</p>
+        <p>所以新增一篇文章要做三件事：写一个文章页面、在脚本的文章列表里加一条、在首页补一张静态卡片。文章修改后还需要刷新全文搜索索引，打包公共资源并更新缓存版本，再完成本地验证。</p>
 
         <blockquote>这也是为什么这个站几乎不会「挂」：内容全部是静态文件，服务器只负责把文件发给浏览器，剩下的都在浏览器本地运行。</blockquote>
 
@@ -51,16 +52,16 @@
         <h2>游戏和工具有了自己的作品页</h2>
         <p>最近把做过的作品整理成了两个展示页，左右滑动浏览，每个作品都配了不同的动态场景背景：</p>
         <ul>
-          <li><strong>游戏（4 款）</strong>：大明风华录 · 山河一统（单人大战略）、羽境 · 火柴人羽毛球、海绵宝宝大战僵尸鱼（同人小游戏）、海底塔防（独立在线项目）；</li>
+          <li><strong>当前游戏（6 款）</strong>：一念天下（历史卡牌策略试玩版）、羽境 · 火柴人羽毛球、海绵宝宝大战僵尸鱼（同人小游戏）、海底塔防（独立在线项目）、节拍失控！BEAT.exe、DOG WALK；</li>
           <li><strong>工具（2 款）</strong>：多书知识问答台（6 本教材 326 条知识点，语义检索 + 引用溯源）、Note to Site（Obsidian 插件，把笔记转成文章 HTML 和彩色思维导图）。</li>
         </ul>
         <p>其中多书问答台和空课查询系统之前都写过开发记录，可以顺着博客列表往回翻。</p>
 
-        <h2>怎么把它送上线的</h2>
-        <p>源码放在 GitHub，站点托管在 Netlify，域名 <code>chenc.com.cn</code> 通过 CNAME 记录指向站点。部署用的是<strong>增量直传</strong>的方式：一个脚本负责对比并上传有变化的文件，不重传整个站。每次更新前设置站点目录、站点 ID 和部署凭据，运行脚本后等发布状态变成 ready，再打开线上页面确认一遍。</p>
+        <h2>当前发布流程：GitHub Pages</h2><p>修改源文件 → 更新文章全文搜索索引 → 本地打包公共资源与缓存版本 → 验证页面、入口与手机布局 → 更新发布记录 → 由站长提交并推送 GitHub → 等待 Pages 发布并核验线上内容。</p><p>网站不需要在发布服务器运行应用框架；资源打包在本地完成。独立的在线 AI 与判题服务另行运行，不能把它们等同于静态页面本身。</p><h2>早期发布方案：Netlify 增量直传（已停用）</h2>
+        <p>早期源码放在 GitHub，主站当时托管在 Netlify，域名 <code>chenc.com.cn</code> 通过 CNAME 记录指向站点。部署用的是<strong>增量直传</strong>的方式：一个脚本负责对比并上传有变化的文件，不重传整个站。每次更新前设置站点目录、站点 ID 和部署凭据，运行脚本后等发布状态变成 ready，再打开线上页面确认一遍。</p>
         <p>另外有一条自己定的规矩：每次更新网站，都要在更新记录里登记——改了什么、部署了没有、部署结果如何。这样几个月后回头看，每个改动都有据可查。</p>
 
-        <blockquote>静态站的好处就一个字：省。不用服务器、不用数据库、没有构建环节，成本低，出问题也好排查。缺点也有，比如没有后台，发文章要靠改文件，但对一个人维护的小站来说，这反而是最稳的方式。</blockquote>
+        <blockquote>静态站的好处就一个字：省。主站页面由静态托管提供，不需要运行应用服务器或数据库；现在使用本地资源打包，结构仍然便于维护。缺点也有，比如没有后台，发文章要靠改文件，但对一个人维护的小站来说，这反而是最稳的方式。</blockquote>
 
         <p>接下来打算继续写博客，把文章写成这个站最核心的内容；工具和游戏也会接着打磨。网站是一点一点长出来的，这篇记录的只是它目前的样子。</p>
       </div></article><nav class="reading-footer" aria-label="文章导航"><a href="../index.html#blog">← 所有文章</a><a href="../index.html#projects">看看项目 ↗</a></nav></main><footer class="site-footer section"><span>© 2026 ChenC</span><span class="review-label">设计审核副本</span></footer><script src="../js/article.js" defer></script></body></html>

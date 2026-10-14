@@ -23,7 +23,7 @@
     const a = document.createElement('a');
     a.className = secondary ? 'text-link' : 'button';a.href=href;if(!href.startsWith('https://'))a.setAttribute('data-animate','');
     a.textContent = secondary ? p.secondaryLabel : p.cta;
-    if (p.download && (secondary || !p.secondaryHref)) {a.setAttribute('download','');a.textContent += ' ↓';}
+    if (secondary ? p.secondaryDownload : p.download) {a.setAttribute('download','');a.textContent += ' ↓';}
     else if (href.startsWith('https://')) {a.target='_blank';a.rel='noopener noreferrer';a.textContent += ' ↗';}
     document.getElementById('dialogLinks').append(a);
   }
@@ -39,6 +39,7 @@
     const note=document.getElementById('dialogNote');note.textContent=p.note || '';note.hidden=!p.note;
     document.getElementById('dialogVersion').textContent=p.version;
     document.getElementById('dialogLinks').replaceChildren();addLink(p);addLink(p,true);
+    for (const link of p.extraLinks || []) addLink({href:link.href,cta:link.label,download:link.download});
     if (!p.href) {const span=document.createElement('span');span.className='local-status';span.textContent='本地作品 · 暂无公开入口';document.getElementById('dialogLinks').append(span);}
     dialog.showModal();document.body.classList.add('product-dialog-open');
   }

@@ -1,0 +1,95 @@
+{
+  "method": "ID3 removal; MPEG audio bytes unchanged",
+  "backup": ".game-work/music-originals-20261010",
+  "songs": [
+    {
+      "name": "冯沁苑(买辣椒也用券) - 起风了.mp3",
+      "originalBytes": 14442774,
+      "optimizedBytes": 13037319,
+      "removedTagBytes": 1405455,
+      "originalSha256": "866bb044a155d869d0cec18d40ab0ea08bf352e8725589aacaccbe6d9d69b7a2",
+      "audioSha256": "917561e513831cf6d423a799d95196454a4d68cc9d7429f7bd02c5120c9e0725"
+    },
+    {
+      "name": "孙燕姿 - 我怀念的.mp3",
+      "originalBytes": 9357630,
+      "optimizedBytes": 9251943,
+      "removedTagBytes": 105687,
+      "originalSha256": "80b40085267dad6af3f4440224e20bda9b9614c051bb9ba6528807cecab31b8c",
+      "audioSha256": "acf83991b6b64affa9c5c803916db05ab6553ef63b6ec9cacb83a19a37575ad1"
+    },
+    {
+      "name": "林俊杰 - 修炼爱情.mp3",
+      "originalBytes": 11730814,
+      "optimizedBytes": 11482510,
+      "removedTagBytes": 248304,
+      "originalSha256": "5622740f0058766ad40bc6521865418e254eea6e8b15536d0b72fe50d12eaeba",
+      "audioSha256": "14b30171fdc25ed8ec2d043affb850ce50ae7fee83f7afe21e979a1ff3d8bd01"
+    },
+    {
+      "name": "林俊杰 - 当你.mp3",
+      "originalBytes": 11867608,
+      "optimizedBytes": 10054135,
+      "removedTagBytes": 1813473,
+      "originalSha256": "1d66eecfc5b4fa8320c53232ac07f7d673e787363297854a0715c7f1faab31ec",
+      "audioSha256": "edacfa83d3278e0077986d4870c132c1f5221f580a36c2b3b7bcba52c6cad0d8"
+    },
+    {
+      "name": "梁静茹 - 情歌.mp3",
+      "originalBytes": 12030391,
+      "optimizedBytes": 10534788,
+      "removedTagBytes": 1495603,
+      "originalSha256": "1a37e75e5107730b5814b3c79a152b90bbc81d250a00d7531db9df886ac51250",
+      "audioSha256": "05d0535124f5ef96053a626ed7068419afa08adaf70d48099fd73d9ef923ae6a"
+    },
+    {
+      "name": "毛不易 - 一程山路.mp3",
+      "originalBytes": 8789452,
+      "optimizedBytes": 8635163,
+      "removedTagBytes": 154289,
+      "originalSha256": "e975e2e5495cfb9730cf96d80c9c135e7bad1702b4a5c68652867ca57435f1f0",
+      "audioSha256": "8e27f73875d52138a792ed68eca0f18ef94c4eac4fb06d3a09f55849868923fc"
+    },
+    {
+      "name": "汪苏泷 - 我想念.mp3",
+      "originalBytes": 9404457,
+      "optimizedBytes": 8982848,
+      "removedTagBytes": 421609,
+      "originalSha256": "24e86bf20a0fd20b67a66aaad7b6d0577e63166f490755ec33a9d3794f0d3a7b",
+      "audioSha256": "12926f1f9bad42461393c7bdff7498c19ba97e584ebef9415a135cbfa04390ae"
+    },
+    {
+      "name": "郑润泽 - 如果呢.mp3",
+      "originalBytes": 10788246,
+      "optimizedBytes": 10303865,
+      "removedTagBytes": 484381,
+      "originalSha256": "73afbd4ca9cb827ccacd36f11d174e5ffe5a95e9184760e7f712f4a28dbc5f7f",
+      "audioSha256": "9685e8467538baf6eed0694866e6e97acf80baf6b734fd88de1a66449987d3ce"
+    },
+    {
+      "name": "陈奕迅 - 好久不见.mp3",
+      "originalBytes": 10417417,
+      "optimizedBytes": 10024878,
+      "removedTagBytes": 392539,
+      "originalSha256": "c4152adf56566316a267ca54285265ced8a2807796c792485ec51bb4092ea011",
+      "audioSha256": "1ddf8e8511a50ddaaa76316b094a286132a9633ec84f1ea0d3e025c6c1da4569"
+    },
+    {
+      "name": "陈奕迅 - 爱情转移.mp3",
+      "originalBytes": 10794661,
+      "optimizedBytes": 10402086,
+      "removedTagBytes": 392575,
+      "originalSha256": "a6c09d06b78837b0b330ed6edff2b500772f8b8c96d4842913885e0f1170fa38",
+      "audioSha256": "b6d0e46d0063bc5a23968b4d55fc91534fe22b93330d307c395fde1eae512e68"
+    },
+    {
+      "name": "韦礼安 - 如果可以.mp3",
+      "originalBytes": 13305758,
+      "optimizedBytes": 10986184,
+      "removedTagBytes": 2319574,
+      "originalSha256": "e4b5084da64b51ea64a95aaa316ccb73237e9e388041b4b9b9969e56581b8ff1",
+      "audioSha256": "8896893f6ab361e0b71b245a30c3593eb227e6b0441066b954090d6718414fd4"
+    }
+  ],
+  "removedBytes": 9233489
+}

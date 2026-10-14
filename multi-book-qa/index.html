@@ -89,7 +89,7 @@ a{color:var(--acc2)}
 <body>
 <header>
   <div class="h-title">多书语义问答<small>6 本教材 · 326 个知识点 · 语义检索 + DeepSeek AI 生成</small></div>
-  <span id="modelBadge">语义引擎：加载中…</span>
+  <span id="modelBadge">语义引擎：准备中（可先用关键词检索）</span>
 </header>
 <div id="progress"><i id="progressBar"></i><span id="progText"></span></div>
 <main>
@@ -100,14 +100,14 @@ a{color:var(--acc2)}
     <div class="sec"><h3>试一试</h3><div id="chips"></div></div>
   </aside>
   <section class="chat">
-    <div class="qa" id="qa"><div class="empty">输入一个问题开始问答。示例：「什么是完全剩余类？」「RSA 怎么加密解密？」「卡诺图怎么化简？」<br><br>打开即用、无需下载：语义引擎自动准备，检索命中知识库后由 DeepSeek 生成完整回答（AI 经服务端安全通道，访客不可见 Key）。</div></div>
+    <div class="qa" id="qa"><div class="empty">输入一个问题开始问答。示例：「什么是完全剩余类？」「RSA 怎么加密解密？」「卡诺图怎么化简？」<br><br>首次使用需加载语义模型与资源；模型未就绪时先用关键词检索。命中知识库后由 DeepSeek 在线组织回答，生成失败回退原文，相关度不足不启用 AI。</div></div>
     <div class="inputbar">
       <input id="q" placeholder="输入你的问题，例如：完全剩余类是什么？" onkeydown="if(event.key==='Enter')window.__api && window.__api.ask()">
       <button onclick="window.__api && window.__api.ask()">提问</button>
     </div>
   </section>
 </main>
-<footer>知识库内容为学习整理 · 语义检索在浏览器本地运行 · AI 回答由 DeepSeek 生成</footer>
+<footer>知识库内容为学习整理 · 检索在浏览器本地运行 · AI 回答需要联网<br>在线回答会将你的问题和相关知识点经本站接口发送给 DeepSeek；章节引用供核对。<br>模型未就绪时使用关键词检索，在线生成失败时回退知识库原文。</footer>
 <script src="lib/ort.min.js"></script>
 <script type="module">
 import { pipeline, env } from './lib/transformers.min.js';
@@ -300,7 +300,7 @@ function refreshBadge(){
   var base=EMB?'语义引擎已就绪':'语义引擎加载中';
   var cls=EMB?'ok':'busy';
   if(dsReady()){
-    b.textContent=base+' · AI 已接入（安全通道）';b.className=cls;
+    b.textContent=base+' · 在线 AI 已配置';b.className=cls;
   }else{
     b.textContent=base+' · AI 待接入（知识库组装回答）';b.className='';
   }

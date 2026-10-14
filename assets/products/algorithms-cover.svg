@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+<title id="title">算法动图</title><desc id="desc">深青色画面中，两根暖金色柱子表示当前比较，其他柱子表示待排序数值。</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#203e50"/><stop offset="1" stop-color="#142d3c"/></linearGradient></defs>
+<path fill="url(#bg)" d="M0 0h1280v720H0z"/>
+<g stroke="#789890" opacity=".16"><path d="M120 200h1040M120 290h1040M120 380h1040M120 470h1040M120 560h1040"/><path d="M180 190v370M340 190v370M500 190v370M660 190v370M820 190v370M980 190v370M1140 190v370"/></g>
+<text x="120" y="114" fill="#dbdeca" font-family="monospace" font-size="22" letter-spacing="5">ALGORITHM / MOTION</text>
+<g fill="#729b98"><rect x="140" y="347" width="72" height="213" rx="4"/><rect x="260" y="437" width="72" height="123" rx="4"/><rect x="620" y="300" width="72" height="260" rx="4"/><rect x="740" y="485" width="72" height="75" rx="4"/><rect x="860" y="237" width="72" height="323" rx="4"/><rect x="980" y="385" width="72" height="175" rx="4"/></g>
+<g fill="#d1ad71"><rect x="380" y="230" width="72" height="330" rx="4"/><rect x="500" y="410" width="72" height="150" rx="4"/></g>
+<g fill="#e8e5d0" font-family="monospace" font-size="22" text-anchor="middle"><text x="176" y="329">42</text><text x="296" y="419">18</text><text x="416" y="212">65</text><text x="536" y="392">27</text><text x="656" y="282">54</text><text x="776" y="467">9</text><text x="896" y="219">73</text><text x="1016" y="367">36</text></g>
+<path d="M416 594h120m-9-8 9 8-9 8m-102-16-9 8 9 8" stroke="#d1ad71" stroke-width="3" fill="none"/>
+</svg>

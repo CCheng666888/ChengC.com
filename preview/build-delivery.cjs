@@ -7,10 +7,14 @@ const {createRequire} = require('node:module');
 const runtimeRequire = createRequire('C:/Users/19152/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/runner.cjs');
 const root = path.resolve(__dirname,'..');
 const read = name => fs.readFileSync(path.join(root,name),'utf8').replace(/\r\n/g,'\n');
-const write = (name,content) => fs.writeFileSync(path.join(root,name),content);
+const write = (name,content) => {
+  const file=path.join(root,name), bytes=Buffer.isBuffer(content)?content:Buffer.from(content);
+  if(fs.existsSync(file)&&fs.readFileSync(file).equals(bytes))return;
+  fs.writeFileSync(file,bytes);
+};
 const hash = content => crypto.createHash('sha256').update(content).digest('hex').slice(0,12);
-const pages = ['index.html','about.html','tools.html','games.html','contact.html',...['posts','work'].flatMap(dir=>fs.readdirSync(path.join(root,dir)).filter(name=>name.endsWith('.html')).map(name=>`${dir}/${name}`))];
-const covers = ['assets/products/qa-cover-v1.png','assets/products/notes-cover-v1.png','assets/products/defense-cover-v1.png','assets/products/ming-cover.webp','assets/products/badminton-cover.webp','assets/products/yinian-cover.png','assets/game-bg.jpg'];
+const pages = ['index.html','about.html','tools.html','games.html','contact.html','oj.html','algo-vis.html',...['posts','work'].flatMap(dir=>fs.readdirSync(path.join(root,dir)).filter(name=>name.endsWith('.html') && name!=='mingchronicles.html').map(name=>`${dir}/${name}`))];
+const covers = ['assets/products/algo-vis-cover-v2.png','assets/products/qa-cover-v1.png','assets/products/notes-cover-v1.png','assets/products/defense-cover-v1.png','assets/products/badminton-cover.webp','assets/products/yinian-cover.png','assets/game-bg.jpg'];
 const coverNames = new Map(covers.map(name=>[name,name.replace(/\.(png|webp|jpg)$/,'-desktop.webp')]));
 const losslessImages = new Map(['assets/firefly-official-pixel.png','assets/magpie-original-detective.png'].map(name=>[name,name.replace('.png','.webp')]));
 const resolve = (page,name) => path.posix.normalize(path.posix.join(path.posix.dirname(page),name));

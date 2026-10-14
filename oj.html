@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>物理编程挑战 · ChenC</title>
+  <meta name="description" content="从牛顿第二定律出发，编程求解带空气阻力的抛体落点。支持 C、Python、Java，登录后查看自己的分数。">
+  <meta name="theme-color" content="#eef2ec">
+  <!-- delivery:start -->
+  <link rel="stylesheet" href="css/delivery-ca722b986c2c.css" data-sources="css/style.css">
+  <link rel="stylesheet" href="css/delivery-e44c3a750045.css" data-sources="css/oj.css css/navigation.css css/site-refinements.css">
+  <script data-theme-source="js/theme.js">(() => {
+  'use strict';
+  const system = matchMedia('(prefers-color-scheme: light)');
+  let preference = null;
+  try { preference = localStorage.getItem('theme'); } catch {}
+  if (!['light', 'dark'].includes(preference)) preference = null;
+  function apply(theme) {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.classList.toggle('dark', theme !== 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === 'light' ? '#f3f7f5' : '#0b2431';
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.setAttribute('aria-label', theme === 'light' ? '切换深色主题' : '切换浅色主题');
+    });
+  }
+  apply(preference || (system.matches ? 'light' : 'dark'));
+  document.documentElement.classList.add('js');
+  system.addEventListener('change', () => { if (!preference) apply(system.matches ? 'light' : 'dark'); });
+  function connect() {
+    apply(preference || (system.matches ? 'light' : 'dark'));
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.addEventListener('click', () => {
+        preference = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+        apply(preference);
+        try { localStorage.setItem('theme', preference); } catch {}
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', connect);
+  else connect();
+})();</script>
+  <script defer src="js/navigation.js?v=ab7985e942a9"></script>
+  <script defer src="js/delivery-e13704fea9c8.js" data-sources="js/oj-config.js js/oj.js"></script>
+  <!-- delivery:end -->
+</head>
+<body class="oj-page">
+<a class="skip-link" href="#main">跳到题目</a>
+<header class="oj-nav"><a class="oj-brand" href="index.html">ChenC<span> / 编程挑战</span></a><div><a href="tools.html">返回工具</a><button id="themeToggle" type="button" aria-label="切换主题">明 / 暗</button></div></header>
+<main id="main" class="oj-main">
+  <section class="oj-intro" aria-labelledby="problem-title">
+    <div><p class="oj-kicker">PHYSICS × MATHEMATICS × CODE</p><h1 id="problem-title">带空气阻力的<br>抛体落点<span>。</span></h1><p class="oj-lead">把一条运动轨迹，变成三个准确的数字。</p><div class="oj-tags"><span>中等难度</span><span>C / Python / Java</span><span>25 组隐藏测试 · 100 分</span></div></div>
+    <figure class="oj-figure"><svg viewBox="0 0 460 250" role="img" aria-labelledby="trajectory-title trajectory-desc"><title id="trajectory-title">抛体轨迹示意</title><desc id="trajectory-desc">小球从高度 h 处斜向抛出，受向下的重力和与速度反向的阻力，最终落在水平地面上。图形仅为示意。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/></marker></defs><g class="oj-grid"><path d="M50 30v180M130 30v180M210 30v180M290 30v180M370 30v180M30 50h390M30 100h390M30 150h390"/></g><path class="oj-ground" d="M30 210H420"/><path class="oj-guide" d="M50 126V210M50 210H366"/><path class="oj-trajectory" d="M50 126C175 -16 274 10 366 210"/><circle class="oj-ball" cx="210" cy="51" r="7"/><circle class="oj-point" cx="50" cy="126" r="5"/><circle class="oj-point" cx="366" cy="210" r="5"/><g class="oj-vectors" marker-end="url(#arrow)"><path d="M50 126l43 -48"/><path d="M210 63v42"/><path d="M201 47l-38 -12"/></g><g class="oj-label"><text x="20" y="173">h</text><text x="66" y="76">v₀</text><text x="218" y="101">mg</text><text x="117" y="29">F = −kv</text><text x="194" y="235">x</text><text x="377" y="198">落点</text></g></svg><figcaption>线性阻力模型 · 轨迹示意</figcaption></figure>
+  </section>
+  <p id="service-status" class="oj-service" role="status">正在检查判题服务…</p>
+  <div class="oj-layout">
+    <article class="oj-problem">
+      <section><p class="oj-section-no">01 / 问题</p><h2>小球何时、何处落地？</h2><p>在水平地面上方，小球以初速度 <var>v₀</var>、与水平方向夹角 <var>θ</var> 抛出。质量为 <var>m</var>，初始高度为 <var>h</var>，重力加速度为 <var>g</var>。空气阻力满足 <strong>F<sub>阻</sub> = −k v</strong>，方向始终与瞬时速度相反。</p><p>忽略风、浮力和地面碰撞后的运动。给定多组参数，输出小球首次落地的时间 <var>t</var>、水平距离 <var>x</var> 和落地前瞬间的速率 <var>s</var>。如果 <var>h = 0</var> 且竖直初速度为 0，约定立即落地，返回 <var>t = x = 0</var>、<var>s = v₀</var>；如果从地面向上抛出，计算再次落回地面的时刻。</p></section>
+      <section><p class="oj-section-no">02 / 物理与数学</p><h2>从微分方程开始</h2><p>令竖直向上为正。你可以从下面的方程推导位置和速度，再寻找高度变为 0 的时刻：</p><pre class="oj-equation">m · dvₓ/dt = −k vₓ
+m · dvᵧ/dt = −mg − k vᵧ
+
+vₓ(0) = v₀ cos θ    vᵧ(0) = v₀ sin θ
+x(0) = 0            y(0) = h</pre><details><summary>推导提示</summary><p>当 <var>k &gt; 0</var> 时，令 <var>q = k/m</var>，先解一阶线性微分方程，再积分得到位置。高度函数在最高点之后严格下降，可用二分法求非负落地时间。注意地面向上抛出的起点不是要找的落地点。</p><p>当 <var>k = 0</var> 时用匀加速运动公式。很小的 <var>qt</var> 会导致相近浮点数相减丢失精度，可使用级数展开；Python/C 的 <code>expm1</code>、Java 的 <code>Math.expm1</code> 也有帮助。输出速率时需要同时考虑两个速度分量。</p></details></section>
+      <section><p class="oj-section-no">03 / 输入与输出</p><h2>统一标准输入输出</h2><p>第一行是整数 <var>T</var>（1 ≤ T ≤ 100）。随后 <var>T</var> 行，每行六个实数：</p><pre>m k h v₀ θ g</pre><div class="oj-table-wrap"><table><caption class="sr-only">参数单位和范围</caption><thead><tr><th>参数</th><th>单位</th><th>范围</th></tr></thead><tbody><tr><td>m</td><td>kg</td><td>0.1 ≤ m ≤ 100</td></tr><tr><td>k</td><td>kg/s</td><td>k = 0 或 10⁻⁶ ≤ k ≤ 50</td></tr><tr><td>h</td><td>m</td><td>0 ≤ h ≤ 1000</td></tr><tr><td>v₀</td><td>m/s</td><td>0 ≤ v₀ ≤ 1000</td></tr><tr><td>θ</td><td>度</td><td>0 ≤ θ ≤ 85</td></tr><tr><td>g</td><td>m/s²</td><td>1 ≤ g ≤ 20</td></tr></tbody></table></div><p>每组输入输出一行 <code>t x s</code>（单位依次为 s、m、m/s），建议保留至少 6 位小数。每个数满足 <code>|答案 − 标准值| ≤ max(10⁻⁶, 10⁻⁶ × |标准值|)</code> 即视为正确。可以使用科学计数法；不要输出标签、提示或调试信息。</p></section>
+      <section><p class="oj-section-no">04 / 公开样例</p><h2>先核对一个简单情形</h2><div class="oj-sample"><div><h3>输入</h3><pre id="sample-input">1
+1 0 0 10 30 10</pre><button type="button" class="oj-small" id="copy-sample">复制输入</button></div><div><h3>预期输出</h3><pre>1.000000 8.660254 10.000000</pre></div></div><p class="oj-muted">此时没有空气阻力，竖直初速度为 5 m/s，飞行时间为 1 s；水平速度为 5√3 m/s，落地速率为 10 m/s。这组样例不计分，也不包含在隐藏测试集中。</p></section>
+      <section><p class="oj-section-no">05 / 提交规则</p><h2>用推导换来分数</h2><p>25 组隐藏测试，每组 4 分；一组内所有数据均正确才得分。系统只展示你的总分与简短状态，成绩保存 30 天，不提供排行榜或他人的成绩。覆盖无阻力、微弱阻力、强阻力、地面起点、零初速、参数边界和批量输入。</p><p>C 使用 C17；Python 使用 Python 3；Java 使用 Java 17，主类必须为 <code>public class Main</code>，不要声明 package。每组运行时间上限：C 2 秒、Python 3 秒、Java 4 秒；沙箱内存上限 512 MiB，Java 最大堆 128 MiB，输出上限 16 KiB，源代码上限 32 KiB。编译在隔离环境中完成，单组编译上限 20 秒。</p><details><summary>允许的库与提交频率</summary><p>仅允许标准输入输出和计算。Python 可导入 sys、math、collections、re、statistics、decimal、fractions、functools、itertools、bisect、heapq、array、string、operator、typing、dataclasses。C 可包含 stdio.h、stdlib.h、math.h、string.h、stdint.h、stdbool.h、ctype.h、limits.h、float.h、errno.h、stddef.h、inttypes.h。Java 可使用标准输入输出与数学、集合工具。</p><p>文件操作、网络访问、启动进程、动态执行和系统反射等常见危险操作会被拦截。每个账号一次只允许一份待判提交，每分钟最多 2 次、滚动 24 小时内最多 20 次；服务繁忙时请稍后重试。忘记密码时需联系站长处理。</p></details></section>
+    </article>
+    <aside class="oj-workspace" aria-label="代码提交与我的成绩">
+      <section class="oj-panel"><div class="oj-panel-head"><h2>我的提交</h2><span id="account-label">未登录</span></div>
+        <form id="auth-form"><p class="oj-muted">创建账号后即可提交，分数只对自己可见。</p><label for="username">用户名</label><input id="username" autocomplete="username" minlength="3" maxlength="24" pattern="[A-Za-z0-9_]{3,24}" placeholder="3–24 位字母、数字或下划线" required><label for="password">密码</label><input id="password" type="password" autocomplete="current-password" minlength="10" maxlength="128" placeholder="至少 10 个字符" required><div class="oj-actions"><button type="submit" id="login-button" class="oj-primary">登录</button><button type="submit" id="register-button" value="register">注册账号</button></div></form>
+        <div id="logged-in" hidden><p class="oj-muted">已登录，可以查看与提交自己的答案。</p><button type="button" id="logout-button" class="oj-small">退出登录</button></div>
+        <p id="auth-message" class="oj-message" role="status" aria-live="polite"></p>
+      </section>
+      <section class="oj-panel"><form id="submit-form"><div class="oj-panel-head"><h2>编写答案</h2><label class="sr-only" for="language">编程语言</label><select id="language"><option value="c">C 17</option><option value="python">Python 3</option><option value="java">Java 17</option></select></div><div class="oj-editor-bar"><span id="file-name">main.c</span><button id="reset-template" type="button" class="oj-small">重置框架</button><label class="oj-upload" for="source-file">导入文件</label><input id="source-file" type="file" accept=".c,.py,.java,.txt" class="sr-only"></div><label for="source" class="sr-only">程序源代码</label><textarea id="source" spellcheck="false" autocomplete="off" autocapitalize="off" aria-describedby="code-note" maxlength="32768" rows="20" required></textarea><p id="code-note" class="oj-muted">只读标准输入、只写标准输出。切换语言保留当前页内草稿。</p><button class="oj-primary oj-submit" type="submit" id="submit-button" disabled>登录后提交判题</button><p id="submit-message" class="oj-message" role="status" aria-live="polite"></p></form></section>
+      <section class="oj-panel"><div class="oj-panel-head"><h2>我的成绩</h2><button id="refresh-button" type="button" class="oj-small" disabled>刷新</button></div><p id="scores-note" class="oj-muted">登录后显示最近 30 次提交。</p><ol id="scores" class="oj-scores" aria-label="我的成绩记录"></ol></section>
+    </aside>
+  </div>
+</main><footer class="oj-footer"><p>© 2026 ChenC · 让好奇心有一个答案</p><a href="tools.html">返回工具</a></footer>
+<noscript><p class="oj-service">题目和样例可以直接阅读；登录与提交需要启用 JavaScript。</p></noscript>
+</body></html>

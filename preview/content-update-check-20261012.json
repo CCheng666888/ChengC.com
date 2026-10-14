@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "checked_pages": 37,
+  "catalogue": {
+    "web": 2,
+    "tools": 2,
+    "games": 6
+  },
+  "review_projects": 11,
+  "delivery_pages": 24,
+  "delivery_references": 107,
+  "bundle_hashes": "passed",
+  "revision": "9939f9367360",
+  "browser_verified": [
+    "desktop default viewport",
+    "320px",
+    "390px",
+    "catalogue filters",
+    "product dialogs and download attributes",
+    "current article notices and publication dates",
+    "full-text search and zero retired-project results",
+    "both legacy routes redirect to current project"
+  ],
+  "mock_checks": [
+    "AI success",
+    "model pending/keyword fallback",
+    "AI failure/original text fallback",
+    "low-relevance skip AI",
+    "outbound question and context",
+    "cache activation and legacy-route bypass"
+  ],
+  "limitations": [
+    "No live external AI request or production deployment performed.",
+    "Final additional review-page/1440px browser check was not completed because the browser permission review timed out."
+  ]
+}

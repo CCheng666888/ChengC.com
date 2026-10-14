@@ -19,8 +19,6 @@
       --brand-red: #c91e36;
       --near-y: 0px;
       --far-y: 0px;
-      --point-x: 0px;
-      --point-y: 0px;
     }
     * { box-sizing: border-box; }
     html { min-width: 280px; background: var(--paper); }
@@ -73,7 +71,7 @@
     .structure .line { fill: none; stroke: #cbd1ca; stroke-width: 1; vector-effect: non-scaling-stroke; }
     .structure .near { transform: translateY(var(--near-y)); }
     .structure .far { transform: translateY(var(--far-y)); }
-    .structure .reference { transform: translate(var(--point-x), var(--point-y)); }
+    .structure .reference { transform: translateY(var(--far-y)); }
     .contact-stage {
       position: relative; z-index: 1; min-height: calc(100svh - 86px);
       width: 87.5%; max-width: 1440px; margin: auto;
@@ -158,6 +156,7 @@
       .contact-row { padding-bottom: 15px; margin-bottom: 17px; }
       dt { font-size: 9px; margin-bottom: 6px; letter-spacing: .16em; }
       .contact-value, .contact-row:first-child .contact-value { font-size: 22px; line-height: 1.45; }
+      .contact-row:first-child .contact-value { font-size: clamp(18px, 5.65vw, 22px); }
       .contact-value.is-placeholder { font-size: 20px; }
       .contact-row:first-child .contact-value.is-placeholder { font-size: 23px; }
       .contact-row:first-child::after { width: calc(100% + 24px); }
@@ -174,13 +173,24 @@
       .contact-list { margin-top: 28px; }
       .contact-row { padding-bottom: 15px; margin-bottom: 17px; }
     }
+    @media (max-height: 480px) {
+      .site-head { min-height: 60px; }
+      .contact-stage { min-height: calc(100svh - 60px); padding: 12px 0 24px; }
+      h1 { font-size: 38px; line-height: 1.08; }
+      .intro { margin-top: 8px; font-size: 12px; line-height: 1.6; }
+      .contact-list { margin-top: 12px; }
+      .contact-row { padding-bottom: 6px; margin-bottom: 8px; }
+      dt { font-size: 9px; margin-bottom: 4px; }
+      .contact-value { font-size: 20px; line-height: 1.45; }
+      .contact-row:first-child .contact-value { font-size: clamp(18px, 5.65vw, 22px); }
+    }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
       .structure .near, .structure .far, .structure .reference { transform: none !important; }
     }
   </style>
   <!-- delivery:start -->
-  <link rel="stylesheet" href="css/delivery-df3cb6a513c6.css" data-sources="css/navigation.css css/site-refinements.css">
+  <link rel="stylesheet" href="css/delivery-b80fbe927120.css" data-sources="css/navigation.css css/site-refinements.css">
   <script data-theme-source="js/theme.js">(() => {
   'use strict';
   const system = matchMedia('(prefers-color-scheme: light)');
@@ -219,7 +229,7 @@
   <a class="skip-link" href="#main">跳到联系方式</a>
 
   <div class="architecture" aria-hidden="true">
-    <svg class="structure structure-desktop" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+    <svg class="structure structure-desktop" viewBox="0 0 1600 900" preserveAspectRatio="xMaxYMid slice">
       <defs>
         <linearGradient id="wall-wash" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stop-color="#fafbf6" stop-opacity=".92"/>
@@ -233,39 +243,39 @@
         <path id="open-joint" d="M166 0H20V104H166M20 104L44 84V20H152M44 84H124"/>
       </defs>
       <g class="near">
-        <path d="M590 -160H-240V137H590Z" fill="url(#wall-wash)"/>
-        <path class="line" opacity=".68" d="M-240 137H590V-160M-240 148H574V-160"/>
-        <path class="line" opacity=".45" d="M590 137L1190 650M574 148L1179 650"/>
-        <path d="M1472 -200V410L1670 335V-200Z" fill="#e5e9e2" opacity=".28"/>
-        <path class="line" opacity=".76" d="M1670 335L1472 410V-200M1472 410L1324 483V-130"/>
-        <path class="line" opacity=".4" d="M1484 -200V404M1484 404L1335 477"/>
-        <path class="line" opacity=".42" d="M-150 388H-18V1060M-150 405H-33V1060"/>
+        <path d="M820 -260H-360V126H820ZM-360 126H820L798 146H-360Z" fill="url(#wall-wash)"/>
+        <path class="line" opacity=".68" d="M-360 126H820V-260M-360 146H798V-260"/>
+        <path class="line tablet-hide" opacity=".45" d="M820 126L1190 650M798 146L1179 650"/>
+        <path d="M1700 -260H1436V386L1370 484V1160H1700Z" fill="#e5e9e2" opacity=".16"/>
+        <path class="line" opacity=".76" d="M1700 310L1436 386V-260M1436 386L1370 484V1160"/>
+        <path class="line" opacity=".4" d="M1454 -260V381M1454 381L1386 478V1160"/>
+        <path class="line" opacity=".42" d="M-360 778H118V1160M-360 797H96V1160"/>
       </g>
       <g class="far">
-        <path d="M1324 483L1190 650M1472 410L1190 650M700 1080L1190 650L1880 805M-220 840L1190 650" fill="none" stroke="url(#line-distance)" stroke-width="1"/>
-        <path class="line" opacity=".38" d="M1146 454L1264 425V516L1146 549V454M1264 425L1280 433V522"/>
-        <use href="#open-joint" class="line" opacity=".64" transform="translate(924 218) rotate(-7) scale(.8)"/>
+        <path d="M1370 484L1190 650M1436 386L1190 650M700 1160L1190 650L1960 823M-360 835L1190 650" fill="none" stroke="url(#line-distance)" stroke-width="1" vector-effect="non-scaling-stroke"/>
+        <path class="line tablet-hide" opacity=".38" d="M1146 454L1264 425V516L1146 549V454M1264 425L1280 433V522"/>
+        <use href="#open-joint" class="line tablet-hide" opacity=".5" transform="translate(924 218) rotate(-7) scale(.8)"/>
         <path class="line tablet-hide" opacity=".23" d="M1560 725L1404 690V807M1001 705L1013 724L1060 713"/>
         <path class="line" opacity=".26" d="M1190 650L1208 638V668L1190 677"/>
       </g>
       <g class="reference"><circle cx="1190" cy="650" r="3" fill="#244bff"/></g>
     </svg>
 
-    <svg class="structure structure-mobile" viewBox="0 0 390 700" preserveAspectRatio="xMidYMid slice">
+    <svg class="structure structure-mobile" viewBox="0 0 390 700" preserveAspectRatio="xMaxYMid slice">
       <g class="near">
-        <path fill="#fafbf6" opacity=".65" d="M-90 -70H282V78H-90Z"/>
-        <path class="line" opacity=".66" d="M-90 78H282V-70M-90 85H275V-70"/>
-        <path class="line" opacity=".45" d="M282 78L348 576"/>
-        <path fill="#e5e9e2" opacity=".2" d="M451 190L370 238V735L451 690Z"/>
-        <path class="line" opacity=".72" d="M451 190L370 238V735M451 204L379 246V735"/>
-        <path class="line" opacity=".3" d="M-110 423H8V810"/>
+        <path fill="#fafbf6" opacity=".65" d="M-150 -160H318V72H-150ZM-150 72H318L309 87H-150Z"/>
+        <path class="line" opacity=".66" d="M-150 72H318V-160M-150 87H309V-160"/>
+        <path class="line" opacity=".45" d="M318 72L348 635"/>
+        <path fill="#e5e9e2" opacity=".15" d="M480 174L380 230V910H480Z"/>
+        <path class="line" opacity=".72" d="M480 174L380 230V910M480 190L388 244V910"/>
+        <path class="line" opacity=".3" d="M-150 628H36V910M-150 645H23V910"/>
       </g>
       <g class="far">
-        <path class="line" opacity=".4" d="M370 238L348 576M-90 690L348 576L516 629"/>
+        <path class="line" opacity=".4" d="M380 230L348 635M-150 690L348 635L560 688"/>
         <path class="line" opacity=".28" d="M317 415L352 425V465L317 454"/>
         <use href="#open-joint" class="line" opacity=".63" transform="translate(302 176) rotate(-7) scale(.29)"/>
       </g>
-      <g class="reference"><circle cx="348" cy="576" r="2.5" fill="#244bff"/></g>
+      <g class="reference"><circle cx="348" cy="635" r="2.5" fill="#244bff"/></g>
     </svg>
   </div>
 
@@ -280,14 +290,14 @@
         <h1 id="contact-title">CONTACT</h1>
         <p class="intro">欢迎聊聊项目、合作，或只是打个招呼。</p>
         <dl class="contact-list" id="contact-list" aria-label="联系方式">
-          <div class="contact-row" data-channel="email">
-            <dt>EMAIL</dt><dd><span class="contact-value is-placeholder">邮箱待填写</span></dd>
+          <div class="contact-row has-value" data-channel="email">
+            <dt>EMAIL</dt><dd><a class="contact-value" href="mailto:1915250812@qq.com">1915250812@qq.com<span class="link-arrow" aria-hidden="true">↗</span></a></dd>
           </div>
-          <div class="contact-row" data-channel="wechat">
-            <dt>WECHAT</dt><dd><span class="contact-value is-placeholder">微信待填写</span></dd>
+          <div class="contact-row has-value" data-channel="wechat">
+            <dt>WECHAT</dt><dd><span class="contact-value">a1927848263</span></dd>
           </div>
-          <div class="contact-row" data-channel="qq">
-            <dt>QQ</dt><dd><span class="contact-value is-placeholder">QQ 待填写</span></dd>
+          <div class="contact-row has-value" data-channel="qq">
+            <dt>QQ</dt><dd><span class="contact-value">1915250812</span></dd>
           </div>
         </dl>
       </div>
@@ -296,20 +306,20 @@
       <svg class="echo echo-desktop" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMid slice">
         <path d="M-250 425L1045 236L1900 390" class="line" opacity=".25"/>
         <path d="M-95 -100V310H245M-82 -100V298H245" class="line" opacity=".45"/>
-        <use href="#open-joint" class="line" opacity=".72" transform="translate(1030 205) rotate(11) scale(1.1)"/>
+        <use href="#open-joint" class="line" opacity=".5" transform="translate(900 205) rotate(11) scale(1.1)"/>
         <path d="M1186 235L1710 -80M1182 347L1750 555" class="line" opacity=".25"/>
       </svg>
       <svg class="echo echo-mobile" viewBox="0 0 390 340" preserveAspectRatio="xMidYMid slice">
         <path d="M-90 285L256 171L520 248M-10 -80V117H82" class="line" opacity=".28"/>
-        <use href="#open-joint" class="line" opacity=".65" transform="translate(256 151) rotate(11) scale(.48)"/>
+        <use href="#open-joint" class="line" opacity=".45" transform="translate(256 151) rotate(11) scale(.48)"/>
       </svg>
     </div>
   </main>
   <footer class="site-foot"><span>© 2026 ChenC</span><a href="index.html">返回首页 <span aria-hidden="true">&nbsp;↗</span></a></footer>
   <p class="sr-only" id="copy-status" role="status" aria-live="polite" aria-atomic="true"></p>
 
-  <!-- Fill real, public contact values here. Empty core channels remain clearly labelled
-       placeholders; extra channels appear only when populated. Nothing is invented.
+  <!-- Keep core values here and in the initial HTML above in sync for script-free access.
+       Copy controls progressively enhance the visible text; extra channels appear when populated.
        Example shape for other: [{"label":"CHANNEL","value":"","href":""}]. -->
   <script type="application/json" id="contact-data">
     {"email":{"value":"1915250812@qq.com"},"wechat":{"value":"a1927848263"},"qq":{"value":"1915250812"},"other":[]}
@@ -335,7 +345,7 @@
         if (channel === 'email' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
           return 'mailto:' + encodeURIComponent(value).replace(/%40/g, '@');
         }
-        const candidate = text(contact.href) || (channel === 'github' && /^(https?:\/\/)?github\.com\//i.test(value) ? value : '');
+        const candidate = text(contact?.href) || (channel === 'github' && /^(https?:\/\/)?github\.com\//i.test(value) ? value : '');
         if (!candidate) return '';
         try {
           const url = new URL(/^github\.com\//i.test(candidate) ? 'https://' + candidate : candidate);
@@ -360,7 +370,7 @@
         return success;
       }
       function populate(row, channel, contact) {
-        const value = text(contact && contact.value);
+        const value = text(contact && contact.value) || text(row.querySelector('.contact-value')?.firstChild?.textContent);
         if (!value) return;
         const label = row.querySelector('dt').textContent;
         const details = row.querySelector('dd');
@@ -384,10 +394,16 @@
           } catch {}
           if (!copied) copied = fallbackCopy(value);
           clearTimeout(timers.get(button));
-          button.textContent = copied ? 'Copied' : '请选中复制';
+          if (!copied) {
+            const range = document.createRange();
+            range.selectNodeContents(valueNode.firstChild);
+            const selection = window.getSelection();
+            if (selection) { selection.removeAllRanges(); selection.addRange(range); }
+          }
+          button.textContent = copied ? 'Copied' : '手动复制';
           button.toggleAttribute('data-copied', copied);
-          status.textContent = copied ? label + ' 已复制' : '自动复制暂不可用，请选中联系方式后复制。';
-          timers.set(button, setTimeout(() => {
+          status.textContent = copied ? label + ' 已复制' : '自动复制暂不可用，已选中联系方式，请手动复制。';
+          if (copied) timers.set(button, setTimeout(() => {
             button.textContent = '复制'; button.removeAttribute('data-copied'); status.textContent = '';
           }, 1500));
         });
@@ -405,19 +421,19 @@
 
       // A single frame is scheduled only after a view change. There is no idle loop.
       const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+      const mobileMotion = matchMedia('(max-width:600px), (pointer:coarse)');
       const root = document.documentElement;
       let frame = 0;
       function reset() {
-        ['--near-y', '--far-y', '--point-x', '--point-y'].forEach(name => root.style.removeProperty(name));
+        ['--near-y', '--far-y'].forEach(name => root.style.removeProperty(name));
       }
       function update() {
         frame = 0;
         if (reduced.matches || document.hidden) { reset(); return; }
         const amount = Math.min(1, Math.max(0, scrollY / Math.max(innerHeight * 1.2, 1)));
-        root.style.setProperty('--near-y', (-32 * amount).toFixed(2) + 'px');
-        root.style.setProperty('--far-y', (-11 * amount).toFixed(2) + 'px');
-        root.style.setProperty('--point-x', (-12 * amount).toFixed(2) + 'px');
-        root.style.setProperty('--point-y', (9 * amount).toFixed(2) + 'px');
+        const strength = mobileMotion.matches ? .45 : 1;
+        root.style.setProperty('--near-y', (-32 * amount * strength).toFixed(2) + 'px');
+        root.style.setProperty('--far-y', (-11 * amount * strength).toFixed(2) + 'px');
       }
       function schedule() {
         if (!frame && !reduced.matches && !document.hidden) frame = requestAnimationFrame(update);

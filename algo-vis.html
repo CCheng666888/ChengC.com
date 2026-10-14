@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101f24">
+  <title>算法动图 Algo-Vis · ChenC</title>
+  <meta name="description" content="算法动图 Algo-Vis：14 种经典算法、逐步演示与 VS Code / Obsidian 插件下载。">
+
+<link rel="canonical" href="https://chenc.com.cn/algo-vis.html">
+  <!-- delivery:start -->
+  <link rel="stylesheet" href="css/delivery-682094e527a5.css" data-sources="css/algo-vis-base.css css/contact.css css/algo-vis-template.css css/navigation.css css/site-refinements.css">
+  <script data-theme-source="js/theme.js">(() => {
+  'use strict';
+  const system = matchMedia('(prefers-color-scheme: light)');
+  let preference = null;
+  try { preference = localStorage.getItem('theme'); } catch {}
+  if (!['light', 'dark'].includes(preference)) preference = null;
+  function apply(theme) {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.classList.toggle('dark', theme !== 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === 'light' ? '#f3f7f5' : '#0b2431';
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.setAttribute('aria-label', theme === 'light' ? '切换深色主题' : '切换浅色主题');
+    });
+  }
+  apply(preference || (system.matches ? 'light' : 'dark'));
+  document.documentElement.classList.add('js');
+  system.addEventListener('change', () => { if (!preference) apply(system.matches ? 'light' : 'dark'); });
+  function connect() {
+    apply(preference || (system.matches ? 'light' : 'dark'));
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.addEventListener('click', () => {
+        preference = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+        apply(preference);
+        try { localStorage.setItem('theme', preference); } catch {}
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', connect);
+  else connect();
+})();</script>
+  <script defer src="js/navigation.js?v=ab7985e942a9"></script>
+  <script defer src="js/delivery-95c8f11511cd.js" data-sources="js/algo-vis-engine.js js/algo-vis.js"></script>
+  <!-- delivery:end -->
+</head>
+<body class="contact-page algo-template-page">
+<a class="skip-link" href="#main">跳到主要内容</a><div class="pixel-stars" aria-hidden="true"></div>
+<header class="contact-header"><a class="contact-brand" href="index.html">ChenC<span>.</span></a><span class="header-frequency">ALGO-VIS / CODE MOTION</span><a class="back-link" href="tools.html">返回工具页</a></header>
+<main id="main" class="contact-main">
+<div class="page-label"><span class="pixel-cross" aria-hidden="true">✦</span><span>把代码的每一步，看清楚。</span><span class="label-code">CHENC / ALGO-VIS</span></div>
+<h1>算法动图<span class="heading-dot" aria-hidden="true">.</span></h1>
+<section class="firefly-window" aria-labelledby="updateTitle">
+<div class="window-bar"><span class="window-name"><span class="window-mark" aria-hidden="true"></span>算法动图 · 使用说明</span><div class="window-controls"><a class="window-return" href="tools.html" aria-label="返回工具页">×</a></div></div>
+<div class="window-body"><div class="update-copy">
+<p class="channel-label"><span aria-hidden="true">[</span> ALGO-VIS / 学习频道 <span aria-hidden="true">]</span></p>
+<h2 id="updateTitle">把算法<br><span>变成动画</span><span class="pixel-cursor" aria-hidden="true"></span></h2>
+<p class="update-note">选中代码，观察比较、交换和变量变化。<br>14 种经典算法，配合中文逐步讲解。<br>支持 VS Code 与 Obsidian。</p>
+<div class="update-loading" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<p class="update-caption">看懂过程，再回到代码。</p>
+<div class="algo-shortcuts"><a class="pixel-link" href="#install">下载与安装</a><a class="algo-text-link" href="#algorithms">查看 14 种演示 →</a></div>
+</div><figure class="firefly-stage algorithm-stage"><div class="stage-coordinate"><span>冒泡排序 · 实时演示</span><span>01 / MOTION</span></div><div class="demo">
+				<div class="demo-head">
+					<div class="demo-title"><b>冒泡排序</b> · 实时演示</div>
+					<div class="demo-live">LIVE</div>
+				</div>
+				<div class="demo-goal" id="demo-goal">目标：把数组从小到大排序</div>
+				<div class="demo-cells" id="demo-cells"><!-- 格子由 JS 渲染 --></div><noscript><p>开启 JavaScript 后可播放演示。安装说明和下载仍可使用。</p></noscript>
+				<div class="demo-desc" id="demo-desc"></div>
+				<div class="demo-bar">
+					<button class="demo-btn" id="demo-play">暂停</button>
+					<button class="demo-btn" id="demo-reset">重置</button><button class="demo-btn demo-single" id="demo-next">下一步</button>
+					<select class="demo-speed" id="demo-speed">
+						<option>0.5x</option><option selected>1x</option><option>2x</option><option>4x</option>
+					</select>
+					<span class="demo-step" id="demo-step"></span>
+				</div>
+			</div><figcaption>ALGO-VIS<span>逐步理解</span></figcaption></figure></div>
+<div class="window-bottom"><span class="mechanical-ticks" aria-hidden="true">▰ ▰ ▰</span><span>每一次比较，都有迹可循。</span><span class="bottom-code" aria-hidden="true">14 ALGORITHMS</span></div></section>
+<section class="algo-section" id="install">
+	<div class="wrap">
+		<div class="sec-head">
+			<div class="sec-no">01 / INSTALL</div>
+			<h2>安装方式</h2>
+			<p>两个平台各自独立安装，互不影响。VS Code 版全局生效，Obsidian 版在笔记库内生效。</p>
+		</div>
+		<div class="install-grid">
+			<div class="install-card">
+				<h3>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+					VS Code <span class="ic-badge badge-vscode">vscode</span>
+				</h3>
+				<ol>
+					<li><b>选中代码</b>，在编辑器里框选一段算法代码</li>
+					<li><b>右键</b>，点击菜单顶部的「算法动图：演示选中的代码」</li>
+					<li>右侧自动打开动画面板，<b>自动播放</b></li>
+				</ol>
+				<div class="cmd"><span class="prompt">$</span> code --install-extension algo-vis-1.0.0.vsix</div>
+				<div class="install-note">快捷键 <b>Ctrl+Alt+A</b> 可直接触发；也可在命令面板输入「算法动图」调用。支持 VS Code 1.70+，Windows / macOS / Linux 通用。</div>
+				<a class="dl-btn" href="downloads/algo-vis-1.0.0.vsix" download>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>
+					下载 VSIX 安装包<span>内含使用说明 · 14.5 KiB</span>
+				</a>
+			</div>
+			<div class="install-card">
+				<h3>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+					Obsidian <span class="ic-badge badge-obs">obsidian</span>
+				</h3>
+				<ol>
+					<li>将插件目录放入库的 <b>.obsidian/plugins/algo-vis</b></li>
+					<li>设置 → 第三方插件 → 开启「<b>算法动图</b>」</li>
+					<li>在笔记里<b>选中代码</b>，点击浮出的「演示算法」按钮</li>
+				</ol>
+				<div class="cmd">.obsidian/plugins/<b>algo-vis</b>/manifest.json</div>
+				<div class="install-note">另有两个入口：代码块 <b>algovis</b> 声明式演示，以及左侧栏的「可视化台」图标。</div>
+				<a class="dl-btn" href="downloads/algo-vis-obsidian-1.0.0.zip" download>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>
+					下载 Obsidian 插件包<span>内含使用说明 · 13.7 KiB</span>
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="algo-section" id="algorithms">
+	<div class="wrap">
+		<div class="sec-head">
+			<div class="sec-no">02 / ALGORITHMS</div>
+			<h2>支持的算法</h2>
+			<p>引擎按代码模式自动识别，无需标注。内置 14 种经典算法（8 种排序全覆盖），覆盖排序、查找、数论、序列；识别不到特定算法时自动进入「代码步进模式」。</p>
+		</div>
+		<div class="algo-grid">
+			<div class="algo-card" data-algo="bubble" title="点击观看动画演示" role="button" tabindex="0">
+				<span class="dot" style="background:var(--cmp)"></span><span class="tag">排序</span>
+				<h4>冒泡排序</h4>
+				<p>相邻两两比较，大的后移；每一轮末尾元素就位。演示会标出每一次比较与交换。</p>
+			</div>
+			<div class="algo-card" data-algo="select" title="点击观看动画演示" role="button" tabindex="0">
+				<span class="dot" style="background:var(--swap)"></span><span class="tag">排序</span>
+				<h4>选择排序</h4>
+				<p>每轮扫描剩余部分找最小值，换到已排序区末尾，并高亮「当前最小」的更新过程。</p>
+			</div>
+			<div class="algo-card" data-algo="insert" title="点击观看动画演示" role="button" tabindex="0">
+				<span class="dot" style="background:var(--acc)"></span><span class="tag">排序</span>
+				<h4>插入排序</h4>
+				<p>取出 key 向左逐个比较，大于 key 的元素后移，最后插入正确位置。</p>
+			</div>
+			<div class="algo-card" data-algo="quick" title="点击观看动画演示" role="button" tabindex="0">
+				<span class="dot" style="background:var(--swap)"></span><span class="tag">排序</span>
+				<h4>快速排序</h4>
+				<p>选基准 pivot 分区，左小右大后归位，再递归处理左右子区间，演示每次比较与交换。</p>
+			</div>
+			<div class="algo-card" data-algo="merge" title="点击观看动画演示" role="button" tabindex="0">
+				<span class="dot" style="background:var(--sorted)"></span><span class="tag">排序</span>
+				<h4>归并排序</h4>
+				<p>两两合并相邻有序块，用临时数组逐步归并：比较取较小者、写入结果、剩余直接并入。</p>
+			</div>
+			<div class="algo-card" data-algo="heap" title="点击观看动画演示" role="button" tabindex="0">
+				<span class="dot" style="background:#8f5ef0"></span><span class="tag">排序</span>
+				<h4>堆排序</h4>
+				<p>把数组看作完全二叉树，建大顶堆后堆顶与末尾交换、再下沉，最大值逐个就位。</p>
+			</div>
+			<div class="algo-card" data-algo="counting" title="点击观看动画演示" role="button" tabindex="0">
+				<span class="dot" style="background:#e58fb0"></span><span class="tag">排序</span>
+				<h4>计数排序</h4>
+				<p>统计每个值的出现次数，前缀累加确定位置，从后往前稳定回填输出。</p>
+			</div>
+			<div class="algo-card" data-algo="shell" title="点击观看动画演示" role="button" tabindex="0">
+				<span class="dot" style="background:#5fd0c5"></span><span class="tag">排序</span>
+				<h4>希尔排序</h4>
+				<p>按间隔 gap 分组做插入排序，gap 逐步减半，组内比较与后移清晰可见。</p>
+			</div>
+			<div class="algo-card" data-algo="binary" title="点击观看动画演示" role="button" tabindex="0">
+				<span class="dot" style="background:var(--sorted)"></span><span class="tag">查找</span>
+				<h4>二分查找</h4>
+				<p>维护左右区间 [l, r]，每次取 mid 比较，区间不断减半直到命中或耗尽。</p>
+			</div>
+			<div class="algo-card" data-algo="window" title="点击观看动画演示" role="button" tabindex="0">
+				<span class="dot" style="background:var(--sorted)"></span><span class="tag">查找</span>
+				<h4>滑动窗口</h4>
+				<p>定长窗口沿数组滑动，演示滑出/滑入元素与窗口和的增量计算，跟踪最大值更新。</p>
+			</div>
+			<div class="algo-card" data-algo="prime" title="点击观看动画演示" role="button" tabindex="0">
+				<span class="dot" style="background:#8f5ef0"></span><span class="tag">数论</span>
+				<h4>试除法判素数</h4>
+				<p>只需试到 √n，跳过偶数因子，逐个展示 i*i&lt;=n 的优化边界。</p>
+			</div>
+			<div class="algo-card" data-algo="factor" title="点击观看动画演示" role="button" tabindex="0">
+				<span class="dot" style="background:#e58fb0"></span><span class="tag">数论</span>
+				<h4>质因数分解</h4>
+				<p>先除尽 2，再试奇数因子，输出每一步取出的质因数与剩余值 x。</p>
+			</div>
+			<div class="algo-card" data-algo="gcd" title="点击观看动画演示" role="button" tabindex="0">
+				<span class="dot" style="background:#5fd0c5"></span><span class="tag">数论</span>
+				<h4>辗转相除 GCD</h4>
+				<p>gcd(a,b)=gcd(b, a%b)，逐步演示取模、赋值、直到余数为 0 的全过程。</p>
+			</div>
+			<div class="algo-card" data-algo="fib" title="点击观看动画演示" role="button" tabindex="0">
+				<span class="dot" style="background:#f0b34a"></span><span class="tag">序列</span>
+				<h4>斐波那契数列</h4>
+				<p>前两项固定，之后每项等于前两项之和，逐项生成并高亮已计算区。</p>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="algo-section" id="usage">
+	<div class="wrap">
+		<div class="sec-head">
+			<div class="sec-no">03 / QUICK START</div>
+			<h2>快速上手</h2>
+			<p>从选中代码到动画面板，三步完成。所有入口都是「选中即用」，不需要任何额外配置。</p>
+		</div>
+		<div class="usage-grid">
+			<div class="usage-step">
+				<div class="k">1</div>
+				<h4>选中代码</h4>
+				<p>在编辑器里框选一段算法代码。可以是完整函数，也可以只是一段核心循环。</p>
+			</div>
+			<div class="usage-step">
+				<div class="k">2</div>
+				<h4>触发演示</h4>
+				<p>VS Code 里右键点「算法动图」；Obsidian 里点击选中区域浮出的演示按钮。</p>
+			</div>
+			<div class="usage-step">
+				<div class="k">3</div>
+				<h4>观看动画</h4>
+				<p>面板自动播放：比较碰撞、交换滑动、代码行高亮、变量变化、中文讲解同步进行。</p>
+				<span class="act">播放 / 暂停 · 单步 · 0.5x–4x</span>
+			</div>
+		</div>
+
+		<div class="entry-list">
+			<div class="row">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+				<div>
+					<h5>VS Code · 右键菜单</h5>
+					<p>编辑器右键菜单顶部「算法动图：演示选中的代码」，仅在选中代码时出现。</p>
+				</div>
+			</div>
+			<div class="row">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 10h8M8 14h5"/></svg>
+				<div>
+					<h5>VS Code · 快捷键 / 命令面板</h5>
+					<p>Ctrl+Alt+A 直接触发；命令面板输入「算法动图」同样可调用。</p>
+				</div>
+			</div>
+			<div class="row">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5v14"/></svg>
+				<div>
+					<h5>Obsidian · 选中浮动按钮</h5>
+					<p>选中代码后，选区旁浮出「演示算法」按钮，点击即演示；未知算法会提示并给出现可视化台兜底。</p>
+				</div>
+			</div>
+			<div class="row">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9l6 6M15 9l-6 6"/></svg>
+				<div>
+					<h5>Obsidian · 代码块声明</h5>
+					<p>代码块语言写 algovis，块内写「算法: 冒泡排序」和「数组: 6,2,9,1」，渲染时直接演示。</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="algo-section" id="effects">
+	<div class="wrap">
+		<div class="sec-head">
+			<div class="sec-no">04 / EFFECTS</div>
+			<h2>动画效果</h2>
+			<p>动画面板右侧同步高亮代码行，下方显示变量变化与中文讲解；四个核心视觉元素如下。</p>
+		</div>
+		<div class="effect-grid">
+			<div class="effect-card">
+				<h4>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg>
+					比较碰撞 + 数值气泡
+				</h4>
+				<p>参与比较的两个数字牌互相「拱」一下，上方浮出黄色虚线气泡，实时显示「5 vs 3」。</p>
+				<div class="eff-demo">
+					<div class="eff-cell c1">5</div>
+					<div class="eff-cell c1">3</div>
+					<div class="eff-cell">8</div>
+					<div class="eff-cell">4</div>
+					<div class="eff-cell">2</div>
+				</div>
+				<div class="eff-note">cmp · 黄色边框 + 碰撞动画</div>
+			</div>
+			<div class="effect-card">
+				<h4>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+					交换滑动
+				</h4>
+				<p>确认交换的两个值从对方位置滑过来，红色边框标记，滑动距离按格距精确计算。</p>
+				<div class="eff-demo">
+					<div class="eff-cell c2">3</div>
+					<div class="eff-cell c2">5</div>
+					<div class="eff-cell">8</div>
+					<div class="eff-cell">4</div>
+					<div class="eff-cell">2</div>
+				</div>
+				<div class="eff-note">swap · 红色边框 + 交叉滑动</div>
+			</div>
+			<div class="effect-card">
+				<h4>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h16"/></svg>
+					代码行同步高亮
+				</h4>
+				<p>面板左侧展示算法源码，每一步对应的高亮行实时加亮，看清当前执行到哪一行。</p>
+				<div class="eff-demo" style="flex-direction:column;align-items:stretch;gap:4px">
+					<div style="font-family:var(--mono);font-size:12px;color:var(--muted);padding:2px 10px;border-radius:4px;background:var(--bg3)">for (int i = 0; i &lt; n - 1; i++)</div>
+					<div style="font-family:var(--mono);font-size:12px;color:var(--cmp);padding:2px 10px;border-radius:4px;background:rgba(245,184,26,.16);font-weight:700">if (a[j] &gt; a[j+1]) {</div>
+					<div style="font-family:var(--mono);font-size:12px;color:var(--muted);padding:2px 10px;border-radius:4px;background:var(--bg3)">int t = a[j]; a[j] = a[j+1]; ...</div>
+				</div>
+				<div class="eff-note">hl · 当前执行行加亮</div>
+			</div>
+			<div class="effect-card">
+				<h4>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6M7 16h9"/></svg>
+					变量条 + 中文讲解
+				</h4>
+				<p>每一步更新变量状态（如 i、j、key、x、out），并用一句中文讲清这一步在做什么。</p>
+				<div class="eff-demo" style="flex-direction:column;align-items:stretch;gap:6px">
+					<div style="font-family:var(--mono);font-size:12px;color:var(--acc);padding:4px 10px;border-radius:4px;background:var(--bg3)">i=1　j=2　key=4</div>
+					<div style="font-size:12.5px;color:var(--text);padding:6px 10px;border-radius:4px;background:var(--bg3);border-left:3px solid var(--acc)">key=4 比 a[2]=8 小，把 8 后移一位</div>
+				</div>
+				<div class="eff-note">vars + desc · 每步中文讲解</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="algo-section" id="params">
+	<div class="wrap">
+		<div class="sec-head">
+			<div class="sec-no">05 / INPUT & DETECTION</div>
+			<h2>参数与自动识别</h2>
+			<p>引擎会从选中代码里识别算法类型并采用演示参数；也可在选中内容中显式声明算法与输入。</p>
+		</div>
+		<div class="params-grid">
+			<div>
+				<h3 style="font-size:16px;margin-bottom:12px">声明式写法（Obsidian 代码块）</h3>
+				<div class="code-block"><span class="cm">```algovis</span>
+<span class="kw">算法</span>: 冒泡排序
+<span class="kw">数组</span>: 6,2,9,1,5
+<span class="cm">```</span></div>
+				<div class="code-block" style="margin-top:14px"><span class="cm">```algovis</span>
+<span class="kw">算法</span>: 二分查找
+<span class="kw">数组</span>: 1,3,5,7,9,11
+<span class="kw">目标</span>: <span class="nu">7</span>
+<span class="cm">```</span></div>
+			</div>
+			<div>
+				<h3 style="font-size:16px;margin-bottom:12px">自动识别规则（部分）</h3>
+				<div class="rule-list">
+					<div class="rl"><b>冒泡</b><code>a[j] 与 a[j+1] 比较</code>双层循环且内层上限 n-1-i</div>
+					<div class="rl"><b>选择</b><code>min = i</code>内层从 i+1 起扫描找最小值</div>
+					<div class="rl"><b>插入</b><code>key = a[i]</code>while 向左移动元素</div>
+					<div class="rl"><b>二分</b><code>mid = (l+r)/2</code>区间减半，比较 target</div>
+					<div class="rl"><b>试除</b><code>i*i &lt;= n</code>判素数函数</div>
+					<div class="rl"><b>质因数</b><code>while(x%i==0)</code>循环除尽 + 输出因子</div>
+					<div class="rl"><b>GCD</b><code>gcd</code>取模辗转，余数赋回</div>
+					<div class="rl"><b>斐波那契</b><code>f[i]=f[i-1]+f[i-2]</code>递推生成</div>
+					<div class="rl"><b>快速</b><code>quickSort / partition</code>函数名 + 递归分区</div>
+					<div class="rl"><b>归并</b><code>mergeSort / merge</code>函数名 + 临时数组合并</div>
+					<div class="rl"><b>堆</b><code>heapSort / heapify</code>函数名 + 建堆交换</div>
+					<div class="rl"><b>计数</b><code>countingSort / countSort</code>函数名 + 计数数组</div>
+					<div class="rl"><b>希尔</b><code>shellSort</code>函数名 + gap 分组插入</div>
+					<div class="rl"><b>滑动窗口</b><code>a[i-k]</code> + <code>for(i=k;...)</code>定长窗口</div>
+					<div class="rl"><b>其他代码</b>自动进入<code>步进模式</code>，逐行模拟循环与变量</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="algo-section" id="faq"><div class="wrap"><div class="sec-head"><span class="sec-no">06 / FAQ</span><h2>常见问题</h2></div><div class="faq-list"><details class="faq-item"><summary class="faq-q">右键菜单里没有「算法动图」怎么办？</summary><div class="faq-a">菜单项只在<b>选中了代码</b>时才出现——先框选一段代码，再点右键。若仍不可见，确认扩展已启用（VS Code 扩展面板搜索 algo-vis；Obsidian 设置里开启「算法动图」），并重启窗口。</div></details><details class="faq-item"><summary class="faq-q">代码识别不出来 / 提示未知算法？</summary><div class="faq-a">识别基于模式匹配，太片段化的代码可能匹配不上。解决：在选中内容里加一行声明，如 <code>算法: 冒泡排序</code>；Obsidian 还可改用代码块 algovis 并同时声明数组参数。识别不了也会进入「代码步进模式」演示执行过程，不会空手而归。引擎支持 C / C++ / Java / Python 的常见写法。</div></details><details class="faq-item"><summary class="faq-q">动画默认参数不是我想要的？</summary><div class="faq-a">每个算法都有默认演示输入（如冒泡排序默认 <code>5,3,8,4,2</code>）。需要自定义时，在选中内容里写明，如 <code>数组: 9,1,8,2,7</code>（Obsidian 代码块写法）或 <code>算法: 二分查找 / 数组: ... / 目标: 7</code>。</div></details><details class="faq-item"><summary class="faq-q">播放速度能调吗？</summary><div class="faq-a">可以。面板控制条提供 0.5x / 1x / 2x / 4x 四档调速，也可随时暂停、上一步、下一步、重置，逐帧理解每一步。</div></details><details class="faq-item"><summary class="faq-q">支持哪些语言？</summary><div class="faq-a">引擎按算法结构识别，与语言弱相关。C / C++ / Java / Python 中实现这 14 种算法的常见写法都能识别，展示源码统一为 C 风格，便于对照学习。</div></details><details class="faq-item"><summary class="faq-q">我的代码不是这 14 种算法，能演示吗？</summary><div class="faq-a">能。识别不到特定算法时，自动进入「代码步进模式」：逐行模拟执行（for/while/if 的循环推进、条件判断、变量增减、数组元素读写、break/continue、printf 输出），每一步都显示当前执行到哪一行、变量变成多少。适合看普通代码的循环到底怎么跑。</div></details><details class="faq-item"><summary class="faq-q">VS Code 版和 Obsidian 版有什么区别？</summary><div class="faq-a">同一个动画引擎。VS Code 版面向所有项目，入口是右键 / 快捷键 / 命令面板；Obsidian 版面向笔记，多了「选中浮动按钮」「代码块声明」「左侧可视化台」三种笔记内入口。</div></details></div></div></section></main>
+<footer class="contact-footer"><span>© 2026 ChenC</span><a href="tools.html">返回工具页</a><span class="footer-sign">把理解，写进下一行代码。</span></footer>
+<div class="av-modal" id="av-modal" role="dialog" aria-modal="true" aria-labelledby="av-title">
+	<div class="av-box">
+		<div class="av-head">
+			<h3 id="av-title">算法动图</h3>
+			<button class="av-edit" id="av-edit" title="修改演示数据（仅数字）">✎ 修改数据</button>
+			<button class="av-close" id="av-close" title="关闭">✕</button>
+		</div>
+		<div class="av-goal" id="av-goal"></div>
+		<div class="av-edit-panel" id="av-edit-panel">
+			<div class="aep-head">
+				<span>修改数据</span>
+				<span class="aep-safe">输入数字，观察算法如何处理。</span>
+				<button class="aep-x" id="aep-close" title="关闭">✕</button>
+			</div>
+			<div class="aep-form" id="aep-form"></div>
+			<div class="aep-code" id="aep-code"></div>
+			<div class="aep-err" id="aep-err"></div>
+			<div class="aep-actions">
+				<button class="aep-ok" id="aep-ok">应用并重新演示</button>
+				<button class="aep-cancel" id="aep-cancel">取消</button>
+			</div>
+		</div>
+		<div class="av-demo">
+			<div class="av-cells" id="av-cells"></div>
+			<div class="av-desc" id="av-desc"></div>
+			<div class="av-bar">
+				<button id="av-play">暂停</button>
+				<button id="av-reset">重置</button><button id="av-previous">上一步</button><button id="av-next">下一步</button>
+				<select class="av-speed" id="av-speed">
+					<option>0.5x</option><option selected>1x</option><option>2x</option><option>4x</option>
+				</select>
+				<span class="av-step" id="av-step" role="status"></span>
+			</div><input class="av-progress" id="av-progress" type="range" min="0" max="1" value="0" aria-label="算法演示步骤">
+		</div>
+	</div>
+</div>
+</body>
+</html>
