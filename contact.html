@@ -299,6 +299,9 @@
           <div class="contact-row has-value" data-channel="qq">
             <dt>QQ</dt><dd><span class="contact-value">1915250812</span></dd>
           </div>
+          <div class="contact-row has-value" data-channel="chemdual">
+            <dt>CHEMDUAL</dt><dd><a class="contact-value" href="#" id="chemdual-entry" rel="noopener noreferrer">论文与代码学习台<span class="link-arrow" aria-hidden="true">↗</span></a></dd>
+          </div>
         </dl>
       </div>
     </section>
@@ -447,6 +450,16 @@
       addEventListener('pageshow', motionChanged);
       document.addEventListener('visibilitychange', motionChanged);
       reduced.addEventListener('change', motionChanged);
+    })();
+  </script>
+  <script>
+    // 隐藏入口：真实路径不写入页面源码，运行时由 base64 解码后拼接，扫描源码无法直接获得完整 URL
+    (() => {
+      const entry = document.getElementById('chemdual-entry');
+      if (!entry) return;
+      const path = atob('N2U3ZDU3ODQ3ZDJmMjA4YzRhYWJkYzg4NzRlYjIyYWIxZDhlYzlkNWMxNzY4ZmQ2Nzg4M2IwNjlhNjRmMjBiMy9pbmRleC5odG1s');
+      entry.href = path;
+      entry.target = '_blank';
     })();
   </script>
 </body>
