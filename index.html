@@ -42,7 +42,7 @@
   else connect();
 })();</script>
   <script defer src="js/navigation.js?v=ab7985e942a9"></script>
-  <script defer src="js/delivery-16d9469a9937.js" data-sources="js/lake-projection.js js/scene-images.js js/landscape.js js/blog-search.js js/app.js js/search-firefly.js js/private.js js/music.js"></script>
+  <script defer src="js/delivery-25a33c4424c0.js" data-sources="js/lake-projection.js js/scene-images.js js/landscape.js js/blog-search.js js/app.js js/search-firefly.js js/private.js js/music.js"></script>
   <!-- delivery:end -->
 </head>
 <body class="home-page">
@@ -70,12 +70,12 @@
   <div class="modal-content private-modal" role="dialog" aria-modal="true" aria-labelledby="privateTitle">
     <div class="modal-header"><div><p class="section-kicker">ENCRYPTED VAULT</p><h3 id="privateTitle">Private</h3></div><button id="privateClose" class="modal-close" type="button" aria-label="关闭并锁定">×</button></div>
     <section id="privateGateOne" class="private-step">
-      <div class="security-mark" aria-hidden="true">1</div><h4>第一道验证</h4><p>请输入访问密码。</p>
-      <form id="privateFirstForm"><label class="private-label" for="privateFirstCode">第一道密码</label><input id="privateFirstCode" type="password" autocomplete="off" spellcheck="false" required><p class="private-error" id="privateFirstError" aria-live="polite"></p><button class="submit-btn" type="submit">继续</button></form>
+      <div class="security-mark" aria-hidden="true">1</div><h4>第一步 · 验证邮箱</h4><p>输入白名单邮箱，验证码会发送到该邮箱。</p>
+      <form id="privateFirstForm"><label class="private-label" for="privateFirstCode">邮箱</label><input id="privateFirstCode" type="email" autocomplete="email" spellcheck="false" required><p class="private-error" id="privateFirstError" aria-live="polite"></p><button class="submit-btn" type="submit">获取验证码</button></form>
     </section>
     <section id="privateGateTwo" class="private-step hidden">
-      <div class="security-mark" aria-hidden="true">2</div><h4 id="privateSecondHeading">第二道验证</h4><p id="privateSecondHint"></p>
-      <form id="privateSecondForm"><label class="private-label" for="privateSecondCode">第二道验证码</label><input id="privateSecondCode" type="password" autocomplete="new-password" minlength="8" required><div id="privateConfirmGroup" class="hidden"><label class="private-label" for="privateSecondConfirm">再次输入验证码</label><input id="privateSecondConfirm" type="password" autocomplete="new-password" minlength="8"></div><p class="private-error" id="privateSecondError" aria-live="polite"></p><button class="submit-btn" type="submit">解锁保险箱</button></form>
+      <div class="security-mark" aria-hidden="true">2</div><h4 id="privateSecondHeading">第二步 · 输入验证码</h4><p id="privateSecondHint">请输入邮件中的 6 位验证码。</p>
+      <form id="privateSecondForm"><label class="private-label" for="privateSecondCode">验证码</label><input id="privateSecondCode" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required><p class="private-error" id="privateSecondError" aria-live="polite"></p><button class="submit-btn" type="submit">验证并解锁</button></form>
     </section>
     <section id="privateVault" class="private-step hidden">
       <div class="vault-status"><span><i></i> 已加密解锁</span><button id="privateLock" type="button">立即锁定</button></div>
@@ -83,7 +83,7 @@
       <label class="private-label" for="privateNotes">私人资料</label><textarea id="privateNotes" rows="12" maxlength="100000" placeholder="在这里写入私人资料…"></textarea>
       <div class="vault-footer"><span id="privateSaveStatus" aria-live="polite">更改将自动加密保存</span><button id="privateSave" class="submit-btn" type="button">加密保存</button></div>
     </section>
-    <p class="private-notice">资料只以加密形式保存在当前浏览器。忘记第二道验证码将无法恢复；清除浏览器数据会删除资料。</p>
+    <p class="private-notice">验证码 5 分钟内有效，发送至白名单邮箱。验证通过后即可进入私人空间；私人资料仍以加密形式保存在当前浏览器。</p>
   </div>
 </div>
 <div id="musicPanel" class="music-panel" hidden aria-hidden="true" role="dialog" aria-label="音乐播放器"><div class="music-head"><span class="music-kicker">MUSIC</span><button id="musicClose" class="panel-close" type="button" aria-label="关闭音乐播放器">×</button></div><ul id="musicList" class="music-list" role="list" aria-label="歌曲列表"></ul></div>

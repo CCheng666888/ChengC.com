@@ -1,6 +1,6 @@
 # 网站工作约定
 
-这是 `chenc.com.cn` 网站的当前源码目录，完整路径为 `D:\编译\C.txt\chenc.com.cn`（原文件夹名 `ChengC.com`）。
+这是 `chenc.com.cn` 网站的当前源码目录，完整路径为 `D:\chenc.com.cn`（2026-10-15 由 `D:\编译\C.txt\chenc.com.cn` 整体迁入，原 `D:\编译\C.txt\ChengC.com` 内容已并入本目录，旧路径不再使用）。
 
 用户分工（2026-10-04 明确）：Codex 负责写代码与本地验证，部署由用户处理。除非用户明确要求部署，不执行 `git push` 或线上发布；完成修改后注明本地验证结果和未部署状态即可。
 
@@ -20,6 +20,7 @@
 - 仓库：`https://github.com/CCheng666888/ChengC.com`（分支 `main`）
 - 自定义域名：`chenc.com.cn`（根目录 `CNAME` 文件）
 - 历史 Netlify 部署脚本 `D:\编译\C.txt\deploy.py` 不再用于本网站部署，仅作参考，不要按旧 Netlify 流程部署。
+- 私有认证区（邮箱验证码登录 + TitanVul 学习台）挂在 Cloudflare Workers（`chenc-auth`）+ KV，代码在 `chemdual-auth/`，不入 GitHub 仓库；入口经 `contact.html` 的 CONTACT 大标题与 ChemDual 私人区右下角跳转，详见 `chemdual-auth/部署说明.md`。
 - 部署细节见 `网站更新记录/最新版与部署说明.md`。
 
 ## 性能资源维护

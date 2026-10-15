@@ -2,7 +2,7 @@
   'use strict';
 
   const VAULT_KEY = 'chengc_private_v1';
-  const FIRST_CODE_HASH = '8f42c10f85004b57944db95c1029139efab7d1b92a200b09a05e7c1b88f12c12';
+  const AUTH_API = 'https://auth.chenc.com.cn'; // 邮箱验证码服务（Cloudflare Worker 自定义域，免代理）
   const ITERATIONS = 310000;
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
@@ -11,7 +11,7 @@
   const gateOne = $('privateGateOne');
   const gateTwo = $('privateGateTwo');
   const vaultPanel = $('privateVault');
-  let firstCode = '';
+  let verifiedEmail = '';
   let vaultKey = null;
   let saveTimer = null;
 
@@ -25,13 +25,9 @@
     return Uint8Array.from(atob(value), char => char.charCodeAt(0));
   }
 
-  async function sha256(value) {
-    const digest = await crypto.subtle.digest('SHA-256', encoder.encode(value));
-    return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
-  }
-
-  async function deriveKey(primary, secondary, salt) {
-    const materialBytes = encoder.encode(primary + '\u0000' + secondary);
+  // 邮箱验证通过后，用邮箱地址作为密钥材料（稳定、不需要再记密码）
+  async function deriveKey(email, salt) {
+    const materialBytes = encoder.encode('chenc-private:' + email.toLowerCase());
     const material = await crypto.subtle.importKey('raw', materialBytes, 'PBKDF2', false, ['deriveKey']);
     materialBytes.fill(0);
     return crypto.subtle.deriveKey(
@@ -68,10 +64,9 @@
   }
 
   function clearCredentials() {
-    firstCode = '';
+    verifiedEmail = '';
     $('privateFirstCode').value = '';
     $('privateSecondCode').value = '';
-    $('privateSecondConfirm').value = '';
   }
 
   function showStep(step) {
@@ -107,6 +102,12 @@
     clearCredentials();
     $('privateFirstError').textContent = '';
     $('privateSecondError').textContent = '';
+    const firstBtn = $('privateFirstForm').querySelector('button');
+    firstBtn.disabled = false;
+    firstBtn.textContent = '获取验证码';
+    const secondBtn = $('privateSecondForm').querySelector('button');
+    secondBtn.disabled = false;
+    secondBtn.textContent = '验证并解锁';
     showStep(gateOne);
     if (focus) $('privateFirstCode').focus();
   }
@@ -143,62 +144,120 @@
     }
   });
 
+  // 第一步：发送邮箱验证码
   $('privateFirstForm').addEventListener('submit', async event => {
     event.preventDefault();
     const input = $('privateFirstCode');
+    const email = input.value.trim().toLowerCase();
     $('privateFirstError').textContent = '';
-    if (await sha256(input.value) !== FIRST_CODE_HASH) {
-      input.value = '';
-      $('privateFirstError').textContent = '第一道密码不正确。';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       input.focus();
+      $('privateFirstError').textContent = '请输入正确的邮箱地址。';
       return;
     }
-    firstCode = input.value;
-    input.value = '';
-    const isSetup = !storedVault();
-    $('privateSecondHeading').textContent = isSetup ? '设置第二道验证码' : '第二道验证';
-    $('privateSecondHint').textContent = isSetup ? '首次使用，请设置至少 8 位的独立验证码。忘记后无法找回。' : '请输入首次使用时设置的验证码。';
-    $('privateConfirmGroup').classList.toggle('hidden', !isSetup);
-    $('privateSecondForm').querySelector('button').textContent = isSetup ? '创建加密保险箱' : '解锁保险箱';
-    showStep(gateTwo);
-    requestAnimationFrame(() => $('privateSecondCode').focus());
+    const btn = $('privateFirstForm').querySelector('button');
+    btn.disabled = true;
+    btn.textContent = '发送中…';
+    try {
+      const r = await fetch(AUTH_API + '/api/cd-auth/send-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      const d = await r.json();
+      if (r.ok && d.ok) {
+        verifiedEmail = email;
+        input.value = '';
+        $('privateSecondHeading').textContent = '第二步 · 输入验证码';
+        $('privateSecondHint').textContent = '验证码已发送到 ' + email + '，5 分钟内有效。';
+        showStep(gateTwo);
+        requestAnimationFrame(() => $('privateSecondCode').focus());
+        cooldown(btn);
+      } else {
+        $('privateFirstError').textContent = d.error || '发送失败，请重试';
+        btn.disabled = false;
+        btn.textContent = '获取验证码';
+      }
+    } catch {
+      $('privateFirstError').textContent = '网络错误，请重试';
+      btn.disabled = false;
+      btn.textContent = '获取验证码';
+    }
   });
 
+  function cooldown(btn) {
+    let left = 60;
+    btn.disabled = true;
+    const timer = setInterval(() => {
+      left--;
+      btn.textContent = '重新获取(' + left + 's)';
+      if (left <= 0) {
+        clearInterval(timer);
+        btn.disabled = false;
+        btn.textContent = '获取验证码';
+      }
+    }, 1000);
+  }
+
+  // 第二步：校验验证码并解锁
   $('privateSecondForm').addEventListener('submit', async event => {
     event.preventDefault();
     const codeInput = $('privateSecondCode');
-    const confirmInput = $('privateSecondConfirm');
-    const secondCode = codeInput.value;
-    const existing = storedVault();
+    const code = codeInput.value.trim();
     $('privateSecondError').textContent = '';
-    if (secondCode.length < 8) {
-      $('privateSecondError').textContent = '第二道验证码至少需要 8 位。';
-      return;
-    }
-    if (!existing && secondCode !== confirmInput.value) {
-      confirmInput.value = '';
-      $('privateSecondError').textContent = '两次输入的验证码不一致。';
-      confirmInput.focus();
-      return;
-    }
-    codeInput.value = '';
-    confirmInput.value = '';
-    try {
-      const salt = existing ? base64ToBytes(existing.salt) : crypto.getRandomValues(new Uint8Array(16));
-      const key = await deriveKey(firstCode, secondCode, salt);
-      const content = existing ? await decryptVault(existing, key) : '';
-      if (!existing) localStorage.setItem(VAULT_KEY, JSON.stringify(await encryptText('', key, salt)));
-      vaultKey = key;
-      $('privateNotes').value = content;
-      $('privateSaveStatus').textContent = '更改将自动加密保存';
-      showStep(vaultPanel);
-      clearCredentials();
-      requestAnimationFrame(() => $('privateNotes').focus());
-    } catch {
-      clearCredentials();
+    if (!verifiedEmail) {
       showStep(gateOne);
-      $('privateFirstError').textContent = '第二道验证码不正确，或加密资料已损坏。请重新完成两道验证。';
-      $('privateFirstCode').focus();
+      return;
+    }
+    if (!/^\d{6}$/.test(code)) {
+      $('privateSecondError').textContent = '请输入 6 位数字验证码。';
+      return;
+    }
+    const btn = $('privateSecondForm').querySelector('button');
+    btn.disabled = true;
+    btn.textContent = '验证中…';
+    try {
+      const r = await fetch(AUTH_API + '/api/cd-auth/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: verifiedEmail, code, mode: 'json' })
+      });
+      const d = await r.json();
+      if (!r.ok || !d.ok) {
+        $('privateSecondError').textContent = d.error || '验证失败';
+        codeInput.value = '';
+        codeInput.focus();
+        btn.disabled = false;
+        btn.textContent = '验证并解锁';
+        return;
+      }
+      codeInput.value = '';
+      const existing = storedVault();
+      try {
+        const salt = existing ? base64ToBytes(existing.salt) : crypto.getRandomValues(new Uint8Array(16));
+        const key = await deriveKey(d.email, salt);
+        let content = '';
+        if (existing) {
+          content = await decryptVault(existing, key);
+        } else {
+          localStorage.setItem(VAULT_KEY, JSON.stringify(await encryptText('', key, salt)));
+        }
+        vaultKey = key;
+        $('privateNotes').value = content;
+        $('privateSaveStatus').textContent = '更改将自动加密保存';
+        showStep(vaultPanel);
+        clearCredentials();
+        requestAnimationFrame(() => $('privateNotes').focus());
+      } catch {
+        clearCredentials();
+        showStep(gateOne);
+        $('privateFirstError').textContent = '本机保存的加密资料无法用当前邮箱密钥解开（旧版数据）。如需重新开始，请清除浏览器中本站数据后重试。';
+        $('privateFirstCode').focus();
+      }
+    } catch {
+      $('privateSecondError').textContent = '网络错误，请重试';
+      btn.disabled = false;
+      btn.textContent = '验证并解锁';
     }
   });
 

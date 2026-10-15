@@ -1,11 +1,11 @@
 {
-  "revision": "9524fb7956e3",
+  "revision": "c840caf00003",
   "pages": {
     "index.html": [
       "css/delivery-ca722b986c2c.css",
       "css/delivery-ff2d7f70a2ed.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-16d9469a9937.js",
+      "js/delivery-25a33c4424c0.js",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
@@ -212,7 +212,7 @@
     "js/blog-search.js",
     "js/carousel.js",
     "js/collection.js",
-    "js/delivery-16d9469a9937.js",
+    "js/delivery-25a33c4424c0.js",
     "js/delivery-8483d4004d37.js",
     "js/delivery-95c8f11511cd.js",
     "js/delivery-d22bbe7e4f71.js",
