@@ -13,3 +13,6 @@ preview/local-server-error.log
 preview/local-server-output.log
 preview/content-before-20261012/
 preview/content-staged-20261012/
+
+# 已迁移至认证入口的本地保留目录（不入公开仓库，防止绕过认证重新上线）
+7e7d57847d2f208c4aabdc8874eb22ab1d8ec9d5c1768fd67883b069a64f20b3/
