@@ -88,8 +88,9 @@ function bundle(kind,files) {
     // Give article landscapes the same responsive background as the home page.
     if(page.startsWith('posts/')&&!css.includes('css/night-lake.css'))css.push('css/night-lake.css');
     // Shared reading, contrast and touch refinements are last so page styles stay intact.
-    css=css.filter(file=>file!=='css/site-refinements.css');
-    css.push('css/site-refinements.css');
+    const paperOverrides=css.filter(file=>file==='css/paper-theme.css');
+    css=css.filter(file=>file!=='css/site-refinements.css'&&file!=='css/paper-theme.css');
+    css.push('css/site-refinements.css',...paperOverrides);
     const uniqueCss=[...new Set(css)], common=uniqueCss.filter(file=>file==='css/style.css'), extra=uniqueCss.filter(file=>file!=='css/style.css');
     const js=[];
     html=html.replace(/<script\b[^>]*(?:src="[^"]*"|data-theme-source="[^"]*")[^>]*>[\s\S]*?<\/script>/g,tag=>{

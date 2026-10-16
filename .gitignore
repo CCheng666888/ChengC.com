@@ -19,3 +19,9 @@ preview/content-staged-20261012/
 
 # 认证区 Worker 源码与密钥说明（含 Resend API Key 明文，绝不入公开仓库）
 chemdual-auth/
+
+# 本地工具运行时与私有后端（不入公开仓库）
+.wrangler/
+output/
+physics-lab/
+physics-oj-server/

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="light" data-paper-theme>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,10 +7,12 @@
   <title>大模型"动手"之后 · ChenC 的萤火通讯</title>
   <meta name="description" content="当大模型开始替你操作网页和工具，AI 安全与 Web 安全就不再是两条平行线。">
   <!-- delivery:start -->
-  <link rel="stylesheet" href="../css/delivery-537c596546e8.css" data-sources="css/secret-arcade.css css/contact.css css/navigation.css css/night-lake.css css/site-refinements.css">
+  <link rel="stylesheet" href="../css/delivery-72bdf0da9ba9.css" data-sources="css/secret-arcade.css css/contact.css css/navigation.css css/night-lake.css css/site-refinements.css css/paper-theme.css">
   <script data-theme-source="js/theme.js">(() => {
   'use strict';
   const system = matchMedia('(prefers-color-scheme: light)');
+  const paperPage = document.documentElement.hasAttribute('data-paper-theme');
+  const fallback = () => paperPage ? 'light' : (system.matches ? 'light' : 'dark');
   let preference = null;
   try { preference = localStorage.getItem('theme'); } catch {}
   if (!['light', 'dark'].includes(preference)) preference = null;
@@ -18,16 +20,16 @@
     document.documentElement.classList.toggle('light', theme === 'light');
     document.documentElement.classList.toggle('dark', theme !== 'light');
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.content = theme === 'light' ? '#f3f7f5' : '#0b2431';
+    if (meta) meta.content = paperPage ? (theme === 'light' ? '#f5f3ee' : '#171e1b') : (theme === 'light' ? '#f3f7f5' : '#0b2431');
     document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
       button.setAttribute('aria-label', theme === 'light' ? '切换深色主题' : '切换浅色主题');
     });
   }
-  apply(preference || (system.matches ? 'light' : 'dark'));
+  apply(preference || fallback());
   document.documentElement.classList.add('js');
-  system.addEventListener('change', () => { if (!preference) apply(system.matches ? 'light' : 'dark'); });
+  system.addEventListener('change', () => { if (!preference) apply(fallback()); });
   function connect() {
-    apply(preference || (system.matches ? 'light' : 'dark'));
+    apply(preference || fallback());
     document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
       button.addEventListener('click', () => {
         preference = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
@@ -42,7 +44,7 @@
   <script defer src="../js/navigation.js?v=ab7985e942a9"></script>
   <!-- delivery:end -->
 </head>
-<body class="contact-page">
+<body class="contact-page paper-theme">
   <a class="skip-link" href="#main">跳到主要内容</a>
   <div class="pixel-stars" aria-hidden="true"></div>
   <header class="contact-header">
