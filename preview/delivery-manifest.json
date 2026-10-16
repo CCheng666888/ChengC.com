@@ -1,11 +1,11 @@
 {
-  "revision": "37eeb94c4a02",
+  "revision": "cf0979824d92",
   "pages": {
     "index.html": [
       "css/delivery-ca722b986c2c.css",
       "css/delivery-ef13dadef242.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-05c58169872c.js",
+      "js/delivery-2289b4314745.js",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
@@ -53,6 +53,12 @@
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/ai-web-security.html": [
+      "css/delivery-5ced4bb1e45f.css",
+      "js/navigation.js?v=ab7985e942a9",
+      "assets/cangshan-erhai.webp",
+      "assets/cangshan-erhai-mobile.webp"
+    ],
+    "posts/beacon-relay.html": [
       "css/delivery-5ced4bb1e45f.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
@@ -212,7 +218,7 @@
     "js/blog-search.js",
     "js/carousel.js",
     "js/collection.js",
-    "js/delivery-05c58169872c.js",
+    "js/delivery-2289b4314745.js",
     "js/delivery-8483d4004d37.js",
     "js/delivery-95c8f11511cd.js",
     "js/delivery-d22bbe7e4f71.js",

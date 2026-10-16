@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-paper-theme>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101f24">
+  <title>烽火来信 · ChenC 的萤火通讯</title>
+  <meta name="description" content="把七道纯纸上逻辑题串成一封古风军报：排序、条件句、过河、真假话、逐轮推理、操作反推、多约束联合，全程离线，不需要冷门知识。">
+  <!-- delivery:start -->
+  <link rel="stylesheet" href="../css/delivery-5ced4bb1e45f.css" data-sources="css/secret-arcade.css css/contact.css css/navigation.css css/night-lake.css css/site-refinements.css css/paper-theme.css">
+  <script data-theme-source="js/theme.js">(() => {
+  'use strict';
+  const paperPage = document.documentElement.hasAttribute('data-paper-theme');
+  const fallback = () => 'light';
+  let preference = null;
+  try { preference = localStorage.getItem('theme'); } catch {}
+  if (!['light', 'dark'].includes(preference)) preference = null;
+  function apply(theme) {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.classList.toggle('dark', theme !== 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = paperPage ? (theme === 'light' ? '#f5f3ee' : '#171e1b') : (theme === 'light' ? '#f3f7f5' : '#0b2431');
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.setAttribute('aria-label', theme === 'light' ? '切换深色主题' : '切换浅色主题');
+    });
+  }
+  apply(preference || fallback());
+  document.documentElement.classList.add('js');
+  function connect() {
+    apply(preference || fallback());
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.addEventListener('click', () => {
+        preference = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+        apply(preference);
+        try { localStorage.setItem('theme', preference); } catch {}
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', connect);
+  else connect();
+})();</script>
+  <script defer src="../js/navigation.js?v=ab7985e942a9"></script>
+  <!-- delivery:end -->
+</head>
+<body class="contact-page paper-theme">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="pixel-stars" aria-hidden="true"></div>
+  <header class="contact-header">
+    <a class="contact-brand" href="../index.html">ChenC<span>.</span></a>
+    <span class="header-frequency">FIREFLY FREQUENCY / 03</span>
+    <a class="back-link" href="../index.html#blog">返回博客</a>
+  </header>
+  <main id="main" class="contact-main">
+    <div class="page-label"><span class="pixel-cross" aria-hidden="true">✦</span><span>一篇关于逻辑解谜游戏的创作记录</span><span class="label-code">CHENC / POST</span></div>
+    <h1>烽火来信<span class="heading-dot" aria-hidden="true">.</span></h1>
+    <section class="firefly-window" aria-labelledby="articleTitle">
+      <div class="window-bar">
+        <span class="window-name"><span class="window-mark" aria-hidden="true"></span>萤火通讯 · 技术手记</span>
+        <div class="window-controls">
+          <a class="window-return" href="../index.html#blog" aria-label="关闭手记，返回博客">×</a>
+        </div>
+      </div>
+      <div class="window-body" style="display:block;border-left:0;border-right:0">
+        <div class="article-body" id="articleTitle">
+          <header class="article-head">
+            <p class="channel-label"><span aria-hidden="true">[</span> GAME / 创作记录 <span aria-hidden="true">]</span></p>
+            <h2>烽火来信：把七道逻辑题写成一封军报</h2>
+            <p class="article-meta"><time datetime="2026-10-16">2026 年 10 月 16 日</time><span>约 4 分钟阅读</span><span>离线推理游戏</span></p>
+          </header>
+
+          <p>一直想做一个不需要联网、不需要知识储备、打开就能玩十分钟的小游戏。不打操作、不靠反应，全靠一张纸一支笔的那种推理。这次把平时喜欢的七道逻辑题串成了一个古风小故事：你是关城的传令兵，七个烽火燧台依次送来军报，每封都藏着一道题，解完才能点起下一道回火。</p>
+
+          <h3>七道题，从易到难</h3>
+          <p>故事框架很简单：望沙、听风、照雪、渡河、伏岭、归雁、长明七座燧台，每台一封军报。题目我刻意选了七种不同的推理套路，避免重复：</p>
+          <p>第一台<strong>五影不依名次</strong>，是经典排序题——五个人到达先后，给出相邻、间隔、先后条件，还原位次。第二台<strong>五报容一误</strong>考条件句逻辑，五份英文译报里恰好一句错，推出哪两盏灯亮着。第三台<strong>灯要怎样回来</strong>是过河问题的变种，五个人一盏灯一叶舟，求最短时间。第四台<strong>谁在交替说话</strong>是真假话推理，三个人分别说真话、说假话、一真一假，给每人两句话定身份。第五台<strong>没有新字的来信</strong>是那道经典的"生日谜题"——知月者和知日者三轮对话，从沉默里推日期。第六台<strong>三遍抄牍的空白</strong>反过来，已知操作后的结果，反推初始牌序和操作顺序。最后一台<strong>十札合成一封</strong>是压轴，人名、封号、位次三个维度同时排，十条条件互相约束。</p>
+
+          <h3>为什么全做成纸上推理</h3>
+          <p>做之前我给自己定了几条规矩：所有题目必须只靠题目里给的条件就能解，不需要冷门史实、不需要先看攻略、不需要试出隐藏交互；答错了给一句"坏收据"，告诉你这份回报和条件对不上，但不告诉你错在哪；答对了给一句"好收据"，顺便点起下一道烽火。</p>
+          <p>界面就做成聊天窗口的样子——你在输入框里回报密语，军报一封封往下滑。每道题旁边留一条军令旁批当提示，实在卡住了可以看一眼，但不直接给答案。</p>
+
+          <h3>最费劲的是让答案唯一</h3>
+          <p>逻辑题最怕的不是难，是<strong>有多个解</strong>。一道题如果按条件能排出两种顺序，那不管玩家答哪个都可能被误判，整个体验就崩了。</p>
+          <p>前五道题改了好几轮。比如第五道生日题，一开始剩好几个候选日期，就得加条件或者调整日期表，直到三轮对话下来只剩唯一答案。第七道十札联合题最麻烦——人名、封号、位次三个变量缠在一起，我写了个小脚本枚举所有排列，把十条条件一条条过滤，确认只有一种排列同时满足全部条件才定稿。第六道反推题也是，必须保证不管你从哪个中间状态倒推，初始牌序都是唯一的。</p>
+          <p>这个过程比写故事费时间。故事写一晚上就行，但题目自洽性得反复跑、反复删条件加条件。</p>
+
+          <h3>打包方式</h3>
+          <p>核心就是一个 HTML 单文件，故事、样式、脚本全内嵌，双击就能玩，不用联网也不用配环境。另外打了一个 Windows 版 EXE，进度自动存在游戏旁边的存档目录里，关了再打开接着推。手机浏览器直接打开单文件版也能玩。全程不请求账号、不读位置、不连远程服务。</p>
+
+          <h3>试玩</h3>
+          <p>游戏放在 <a class="back-link" href="../play/beacon-relay/%E7%83%BD%E7%81%AB%E6%9D%A5%E4%BF%A1-%E5%8D%95%E6%96%87%E4%BB%B6%E8%AF%95%E7%8E%A9%E7%89%88.html" style="padding:0;font-weight:700">烽火来信单文件试玩版 ↗</a>，浏览器打开就能开始。Windows EXE 和多页面版本也在同目录下。</p>
+          <p>七道题全部解完会到结局。不赶时间的话，泡杯茶慢慢推，大概半小时到四十分钟。</p>
+
+          <blockquote class="article-quote">好的逻辑题不考知识，只考你愿不愿意把条件一条条摆开。这游戏就是给愿意摆条件的人做的。</blockquote>
+        </div>
+      </div>
+      <div class="window-bottom"><span class="mechanical-ticks" aria-hidden="true">▰ ▰ ▰</span><span>把微小的光，留给明天。</span><span class="bottom-code" aria-hidden="true">TYPE-VI</span></div>
+    </section>
+    <div class="contact-strip">
+      <div>
+        <p class="contact-kicker">NEXT STOP / 下一站</p>
+        <h2>七道烽火</h2>
+        <p>从五人排序到十札联合，每道题都能在纸上独立推出唯一解。</p>
+      </div>
+      <a class="pixel-link" href="../play/beacon-relay/%E7%83%BD%E7%81%AB%E6%9D%A5%E4%BF%A1-%E5%8D%95%E6%96%87%E4%BB%B6%E8%AF%95%E7%8E%A9%E7%89%88.html"><span>↗</span>开始试玩<small>浏览器直接打开</small></a>
+    </div>
+  </main>
+  <footer class="contact-footer"><span>© 2026 ChenC</span><a class="back-link" href="ai-web-security.html" style="padding:0">上一篇：AI 与 Web 安全笔记</a><span class="footer-sign">愿此行，终抵群星。</span></footer>
+</body>
+</html>

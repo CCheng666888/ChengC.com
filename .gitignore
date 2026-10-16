@@ -25,3 +25,6 @@ chemdual-auth/
 output/
 physics-lab/
 physics-oj-server/
+
+# 烽火来信本机进度（不随网站发布）
+play/beacon-relay/烽火来信存档/

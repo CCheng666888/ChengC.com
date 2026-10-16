@@ -3,6 +3,15 @@
   const STORAGE_KEY = 'chengc_posts';
   const DEFAULT_POSTS = [
   {
+    "id": "beacon-relay",
+    "title": "烽火来信：把七道逻辑题写成一封军报",
+    "category": "study",
+    "content": "一个不联网、不考知识的离线推理小游戏：七座烽火燧台七道纯纸上逻辑题，从五人排序到十札联合，答错收坏收据、答对点回火，全程靠枚举验证答案唯一。",
+    "date": "2026/10/16",
+    "builtin": true,
+    "url": "posts/beacon-relay.html"
+  },
+  {
     "id": "ai-web-security",
     "title": "大模型“动手”之后：AI 安全与 Web 安全正在变成同一件事",
     "category": "study",
