@@ -59,7 +59,7 @@ body.paper-theme .site-header,html.light body.paper-theme .site-header,body.pape
 .paper-reading .tools,.paper-reading .settings{visibility:hidden;pointer-events:none}
 .scene-only .paper-content,.scene-only .site-header{display:none}
 /* Real article cards unfold in their own columns; upward scrolling reverses it. */
-.paper-theme .paper-content .post-card.turning-card{transform:var(--card-turn);transform-origin:50% 0;transition:none;will-change:transform;box-shadow:0 var(--card-lift) 32px #272d2b1c}
+.paper-theme .paper-content .post-card.turning-card{transform:var(--card-turn);transform-origin:50% 0;transition:none;will-change:transform,opacity;box-shadow:0 10px 28px #272d2b1a}
 .motion-preference-notice{position:fixed;z-index:1102;left:16px;bottom:16px;max-width:calc(100vw - 32px);min-height:44px;padding:10px 16px;border:1px solid var(--paper-line);border-radius:7px;background:var(--paper-bg);color:var(--paper-ink);font:13px/1.6 system-ui,sans-serif;cursor:pointer;box-shadow:0 4px 20px #00000012}
 @media(min-width:801px) and (max-width:1190px){.paper-theme.home-page .nav-shell{padding-inline:40px;gap:18px}.paper-theme.home-page .nav-links{gap:16px}.paper-theme.home-page .nav-search{width:155px;margin-left:0}}
 @media(max-width:800px){

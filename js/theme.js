@@ -1,8 +1,7 @@
 (() => {
   'use strict';
-  const system = matchMedia('(prefers-color-scheme: light)');
   const paperPage = document.documentElement.hasAttribute('data-paper-theme');
-  const fallback = () => paperPage ? 'light' : (system.matches ? 'light' : 'dark');
+  const fallback = () => 'light';
   let preference = null;
   try { preference = localStorage.getItem('theme'); } catch {}
   if (!['light', 'dark'].includes(preference)) preference = null;
@@ -17,7 +16,6 @@
   }
   apply(preference || fallback());
   document.documentElement.classList.add('js');
-  system.addEventListener('change', () => { if (!preference) apply(fallback()); });
   function connect() {
     apply(preference || fallback());
     document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {

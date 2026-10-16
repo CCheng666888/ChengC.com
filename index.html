@@ -9,12 +9,11 @@
   <link rel="preload" as="image" href="assets/cangshan-erhai.webp" type="image/webp" media="(min-width:801px)" fetchpriority="high">
   <!-- delivery:start -->
   <link rel="stylesheet" href="css/delivery-ca722b986c2c.css" data-sources="css/style.css">
-  <link rel="stylesheet" href="css/delivery-6a2e8c91b880.css" data-sources="css/navigation.css css/night-lake.css css/showcase.css css/home-search.css css/site-refinements.css css/paper-theme.css">
+  <link rel="stylesheet" href="css/delivery-ef13dadef242.css" data-sources="css/navigation.css css/night-lake.css css/showcase.css css/home-search.css css/site-refinements.css css/paper-theme.css">
   <script data-theme-source="js/theme.js">(() => {
   'use strict';
-  const system = matchMedia('(prefers-color-scheme: light)');
   const paperPage = document.documentElement.hasAttribute('data-paper-theme');
-  const fallback = () => paperPage ? 'light' : (system.matches ? 'light' : 'dark');
+  const fallback = () => 'light';
   let preference = null;
   try { preference = localStorage.getItem('theme'); } catch {}
   if (!['light', 'dark'].includes(preference)) preference = null;
@@ -29,7 +28,6 @@
   }
   apply(preference || fallback());
   document.documentElement.classList.add('js');
-  system.addEventListener('change', () => { if (!preference) apply(fallback()); });
   function connect() {
     apply(preference || fallback());
     document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
@@ -44,7 +42,7 @@
   else connect();
 })();</script>
   <script defer src="js/navigation.js?v=ab7985e942a9"></script>
-  <script defer src="js/delivery-daec3603d7d1.js" data-sources="js/lake-projection.js js/scene-images.js js/landscape.js js/blog-search.js js/app.js js/search-firefly.js js/private.js js/music.js js/home-paper.js"></script>
+  <script defer src="js/delivery-05c58169872c.js" data-sources="js/lake-projection.js js/scene-images.js js/landscape.js js/blog-search.js js/app.js js/search-firefly.js js/private.js js/music.js js/home-paper.js"></script>
   <!-- delivery:end -->
 </head>
 <body class="home-page paper-theme">

@@ -1,11 +1,11 @@
 {
-  "revision": "c684428a278f",
+  "revision": "37eeb94c4a02",
   "pages": {
     "index.html": [
       "css/delivery-ca722b986c2c.css",
-      "css/delivery-6a2e8c91b880.css",
+      "css/delivery-ef13dadef242.css",
       "js/navigation.js?v=ab7985e942a9",
-      "js/delivery-daec3603d7d1.js",
+      "js/delivery-05c58169872c.js",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
@@ -47,62 +47,62 @@
       "js/delivery-95c8f11511cd.js"
     ],
     "posts/ai-web-security-references.html": [
-      "css/delivery-72bdf0da9ba9.css",
+      "css/delivery-5ced4bb1e45f.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/ai-web-security.html": [
-      "css/delivery-72bdf0da9ba9.css",
+      "css/delivery-5ced4bb1e45f.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/building-this-site.html": [
       "css/delivery-ca722b986c2c.css",
-      "css/delivery-c2a7a790ebb4.css",
+      "css/delivery-47fe29802033.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/hello-world.html": [
       "css/delivery-ca722b986c2c.css",
-      "css/delivery-c2a7a790ebb4.css",
+      "css/delivery-47fe29802033.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/linux-commands.html": [
       "css/delivery-ca722b986c2c.css",
-      "css/delivery-c2a7a790ebb4.css",
+      "css/delivery-47fe29802033.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/multi-book-qa.html": [
       "css/delivery-ca722b986c2c.css",
-      "css/delivery-c2a7a790ebb4.css",
+      "css/delivery-47fe29802033.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/painting-the-countryside.html": [
       "css/delivery-ca722b986c2c.css",
-      "css/delivery-c2a7a790ebb4.css",
+      "css/delivery-47fe29802033.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/schedule-query.html": [
       "css/delivery-ca722b986c2c.css",
-      "css/delivery-c2a7a790ebb4.css",
+      "css/delivery-47fe29802033.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
     ],
     "posts/summer-support-teaching.html": [
       "css/delivery-ca722b986c2c.css",
-      "css/delivery-c2a7a790ebb4.css",
+      "css/delivery-47fe29802033.css",
       "js/navigation.js?v=ab7985e942a9",
       "assets/cangshan-erhai.webp",
       "assets/cangshan-erhai-mobile.webp"
@@ -194,17 +194,17 @@
     "assets/products/yinian-cover-desktop.webp",
     "assets/products/yinian-cover-mobile.webp",
     "css/delivery-27d492c12230.css",
+    "css/delivery-47fe29802033.css",
+    "css/delivery-5ced4bb1e45f.css",
     "css/delivery-613a7d9cba7e.css",
     "css/delivery-682094e527a5.css",
-    "css/delivery-6a2e8c91b880.css",
     "css/delivery-6e1d2ef20e2c.css",
     "css/delivery-6ebe6787b399.css",
-    "css/delivery-72bdf0da9ba9.css",
     "css/delivery-9a99bf21530f.css",
     "css/delivery-b80fbe927120.css",
-    "css/delivery-c2a7a790ebb4.css",
     "css/delivery-ca722b986c2c.css",
     "css/delivery-e44c3a750045.css",
+    "css/delivery-ef13dadef242.css",
     "js/algo-vis-engine.js",
     "js/algo-vis.js",
     "js/app.js",
@@ -212,10 +212,10 @@
     "js/blog-search.js",
     "js/carousel.js",
     "js/collection.js",
+    "js/delivery-05c58169872c.js",
     "js/delivery-8483d4004d37.js",
     "js/delivery-95c8f11511cd.js",
     "js/delivery-d22bbe7e4f71.js",
-    "js/delivery-daec3603d7d1.js",
     "js/delivery-e13704fea9c8.js",
     "js/delivery-f3dcf5577606.js",
     "js/firefly-motion.js",

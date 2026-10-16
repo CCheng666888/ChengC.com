@@ -11,9 +11,8 @@
   <link rel="stylesheet" href="../css/delivery-9a99bf21530f.css" data-sources="css/showcase.css css/work-gallery-v2.css css/work-detail.css css/navigation.css css/site-refinements.css">
   <script data-theme-source="js/theme.js">(() => {
   'use strict';
-  const system = matchMedia('(prefers-color-scheme: light)');
   const paperPage = document.documentElement.hasAttribute('data-paper-theme');
-  const fallback = () => paperPage ? 'light' : (system.matches ? 'light' : 'dark');
+  const fallback = () => 'light';
   let preference = null;
   try { preference = localStorage.getItem('theme'); } catch {}
   if (!['light', 'dark'].includes(preference)) preference = null;
@@ -28,7 +27,6 @@
   }
   apply(preference || fallback());
   document.documentElement.classList.add('js');
-  system.addEventListener('change', () => { if (!preference) apply(fallback()); });
   function connect() {
     apply(preference || fallback());
     document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
@@ -63,7 +61,7 @@
         <div class="article-meta"><time>本地检索 + 在线 AI · 2026 年 10 月</time><span>学习工具</span><span>本站可体验</span></div>
       </header>
       <div class="article-body">
-        <aside class="content-update" aria-label="当前版本说明"><p><strong>最近更新 · 2026 年 10 月 12 日</strong></p><p>本文最初记录的是本地检索版本。当前问答台已升级为浏览器本地检索与 DeepSeek 在线回答相结合：先查找六本教材整理的知识点，再由 AI 组织回答，提供知识点与章节引用供核对。</p><p>语义模型未就绪或加载失败时使用关键词检索，在线生成失败时回退为知识库原文组装；检索相关度不足时不启用 AI。首次使用仍需加载模型与资源。在线回答需要联网，会将你的问题和相关知识点经本站接口发送给 DeepSeek。</p></aside>
+        <aside class="content-update" aria-label="当前版本说明"><p><strong>最近更新 · 2026 年 10 月 16 日</strong></p><p>问答界面采用纸色、墨绿与宋体标题，支持教材筛选、快捷提问、停止生成及可展开的原文引用。</p><p>本地关键词检索打开即用；语义增强按需启用，模型与运行时首次共约 49 MB，在后台线程准备。AI 整理可关闭，在线回答会将问题与相关知识点经本站接口发送给 DeepSeek；生成失败或超时显示原文，相关度不足时不调用 AI。</p></aside>
 
         <h2>设计目的</h2>
         <p>那阵子同时在啃密码学、Web 安全、数据库和计算机组成原理，再加上信息安全数学基础、数字电子技术，前后六本教材。知识点散落在不同书里，复习时最常卡住的不是「学不会」，而是「想不起这个知识点在哪本书、哪一章」——翻半天还不一定找对。</p>
@@ -72,17 +70,17 @@
         <h2>设计思路与当前流程</h2>
         <p>数据先行：每条知识点按「书名 · 章节 · 标题」组织，带答案、公式、示例和关键词，一共 <strong>6 本书、326 条</strong>。检索分两级：</p>
         <ul>
-          <li><strong>语义检索为主</strong>：问题先转成向量，和 326 条知识点逐一比对相似度，返回最相关的原文；</li>
-          <li><strong>词法匹配兜底</strong>：语义模型未就绪或加载失败时，自动降级为 BM25 词法匹配，保证任何时候都能查；</li>
+          <li><strong>关键词检索即开即用</strong>：默认使用 BM25 词法匹配，首屏不下载推理库和语义模型；</li>
+          <li><strong>语义增强按需启用</strong>：启用后在后台线程将问题转成向量，与知识点比较相似度；资源准备失败时仍可使用关键词检索；</li>
           <li><strong>引用溯源</strong>：每条回答都带「回答依据」卡片，列出命中的知识点（书名 · 章节 · 标题），点开能看原文，便于核对生成内容。</li>
         </ul>
         <p>检索后由 DeepSeek 在线组织回答，生成失败时回退知识库原文；语义检索相关度不足时直接显示最接近的资料，不调用 AI。</p>
-        <p>数据、推理库（transformers.js + ONNX Runtime）和语义模型（bge-small-zh，约 23MB）<strong>全部随站点托管</strong>，浏览器首次需加载这些资源；检索在本地运行，在线 AI 会经本站接口接收问题与命中的知识点。</p>
+        <p>数据、推理库（transformers.js + ONNX Runtime）和语义模型（bge-small-zh）<strong>全部随站点托管</strong>。首次仅加载界面与原文知识库；启用语义增强时才获取约 49 MB 的模型和运行时。检索在本地运行，在线 AI 会经本站接口接收问题与命中的知识点。</p>
 
         <h2>实现过程</h2>
         <ul>
           <li>先把六本书按章节摘知识点，写成结构化 JSON——这一步最花时间，326 条是慢慢攒出来、逐条核对过的；</li>
-          <li>再用脚本为每条知识点生成向量索引，构建时注入页面；</li>
+          <li>再用脚本为每条知识点生成向量索引；当前将索引与原文分离，启用语义增强时才加载；</li>
           <li>前端做成问答界面：左侧选书范围（单本或全部）、输入框提问、结果带依据卡片，窗口旁还常驻一排「试一试」快捷问题；</li>
           <li>最后用 pywebview 把同一个页面套进 Windows 桌面窗口，双击即用，适合不习惯开浏览器的场景。</li>
         </ul>
@@ -101,7 +99,7 @@
           <li>增加「试一试」快捷问题，不知道问什么时点一个就能开练。</li>
         </ul>
 
-        <h2>更新记录</h2><p><strong>2026-10-06 · 在线 AI 回答接入</strong>：本地检索后由 DeepSeek 组织回答，保留引用与生成失败回退。2026-10-12 同步更新介绍和数据去向说明。</p>
+        <h2>更新记录</h2><p><strong>2026-10-16 · 界面与加载优化</strong>：调整纸色界面与控件，默认关键词检索，语义资源按需在后台线程加载。先显示原文与出处，再进行可停止的 AI 整理；已有回答不会被模型就绪事件覆盖。</p><p><strong>2026-10-06 · 在线 AI 回答接入</strong>：本地检索后由 DeepSeek 组织回答，保留引用与生成失败回退。2026-10-12 同步更新介绍和数据去向说明。</p>
         <ul class="detail-timeline">
           <li>
             <time>2026-09-23</time>
@@ -121,7 +119,7 @@
         </ul>
 
         <h2>在线体验</h2>
-        <p>直接放到了本站，和整个站点的暗色风格保持一致。首次使用需加载语义模型（约 23MB），缓存可减少重复下载；模型未就绪时用词法匹配，在线生成失败时显示知识库原文。在线回答会发送问题与相关知识点。</p>
+        <p>本站可直接体验纸色问答工作台，关键词检索无需等待模型。语义增强由你按需启用；AI 整理可随时停止，失败时保留知识库原文。在线回答会发送问题与相关知识点，引用可展开核对。</p>
         <p><a class="button primary" href="../multi-book-qa/index.html">打开多书知识问答台 ↗</a></p>
       </div>
       <footer class="article-footer"><a class="button secondary" href="../tools.html">← 返回工具页</a><a class="button primary" href="../multi-book-qa/index.html" target="_blank" rel="noopener">打开问答台 ↗</a></footer>

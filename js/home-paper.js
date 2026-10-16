@@ -33,6 +33,11 @@
   const clamp = n => Math.max(0, Math.min(1, n));
   let frame = 0, lastScroll = scrollY;
   let cards = [...grid.querySelectorAll(':scope > .post-card')].slice(0,2);
+  // Cache the header height once; measuring it every frame forces synchronous layout.
+  let headerEl = document.querySelector('.site-header');
+  let navHeight = headerEl ? headerEl.offsetHeight : 0;
+  const measureHeader = () => { navHeight = headerEl ? headerEl.offsetHeight : 0; };
+  new ResizeObserver(measureHeader).observe(headerEl);
   const motion = window.ChenCPaperMotion = { progress:0, direction:'none', active:false, mode:'desktop', motionPreview:false };
   const motionNotice = document.createElement('button');
   motionNotice.type = 'button'; motionNotice.className = 'motion-preference-notice'; motionNotice.hidden = true;
@@ -74,7 +79,6 @@
     // Measure the untransformed grid, so card motion never feeds back into progress.
     // Position alone defines the pose: scrolling back retraces it, on every visit.
     const start = innerHeight + 80;
-    const navHeight = document.querySelector('.site-header').offsetHeight;
     const end = Math.max(navHeight + (compact.matches ? 56 : 72), innerHeight * .14);
     const rawProgress = clamp((start - grid.getBoundingClientRect().top) / (start - end));
     // Integer scroll offsets can leave a fraction of a pixel at either endpoint.

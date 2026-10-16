@@ -9,9 +9,8 @@
   <link rel="stylesheet" href="css/delivery-6ebe6787b399.css" data-sources="css/navigation.css css/showcase.css css/work-gallery-v2.css css/work-gallery-v3.css css/work-detail-link.css css/algo-cover.css css/site-refinements.css">
   <script data-theme-source="js/theme.js">(() => {
   'use strict';
-  const system = matchMedia('(prefers-color-scheme: light)');
   const paperPage = document.documentElement.hasAttribute('data-paper-theme');
-  const fallback = () => paperPage ? 'light' : (system.matches ? 'light' : 'dark');
+  const fallback = () => 'light';
   let preference = null;
   try { preference = localStorage.getItem('theme'); } catch {}
   if (!['light', 'dark'].includes(preference)) preference = null;
@@ -26,7 +25,6 @@
   }
   apply(preference || fallback());
   document.documentElement.classList.add('js');
-  system.addEventListener('change', () => { if (!preference) apply(fallback()); });
   function connect() {
     apply(preference || fallback());
     document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
@@ -54,7 +52,7 @@
       <figure class="work-art" style="--cover:url('../assets/products/qa-cover-v1-desktop.webp')"><picture><source media="(max-width:800px)" srcset="assets/products/qa-cover-v1-mobile.webp"><img src="assets/products/qa-cover-v1-desktop.webp" alt="多书知识问答台的封面" width="1600" height="900" loading="eager" draggable="false" decoding="async" srcset="assets/products/qa-cover-v1-mobile.webp 640w, assets/products/qa-cover-v1-desktop.webp 1280w" sizes="(max-width:480px) calc(100vw - 110px), (max-width:800px) calc(100vw - 140px), 740px" fetchpriority="high"></picture><span class="work-detail-chip" aria-hidden="true">查看设计 · 开发历程<span class="chip-arrow">↗</span></span><figcaption>概念封面</figcaption></figure>
       <div class="work-copy"><div class="work-meta"><span>6 本教材 · 326 条知识点</span><span>本站可体验</span></div>
         <h2>多书知识问答台</h2><p class="work-tagline">找到答案，也找到出处。</p><p class="work-description">从六本教材的 326 条知识点中本地检索，再由 DeepSeek 在线组织回答，提供章节引用供核对。语义模型未就绪时使用关键词检索，在线生成失败时回退知识库原文。</p>
-        <ul class="work-features"><li>6 本教材</li><li>326 条知识点</li><li>本地检索 + 在线 AI 回答</li></ul><div class="work-actions"><a class="button primary portal-link" href="multi-book-qa/index.html" data-animate><span>打开问答台</span></a><a class="button ghost secondary portal-link" href="posts/multi-book-qa.html" data-animate><span>阅读开发记录</span></a><a class="button ghost secondary portal-link" href="work/multi-book-qa.html" data-animate><span>项目详情</span></a></div><p class="work-note">首次使用需加载模型与资源。在线回答需要联网，会将问题和检索到的知识点经本站接口发送给 DeepSeek；引用供核对，不保证生成内容逐句准确。</p>
+        <ul class="work-features"><li>6 本教材</li><li>326 条知识点</li><li>本地检索 + 在线 AI 回答</li></ul><div class="work-actions"><a class="button primary portal-link" href="multi-book-qa/index.html" data-animate><span>打开问答台</span></a><a class="button ghost secondary portal-link" href="posts/multi-book-qa.html" data-animate><span>阅读开发记录</span></a><a class="button ghost secondary portal-link" href="work/multi-book-qa.html" data-animate><span>项目详情</span></a></div><p class="work-note">关键词检索打开即用，语义增强按需加载。开启 AI 整理时，会将问题和相关知识点经本站接口发送给 DeepSeek；引用供核对，不保证生成内容逐句准确。</p>
       </div></article>
 <article class="work-card" data-scene="notes" data-title="Note to Site" data-detail="work/note-to-site.html" role="group" aria-label="2 / 5：Note to Site">
       <figure class="work-art" style="--cover:url('../assets/products/notes-cover-v1-desktop.webp')"><picture><source media="(max-width:800px)" srcset="assets/products/notes-cover-v1-mobile.webp"><img src="assets/products/notes-cover-v1-desktop.webp" alt="Note to Site的封面" width="1600" height="900" loading="lazy" draggable="false" decoding="async" srcset="assets/products/notes-cover-v1-mobile.webp 640w, assets/products/notes-cover-v1-desktop.webp 1280w" sizes="(max-width:480px) calc(100vw - 110px), (max-width:800px) calc(100vw - 140px), 740px"></picture><span class="work-detail-chip" aria-hidden="true">查看设计 · 开发历程<span class="chip-arrow">↗</span></span><figcaption>概念封面</figcaption></figure>

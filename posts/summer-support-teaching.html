@@ -6,12 +6,11 @@
   <meta name="description" content="七日乡村支教中的少儿编程、红色诗歌朗诵与双向成长。"><meta name="theme-color" content="#090910">
   <!-- delivery:start -->
   <link rel="stylesheet" href="../css/delivery-ca722b986c2c.css" data-sources="css/style.css">
-  <link rel="stylesheet" href="../css/delivery-c2a7a790ebb4.css" data-sources="css/navigation.css css/night-lake.css css/site-refinements.css css/paper-theme.css">
+  <link rel="stylesheet" href="../css/delivery-47fe29802033.css" data-sources="css/navigation.css css/night-lake.css css/site-refinements.css css/paper-theme.css">
   <script data-theme-source="js/theme.js">(() => {
   'use strict';
-  const system = matchMedia('(prefers-color-scheme: light)');
   const paperPage = document.documentElement.hasAttribute('data-paper-theme');
-  const fallback = () => paperPage ? 'light' : (system.matches ? 'light' : 'dark');
+  const fallback = () => 'light';
   let preference = null;
   try { preference = localStorage.getItem('theme'); } catch {}
   if (!['light', 'dark'].includes(preference)) preference = null;
@@ -26,7 +25,6 @@
   }
   apply(preference || fallback());
   document.documentElement.classList.add('js');
-  system.addEventListener('change', () => { if (!preference) apply(fallback()); });
   function connect() {
     apply(preference || fallback());
     document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
