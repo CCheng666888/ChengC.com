@@ -1,0 +1,241 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>论文 · ChemDual 学习笔记</title><style>
+:root{--bg:#f6f5f0;--ink:#18382f;--muted:#718078;--green:#175e4d;--lime:#d3e8a7;--coral:#dd8065;--line:#dce3d7;--serif:"Noto Serif SC","Source Han Serif SC","Songti SC","SimSun",serif;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--bg);font-family:var(--sans);-webkit-font-smoothing:antialiased}a{color:var(--green);text-underline-offset:4px}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #a5bd79;outline-offset:5px}::selection{background:#d6eab6;color:#18382f}
+.wrap{max-width:1240px;margin:auto;padding:0 40px}.topbar{height:90px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line)}.brand{display:flex;gap:11px;align-items:center;color:var(--ink);text-decoration:none;font-size:22px;font-weight:750;letter-spacing:-.5px}.brand svg{width:29px;height:29px}.brand small{font-size:11px;font-weight:500;letter-spacing:1.5px;color:var(--muted);border-left:1px solid #cbd4c7;padding-left:13px;margin-left:4px}.topmeta{font-size:12px;color:var(--muted);letter-spacing:.5px}.toplinks{display:flex;align-items:center;gap:24px;font-size:13px}.toplinks a{text-decoration:none;color:#5b7167}.toplinks a:hover{color:var(--green)}
+.hero{padding:64px 0 36px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}.overline{font-size:11px;font-weight:750;letter-spacing:2.3px;color:var(--green);display:flex;align-items:center;gap:8px;margin-bottom:20px}.overline:before{content:"";display:inline-block;width:20px;height:1px;background:var(--green)}.hero h1{font-family:var(--serif);font-size:58px;font-weight:600;letter-spacing:2px;line-height:1.2;margin:0}.hero h1 em{font-style:normal;color:var(--green)}.hero p{font-size:15px;line-height:1.9;color:#6c7b72;max-width:470px;margin:23px 0 0}.hero-note{min-width:125px;text-align:right;padding-bottom:4px}.hero-note .count{font-family:Georgia,serif;font-size:55px;line-height:1;color:var(--green);letter-spacing:-3px}.hero-note .count small{font:13px var(--sans);letter-spacing:0;margin-left:7px;color:var(--muted)}.hero-note p{font-size:11px;letter-spacing:1px;margin:9px 0 0}
+.portals{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:12px 0 28px}.portal{position:relative;overflow:hidden;display:block;text-decoration:none;color:var(--ink);padding:32px 34px 28px;min-height:340px;border-radius:18px;border:1px solid rgba(31,67,48,.07);transition:transform .25s,box-shadow .25s;background:#e8eedc}.portal:hover{transform:translateY(-5px);box-shadow:0 20px 45px #263f2314}.portal.paper{background:#e9eedf}.portal.code{background:#f0e5de}.portal .topline{display:flex;justify-content:space-between;position:relative;z-index:2;font-size:11px;letter-spacing:1.8px;color:#5c725f}.portal.code .topline{color:#8f6c5d}.number{font:italic 22px Georgia,serif;letter-spacing:0}.portal h2{font-family:var(--serif);font-size:45px;letter-spacing:4px;font-weight:600;margin:63px 0 14px;position:relative;z-index:2}.portal p{font-size:13px;line-height:1.8;max-width:280px;color:#65796a;margin:0;position:relative;z-index:2}.portal.code p{color:#877569}.portal-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:27px;padding-top:18px;border-top:1px solid #b9c7ab80;font-size:12px;position:relative;z-index:2}.portal.code .portal-bottom{border-color:#d3baaa80}.arrow{width:35px;height:35px;display:grid;place-items:center;background:#fff9;border-radius:50%;font-size:20px;transition:transform .2s}.portal:hover .arrow{transform:translateX(4px)}.art{position:absolute;right:28px;top:45px;width:214px;height:208px;pointer-events:none}.art svg{width:100%;height:100%}.code-art{right:22px;top:67px;width:218px;height:152px;transform:rotate(-7deg);border:1px solid #c8b4a7;border-radius:9px;background:#fffbf5;box-shadow:7px 11px 0 #d9c5b650;padding:16px}.mini-dots{display:flex;gap:4px;margin-bottom:18px}.mini-dots i{width:5px;height:5px;background:#cbb4a6;border-radius:50%}.mini-code{font:11px/1.85 Consolas,monospace;color:#39795e;white-space:nowrap}.mini-code b{color:#bf745b;font-weight:500}.mini-code .indent{padding-left:12px}.startline{border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 0 28px;color:#78877b;font-size:12px}.startline strong{color:#305f48;font-weight:600}.pagefoot{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding:22px 0 30px;font-size:11px;color:#8a9489;gap:20px}.dot{width:6px;height:6px;display:inline-block;background:#8cab66;border-radius:50%;margin-right:7px}
+.pagehero{padding:38px 0 28px;display:flex;align-items:flex-end;justify-content:space-between;gap:25px}.pagehero .overline{margin-bottom:12px}.pagehero h1{font-family:var(--serif);font-size:39px;letter-spacing:2px;margin:0;font-weight:600}.pagehero p{max-width:610px;color:#6f7d72;font-size:13px;line-height:1.85;margin:14px 0 0}.mode-tabs{display:flex;padding:4px;border:1px solid #d6dfd0;background:#ecefe5;border-radius:99px;gap:3px;flex-shrink:0}.mode-tabs button{border:0;background:none;border-radius:99px;padding:9px 15px;font-size:12px;color:#7c8b7d}.mode-tabs button.active{background:#fff;color:var(--green);box-shadow:0 1px 5px #30452212}
+.course{display:grid;grid-template-columns:215px minmax(0,1fr);gap:42px;padding-top:15px;margin-bottom:50px}.sidebar{position:sticky;top:24px;align-self:start}.side-title{font-size:10px;letter-spacing:1.8px;color:#8e9b8b;font-weight:700;margin:0 0 14px}.sidenav{display:flex;flex-direction:column;gap:5px}.sidenav button,.sidenav a{display:flex;align-items:center;gap:10px;text-align:left;border:0;background:none;color:#778775;border-radius:8px;padding:11px 12px;font-size:12px;text-decoration:none;line-height:1.4}.sidenav button:hover,.sidenav a:hover{background:#e8ecdf;color:var(--green)}.sidenav button.active{background:#dfe9d3;color:#245d40;font-weight:700}.sidenav .idx{font-family:Georgia,serif;font-size:14px;opacity:.5}.side-progress{margin:26px 11px 0;padding-top:20px;border-top:1px solid var(--line)}.side-progress p{font-size:11px;color:#7e8c7c;margin:0 0 9px}.track{height:3px;border-radius:2px;background:#dfe6d6;overflow:hidden}.track span{display:block;height:100%;background:#56956b;transition:width .25s;width:0}.source-links{margin-top:20px;font-size:11px;line-height:2}.source-links a{display:block;color:#7b8d79;text-decoration:none}.read-area{min-width:0;background:#fffefa;border:1px solid #e7e9df;border-radius:13px;padding:38px 40px 42px;box-shadow:0 7px 30px #3a4f3610}.reading{font-size:14px;line-height:1.9;color:#445348}.reading h1{font-family:var(--serif);font-size:28px;line-height:1.4;color:var(--ink);margin:0 0 24px;font-weight:600}.reading h2{font-size:21px;line-height:1.45;margin:40px 0 16px;padding-top:23px;border-top:1px solid #e5e8dd;color:#20452f;scroll-margin-top:25px}.reading h3{font-size:17px;color:#264b32;margin:25px 0 13px}.reading p{margin:13px 0}.reading strong{color:#28533d;font-weight:650}.reading ol,.reading ul{padding-left:22px}.reading li+li{margin-top:7px}.reading code{font-family:Consolas,"SFMono-Regular",monospace;font-size:.9em}.reading :not(pre)>code{color:#557057;background:#eef1e7;border-radius:4px;padding:2px 5px;word-break:break-word}.reading pre{position:relative;background:#203a33;color:#e6efe3;border-radius:9px;padding:22px;overflow:auto;line-height:1.65;margin:20px 0 25px;tab-size:4;border-top:3px solid #8aac6e}.reading pre code{font-size:12px;color:inherit;white-space:pre}.reading table{display:block;overflow:auto;width:100%;border-collapse:collapse;font-size:12px;line-height:1.75;margin:20px 0 27px}.reading td,.reading th{border:1px solid #e1e6d7;padding:10px 12px;text-align:left;vertical-align:top;min-width:105px}.reading th{background:#edf2e5;color:#4b6c4a}.reading td{background:#fffefa}.reading a{text-decoration-color:#b4c8aa}.reading h1:first-child{display:none}.chapter-label{font-size:10px;letter-spacing:1.8px;color:#8a9b77;margin:0 0 18px;text-transform:uppercase}.chapter-next{display:flex;align-items:center;justify-content:space-between;gap:15px;border-top:1px solid #e2e7d9;margin-top:38px;padding-top:24px;font-size:12px;color:#889580}.next-btn{border:0;background:#225f47;color:#fff;border-radius:7px;padding:12px 17px;font-size:12px}.next-btn:hover{background:#164d36}.hidden{display:none!important}
+.day-list{display:grid;gap:12px;margin:22px 0 30px}.day-card{border:1px solid #e0e6d8;border-radius:9px;background:#fffdf7;padding:20px 22px;display:grid;grid-template-columns:84px 1fr;gap:16px;transition:background .2s,border-color .2s}.day-card.done{background:#edf5e6;border-color:#c4d8b7}.day-date{font:14px/1.5 Georgia,var(--sans);color:#527d47}.day-check{display:flex;gap:7px;align-items:center;margin:8px 0 0;font:10px var(--sans);color:#8b9c7b}.day-check input{accent-color:#4a8655;width:14px;height:14px;cursor:pointer}.day-body h3{margin:0 0 7px;font-size:14px;line-height:1.7}.day-body p{margin:0;font-size:12px;line-height:1.95;color:#778470}.day-body strong{font-weight:650;color:#4f7150}.day-link{display:inline-block;margin-top:10px;font-size:11px;color:var(--green);border:1px solid #cfdac9;border-radius:6px;padding:5px 11px;background:#fff;text-decoration:none}.day-link:hover{background:#edf5e6;border-color:#a8c08f}.pdfbox{background:#fff;border:1px solid #dfe5d8;border-radius:12px;padding:12px}.pdf-toolbar{display:flex;justify-content:space-between;gap:20px;align-items:center;font-size:12px;padding:4px 7px 15px;color:#7e8f79}.pdfbox iframe{border:0;display:block;width:100%;height:78vh;border-radius:5px;background:#edf0e7}.pdf-tip{font-size:11px;color:#8c9983;margin:12px 6px 1px}
+@media(max-width:1080px){.hero h1{font-size:49px}.art{opacity:.8;width:175px;right:16px}.portal{padding:28px;min-height:350px}.portal p{max-width:225px}.course{gap:24px;grid-template-columns:175px minmax(0,1fr)}.read-area{padding:30px}.wrap{padding:0 28px}}
+@media(max-width:760px){.wrap{padding:0 20px}.topbar{height:74px}.brand small,.topmeta{display:none}.hero{padding-top:40px;align-items:flex-start}.hero h1{font-size:40px}.hero-note{display:none}.portals{grid-template-columns:1fr;gap:16px}.portal{min-height:310px}.portal h2{margin-top:45px}.art{width:195px;opacity:1}.startline{align-items:flex-start;flex-direction:column;gap:8px}.pagehero{align-items:flex-start;flex-direction:column;padding:28px 0 16px}.pagehero h1{font-size:33px}.course{display:block}.sidebar{position:static;margin-bottom:18px}.sidenav{flex-direction:row;overflow:auto;gap:4px}.sidenav button,.sidenav a{white-space:nowrap;padding:9px 11px}.side-title,.side-progress,.source-links{display:none}.read-area{padding:24px 20px}.day-card{padding:17px 15px;grid-template-columns:64px 1fr;gap:11px}.toplinks{gap:14px}.pagefoot{flex-direction:column;gap:8px}.reading h2{font-size:19px}.reading pre{padding:16px}.pdfbox iframe{height:70vh}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+@media(max-width:480px){.portal .art{width:135px;height:130px;top:30px;right:18px}.portal .code-art{height:100px;top:48px;padding:10px}.mini-dots{margin-bottom:10px}.mini-code{font-size:7.5px}.portal p{max-width:245px}}
+@media print{body{background:#fff}.topbar,.sidebar,.mode-tabs,.chapter-next{display:none}.wrap{padding:0}.course{display:block}.read-area{border:0;box-shadow:none;padding:0}.reading article.hidden{display:block!important}.reading pre{white-space:pre-wrap;background:#f5f5f5;color:#111}.reading pre code{white-space:pre-wrap}.portal{break-inside:avoid}.pagehero{padding-top:0}}
+</style></head><body><div class="wrap"><header class="topbar"><a class="brand" href="index.html"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M8 8 24 8 28 22 14 28 4 18Z M8 8 14 28 M24 8 4 18" stroke="currentColor" stroke-width="1.2"/><g fill="currentColor"><circle cx="8" cy="8" r="3"/><circle cx="24" cy="8" r="3"/><circle cx="28" cy="22" r="2.5"/><circle cx="14" cy="28" r="2.5"/><circle cx="4" cy="18" r="2.5"/></g></svg>ChemDual<small>STUDY NOTES</small></a><nav class="toplinks"><a href="index.html">← 返回首页</a><a href="代码.html">去读代码 ↗</a></nav></header><section class="pagehero"><div><div class="overline">01 / READ THE PAPER</div><h1>把论文读成自己的思路。</h1><p>先认识任务和概念，再跟着每日清单动手。遇到陌生的词，停下来用一个小例子理解它。</p></div><div class="mode-tabs"><button class="active" data-mode="study">学习路线</button><button data-mode="pdf">论文原文</button></div></section><main><div id="study-view" class="course"><aside class="sidebar"><p class="side-title">LEARNING PATH</p><nav class="sidenav"><button data-section="0"><span class="idx">01</span>目标与边界</button><button data-section="1"><span class="idx">02</span>概念词典</button><button data-section="2"><span class="idx">03</span>14 天学习路线</button><button data-section="3"><span class="idx">04</span>学习资料</button><button data-section="4"><span class="idx">05</span>第一个练习</button><button data-section="5"><span class="idx">06</span>复现材料</button></nav><div class="side-progress"><p id="day-progress">学习进度 · 0 / 14 天</p><div class="track"><span id="progress-bar"></span></div></div><div class="source-links"><a href="IJCAI-2025-0840.pdf" target="_blank">论文 PDF ↗</a><a href="Appendix.pdf" target="_blank">作者附录 ↗</a><a href="https://github.com/JacklinGroup/ChemDual" target="_blank" rel="noopener">原始仓库 ↗</a></div></aside><div class="read-area"><article class="reading" id="paper-article"><h1>ChemDual：14 天学习与复现清单</h1>
+<p>时间：<strong>2026 年 10 月 15 日—10 月 28 日</strong>（北京时间）。按每天约 <strong>3 小时</strong>安排；如果只有 1 小时，先完成每天的“动手与验收”，阅读放到次日。遇到不懂的地方，先按下文的“小词典”理解，再带着具体代码或报错继续问我。</p>
+<h2>先说目标和现实边界</h2>
+<p>这篇论文研究两个相反方向的化学预测：<strong>反应物 → 产物</strong>（反应预测）和 <strong>产物 → 可能的反应物</strong>（逆合成）。作者先用 BRICS 把分子拆成片段，再让同一模型学习“分子 → 片段”和“片段 → 分子”；随后训练两种反应方向。这里的“双任务”指两种输入输出方向，<strong>不是会调用工具、自主规划的 Agent</strong>。模型还扩展了 LLaMA 3.1 的 tokenizer。先读论文图 2、图 3、方法第 3 节和实验第 4 节即可，不必一开始读完所有公式。<a href="https://www.ijcai.org/proceedings/2025/0840.pdf">论文</a></p>
+<p>请把结果分成三级，报告时必须标清：</p>
+<ol>
+<li><strong>链路验证</strong>：本地已有随机初始化小模型的一步 LoRA 训练、BRICS 和评估脚本通过。这只证明软件能跑。</li>
+<li><strong>方法级复现</strong>：用有来源且隔离测试集的数据，实际完成双方向数据构造、训练、预测、评估，并做单方向对照。若换了模型、词表或数据规模，就如实写“缩小规模复现”。</li>
+<li><strong>论文数值复现</strong>：在作者的数据划分、完整 tokenizer、LLaMA 3.1 8B、明确的训练配置与足够 GPU 上，重跑主要实验并对照论文表 1、表 2。当前<strong>不能承诺两周内达到这一层</strong>：仓库仍把训练数据和 ChemDual 权重标成 TODO，缺少完整 tokenizer 构建材料；你目前也没有 NVIDIA GPU。<a href="https://github.com/JacklinGroup/ChemDual">仓库</a></li>
+</ol>
+<p>本地软件已经装好；<a href="file:///C:/Users/19152/Desktop/Web%E7%A7%91%E7%A0%94/ChemDual/reproduce/%E6%9C%AC%E5%9C%B0%E7%8E%AF%E5%A2%83%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.md">环境使用说明</a>记录了入口、版本、通过的检查和缺失条件。<strong>两个公开的 1000 条测试 JSON 只用于看格式和最终测试，不用于训练、调参或挑选模型。</strong></p>
+<h2>开始前要懂的 10 个词</h2>
+<table>
+<thead>
+<tr>
+<th>词</th>
+<th>先用这句话理解</th>
+<th>自检问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SMILES</td>
+<td>把分子图写成一行文本；<code>CCO</code> 是乙醇的一种写法，<code>.</code> 隔开多个组分。</td>
+<td><code>CCO</code> 和 <code>OCC</code> 为什么可能指同一分子？</td>
+</tr>
+<tr>
+<td>RDKit / 规范化 SMILES</td>
+<td>RDKit 把文本解析成分子并能输出统一写法；非法字符串可能无法解析。</td>
+<td><code>Chem.MolFromSmiles</code> 返回 <code>None</code> 时怎么办？</td>
+</tr>
+<tr>
+<td>BRICS / 虚拟原子</td>
+<td>按预设的化学键规则切分；<code>[4*]</code> 这类标记指示切口和可连接位置，不是普通碳原子。</td>
+<td>一次切分如何产生“分子→片段”的训练对？</td>
+</tr>
+<tr>
+<td>指令样本 / JSON</td>
+<td>一条样本有任务描述、输入、目标输出；仓库数据是 <code>instruction</code>、<code>input</code>、<code>output</code> 字段。</td>
+<td>哪个字段是模型应该生成的答案？</td>
+</tr>
+<tr>
+<td>tokenizer / token</td>
+<td>把字符串切成模型可处理的编号；SMILES 的一个字符未必等于一个 token。</td>
+<td>增加 <code>[4*]</code> 这个 token 后词表大小是否变化？</td>
+</tr>
+<tr>
+<td>SFT / 交叉熵</td>
+<td>给模型正确答案，让它逐 token 预测；预测越偏离正确 token，损失越大。</td>
+<td>训练 loss 下降能否直接证明测试准确率高？</td>
+</tr>
+<tr>
+<td>LoRA</td>
+<td>冻结大部分基础模型参数，只训练少量附加参数，节省训练显存。</td>
+<td>为什么 LoRA 仍需要足够显存加载基础模型？</td>
+</tr>
+<tr>
+<td>batch / 累积 / epoch</td>
+<td>batch 是一次处理的样本数；梯度累积把多批次的梯度合起来；epoch 是训练集完整走一遍。</td>
+<td>2 卡、每卡 batch 2、累积 8 的有效 batch 是多少？（32）</td>
+</tr>
+<tr>
+<td>数据泄漏</td>
+<td>训练阶段看到测试答案或其等价表示，使评估失真。</td>
+<td>同一反应的正、逆方向可否分别放入训练和测试？（不可）</td>
+</tr>
+<tr>
+<td>Exact / Validity / 指纹相似度</td>
+<td>分别问“答案是否完全相同”“预测能否解析成分子”“结构有多像”。</td>
+<td>相似度高是否就代表反应答案正确？（不一定）</td>
+</tr>
+</tbody></table>
+<h2>每日清单</h2>
+<p><a class="day-link" href="每日详细计划.html">查看 14 天详细计划：每天学什么、干什么、怎么验收 →</a></p>
+<p>每天保留 15 分钟写实验日志：<strong>今天改了什么、运行了什么命令、看到了什么、下一步阻碍是什么</strong>。不要用“跑了”代替保存数据量、随机种子、模型和脚本版本。</p>
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>学什么</th>
+<th>动手与完成标准</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>D1 10/15</strong></td>
+<td>文件路径、终端、Python 的列表/字典、JSON；理解论文图 2 的四个方向。</td>
+<td>双击项目根目录的 <code>检查实验环境.cmd</code>；打开 <code>启动JupyterLab.cmd</code>，运行 <code>reproduce/本地实验入门.ipynb</code>。在笔记里用自己的话写出 4 个“输入→输出”；知道 CPU 小模型 smoke test 不是论文结果。<strong>今天就核查/申请基础模型访问、查找训练数据与 tokenizer 来源，记录结果。</strong></td>
+</tr>
+<tr>
+<td><strong>D2 10/16</strong></td>
+<td>SMILES 基础：原子、键、分支 <code>()</code>、闭环数字、芳香环小写字母、<code>.</code> 多组分；RDKit 解析与规范化。</td>
+<td>在 notebook 自己输入至少 10 条有效和 3 条无效 SMILES，画出有效分子；记录 RDKit 解析成功率。检查仓库两个测试 JSON 的字段、各 1000 条，但不要拿来训练。</td>
+</tr>
+<tr>
+<td><strong>D3 10/17</strong></td>
+<td>BRICS、虚拟原子，以及论文的数据来源与过滤（去重、无效结构、分子量、token 长度）。</td>
+<td>对 10 个<strong>自己选的</strong>合法分子做 BRICS，保存“原分子、片段、切分数量”。画出 2 个例子，解释为什么片段不等于真实实验反应物。确定作者数据/tokenizer/GPU 是否能在剩余时间取得；没有就走方法级路线。</td>
+</tr>
+<tr>
+<td><strong>D4 10/18</strong></td>
+<td>训练/验证/测试划分；正逆样本成对构造；数据泄漏。</td>
+<td>用独立分子样本构造两方向各 20 条以上的演示数据，按<strong>原始分子或反应 ID 先划分、后生成正逆样本</strong>。测试集零重叠；保存来源、筛选条件、随机种子、每个方向的条数。演示集只能用于学习，不能报论文性能。</td>
+</tr>
+<tr>
+<td><strong>D5 10/19</strong></td>
+<td>tokenizer 与词表扩展；为什么新增 token 需要相应的模型嵌入参数。</td>
+<td>比较普通 tokenizer 对 10 条 SMILES 的 token 切分；列出论文给出的 16 个虚拟原子类型、180 个功能团这一<strong>数量</strong>和 4 个边界标记。作者未公开完整 180 项列表；不要自造一份并称为作者版本。记下基础模型访问状态。</td>
+</tr>
+<tr>
+<td><strong>D6 10/20</strong></td>
+<td>PyTorch 的“输入→预测→loss→反向传播→更新”；LoRA；显存、batch、梯度累积。</td>
+<td>读 <code>reproduce/logs/smoke-training.log</code> 并运行一次已有 <code>python reproduce/smoke_test.py</code>；指出 loss 和保存的 adapter 在哪里。用一句话解释：这是随机小模型的程序验证。比较论文附录和 YAML 的 batch、学习率、epoch，记下差异。</td>
+</tr>
+<tr>
+<td><strong>D7 10/21</strong></td>
+<td>训练配置、实验记录和可复现性。</td>
+<td>做一页《实验规格》：模型来源、数据来源与许可/版本、划分、tokenizer、任务模板、训练参数、硬件、评估协议。<strong>检查关口</strong>：若仍缺作者训练数据/tokenizer/GPU，把两周目标定为“可审计的方法级复现准备 + 本地小模型验证”；不要把它写成论文数值复现。</td>
+</tr>
+<tr>
+<td><strong>D8 10/22</strong></td>
+<td>第一阶段：分子↔片段的双方向训练。</td>
+<td><strong>有真实训练数据和 GPU 时</strong>：先用小样本跑通一个短训练、保存 checkpoint、记录耗时/显存，再决定全量；<strong>无 GPU 时</strong>：只用本地小模型跑双方向示例，检查数据装载、label 和 checkpoint 保存，标记为教学级实验。</td>
+</tr>
+<tr>
+<td><strong>D9 10/23</strong></td>
+<td>第二阶段：反应预测与逆合成的 SFT；Mol-Instruction 与 ChEMBL/BRICS 数据不是同一种标签。</td>
+<td><strong>有数据/GPU 时</strong>：加载 D8 checkpoint，按已固定划分训练正逆两个方向；<strong>无 GPU 时</strong>：用少量已核查的独立反应样本验证数据格式、正逆指令、长度分布和训练入口。严禁把公开测试 JSON 塞进训练配置。</td>
+</tr>
+<tr>
+<td><strong>D10 10/24</strong></td>
+<td>baseline 与公平比较。</td>
+<td>为同一数据、同一基础模型、相近训练预算设计单方向对照；记录改动只在“是否加入反向任务”。如果没有真实训练资源，完成可运行配置与数据计数，结果栏填“未运行”。</td>
+</tr>
+<tr>
+<td><strong>D11 10/25</strong></td>
+<td>推理：给固定输入生成预测；保存 JSONL。</td>
+<td>对<strong>预先冻结的验证/测试集合</strong>逐条保存 <code>label</code>、<code>predict</code>、样本 ID、模型 checkpoint、生成参数和耗时。能读取预测文件并随机核对 10 条。没有真实模型时，只验证文件与评估链路，不报告性能。</td>
+</tr>
+<tr>
+<td><strong>D12 10/26</strong></td>
+<td>Exact、Validity、BLEU、Levenshtein、Morgan/MACCS/RDK 指纹；无效输出处理。</td>
+<td>用 <code>python reproduce/evaluate_predictions.py 预测文件.jsonl --tokenizer 本地模型目录</code> 测评真实预测；另手算 3 例严格 Exact 与组分部分重合。**原仓库化学脚本打印的 <code>Accuracy</code> 是组分交集比例，不能直接当论文表里的严格 <code>EXACT</code>。**记录多组分排序、规范化及无效样本分母规则。</td>
+</tr>
+<tr>
+<td><strong>D13 10/27</strong></td>
+<td>误差分析与消融。</td>
+<td>若 D8–D12 有真实可比训练，汇总双任务/单任务差异和至少 20 个错误例（无效 SMILES、组分漏掉、近似但不完全相同等）。否则检查训练/评估脚本和待补材料，不编造图表。对接实验需要受体结构和网格设置，先列缺项，作为后续工作。</td>
+</tr>
+<tr>
+<td><strong>D14 10/28</strong></td>
+<td>科研复现写法：事实、差异、局限。</td>
+<td>交付 1 份报告：①方法流程图；②环境与数据出处；③配置/版本/种子；④通过的链路；⑤真实训练和指标表（若有）；⑥与论文表 1/表 2 的<strong>可比性</strong>；⑦未完成项和下一轮 GPU 计划。每个数字能指回原始预测文件和脚本。</td>
+</tr>
+</tbody></table>
+<h2>卡住时的最短学习路线</h2>
+<p>只读与你当天任务有关的页面，读完立刻做右栏的小练习：</p>
+<table>
+<thead>
+<tr>
+<th>哪天用</th>
+<th>官方/原始资料</th>
+<th>读完会做什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D1、D4</td>
+<td><a href="https://docs.python.org/3/tutorial/datastructures.html">Python 数据结构</a>、<a href="https://docs.python.org/3/library/json.html">Python JSON</a></td>
+<td>读取一条 <code>instruction/input/output</code>，统计数据条数。</td>
+</tr>
+<tr>
+<td>D2–D3</td>
+<td><a href="https://www.rdkit.org/docs/GettingStartedInPython.html">RDKit 入门</a>、<a href="https://rdkit.org/docs/source/rdkit.Chem.BRICS.html">RDKit BRICS API</a></td>
+<td><code>MolFromSmiles</code>、<code>MolToSmiles</code>、<code>BRICSDecompose</code> 各用一次。</td>
+</tr>
+<tr>
+<td>D3、D5</td>
+<td><a href="https://www.ijcai.org/proceedings/2025/0840.pdf">ChemDual 论文</a>第 3 节、<a href="https://github.com/JacklinGroup/ChemDual/blob/main/assets/Appendix.pdf">官方附录</a></td>
+<td>自己画出两个训练阶段，列出论文/配置参数差异。</td>
+</tr>
+<tr>
+<td>D5</td>
+<td><a href="https://huggingface.co/learn/llm-course/chapter2/4">Hugging Face tokenizer 教程</a></td>
+<td>对同一条 SMILES 输出 token 列表和长度。</td>
+</tr>
+<tr>
+<td>D6</td>
+<td><a href="https://docs.pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html">PyTorch Quickstart</a>、<a href="https://huggingface.co/docs/peft/main/en/conceptual_guides/lora">PEFT LoRA 概念</a></td>
+<td>看懂 loss、optimizer、adapter 各负责什么。</td>
+</tr>
+<tr>
+<td>D7–D10</td>
+<td><a href="https://github.com/JacklinGroup/ChemDual">ChemDual 仓库</a>、<a href="https://github.com/hiyouga/LLaMA-Factory/blob/main/data/README.md">LLaMA-Factory 数据格式</a></td>
+<td>看懂 <code>dataset_info.json</code>、训练 YAML 的输入和输出。注意网页是持续更新的，实际操作以项目内安装的 0.9.0 与配置为准。</td>
+</tr>
+<tr>
+<td>D4、D9</td>
+<td><a href="https://www.ebi.ac.uk/training/online/courses/chembl-quick-tour/accessing-chembl-data/">ChEMBL 获取说明</a>、<a href="https://github.com/zjunlp/Mol-Instructions">Mol-Instructions 原始项目</a></td>
+<td>找到独立数据来源，核对 SMILES/SELFIES 表示、任务字段、许可和划分；不能直接假定与作者处理后的数据相同。</td>
+</tr>
+</tbody></table>
+<h2>现在就能做的第一个练习</h2>
+<p>双击项目根目录的 <code>打开实验终端.cmd</code>，在该终端输入 <code>python</code>，再输入下面四行。<code>Chem.MolFromSmiles</code> 把字符串读成分子；<code>MolToSmiles</code> 给出规范写法。若 <code>Chem.MolFromSmiles</code> 返回 <code>None</code>，说明输入没有被解析，后续不能当合法分子训练。</p>
+<pre><code class="language-python">from rdkit import Chem
+mol = Chem.MolFromSmiles(&quot;OCC&quot;)
+print(mol is not None)
+print(Chem.MolToSmiles(mol))
+</code></pre>
+<p>接着在同一个终端里查看一条测试数据的<strong>字段</strong>（只读）：</p>
+<pre><code class="language-python">import json
+rows = json.load(open(&quot;dataset/ChemDual_fragment_test.json&quot;, encoding=&quot;utf-8&quot;))
+print(len(rows), rows[0].keys())
+</code></pre>
+<p>如果终端命令、Python 变量、SMILES、训练概念中的任何一步看不懂，把<strong>具体哪一行</strong>发给我；我可以从这一行开始教，并给你 10 分钟内能做完的小练习。</p>
+<h2>关于严格复现必须补齐的材料</h2>
+<ul>
+<li>作者的预训练与反应任务<strong>训练/验证划分</strong>、处理脚本和数据来源版本；独立公开数据可做方法级实验，但不等于作者相同划分。</li>
+<li>多尺度 tokenizer 的完整功能团词表、添加顺序、特殊 token 与 checkpoint 对应方式；论文图 2 与第 3.2 节对 <code>&lt;BOF&gt;/&lt;EOF&gt;</code> 和 <code>&lt;BOM&gt;/&lt;EOM&gt;</code> 的文字归属有不一致，必须通过作者代码或说明确认。</li>
+<li>LLaMA 3.1 8B Instruct 的个人访问许可与实际 NVIDIA GPU。论文附录报告 4× RTX 4090 24GB 和累计 212 GPU 小时；这是其全部实验的报告量，<strong>不能直接推算你的一次训练耗时</strong>。</li>
+<li>确定采用论文附录还是仓库 YAML 的参数并记录差异；例如附录写微调学习率 <code>1e-4</code>、每卡 batch 2，仓库 <code>conf/train_ChemDual.yaml</code> 写 <code>5e-5</code>、每卡 batch 3。未确认作者最终配置之前，不能把任何一方直接当作“完全论文设置”。</li>
+<li>若要复现分子对接，还需论文所用受体结构、准备方法与网格参数。前两周优先完成预测实验。</li>
+</ul>
+<p>这份清单是学习与执行计划；每晚把当天日志贴给我，我可以按你的实际进度继续讲解下一天的知识点，并帮助检查脚本或结果。不会默认已有数据或 GPU。</p>
+</article></div></div><section class="pdfbox hidden" id="pdf-view"><div class="pdf-toolbar"><span>IJCAI 2025 · ChemDual · 原文 9 页</span><a href="IJCAI-2025-0840.pdf" target="_blank">在独立窗口打开 ↗</a></div><iframe title="ChemDual 论文原文" data-src="IJCAI-2025-0840.pdf#view=FitH"></iframe><p class="pdf-tip">若浏览器未显示内嵌 PDF，请使用上方的独立窗口入口。</p></section></main><footer class="pagefoot"><span><i class="dot"></i>本地学习笔记 · 可离线阅读</span><span>从概念到实践，留下一份自己的复现记录。</span></footer></div><script>
+const modes=document.querySelectorAll('[data-mode]');function mode(name){modes.forEach(b=>b.classList.toggle('active',b.dataset.mode===name));document.getElementById('study-view').classList.toggle('hidden',name!=='study');document.getElementById('pdf-view').classList.toggle('hidden',name!=='pdf');if(name==='pdf'){const frame=document.querySelector('iframe');if(!frame.src)frame.src=frame.dataset.src}}modes.forEach(b=>b.addEventListener('click',()=>mode(b.dataset.mode)));
+const heads=[...document.querySelectorAll('#paper-article h2')];heads.forEach((h,i)=>h.id='section-'+i);document.querySelectorAll('[data-section]').forEach(b=>b.addEventListener('click',()=>{mode('study');heads[+b.dataset.section]?.scrollIntoView({behavior:'smooth',block:'start'});document.querySelectorAll('[data-section]').forEach(x=>x.classList.toggle('active',x===b))}));
+let saved={};try{saved=JSON.parse(localStorage.getItem('chemdual-study-days-v1')||'{}')}catch(e){}const heading=heads.find(h=>h.textContent.includes('每日清单'));let table=heading?.nextElementSibling;while(table&&table.tagName!=='TABLE')table=table.nextElementSibling;const checks=[];
+if(table){const list=document.createElement('div');list.className='day-list';table.querySelectorAll('tbody tr').forEach(row=>{const cells=[...row.querySelectorAll('td')];if(cells.length!==3)return;const match=cells[0].textContent.trim().match(/^D(?:1[0-4]|[1-9])\b/);if(!match)return;const id=match[0];const card=document.createElement('div');card.className='day-card';card.innerHTML='<div class="day-date">'+cells[0].textContent.trim()+'<label class="day-check"><input type="checkbox" aria-label="'+id+' 已完成">已完成</label></div><div class="day-body"><h3>'+cells[1].innerHTML+'</h3><p>'+cells[2].innerHTML+'</p><a class="day-link" href="每日详细计划.html#day-'+id.toLowerCase()+'" aria-label="'+id+' 详细计划">查看当天详解 →</a></div>';const checkbox=card.querySelector('input');checkbox.checked=!!saved[id];card.classList.toggle('done',checkbox.checked);checkbox.addEventListener('change',()=>{saved[id]=checkbox.checked;card.classList.toggle('done',checkbox.checked);try{localStorage.setItem('chemdual-study-days-v1',JSON.stringify(saved))}catch(e){}update()});checks.push(checkbox);list.append(card)});table.replaceWith(list)}function update(){const n=checks.filter(x=>x.checked).length;document.getElementById('day-progress').textContent='学习进度 · '+n+' / 14 天';document.getElementById('progress-bar').style.width=(n/14*100)+'%'}update();
+</script></body></html>

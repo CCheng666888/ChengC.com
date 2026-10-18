@@ -1,0 +1,434 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>代码 · ChemDual 学习笔记</title><style>
+:root{--bg:#f6f5f0;--ink:#18382f;--muted:#718078;--green:#175e4d;--lime:#d3e8a7;--coral:#dd8065;--line:#dce3d7;--serif:"Noto Serif SC","Source Han Serif SC","Songti SC","SimSun",serif;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--bg);font-family:var(--sans);-webkit-font-smoothing:antialiased}a{color:var(--green);text-underline-offset:4px}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #a5bd79;outline-offset:5px}::selection{background:#d6eab6;color:#18382f}
+.wrap{max-width:1240px;margin:auto;padding:0 40px}.topbar{height:90px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line)}.brand{display:flex;gap:11px;align-items:center;color:var(--ink);text-decoration:none;font-size:22px;font-weight:750;letter-spacing:-.5px}.brand svg{width:29px;height:29px}.brand small{font-size:11px;font-weight:500;letter-spacing:1.5px;color:var(--muted);border-left:1px solid #cbd4c7;padding-left:13px;margin-left:4px}.topmeta{font-size:12px;color:var(--muted);letter-spacing:.5px}.toplinks{display:flex;align-items:center;gap:24px;font-size:13px}.toplinks a{text-decoration:none;color:#5b7167}.toplinks a:hover{color:var(--green)}
+.hero{padding:64px 0 36px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}.overline{font-size:11px;font-weight:750;letter-spacing:2.3px;color:var(--green);display:flex;align-items:center;gap:8px;margin-bottom:20px}.overline:before{content:"";display:inline-block;width:20px;height:1px;background:var(--green)}.hero h1{font-family:var(--serif);font-size:58px;font-weight:600;letter-spacing:2px;line-height:1.2;margin:0}.hero h1 em{font-style:normal;color:var(--green)}.hero p{font-size:15px;line-height:1.9;color:#6c7b72;max-width:470px;margin:23px 0 0}.hero-note{min-width:125px;text-align:right;padding-bottom:4px}.hero-note .count{font-family:Georgia,serif;font-size:55px;line-height:1;color:var(--green);letter-spacing:-3px}.hero-note .count small{font:13px var(--sans);letter-spacing:0;margin-left:7px;color:var(--muted)}.hero-note p{font-size:11px;letter-spacing:1px;margin:9px 0 0}
+.portals{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:12px 0 28px}.portal{position:relative;overflow:hidden;display:block;text-decoration:none;color:var(--ink);padding:32px 34px 28px;min-height:340px;border-radius:18px;border:1px solid rgba(31,67,48,.07);transition:transform .25s,box-shadow .25s;background:#e8eedc}.portal:hover{transform:translateY(-5px);box-shadow:0 20px 45px #263f2314}.portal.paper{background:#e9eedf}.portal.code{background:#f0e5de}.portal .topline{display:flex;justify-content:space-between;position:relative;z-index:2;font-size:11px;letter-spacing:1.8px;color:#5c725f}.portal.code .topline{color:#8f6c5d}.number{font:italic 22px Georgia,serif;letter-spacing:0}.portal h2{font-family:var(--serif);font-size:45px;letter-spacing:4px;font-weight:600;margin:63px 0 14px;position:relative;z-index:2}.portal p{font-size:13px;line-height:1.8;max-width:280px;color:#65796a;margin:0;position:relative;z-index:2}.portal.code p{color:#877569}.portal-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:27px;padding-top:18px;border-top:1px solid #b9c7ab80;font-size:12px;position:relative;z-index:2}.portal.code .portal-bottom{border-color:#d3baaa80}.arrow{width:35px;height:35px;display:grid;place-items:center;background:#fff9;border-radius:50%;font-size:20px;transition:transform .2s}.portal:hover .arrow{transform:translateX(4px)}.art{position:absolute;right:28px;top:45px;width:214px;height:208px;pointer-events:none}.art svg{width:100%;height:100%}.code-art{right:22px;top:67px;width:218px;height:152px;transform:rotate(-7deg);border:1px solid #c8b4a7;border-radius:9px;background:#fffbf5;box-shadow:7px 11px 0 #d9c5b650;padding:16px}.mini-dots{display:flex;gap:4px;margin-bottom:18px}.mini-dots i{width:5px;height:5px;background:#cbb4a6;border-radius:50%}.mini-code{font:11px/1.85 Consolas,monospace;color:#39795e;white-space:nowrap}.mini-code b{color:#bf745b;font-weight:500}.mini-code .indent{padding-left:12px}.startline{border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 0 28px;color:#78877b;font-size:12px}.startline strong{color:#305f48;font-weight:600}.pagefoot{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding:22px 0 30px;font-size:11px;color:#8a9489;gap:20px}.dot{width:6px;height:6px;display:inline-block;background:#8cab66;border-radius:50%;margin-right:7px}
+.pagehero{padding:38px 0 28px;display:flex;align-items:flex-end;justify-content:space-between;gap:25px}.pagehero .overline{margin-bottom:12px}.pagehero h1{font-family:var(--serif);font-size:39px;letter-spacing:2px;margin:0;font-weight:600}.pagehero p{max-width:610px;color:#6f7d72;font-size:13px;line-height:1.85;margin:14px 0 0}.mode-tabs{display:flex;padding:4px;border:1px solid #d6dfd0;background:#ecefe5;border-radius:99px;gap:3px;flex-shrink:0}.mode-tabs button{border:0;background:none;border-radius:99px;padding:9px 15px;font-size:12px;color:#7c8b7d}.mode-tabs button.active{background:#fff;color:var(--green);box-shadow:0 1px 5px #30452212}
+.course{display:grid;grid-template-columns:215px minmax(0,1fr);gap:42px;padding-top:15px;margin-bottom:50px}.sidebar{position:sticky;top:24px;align-self:start}.side-title{font-size:10px;letter-spacing:1.8px;color:#8e9b8b;font-weight:700;margin:0 0 14px}.sidenav{display:flex;flex-direction:column;gap:5px}.sidenav button,.sidenav a{display:flex;align-items:center;gap:10px;text-align:left;border:0;background:none;color:#778775;border-radius:8px;padding:11px 12px;font-size:12px;text-decoration:none;line-height:1.4}.sidenav button:hover,.sidenav a:hover{background:#e8ecdf;color:var(--green)}.sidenav button.active{background:#dfe9d3;color:#245d40;font-weight:700}.sidenav .idx{font-family:Georgia,serif;font-size:14px;opacity:.5}.side-progress{margin:26px 11px 0;padding-top:20px;border-top:1px solid var(--line)}.side-progress p{font-size:11px;color:#7e8c7c;margin:0 0 9px}.track{height:3px;border-radius:2px;background:#dfe6d6;overflow:hidden}.track span{display:block;height:100%;background:#56956b;transition:width .25s;width:0}.source-links{margin-top:20px;font-size:11px;line-height:2}.source-links a{display:block;color:#7b8d79;text-decoration:none}.read-area{min-width:0;background:#fffefa;border:1px solid #e7e9df;border-radius:13px;padding:38px 40px 42px;box-shadow:0 7px 30px #3a4f3610}.reading{font-size:14px;line-height:1.9;color:#445348}.reading h1{font-family:var(--serif);font-size:28px;line-height:1.4;color:var(--ink);margin:0 0 24px;font-weight:600}.reading h2{font-size:21px;line-height:1.45;margin:40px 0 16px;padding-top:23px;border-top:1px solid #e5e8dd;color:#20452f;scroll-margin-top:25px}.reading h3{font-size:17px;color:#264b32;margin:25px 0 13px}.reading p{margin:13px 0}.reading strong{color:#28533d;font-weight:650}.reading ol,.reading ul{padding-left:22px}.reading li+li{margin-top:7px}.reading code{font-family:Consolas,"SFMono-Regular",monospace;font-size:.9em}.reading :not(pre)>code{color:#557057;background:#eef1e7;border-radius:4px;padding:2px 5px;word-break:break-word}.reading pre{position:relative;background:#203a33;color:#e6efe3;border-radius:9px;padding:22px;overflow:auto;line-height:1.65;margin:20px 0 25px;tab-size:4;border-top:3px solid #8aac6e}.reading pre code{font-size:12px;color:inherit;white-space:pre}.reading table{display:block;overflow:auto;width:100%;border-collapse:collapse;font-size:12px;line-height:1.75;margin:20px 0 27px}.reading td,.reading th{border:1px solid #e1e6d7;padding:10px 12px;text-align:left;vertical-align:top;min-width:105px}.reading th{background:#edf2e5;color:#4b6c4a}.reading td{background:#fffefa}.reading a{text-decoration-color:#b4c8aa}.reading h1:first-child{display:none}.chapter-label{font-size:10px;letter-spacing:1.8px;color:#8a9b77;margin:0 0 18px;text-transform:uppercase}.chapter-next{display:flex;align-items:center;justify-content:space-between;gap:15px;border-top:1px solid #e2e7d9;margin-top:38px;padding-top:24px;font-size:12px;color:#889580}.next-btn{border:0;background:#225f47;color:#fff;border-radius:7px;padding:12px 17px;font-size:12px}.next-btn:hover{background:#164d36}.hidden{display:none!important}
+.day-list{display:grid;gap:12px;margin:22px 0 30px}.day-card{border:1px solid #e0e6d8;border-radius:9px;background:#fffdf7;padding:20px 22px;display:grid;grid-template-columns:84px 1fr;gap:16px;transition:background .2s,border-color .2s}.day-card.done{background:#edf5e6;border-color:#c4d8b7}.day-date{font:14px/1.5 Georgia,var(--sans);color:#527d47}.day-check{display:flex;gap:7px;align-items:center;margin:8px 0 0;font:10px var(--sans);color:#8b9c7b}.day-check input{accent-color:#4a8655;width:14px;height:14px;cursor:pointer}.day-body h3{margin:0 0 7px;font-size:14px;line-height:1.7}.day-body p{margin:0;font-size:12px;line-height:1.95;color:#778470}.day-body strong{font-weight:650;color:#4f7150}.pdfbox{background:#fff;border:1px solid #dfe5d8;border-radius:12px;padding:12px}.pdf-toolbar{display:flex;justify-content:space-between;gap:20px;align-items:center;font-size:12px;padding:4px 7px 15px;color:#7e8f79}.pdfbox iframe{border:0;display:block;width:100%;height:78vh;border-radius:5px;background:#edf0e7}.pdf-tip{font-size:11px;color:#8c9983;margin:12px 6px 1px}
+@media(max-width:1080px){.hero h1{font-size:49px}.art{opacity:.8;width:175px;right:16px}.portal{padding:28px;min-height:350px}.portal p{max-width:225px}.course{gap:24px;grid-template-columns:175px minmax(0,1fr)}.read-area{padding:30px}.wrap{padding:0 28px}}
+@media(max-width:760px){.wrap{padding:0 20px}.topbar{height:74px}.brand small,.topmeta{display:none}.hero{padding-top:40px;align-items:flex-start}.hero h1{font-size:40px}.hero-note{display:none}.portals{grid-template-columns:1fr;gap:16px}.portal{min-height:310px}.portal h2{margin-top:45px}.art{width:195px;opacity:1}.startline{align-items:flex-start;flex-direction:column;gap:8px}.pagehero{align-items:flex-start;flex-direction:column;padding:28px 0 16px}.pagehero h1{font-size:33px}.course{display:block}.sidebar{position:static;margin-bottom:18px}.sidenav{flex-direction:row;overflow:auto;gap:4px}.sidenav button,.sidenav a{white-space:nowrap;padding:9px 11px}.side-title,.side-progress,.source-links{display:none}.read-area{padding:24px 20px}.day-card{padding:17px 15px;grid-template-columns:64px 1fr;gap:11px}.toplinks{gap:14px}.pagefoot{flex-direction:column;gap:8px}.reading h2{font-size:19px}.reading pre{padding:16px}.pdfbox iframe{height:70vh}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+@media(max-width:480px){.portal .art{width:135px;height:130px;top:30px;right:18px}.portal .code-art{height:100px;top:48px;padding:10px}.mini-dots{margin-bottom:10px}.mini-code{font-size:7.5px}.portal p{max-width:245px}}
+@media print{body{background:#fff}.topbar,.sidebar,.mode-tabs,.chapter-next{display:none}.wrap{padding:0}.course{display:block}.read-area{border:0;box-shadow:none;padding:0}.reading article.hidden{display:block!important}.reading pre{white-space:pre-wrap;background:#f5f5f5;color:#111}.reading pre code{white-space:pre-wrap}.portal{break-inside:avoid}.pagehero{padding-top:0}}
+</style></head><body><div class="wrap"><header class="topbar"><a class="brand" href="index.html"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M8 8 24 8 28 22 14 28 4 18Z M8 8 14 28 M24 8 4 18" stroke="currentColor" stroke-width="1.2"/><g fill="currentColor"><circle cx="8" cy="8" r="3"/><circle cx="24" cy="8" r="3"/><circle cx="28" cy="22" r="2.5"/><circle cx="14" cy="28" r="2.5"/><circle cx="4" cy="18" r="2.5"/></g></svg>ChemDual<small>STUDY NOTES</small></a><nav class="toplinks"><a href="index.html">← 返回首页</a><a href="论文.html">去读论文 ↗</a></nav></header><section class="pagehero"><div><div class="overline">02 / EXPLORE THE CODE</div><h1>让每一行代码都有来处。</h1><p>用途 → 原代码与注释 → 逐行解释 → 其他写法与取舍。沿着实验流程读，逐渐建立完整的运行思路。</p></div></section><main class="course"><aside class="sidebar"><p class="side-title">SOURCE WALKTHROUGH</p><nav class="sidenav"><button data-chapter="0" class="active"><span class="idx">01</span>阅读地图</button><button data-chapter="1"><span class="idx">02</span>数据与训练</button><button data-chapter="2"><span class="idx">03</span>化学评估</button><button data-chapter="3"><span class="idx">04</span>文本评估</button></nav><div class="side-progress"><p id="chapter-progress">当前 · 阅读地图</p><div class="track"><span id="chapter-bar" style="width:25%"></span></div></div><div class="source-links"><a href="https://github.com/JacklinGroup/ChemDual" target="_blank" rel="noopener">作者源代码 ↗</a><a href="论文.html">对照论文 ↗</a></div></aside><div class="read-area"><article class="reading chapter" id="chapter-0"><div class="chapter-label">CHAPTER 01 · 阅读地图</div><h1>ChemDual 原代码逐段讲解：阅读顺序</h1>
+<p>原始仓库已放在 <code>C:\Users\19152\Desktop\Web科研\ChemDual</code>，远端为 <a href="https://github.com/JacklinGroup/ChemDual">JacklinGroup/ChemDual</a>，本地原始提交为 <code>9ee412ce25252491dc6d81a9e393e957338a158e</code>。<strong>原文件保持原样</strong>；本目录的代码块是“原代码拆段＋教学注释”，仅用于阅读。写在代码块里的中文 <code>#</code> 注释是我加的，不能误认为作者原注释。与作者意图有关的说法如果没有依据，一律写“可能/推测”。</p>
+<h2>从哪里读</h2>
+<ol>
+<li><a href="%E4%BB%A3%E7%A0%81.html#chapter-1">01-数据与训练配置.md</a>：先看测试数据格式，再看预训练、微调、预测、导出 YAML。这里是实验流程的骨架。</li>
+<li><a href="%E4%BB%A3%E7%A0%81.html#chapter-2">02-化学评估脚本.md</a>：逐段解释 <code>evaluation/eval_chem_metrics.py</code>，包含代码、逐行说明、替代写法和指标陷阱。</li>
+<li><a href="%E4%BB%A3%E7%A0%81.html#chapter-3">03-文本评估脚本.md</a>：逐段解释 <code>evaluation/eval_nlp_metrics.py</code>，包括 tokenizer、BLEU、METEOR、ROUGE、Levenshtein 与命令行入口。</li>
+</ol>
+<h2>“原代码”到底有哪些</h2>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>实际内容</th>
+<th>它负责什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>evaluation/</code></td>
+<td>两个 Python 脚本</td>
+<td>对<strong>已经生成的预测</strong>计算指标，不训练模型。</td>
+</tr>
+<tr>
+<td><code>conf/</code></td>
+<td>19 个 YAML 文件</td>
+<td>告诉外部 LLaMA-Factory 用什么模型、数据、参数来训练/预测/导出。不同文件是不同实验或消融。</td>
+</tr>
+<tr>
+<td><code>dataset/</code></td>
+<td>原仓库两个 1000 条测试 JSON；本地另添 <code>dataset_info.json</code></td>
+<td>提供公开测试样例；本地添加的注册表不是作者原文件。</td>
+</tr>
+<tr>
+<td><code>README.md</code>、<code>requirements.txt</code></td>
+<td>安装和使用说明、依赖版本</td>
+<td>解释入口；<code>requirements.txt</code> 本身不是模型实现。</td>
+</tr>
+</tbody></table>
+<p>论文说的 <strong>ChEMBL → 过滤 → BRICS → 440 万指令</strong>和 <strong>多尺度 tokenizer</strong>，在这个提交中没有可逐行讲解的完整实现代码或训练数据。不要把讲义里的示例代码当成作者原实现。模型训练由外部 <a href="https://github.com/hiyouga/LLaMA-Factory">LLaMA-Factory</a>负责；作者仓库主要提供配置。仓库目前仍将 ChemDual 权重、数据标记为 TODO。<a href="https://github.com/JacklinGroup/ChemDual">原仓库 README</a></p>
+<h2>本讲义的比较标准</h2>
+<p>每段会比较两种目标：</p>
+<ul>
+<li><strong>对齐作者实验</strong>：原配置/原指标是基准；替代实现必须写明更改，不可把新结果直接写成论文数值。</li>
+<li><strong>长期批量运行</strong>：要考虑内存、错误定位、路径可移植性、测试数据隔离、空文件、重复组分等边界情况。讲义里推荐的替代写法是工程改进建议，不表示作者实验采用过它。</li>
+</ul>
+<p>先读原文：<a href="https://www.ijcai.org/proceedings/2025/0840.pdf">论文</a>、<a href="https://github.com/JacklinGroup/ChemDual/blob/main/assets/Appendix.pdf">附录</a>。</p>
+<div class="chapter-next"><span>1 / 4 章节</span><button class="next-btn" data-next="1">下一章：数据与训练 →</button></div></article><article class="reading chapter hidden" id="chapter-1"><div class="chapter-label">CHAPTER 02 · 数据与训练</div><h1>第 1 讲：数据怎样进入 ChemDual，YAML 怎样控制训练</h1>
+<p>先看<a href="%E4%BB%A3%E7%A0%81.html#chapter-0">阅读顺序</a>。本讲的 Python/JSON/YAML 摘录来自本地作者原文件；行尾中文注释由我添加。原文件：<a href="file:///C:/Users/19152/Desktop/Web%E7%A7%91%E7%A0%94/ChemDual/conf/train_ChemDual_pretrain.yaml"><code>conf/train_ChemDual_pretrain.yaml</code></a>、<a href="file:///C:/Users/19152/Desktop/Web%E7%A7%91%E7%A0%94/ChemDual/conf/train_ChemDual.yaml"><code>conf/train_ChemDual.yaml</code></a>、<a href="file:///C:/Users/19152/Desktop/Web%E7%A7%91%E7%A0%94/ChemDual/conf/predict_decompose.yaml"><code>conf/predict_decompose.yaml</code></a>、<a href="file:///C:/Users/19152/Desktop/Web%E7%A7%91%E7%A0%94/ChemDual/conf/export_ChemDual.yaml"><code>conf/export_ChemDual.yaml</code></a>；数据文件位于 <code>dataset/</code>。</p>
+<h2>1. 一条数据是什么</h2>
+<p><strong>用途。</strong> LLaMA-Factory 读取“任务说明、输入、期望输出”三项。以下是作者公开的分子切分测试样本；由于它属于<strong>测试集</strong>，只能看结构或最后评估，不能拿去训练。</p>
+<pre><code class="language-json">{
+  &quot;instruction&quot;: &quot;Could you help me separate the molecule into its constituent parts?&quot;,
+  &quot;input&quot;: &quot;CC1=NN(c2ccc(C)cc2)C(=O)[C@]12C(=O)C=CC[C@H]2c1ccc(C)cc1&quot;,
+  &quot;output&quot;: &quot;[10*]N1N=C(C)[C@@]2(C(=O)C=CC[C@H]2[15*])C1=O.[16*]c1ccc(C)cc1&quot;
+}
+</code></pre>
+<p><strong>逐行。</strong> <code>{</code> / <code>}</code> 表示一个 JSON 对象；<code>instruction</code> 告诉模型要“拆分分子”；<code>input</code> 是待拆的分子 SMILES；<code>output</code> 是正确答案，<code>.</code> 把两个片段隔开，<code>[10*]</code> 等是 BRICS 切口标记。此处 <code>@</code> / <code>@@</code> 编码立体化学，不能随便删。</p>
+<p><strong>为什么这样写？</strong> 训练时同一个语言模型可以用不同的 <code>instruction</code> 执行多种方向的任务。另一份公开测试文件的 <code>instruction</code> 是重组，输入是多个片段，输出是完整分子。<strong>其他方法。</strong> 可以用 <code>prompt/completion</code>、聊天消息或 CSV；对这个仓库，保持 <code>instruction/input/output</code> 最贴近作者配置。批量运行建议 JSONL（一行一条）或 Parquet 便于流式处理，但换格式须同步修改注册信息；“格式更适合大数据”不等于“结果能与作者数值直接比较”。</p>
+<h2>2. 第一阶段：分子切分与重组</h2>
+<p><strong>用途。</strong> <code>conf/train_ChemDual_pretrain.yaml</code> 让 LLaMA-Factory 在两个方向的数据上训练一个 LoRA adapter。文件名虽叫 <code>pretrain</code>，配置的 <code>stage</code> 实际是 <code>sft</code>，即按有答案的指令样本训练；这与从零预训练一个 LLaMA 不同。</p>
+<pre><code class="language-yaml">### model
+model_name_or_path: /root/Meta-Llama-3.1-8B-Instruct # 基础模型位置
+
+### method
+stage: sft                 # 有监督指令训练
+do_train: true             # 开始训练
+finetuning_type: lora      # 训练 LoRA 适配器
+lora_target: all           # 指定 LoRA 作用的模块范围
+
+### dataset
+dataset_dir: datasets      # 数据目录，里面需有 dataset_info.json
+dataset: ChemDual_fragment_train,ChemDual_recombination_train # 两方向数据名
+template: llama3           # LLaMA 3 聊天模板
+cutoff_len: 1024           # 输入/输出拼接后的长度上限
+max_samples: 2000000       # 数据装载时的样本数上限，不是文件实际条数
+overwrite_cache: true      # 重建预处理缓存
+preprocessing_num_workers: 48 # 并行预处理进程数
+
+### output
+output_dir: saves/ChemDual/2024-09-08 # 保存目录
+logging_steps: 10          # 每 10 个训练 step 记一次日志
+save_steps: 2000           # 每 2000 step 保存检查点
+plot_loss: true            # 绘制损失曲线
+overwrite_output_dir: true # 允许复用输出目录
+
+### train
+per_device_train_batch_size: 3 # 每卡每次 3 条样本
+gradient_accumulation_steps: 8 # 累积 8 次梯度再更新
+learning_rate: 5.0e-5      # 参数更新步长
+num_train_epochs: 1.0      # 全数据走 1 遍
+lr_scheduler_type: cosine  # 学习率逐步按余弦曲线下降
+# warmup_ratio: 0.1        # 作者注释掉了；此行不生效
+bf16: true                 # 用 bfloat16 混合精度
+ddp_timeout: 180000000     # 分布式训练等待超时
+include_num_input_tokens_seen: True # 记录见过的输入 token 数
+
+### eval
+val_size: 0.0005           # 从训练数据中划一小部分验证
+per_device_eval_batch_size: 3 # 每卡验证 batch
+eval_strategy: steps       # 每隔固定 step 验证
+eval_steps: 5000           # 每 5000 step 验证一次
+</code></pre>
+<p><strong>逐行理解。</strong> <code>###</code> 开头都是 YAML 注释，只起到分组阅读作用；真正生效的是每一行 <code>键: 值</code>。<code>dataset_dir</code> 是实际文件夹，<code>dataset</code> 是注册表中的名称，不是文件名。<code>template</code> 必须和模型的对话格式匹配。<code>cutoff_len</code> 太小会截掉答案。<code>max_samples</code> 是上限，不能凭这一行断言作者实际训练了 200 万条。<code>batch_size × 梯度累积 × GPU 数量</code> 给出理想有效 batch；按此 YAML 若是 4 卡则为 96，但论文附录写每卡 2、累积 8，二者不一致。<code>save_steps</code>、<code>eval_steps</code> 是训练更新次数，不是样本数。<a href="https://github.com/JacklinGroup/ChemDual/blob/main/assets/Appendix.pdf">作者附录</a></p>
+<p><strong>为什么这样写？</strong> 这些配置把模型、数据、训练与验证参数交给成熟训练框架，作者无需重写优化器和分布式训练。<strong>其他方法。</strong> 自己写 PyTorch 训练循环可精确控制损失、采样和 tokenizer，但开发与调试量大；追求与仓库一致时先用同版本 LLaMA-Factory 更合适，之后如需定制再写自己的循环。为什么作者采用这个框架没有说明；从仓库来看，它减少了训练代码量，这只是合理推测。</p>
+<p><strong>运行前要查。</strong> 本地 <code>datasets</code> 目录不存在作者完整训练数据；<code>/root/Meta-Llama-3.1-8B-Instruct</code> 是作者机器的路径，不能原样在本机用。<code>bf16: true</code> 也不是当前 CPU 环境可据此执行完整 8B 训练的保证。本地另有路径修正的 <code>reproduce/conf/</code> 模板，但它不补足缺失数据和专用 tokenizer。</p>
+<h2>3. 第二阶段：加入反应和逆合成</h2>
+<p><strong>用途。</strong> <code>conf/train_ChemDual.yaml</code> 同时列出分子切分、重组、反应预测和逆合成四种训练数据。下面展示与第一阶段不同且最关键的原代码行；<strong>其他键沿用上一段的解释，具体值以原文件为准。</strong></p>
+<pre><code class="language-yaml">model_name_or_path: /root/Meta-Llama-3.1-8B-Instruct
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_target: all
+dataset_dir: datasets
+dataset: ChemDual_fragment_train,ChemDual_recombination_train,mol_forward_reaction_prediction_train,mol_retrosynthesis_train
+template: llama3
+cutoff_len: 1024
+max_samples: 130000
+per_device_train_batch_size: 3
+gradient_accumulation_steps: 8
+learning_rate: 5.0e-5
+num_train_epochs: 2.0
+bf16: true
+</code></pre>
+<p><strong>逐行。</strong> 前 5 行仍指定同一基础模型、SFT 和 LoRA；<code>dataset_dir</code> 找目录；<code>dataset</code> 以逗号串起 4 个任务数据名；<code>template</code> 规定聊天格式；<code>cutoff_len</code> 限制长度；<code>max_samples</code> 限制读入样本数；后 5 行控制每卡 batch、梯度累积、学习率、epoch 和数值精度。**特别注意：**此配置仍把 <code>model_name_or_path</code> 指向基础 LLaMA，且没有显式 <code>adapter_name_or_path</code> 指向第一阶段 adapter；仅凭这份 YAML <strong>不能证明它自动续接上一阶段</strong>。原仓库还有 <code>train_ChemDual_mol.yaml</code>，它的 <code>model_name_or_path</code> 指向已导出的 <code>ChemDual_mol</code>；这更像分阶段工作流的后续步骤，但作者没有给出完整、唯一的执行顺序。严格复现需核对 checkpoint 链。</p>
+<p><strong>其他方法与取舍。</strong> 把第一阶段 adapter 明确写在后续配置，或先合并导出模型再继续训练，都能让链路可检查；不过会改变配置与可能的数值，需记录。长期批量运行应把每阶段的输入 checkpoint、数据哈希、输出目录写入日志，避免“运行了两个 YAML”却不知道是否真的串联。不能揣测作者没写 <code>adapter_name_or_path</code> 的原因。</p>
+<h2>4. 预测与导出</h2>
+<p><strong>用途。</strong> <code>predict_decompose.yaml</code> 是作者给 LLaMA-Factory 的推理配置，读取待切分分子并生成片段。</p>
+<pre><code class="language-yaml">model_name_or_path: /root/autodl-tmp/Meta-Llama-3.1-8B-Instruct # 基础模型
+adapter_name_or_path: saves/LLaMA-3.1-8B/lora/train_2024-08-09/checkpoint-48000 # LoRA
+stage: sft                  # 使用 SFT 阶段模板
+do_predict: true            # 运行预测
+finetuning_type: lora       # 按 LoRA 加载
+dataset_dir: /root/autodl-tmp/LLaMA-Factory/ChemDual # 数据目录
+eval_dataset: smiles_test   # 预测集注册名称
+template: llama3            # 输入模板
+cutoff_len: 1024            # 最大长度
+max_samples: 1000           # 最多读 1000 条
+overwrite_cache: true       # 重建缓存
+preprocessing_num_workers: 48 # 预处理并行数
+output_dir: saves/LLaMA-3.1-8B/lora/decompose_eval_2024-08-11 # 输出目录
+overwrite_output_dir: true  # 可覆盖旧目录
+per_device_eval_batch_size: 2 # 推理 batch
+predict_with_generate: true # 真正生成文本，而非只算 loss
+ddp_timeout: 180000000      # 分布式超时
+</code></pre>
+<p><strong>逐行与原理。</strong> 第一、二行分别加载基础模型和训练得到的 adapter；<code>do_predict</code> 切到预测；<code>eval_dataset</code> 在注册表里找数据；<code>predict_with_generate</code> 才会产生可交给评估脚本的答案。其他行沿用训练配置的含义。<code>predict_synthesize.yaml</code> 结构相同，只把 <code>eval_dataset</code> 换为 <code>compound_test</code>、输出目录换为合成结果。**注意：**这两个数据集名称不等于当前本地 <code>dataset_info.json</code> 中的公开测试集名称，直接跑会找不到数据。固定批量推理时，建议把生成长度、随机性、模型版本和输入顺序记录下来；原 YAML 没列出所有生成参数，不应假定它们与论文最终报告完全一致。</p>
+<p><strong>用途。</strong> <code>export_ChemDual.yaml</code> 让框架把 LoRA adapter 与基础模型导出为一个可使用的目录。</p>
+<pre><code class="language-yaml"># Note: DO NOT use quantized model or quantization_bit when merging lora adapters
+model_name_or_path: /root/Meta-Llama-3.1-8B-Instruct # 基础模型
+adapter_name_or_path: saves/ChemDual/2024-09-08 # 待合并 adapter
+template: llama3            # 对话模板
+finetuning_type: lora       # adapter 类型
+export_dir: models/ChemDual # 目标目录
+export_size: 5             # 单个导出分片的大小上限，单位依赖框架
+export_device: cpu         # 在 CPU 上做导出
+export_legacy_format: false # 采用非旧版格式
+</code></pre>
+<p><strong>逐行与取舍。</strong> 注释提醒合并时别加载量化模型；随后分别给出基础权重、adapter、模板、微调类型、输出目录、分片大小、设备和格式。导出后应用更容易一次加载完整权重，但需要更多磁盘空间；继续实验时保留 adapter + 基础模型通常节省空间，也更便于区分各消融版本。<code>export_size: 5</code> 的精确单位要以所安装 LLaMA-Factory 版本为准，不在讲义中猜测。作者使用 CPU 导出的可能原因是减少 GPU 占用，但仓库没有解释，这只是推测。</p>
+<h2>5. 其余配置怎么归类</h2>
+<p>不需要把 19 个 YAML 从头背一遍；用下表对照共同字段。每次真正运行仍要打开该文件逐值核对。</p>
+<table>
+<thead>
+<tr>
+<th>文件组</th>
+<th>主要变化</th>
+<th>用途/注意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>train_ChemDual_w_o_f.yaml</code>、<code>train_ChemDual_w_o_s.yaml</code></td>
+<td>去掉某一方向数据，且其他参数也有差异</td>
+<td>消融候选；<strong>不能只凭文件名断言是严格受控单变量对照</strong>。</td>
+</tr>
+<tr>
+<td><code>train_LLama_w_o*.yaml</code></td>
+<td>起点改为 LLaMA 或已导出模型，任务组合不同</td>
+<td>基线/单方向候选；比较时核对起点、数据和训练预算。</td>
+</tr>
+<tr>
+<td><code>train_ChemDual_mol.yaml</code></td>
+<td>指向 <code>ChemDual_mol</code>，训练 Mol 反应任务</td>
+<td>可能用于继续训练；须确认这个模型从哪里导出。</td>
+</tr>
+<tr>
+<td><code>train_ChemDual_uspto.yaml</code>、<code>llama3_lora_pretrain.yaml</code></td>
+<td>使用 LLaMA 3.2 1B/USPTO 或 <code>stage: pt</code></td>
+<td>与 8B 主实验不是同一个模型配置。</td>
+</tr>
+<tr>
+<td><code>predict_decompose.yaml</code>、<code>predict_synthesize.yaml</code></td>
+<td>改变预测集</td>
+<td>前者切分，后者重组。</td>
+</tr>
+<tr>
+<td><code>export_*.yaml</code></td>
+<td>改变基础模型、adapter 和导出目录</td>
+<td>分别导出主模型、预训练模型、附加实验或 1B 版本。</td>
+</tr>
+</tbody></table>
+<p><strong>练习。</strong> 选 <code>train_ChemDual_pretrain.yaml</code> 的任意 5 个键，不看讲义解释它们控制什么；再指出这份配置单独运行为什么目前不能得到论文结果。最后去读<a href="%E4%BB%A3%E7%A0%81.html#chapter-2">化学评估脚本</a>。</p>
+<div class="chapter-next"><span>2 / 4 章节</span><button class="next-btn" data-next="2">下一章：化学评估 →</button></div></article><article class="reading chapter hidden" id="chapter-2"><div class="chapter-label">CHAPTER 03 · 化学评估</div><h1>第 2 讲：<code>eval_chem_metrics.py</code> 逐段读</h1>
+<p>原文件：<a href="file:///C:/Users/19152/Desktop/Web%E7%A7%91%E7%A0%94/ChemDual/evaluation/eval_chem_metrics.py">evaluation/eval_chem_metrics.py</a>。下方代码是原逻辑的<strong>分段摘录</strong>，中文 <code>#</code> 注释为教学说明；原文件本身未改。它的顶部注明部分代码源自 <a href="https://github.com/blender-nlp/MolT5">MolT5</a>。输入是 JSONL，每行如 <code>{&quot;label&quot;:&quot;CCO&quot;,&quot;predict&quot;:&quot;OCC&quot;}</code>；输出是有效性、几种分子指纹相似度，终端还会打印一个叫 <code>Accuracy</code> 的值。</p>
+<h2>1. 导入工具，并关闭 RDKit 提示</h2>
+<p><strong>用途。</strong> 准备读文件、解析分子、计算相似度、展示进度条。</p>
+<pre><code class="language-python">import argparse                 # 读取命令行参数
+import json                     # 解析每行 JSON
+import os.path as osp           # 文件路径函数；本文件只用到 osp.join
+import numpy as np              # 计算平均值
+from tqdm import tqdm          # 显示循环进度
+from rdkit import Chem          # SMILES &lt;-&gt; 分子对象
+from rdkit.Chem import MACCSkeys # MACCS 指纹
+from rdkit import DataStructs   # 指纹相似度
+from rdkit.Chem import AllChem   # Morgan 指纹
+from rdkit import RDLogger      # RDKit 日志开关
+
+RDLogger.DisableLog(&quot;rdApp.*&quot;)  # 隐藏 RDKit 的常规/错误提示
+</code></pre>
+<p><strong>逐行怎么起作用。</strong> 每个 <code>import</code> 把一个库的名称放进当前 Python 文件；后面代码才能用 <code>json.loads</code>、<code>Chem.MolFromSmiles</code> 等。<code>DisableLog</code> 是全局设置，非法 SMILES 的警告也可能看不到。<strong>为什么这样写？</strong> 大批量评估时终端不被上千条化学解析提示刷屏。<strong>其他方法。</strong> 只限制警告级别，或保留日志到文件，更适合长期运行和排查坏样本；但原写法短、方便看最终指标。作者为什么选择全关没有说明；“减少屏幕噪声”是从代码效果推测。</p>
+<h2>2. 逐行读预测，累计组分重合</h2>
+<p><strong>用途。</strong> 把每条正确答案和模型预测变成 RDKit 分子，同时累加一个“组分部分命中”数。</p>
+<pre><code class="language-python">def evaluate(input_file, morgan_r, verbose=False): # 定义评估函数
+    outputs = []       # 存成功解析的 (正确分子, 预测分子)
+    bad_mols = 0       # 记录出错行
+    correct = 0        # 累计每行的组分重合比例
+    total = 0          # 记录进入该计算的行数
+    with open(osp.join(input_file)) as f: # 打开预测文件；单参数 join 等于原路径
+        for line in f.readlines():        # 一次把所有行读进内存再循环
+            try:                          # 下面任一步出错都跳到 except
+                line = json.loads(line)   # 字符串 -&gt; Python 字典
+                gt_smi = line[&quot;label&quot;]    # 正确答案的 SMILES
+                ot_smi = line[&quot;predict&quot;]  # 预测 SMILES
+                correct += len(set(gt_smi.split(&quot;.&quot;)) &amp; set(ot_smi.split(&quot;.&quot;))) / max(
+                    len(set(gt_smi.split(&quot;.&quot;))), len(set(ot_smi.split(&quot;.&quot;)))
+                )                         # 两边组件取交集 / 组件数较大的一边
+                total += 1                # 这行先计入总数
+                gt_m = Chem.MolFromSmiles(gt_smi) # 解析正确答案
+                ot_m = Chem.MolFromSmiles(ot_smi) # 解析预测
+                if ot_m == None:          # 预测无法解析
+                    raise ValueError(&quot;Bad SMILES&quot;) # 主动抛出异常
+                outputs.append((gt_m, ot_m)) # 合法预测留待计算指纹
+            except:                       # 原代码捕获所有异常
+                bad_mols += 1             # 出错行加一
+</code></pre>
+<p><strong>逐行重点。</strong> <code>def</code> 后是函数名和三个参数。<code>outputs</code> 仅装成功走到 <code>append</code> 的行；<code>bad_mols</code> 是所有异常数，既可能是非法预测，也可能是 JSON 坏行、字段缺失、零除等。<code>correct</code> 是每行一个 0–1 的<strong>分数</strong>再相加，不是完整反应完全匹配的 0/1 数。<code>set(...)</code> 去重，<code>&amp;</code> 取交集，<code>max(...)</code> 防止短的一边让部分命中得分过高。例如答案 <code>A.B</code>、预测 <code>A.C</code>，得分 <code>1/2</code>；严格 Exact 应为 0。<code>Chem.MolFromSmiles</code> 返回 <code>None</code> 表示解析失败。<code>if ot_m == None</code> 可以更明确写作 <code>if ot_m is None</code>，原写法有效。</p>
+<p><strong>为什么作者可能这么写？</strong> 对多个组分的逆合成答案，部分重合也能显示一点进展；这是根据代码效果的推测。<strong>全局评估更适合怎样写？</strong> 数据很多时用 <code>for line in f</code> 流式读，内存不随文件行数增长。用 <code>except (json.JSONDecodeError, KeyError, ValueError) as exc</code> 和行号记录错误，避免所有问题都被当作“坏分子”。先检查 <code>gt_m</code> 与 <code>ot_m</code>，并区分“参考答案错误”和“预测无效”。若论文要的是 Exact，应另写明规则：原始字符串严格相等、规范化后的组分多重集合相等，或者按 benchmark 官方定义；这些指标不能混用。保留原算法的好处是最容易核对作者仓库输出，改成更严格规则的好处是指标含义更清楚，但数值不能直接对照原打印的 <code>Accuracy</code>。</p>
+<h2>3. 有效性和打印的 Accuracy</h2>
+<p><strong>用途。</strong> 统计有多少行走到 <code>outputs</code>，并在 <code>verbose=True</code> 时显示前面累计的组分重合。</p>
+<pre><code class="language-python">    validity_score = len(outputs) / (len(outputs) + bad_mols) # 成功行 / 全部处理行
+    if verbose:                         # 仅详细模式打印
+        print(&quot;validity:&quot;, validity_score) # 有效性
+        print(
+            f&quot;Accuracy: {correct:.2f} / {total} = {(correct / total):.2f}&quot;,
+        )                               # 累计部分分 / 计数
+</code></pre>
+<p><strong>逐行。</strong> <code>len(outputs)</code> 是成功解析并入队的行数；分母再加 <code>bad_mols</code>。<code>if verbose</code> 控制打印。f-string 里的 <code>:.2f</code> 把数字显示成两位小数，可能掩盖小差异。<code>correct/total</code> 与 <code>validity_score</code> 分母的含义不同：非法 SMILES 往往已经执行了 <code>total += 1</code>，也累计了 <code>correct</code>，然后才被划入 <code>bad_mols</code>。**边界情况：**空文件会零除；<code>gt_m</code> 是 <code>None</code> 但 <code>ot_m</code> 有效时，此处仍算“有效”，后面的指纹函数可能报错。</p>
+<p><strong>其他方法。</strong> 明确列出 <code>n_rows</code>、<code>n_valid_prediction</code>、<code>n_bad_json</code>、<code>n_bad_reference</code>、<code>n_exact</code>，每个指标写分母。处理空文件时给出可读错误。长期实验建议这样做，因为回头能解释分数怎么来的；对齐原仓库时仍需保留原算法作单独字段。不能把这里打印的 <code>Accuracy</code> 直接写成论文表 1 的 <code>EXACT</code>，二者定义不相同，论文也没有在此脚本中实现严格 Exact。</p>
+<h2>4. 三种“长得像不像”的分数</h2>
+<p><strong>用途。</strong> 把分子变成三套不同的“结构特征表”（指纹），比较预测与答案的相似度。</p>
+<pre><code class="language-python">    MACCS_sims = []   # 收集 MACCS 相似度
+    morgan_sims = []  # 收集 Morgan 相似度
+    RDK_sims = []     # 收集 RDKit 路径指纹相似度
+
+    for gt_m, ot_m in tqdm(outputs): # 每对有效分子都评估，显示进度
+        MACCS_sims.append(
+            DataStructs.FingerprintSimilarity(
+                MACCSkeys.GenMACCSKeys(gt_m),  # 正确答案的 MACCS 指纹
+                MACCSkeys.GenMACCSKeys(ot_m),  # 预测的 MACCS 指纹
+                metric=DataStructs.TanimotoSimilarity, # 相似度公式
+            )
+        )
+        RDK_sims.append(
+            DataStructs.FingerprintSimilarity(
+                Chem.RDKFingerprint(gt_m),    # 正确答案的路径指纹
+                Chem.RDKFingerprint(ot_m),    # 预测的路径指纹
+                metric=DataStructs.TanimotoSimilarity,
+            )
+        )
+        morgan_sims.append(
+            DataStructs.TanimotoSimilarity(
+                AllChem.GetMorganFingerprint(gt_m, morgan_r), # 正确答案
+                AllChem.GetMorganFingerprint(ot_m, morgan_r), # 预测
+            )
+        )
+</code></pre>
+<p><strong>逐行怎么起作用。</strong> 三个空列表各收集一种分数。<code>tqdm(outputs)</code> 只加进度显示，不改变数据。每个 <code>append</code> 把<strong>这一对</strong>分子的得分加进去。<code>GenMACCSKeys</code>、<code>RDKFingerprint</code>、<code>GetMorganFingerprint</code> 分别用不同结构信息描述分子；<code>morgan_r</code> 是 Morgan 指纹的半径。<code>TanimotoSimilarity</code> 可以粗理解成两套结构特征的交集占并集的比例。RDK/MACCS 通过 <code>FingerprintSimilarity</code> 接受 <code>metric=</code> 参数，Morgan 直接调用 <code>TanimotoSimilarity</code>，这是因为两种 API 的调用写法不同；数学目标一致。</p>
+<p><strong>为什么三种？</strong> 不同指纹关注的结构信息不同，单个相似度可能遗漏某些差异。<strong>其他方法。</strong> 可以用批量 RDKit API、并行进程或预计算参考分子指纹来加速大测试集；它们更适合重复评估同一测试集。原写法逐对计算直观、依赖少，方便初学者和小数据。换不同指纹类型、半径或 canonicalization 会改变结果，不能拿它与论文数字直接比较。</p>
+<h2>5. 求平均、返回结果和命令行入口</h2>
+<p><strong>用途。</strong> 汇总三种相似度，并允许终端直接运行这个脚本。</p>
+<pre><code class="language-python">    maccs_sims_score = np.mean(MACCS_sims)  # MACCS 所有有效行的平均
+    rdk_sims_score = np.mean(RDK_sims)      # RDK 平均
+    morgan_sims_score = np.mean(morgan_sims) # Morgan 平均
+    if verbose:
+        print(&quot;Average RDK Similarity:&quot;, rdk_sims_score)
+        print(&quot;Average MACCS Similarity:&quot;, maccs_sims_score)
+        print(&quot;Average Morgan Similarity:&quot;, morgan_sims_score)
+    return validity_score, maccs_sims_score, rdk_sims_score, morgan_sims_score
+
+if __name__ == &quot;__main__&quot;:        # 只有直接执行文件时运行以下命令行代码
+    parser = argparse.ArgumentParser() # 建立参数解析器
+    parser.add_argument(
+        &quot;--input_file&quot;, type=str,  # 预测 JSONL 文件路径
+        default=&quot;custom/result/ChemDualv3_w_o_forward_mol_retrosynthesis_test_copy.jsonl&quot;,
+        help=&quot;path where test generations are saved&quot;,
+    )
+    parser.add_argument(
+        &quot;--morgan_r&quot;, type=int, default=2, help=&quot;morgan fingerprint radius&quot;
+    )                                # 半径默认 2
+    args = parser.parse_args()       # 读取用户实际传入的参数
+    evaluate(args.input_file, args.morgan_r, True) # 调用上面的函数
+</code></pre>
+<p><strong>逐行。</strong> <code>np.mean</code> 对各列表求算术平均；若列表为空会得到 <code>nan</code> 并警告。<code>return</code> 的四个数依次是有效性、MACCS、RDK、Morgan，<strong>不包括打印的 Accuracy</strong>。<code>if __name__</code> 防止别的 Python 文件导入它时自动开始评估。<code>ArgumentParser</code> 定义 CLI；<code>--input_file</code> 的默认文件是作者个人路径，不保证本地存在；<code>--morgan_r</code> 的 <code>type=int</code> 确保半径是整数。最后一行把参数交给函数并强制详细打印。</p>
+<p><strong>其他方法与全局建议。</strong> 可返回一个带字段名的字典/JSON，并同时保存样本数、无效原因和配置；长期跑多个实验更不容易把第 2、第 3 个数写反。原函数返回元组简洁，少量脚本调用方便。若需要完全对齐作者仓库评估，保留原数值与顺序，并把新增的严格 Exact 单独命名和汇报。练习：在纸上计算 <code>label=A.B</code>、<code>predict=A.C</code> 的原 <code>Accuracy</code> 与严格 Exact，然后再看<a href="%E4%BB%A3%E7%A0%81.html#chapter-3">文本评估脚本</a>。</p>
+<div class="chapter-next"><span>3 / 4 章节</span><button class="next-btn" data-next="3">下一章：文本评估 →</button></div></article><article class="reading chapter hidden" id="chapter-3"><div class="chapter-label">CHAPTER 04 · 文本评估</div><h1>第 3 讲：<code>eval_nlp_metrics.py</code> 逐段读</h1>
+<p>原文件：<a href="file:///C:/Users/19152/Desktop/Web%E7%A7%91%E7%A0%94/ChemDual/evaluation/eval_nlp_metrics.py">evaluation/eval_nlp_metrics.py</a>。代码块保留原逻辑，中文注释由我添加。它读与化学脚本相同的 JSONL，却比较<strong>字符串和 token 序列</strong>；得分高并不自动表示产物/反应物化学正确。</p>
+<h2>1. 导入库并读取预测</h2>
+<p><strong>用途。</strong> 加载文件解析、tokenizer 和五类文本指标所需的工具。</p>
+<pre><code class="language-python">import argparse                         # 命令行参数
+import json                             # JSONL 每行解析
+import os.path as osp                   # 路径处理
+from tqdm import tqdm                   # 进度条
+import numpy as np                      # 求平均
+import Levenshtein                       # 字符串编辑距离
+from transformers import AutoTokenizer # 根据模型目录加载 tokenizer
+from nltk.translate.bleu_score import corpus_bleu # 整个测试集的 BLEU
+from nltk.translate.meteor_score import meteor_score # 单条 METEOR
+from rouge_score import rouge_scorer    # ROUGE 指标
+
+def evaluate(text_model, input_file, text_trunc_length): # 3 个输入参数
+    outputs = []                         # 存 (正确答案, 预测)
+    with open(osp.join(input_file), encoding=&quot;utf8&quot;) as f: # UTF-8 读文件
+        for line in f.readlines():      # 所有行先读进内存
+            line = json.loads(line)     # 单行 JSON -&gt; 字典
+            outputs.append((line[&quot;label&quot;], line[&quot;predict&quot;])) # 保存两个文本
+</code></pre>
+<p><strong>逐行。</strong> <code>argparse</code> 管 CLI；<code>json</code> 解析；<code>osp</code> 在这里也只是对一个路径调用 <code>join</code>；<code>tqdm</code> 显示进度；<code>np</code> 计算平均；其余库各负责一类指标。<code>outputs</code> 在循环后成为一组二元组。原脚本未捕获坏 JSON、缺字段或空文件错误。<strong>为什么这样写？</strong> 文件全读出来便于后面分别计算 BLEU/METEOR 和 ROUGE。<strong>其他方法。</strong> 大规模运行可逐行读并边算可累积的指标；但 corpus BLEU 仍需保留或累计足够的 n-gram 统计，不能简单地把每行 BLEU 平均当作 corpus BLEU。原写法更短、更容易核对，小型测试集完全够用。</p>
+<h2>2. 用模型 tokenizer 切开答案</h2>
+<p><strong>用途。</strong> BLEU 和 METEOR 需要 token 序列，所以先把 SMILES 字符串切成 token。</p>
+<pre><code class="language-python">    text_tokenizer = AutoTokenizer.from_pretrained(text_model, pad_token=&quot;&lt;|eot_id|&gt;&quot;)
+    bleu_scores = []         # 原代码创建，但后续没有使用
+    meteor_scores = []       # 每条 METEOR
+    levenshtein_scores = []  # 每条编辑距离
+    references = []          # BLEU 的参考答案列表
+    hypotheses = []          # BLEU 的预测列表
+
+    for gt, out in tqdm(outputs): # gt 是正确答案，out 是预测
+        gt_tokens = text_tokenizer.tokenize(
+            gt, truncation=True, max_length=text_trunc_length, padding=&quot;max_length&quot;
+        )                       # 把正确答案切成 token
+        gt_tokens = list(filter((&quot;&lt;|eot_id|&gt;&quot;).__ne__, gt_tokens))
+                                # 删除等于结束/填充标记的 token
+        out_tokens = text_tokenizer.tokenize(
+            out, truncation=True, max_length=text_trunc_length, padding=&quot;max_length&quot;
+        )                       # 把预测也切成 token
+        out_tokens = list(filter((&quot;&lt;|eot_id|&gt;&quot;).__ne__, out_tokens))
+                                # 同样删除结束/填充 token
+        references.append([gt_tokens]) # BLEU 规定每条可有多条参考答案
+        hypotheses.append(out_tokens)  # 对应一条预测
+        mscore = meteor_score([gt_tokens], out_tokens) # 这一条的 METEOR
+        meteor_scores.append(mscore)   # 加入列表
+        levenshtein_scores.append(Levenshtein.distance(gt, out))
+                                # 字符级编辑距离，不按 token 计算
+</code></pre>
+<p><strong>逐行重点。</strong> <code>AutoTokenizer.from_pretrained</code> 需要一个可用的<strong>本地 tokenizer/模型目录或可访问模型名</strong>；<code>text_model</code> 不是随便写的显示名称。指定 <code>pad_token</code> 为 LLaMA 的结束标记；随后用 <code>filter</code> 去掉这个标记。<code>tokenize(...)</code> 得到 token 文本列表；不能看到传了 <code>padding</code> 就断言 <code>tokenize</code> 的输出一定被补到固定长度，实际行为要看所装 Transformers 版本。<code>references.append([gt_tokens])</code> 的双层方括号是 corpus BLEU API 要求：<strong>每个预测对应一组参考答案</strong>。<code>Levenshtein.distance</code> 是把一个原始字符串变成另一个至少要几次单字符插入、删除或替换。<code>bleu_scores</code> 是未使用变量，删掉不改变结果。</p>
+<p><strong>为什么用模型 tokenizer？</strong> 与模型实际见到的 token 更接近，这是合理推测；仓库没有解释选择依据。<strong>其他方法。</strong> 用专门的 SMILES tokenizer 或字符级切分可让化学符号更直观，但 BLEU/METEOR 数值会变，不能与原评估混称。对两周内的严格核对，先固定同一 tokenizer 和版本；长期运行应把 tokenizer 的路径、版本和词表哈希写进结果文件。若作者的多尺度 tokenizer 不公开，文本指标即使脚本跑通也无法保证与论文完全一致。</p>
+<h2>3. BLEU、METEOR 与编辑距离</h2>
+<p><strong>用途。</strong> 汇总 token n-gram 的匹配和字符串差异。</p>
+<pre><code class="language-python">    bleu2 = corpus_bleu(references, hypotheses, weights=(0.5, 0.5))
+    bleu4 = corpus_bleu(references, hypotheses, weights=(0.25, 0.25, 0.25, 0.25))
+    print(&quot;BLEU-2 score:&quot;, bleu2)
+    print(&quot;BLEU-4 score:&quot;, bleu4)
+    _meteor_score = np.mean(meteor_scores)
+    print(&quot;Average Meteor score:&quot;, _meteor_score)
+</code></pre>
+<p><strong>逐行。</strong> <code>bleu2</code> 比较长度 1、2 的连续 token 片段，各权重一半；<code>bleu4</code> 比较 1–4 长度，各四分之一。<code>corpus_bleu</code> 看整个数据集，不等于逐行 BLEU 平均。接着打印两项。<code>np.mean(meteor_scores)</code> 对前面每条的 METEOR 求平均，最后打印。编辑距离在下段最后输出。<strong>为什么保留多项？</strong> 一项高分未必说明完整答案正确，多个角度能描述输出差异。<strong>其他方法。</strong> 化学任务最重要的是另外计算规范化结构意义上的完全一致与有效性；BLEU/METEOR 只能作为补充。原指标方便与已有分子文本生成论文对照，结构指标更能回答“分子是否正确”，但其规则也需要固定。</p>
+<h2>4. ROUGE、最后的打印与返回</h2>
+<p><strong>用途。</strong> 用另一套文本匹配规则比较预测和答案，并打印平均编辑距离。</p>
+<pre><code class="language-python">    scorer = rouge_scorer.RougeScorer([&quot;rouge1&quot;, &quot;rouge2&quot;, &quot;rougeL&quot;])
+    rouge_scores = []      # 收集每条 ROUGE 结果
+    references = []        # 原代码重新创建，但下方未使用
+    hypotheses = []        # 原代码重新创建，但下方未使用
+    for i, (gt, out) in enumerate(outputs): # i 是序号，后面未使用
+        rs = scorer.score(out, gt)          # 计算这一对的 ROUGE
+        rouge_scores.append(rs)             # 保存结果
+    print(&quot;ROUGE score:&quot;)
+    rouge_1 = np.mean([rs[&quot;rouge1&quot;].fmeasure for rs in rouge_scores])
+    rouge_2 = np.mean([rs[&quot;rouge2&quot;].fmeasure for rs in rouge_scores])
+    rouge_l = np.mean([rs[&quot;rougeL&quot;].fmeasure for rs in rouge_scores])
+    print(&quot;rouge1:&quot;, rouge_1)
+    print(&quot;rouge2:&quot;, rouge_2)
+    print(&quot;rougeL:&quot;, rouge_l)
+    print(&quot;Levenshtein score:&quot;, np.mean(levenshtein_scores))
+    return bleu2, bleu4, rouge_1, rouge_2, rouge_l, _meteor_score
+</code></pre>
+<p><strong>逐行。</strong> <code>RougeScorer</code> 选择 ROUGE-1、ROUGE-2、ROUGE-L。三行 <code>rouge_scores/references/hypotheses</code> 创建列表，但后两者是多余变量。<code>enumerate</code> 提供行号 <code>i</code>，这里没有使用。<code>score(out, gt)</code> 传入预测和答案；API 惯例是 <code>score(target, prediction)</code>，此处顺序反过来，若以后使用 precision/recall 会交换意义；当前只读取 F1 <code>fmeasure</code>，这个问题通常不改变最终 F1，但应在复制代码时注意。接着对三类 ROUGE 的 F1 各求平均、打印，再打印编辑距离平均。<code>return</code> 含 6 个指标，<strong>不包括编辑距离</strong>，它只被打印。</p>
+<p><strong>其他方法。</strong> 直接在同一循环中计算各行 ROUGE 可省掉第二次遍历与多余列表；若要保留原脚本结果，需保证 tokenizer、ROUGE 版本和输入顺序一致。结构化返回字典并保存到 JSON 更适合批量实验，也能补上 <code>levenshtein</code>、样本数和空集检查。原脚本分开写各类指标可读性尚可，研究者单次运行容易在控制台看到分数；仓库没有给出作者保留未使用变量的原因。</p>
+<h2>5. 命令行入口与一个实际类型错误</h2>
+<p><strong>用途。</strong> 允许在终端指定 tokenizer、预测文件和最大长度。</p>
+<pre><code class="language-python">if __name__ == &quot;__main__&quot;:      # 直接运行文件时才执行
+    parser = argparse.ArgumentParser() # 创建参数解析器
+    parser.add_argument(
+        &quot;--text_model&quot;, type=str, default=&quot;DualChem&quot;,
+        help=&quot;Desired language model tokenizer.&quot;,
+    )                             # tokenizer 名称或目录
+    parser.add_argument(
+        &quot;--input_file&quot;, type=str,
+        default=&quot;custom/result/ChemDualv3_w_o_forward_mol_retrosynthesis_test.jsonl&quot;,
+        help=&quot;path where test generations are saved&quot;,
+    )                             # 预测 JSONL，默认路径不保证存在
+    parser.add_argument(
+        &quot;--text_trunc_length&quot;, type=str, default=512, help=&quot;tokenizer maximum length&quot;
+    )                             # 原代码把自定义长度解析成字符串
+    args = parser.parse_args()    # 读取命令行
+    evaluate(args.text_model, args.input_file, args.text_trunc_length)
+</code></pre>
+<p><strong>逐行。</strong> <code>--text_model</code> 指 tokenizer；默认 <code>DualChem</code> 并非仓库公开的本地目录。<code>--input_file</code> 指向作者机器风格的相对路径。<code>--text_trunc_length</code> 预期是长度整数，但 <code>type=str</code> 会让命令行传入的值变成字符串；不带此参数时 Python 默认值 <code>512</code> 仍是整数，所以错误可能只在你显式指定长度时出现。<code>parse_args</code> 收集三项，最后交给 <code>evaluate</code>。</p>
+<p><strong>更合适的修正。</strong> 把原行改为 <code>type=int</code>；这样明确、适合长期运行。为保持作者原文件不动，本地另有 <code>reproduce/evaluate_predictions.py</code> 包装入口，负责以整数传入长度。原文件更短、更直接，但这个类型错误会使特定调用失败。这里是可从代码确定的行为，不需要猜作者动机。</p>
+<p><strong>练习。</strong> 写三行预测：一条完全相同、一条 SMILES 写法不同但分子相同、一条无法解析。先猜 Exact、BLEU、Validity 会怎样变，再用脚本验证。评估空文件或缺字段时，先读错误栈，不要把任何 <code>nan</code> 当成实验分数。</p>
+<div class="chapter-next"><span>4 / 4 章节</span><a href="论文.html">回到学习路线 ↗</a></div></article></div></main><footer class="pagefoot"><span><i class="dot"></i>本地学习笔记 · 可离线阅读</span><span>从概念到实践，留下一份自己的复现记录。</span></footer></div><script>
+const names=["阅读地图","数据与训练","化学评估","文本评估"];function chapter(n,scroll=true){n=Math.max(0,Math.min(3,n));document.querySelectorAll('.chapter').forEach((el,i)=>el.classList.toggle('hidden',i!==n));document.querySelectorAll('[data-chapter]').forEach(b=>b.classList.toggle('active',+b.dataset.chapter===n));document.getElementById('chapter-progress').textContent='当前 · '+names[n];document.getElementById('chapter-bar').style.width=((n+1)/4*100)+'%';history.replaceState(null,'','#chapter-'+n);if(scroll)window.scrollTo({top:0,behavior:'smooth'})}document.querySelectorAll('[data-chapter],[data-next]').forEach(b=>b.addEventListener('click',()=>chapter(+(b.dataset.chapter??b.dataset.next))));function fromHash(){const m=location.hash.match(/^#chapter-([0-3])$/);if(m)chapter(+m[1],false)}window.addEventListener('hashchange',fromHash);document.querySelectorAll('a[href^="代码.html#chapter-"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();chapter(+a.getAttribute('href').match(/chapter-(\d)/)[1])}));fromHash();
+</script></body></html>

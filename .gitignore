@@ -28,3 +28,6 @@ physics-oj-server/
 
 # 烽火来信本机进度（不随网站发布）
 play/beacon-relay/烽火来信存档/
+
+# 独立密码学课程仓库（单独维护，不随网站发布）
+/reaction-cipher/

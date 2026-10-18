@@ -1,0 +1,748 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ChemDual 每日详细计划 · 学习笔记</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23175e4d'/%3E%3Cpath d='M8 8 24 8 28 22 14 28 4 18Z M8 8 14 28 M24 8 4 18' stroke='%23d3e8a7' stroke-width='1.2' fill='none'/%3E%3Cg fill='%23d3e8a7'%3E%3Ccircle cx='8' cy='8' r='2'/%3E%3Ccircle cx='24' cy='8' r='2'/%3E%3Ccircle cx='28' cy='22' r='1.7'/%3E%3Ccircle cx='14' cy='28' r='1.7'/%3E%3Ccircle cx='4' cy='18' r='1.7'/%3E%3C/g%3E%3C/svg%3E"><style>
+:root{--bg:#f6f5f0;--ink:#18382f;--muted:#718078;--green:#175e4d;--lime:#d3e8a7;--coral:#dd8065;--line:#dce3d7;--serif:"Noto Serif SC","Source Han Serif SC","Songti SC","SimSun",serif;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--bg);font-family:var(--sans);-webkit-font-smoothing:antialiased}a{color:var(--green);text-underline-offset:4px}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #a5bd79;outline-offset:5px}::selection{background:#d6eab6;color:#18382f}
+.wrap{max-width:1240px;margin:auto;padding:0 40px}.topbar{height:90px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line)}.brand{display:flex;gap:11px;align-items:center;color:var(--ink);text-decoration:none;font-size:22px;font-weight:750;letter-spacing:-.5px}.brand svg{width:29px;height:29px}.brand small{font-size:11px;font-weight:500;letter-spacing:1.5px;color:var(--muted);border-left:1px solid #cbd4c7;padding-left:13px;margin-left:4px}.topmeta{font-size:12px;color:var(--muted);letter-spacing:.5px}.toplinks{display:flex;align-items:center;gap:24px;font-size:13px}.toplinks a{text-decoration:none;color:#5b7167}.toplinks a:hover{color:var(--green)}
+.pagehero{padding:38px 0 28px;display:flex;align-items:flex-end;justify-content:space-between;gap:25px}.overline{font-size:11px;font-weight:750;letter-spacing:2.3px;color:var(--green);display:flex;align-items:center;gap:8px;margin-bottom:12px}.overline:before{content:"";display:inline-block;width:20px;height:1px;background:var(--green)}.pagehero h1{font-family:var(--serif);font-size:39px;letter-spacing:2px;margin:0;font-weight:600}.pagehero p{max-width:640px;color:#6f7d72;font-size:13px;line-height:1.85;margin:14px 0 0}
+.view{display:none}.view.active{display:block}
+.grid14{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:22px 0 14px}.day-tile{display:flex;align-items:stretch;text-decoration:none;color:var(--ink);border:1px solid #e0e6d8;border-radius:12px;background:#fffdf7;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s}.day-tile:hover{transform:translateY(-3px);box-shadow:0 14px 30px #263f2314;border-color:#b9c9ac}.day-tile.done{background:#edf5e6;border-color:#c4d8b7}.tile-num{flex:0 0 64px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#eef2e8;color:#527d47;font:bold 16px Georgia,var(--sans);letter-spacing:1px;border-right:1px solid #e0e6d8}.day-tile.done .tile-num{background:#dfead2}.tile-body{flex:1;padding:15px 18px 15px 16px;min-width:0}.tile-body h3{margin:0 0 4px;font-size:15px;line-height:1.5;color:#264b32}.tile-body p{margin:0;font-size:12px;line-height:1.8;color:#778470}.tile-body .tagline{display:block;font-size:11px;color:#8b9c7b;letter-spacing:.4px;margin-top:7px}.tile-go{flex:0 0 44px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#8ba57c}.day-tile:hover .tile-go{color:var(--green)}
+.progress-strip{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:9px 18px;margin:4px 0 26px;font-size:12px;color:#78877b;max-width:560px}.progress-strip .track{flex:1;height:5px;border-radius:3px;background:#dfe6d6;overflow:hidden}.progress-strip .track span{display:block;height:100%;background:#56956b;border-radius:3px;width:0;transition:width .25s}.progress-strip b{color:#305f48}
+.sec-note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px 26px;margin-bottom:10px}.sec-note h2{font-family:var(--serif);font-size:21px;color:var(--ink);margin:0 0 12px}.sec-note p{font-size:13px;line-height:1.9;color:#55655a;margin:8px 0}
+.day-page{max-width:980px;margin:0 auto}.day-back{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 2px 6px;font-size:13px}.day-back a{text-decoration:none;color:#5b7167}.day-back a:hover{color:var(--green)}.day-back .dp{font-size:12px;color:#8b9c7b}
+.day-head{border-top:1px solid var(--line);padding:22px 2px 6px}.day-head .overline{margin-bottom:8px}.day-head h1{font-family:var(--serif);font-size:30px;line-height:1.4;margin:0;color:var(--ink);letter-spacing:1px}.day-head .goal{font-size:13px;color:#6f7d72;line-height:1.85;margin:12px 0 0;max-width:70ch}.day-checkbar{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:12px;color:#7e8c7c}.day-checkbar input{accent-color:#4a8655;width:15px;height:15px;cursor:pointer}
+.chain{background:#f4f1e2;border:1px solid #e3dcbe;border-left:4px solid #c9a94e;border-radius:0 10px 10px 0;padding:12px 16px;margin:14px 0 4px;font-size:13px;line-height:1.9;color:#5d5436}
+.chain strong{color:#8a7432}
+.dblock a.explain{display:inline-block;font-size:11px;color:#fff;background:#8f5c4b;border-radius:4px;padding:2px 9px;margin-left:8px;text-decoration:none;vertical-align:2px}
+.dblock a.explain:hover{background:#75483a}
+.dblock{border:1px solid #e0e6d8;border-radius:12px;background:#fffdf7;padding:22px 26px;margin:16px 0}.dblock h2{font-size:16px;color:#264b32;margin:0 0 10px;display:flex;align-items:center;gap:9px}.dblock h2 .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.2px;padding:2px 9px;border-radius:5px}.tag.learn{background:#edf5e6;color:#527d47}.tag.do{background:#f6e9e1;color:#8f5c4b}.tag.accept{background:#e6f0f7;color:#3f6d8f}.tag.ref{background:#f3edd9;color:#7b6a3f}.dblock p{margin:9px 0;font-size:13px;line-height:1.95;color:#55655a}.dblock li{margin:7px 0;font-size:13px;line-height:1.9;color:#55655a}.dblock ul,.dblock ol{padding-left:22px;margin:8px 0}.dblock strong{color:#28533d}.dblock code{font-family:Consolas,"SFMono-Regular",monospace;font-size:.88em;color:#557057;background:#eef1e7;border-radius:4px;padding:1px 5px;word-break:break-word}.dblock .example{background:#f6f8f2;border-left:3px solid #a8c08f;border-radius:6px;padding:10px 14px;margin:10px 0;font-size:12.5px;line-height:1.9;color:#4c5d51}.dblock pre{position:relative;background:#203a33;color:#e6efe3;border-radius:9px;padding:18px 20px;overflow:auto;line-height:1.65;margin:12px 0;tab-size:4;border-top:3px solid #8aac6e;font-size:12.5px}.dblock pre code{background:none;color:inherit;padding:0;white-space:pre}
+.checklist{list-style:none;padding:0;margin:8px 0 2px}.checklist li{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border:1px solid #e4e9dc;border-radius:8px;background:#fbfcf7;margin:8px 0;font-size:13px;line-height:1.8;color:#4c5d51}.checklist input{accent-color:#4a8655;width:15px;height:15px;margin-top:4px;cursor:pointer;flex-shrink:0}
+.day-nav{display:flex;justify-content:space-between;gap:14px;margin:26px 0 8px}.day-nav a{text-decoration:none;border:1px solid #cfdac9;border-radius:8px;padding:10px 16px;font-size:12px;color:#4c6a53;background:#fff;transition:background .2s}.day-nav a:hover{background:#edf5e6}.day-nav .next{margin-left:auto}
+.startline{border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 0 28px;color:#78877b;font-size:12px}.startline strong{color:#305f48;font-weight:600}.pagefoot{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding:22px 0 30px;font-size:11px;color:#8a9489;gap:20px}.dot{width:6px;height:6px;display:inline-block;background:#8cab66;border-radius:50%;margin-right:7px}
+@media(max-width:1080px){.wrap{padding:0 28px}}
+@media(max-width:760px){.wrap{padding:0 18px}.topbar{height:74px}.brand small,.topmeta{display:none}.pagehero{align-items:flex-start;flex-direction:column;padding:28px 0 16px}.pagehero h1{font-size:32px}.grid14{grid-template-columns:1fr;gap:11px}.tile-num{flex-basis:54px}.day-head h1{font-size:24px}.dblock{padding:16px 15px}.day-back{flex-direction:column;align-items:flex-start;gap:6px}.pagefoot{flex-direction:column;gap:8px}.day-nav{flex-direction:column}.day-nav .next{margin-left:0}.toplinks{gap:12px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+@media print{body{background:#fff}.topbar,.day-back,.day-nav{display:none}.wrap{padding:0}.view{display:block!important}.dblock,.sec-note{break-inside:avoid;border-color:#ccc}}
+</style></head><body id="top"><div class="wrap"><header class="topbar"><a class="brand" href="#home"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M8 8 24 8 28 22 14 28 4 18Z M8 8 14 28 M24 8 4 18" stroke="currentColor" stroke-width="1.2"/><g fill="currentColor"><circle cx="8" cy="8" r="3"/><circle cx="24" cy="8" r="3"/><circle cx="28" cy="22" r="2.5"/><circle cx="14" cy="28" r="2.5"/><circle cx="4" cy="18" r="2.5"/></g></svg>ChemDual<small>STUDY NOTES</small></a><span class="topmeta">IJCAI 2025 &nbsp; / &nbsp; 每日详细计划</span><nav class="toplinks"><a href="论文.html">← 返回论文学习台</a></nav></header><main>
+
+<!-- ===== 视图：总览 ===== -->
+<div class="view active" id="home">
+<section class="pagehero"><div><div class="overline">DAILY PLAN · CLICK A DAY</div><h1>点一天，<br>学一天，做一天。</h1><p>下面的 14 张卡片就是 14 天的入口：点任意一张，进入当天的详细页——今天学什么、一步一步干什么、做完怎么验收，都在里面。完成一天勾一天，进度自动保存。</p></div></section>
+<div class="progress-strip"><span>打卡进度</span><div class="track"><span id="home-bar"></span></div><b id="home-count">0 / 14 天</b></div>
+<div class="grid14" id="grid14">
+<a class="day-tile" data-day="D1" href="#day-d1"><div class="tile-num">D1</div><div class="tile-body"><h3>环境 + Python/JSON + 论文四方向</h3><p>把项目跑通，学会读数据和论文，写清 4 个“输入→输出”。</p><span class="tagline">10/15 · 约 3 小时</span></div><div class="tile-go">→</div></a>
+<a class="day-tile" data-day="D2" href="#day-d2"><div class="tile-num">D2</div><div class="tile-body"><h3>SMILES 与 RDKit</h3><p>学会用一行文本表示分子，用 RDKit 解析、画图、判断合法性。</p><span class="tagline">10/16 · 约 3 小时</span></div><div class="tile-go">→</div></a>
+<a class="day-tile" data-day="D3" href="#day-d3"><div class="tile-num">D3</div><div class="tile-body"><h3>BRICS 拆分子 + 数据从哪来</h3><p>把分子切成片段（训练样本的来源），搞清楚作者的数据怎么造。</p><span class="tagline">10/17 · 约 3 小时</span></div><div class="tile-go">→</div></a>
+<a class="day-tile" data-day="D4" href="#day-d4"><div class="tile-num">D4</div><div class="tile-body"><h3>数据划分 + 防数据泄漏</h3><p>训练/验证/测试怎么分、正逆样本怎么造、为什么不能“漏题”。</p><span class="tagline">10/18 · 约 3 小时</span></div><div class="tile-go">→</div></a>
+<a class="day-tile" data-day="D5" href="#day-d5"><div class="tile-num">D5</div><div class="tile-body"><h3>tokenizer 与词表扩展</h3><p>模型怎么“读”SMILES，论文往词表里加了哪些化学 token。</p><span class="tagline">10/19 · 约 3 小时</span></div><div class="tile-go">→</div></a>
+<a class="day-tile" data-day="D6" href="#day-d6"><div class="tile-num">D6</div><div class="tile-body"><h3>训练循环 + LoRA + 显存</h3><p>模型怎么被训练：输入→预测→loss→回传→更新；LoRA 省显存。</p><span class="tagline">10/20 · 约 3 小时</span></div><div class="tile-go">→</div></a>
+<a class="day-tile" data-day="D7" href="#day-d7"><div class="tile-num">D7</div><div class="tile-body"><h3>实验规格与可复现</h3><p>把每次实验写成别人能照着重跑的记录，定下两周目标。</p><span class="tagline">10/21 · 约 3 小时</span></div><div class="tile-go">→</div></a>
+<a class="day-tile" data-day="D8" href="#day-d8"><div class="tile-num">D8</div><div class="tile-body"><h3>第一阶段：分子 ↔ 片段训练</h3><p>让模型学会“分子拆片段 / 片段拼分子”这两个方向。</p><span class="tagline">10/22 · 约 3 小时</span></div><div class="tile-go">→</div></a>
+<a class="day-tile" data-day="D9" href="#day-d9"><div class="tile-num">D9</div><div class="tile-body"><h3>第二阶段：反应 + 逆合成 SFT</h3><p>用反应数据训练正、逆两个方向，注意不同数据的标签不能混。</p><span class="tagline">10/23 · 约 3 小时</span></div><div class="tile-go">→</div></a>
+<a class="day-tile" data-day="D10" href="#day-d10"><div class="tile-num">D10</div><div class="tile-body"><h3>baseline 公平比较</h3><p>设计“单方向”对照实验，证明双任务到底有没有用。</p><span class="tagline">10/24 · 约 3 小时</span></div><div class="tile-go">→</div></a>
+<a class="day-tile" data-day="D11" href="#day-d11"><div class="tile-num">D11</div><div class="tile-body"><h3>推理生成 + 保存预测</h3><p>让模型真正“答题”，把预测结果存成可追溯的 JSONL。</p><span class="tagline">10/25 · 约 3 小时</span></div><div class="tile-go">→</div></a>
+<a class="day-tile" data-day="D12" href="#day-d12"><div class="tile-num">D12</div><div class="tile-body"><h3>评估指标</h3><p>学会 Exact、Validity、BLEU、编辑距离、指纹相似度怎么打分。</p><span class="tagline">10/26 · 约 3 小时</span></div><div class="tile-go">→</div></a>
+<a class="day-tile" data-day="D13" href="#day-d13"><div class="tile-num">D13</div><div class="tile-body"><h3>误差分析与消融</h3><p>看看模型错在哪、删掉一个组件会掉多少分。</p><span class="tagline">10/27 · 约 3 小时</span></div><div class="tile-go">→</div></a>
+<a class="day-tile" data-day="D14" href="#day-d14"><div class="tile-num">D14</div><div class="tile-body"><h3>科研复现报告</h3><p>把两周做成一份可审计的报告：做了什么、没做什么、为什么。</p><span class="tagline">10/28 · 约 3 小时</span></div><div class="tile-go">→</div></a>
+</div>
+<section class="sec-note"><h2>先看懂这篇论文（30 秒版）</h2><p>这篇论文用大语言模型做化学的两个相反方向预测：<strong>反应预测</strong>（反应物→产物）和<strong>逆合成</strong>（产物→可能反应物）。做法：先用 <strong>BRICS</strong> 把分子拆成片段，让模型学“分子→片段 / 片段→分子”；再训练正、逆两个反应方向。基座 <strong>LLaMA 3.1 8B</strong> + 扩展 tokenizer + <strong>LoRA</strong> 微调。“双任务”指输入输出方向，<strong>不是会自主规划的 Agent</strong>。</p><p>结果分三级报告：① 链路验证（软件能跑）；② 方法级复现（真实数据缩小规模跑通）；③ 论文数值复现（作者数据+8B+GPU，两周内不承诺）。两个公开的 1000 条测试 JSON 只用于看格式和最终测试，<strong>不用于训练</strong>。</p></section>
+</div>
+
+<!-- ===== 视图：单天详情 ===== -->
+<div class="day-page view" id="day-d1">
+<div class="day-back"><a href="#home">← 返回 14 天总览</a><span class="dp">第 1 天 / 共 14 天</span></div>
+<div class="day-head"><div class="overline">DAY 1 · 10/15</div><h1>环境、Python/JSON 与论文四方向</h1><p class="goal">今天目标：把项目环境跑通，学会读 JSON 数据，并能用自己的话写出论文图 2 的四个方向。今天的重点不是读论文公式，而是“让电脑先动起来”。</p><div class="day-checkbar"><input type="checkbox" id="ck-d1" aria-label="D1 已完成"><label for="ck-d1">今天完成，标记打卡</label></div></div>
+<div class="chain"><strong>这条线怎么串起来的：</strong>这是 14 天的起点，你从零接触这篇论文 → 今天 D1 先把环境跑通、看懂论文"四个方向"的总地图（这是后面每一天都要回去查的坐标轴）→ D2 马上要用 notebook 里的 Python 跑 RDKit，所以今天必须先把 Python 和 JSON 摸熟。今天不把环境跑通，明天代码没地方运行。</div>
+<div class="dblock"><h2><span class="tag learn">学什么</span>今天要懂的知识点（先把"地图"铺开）</h2>
+<p><strong>1. 项目里每个文件夹是干嘛的</strong>（就像 C 工程里 src/、include/ 各司其职）：</p>
+<ul>
+<li><code>conf/</code>：训练配置文件（<code>.yaml</code> 文本），告诉训练程序“用什么模型、学多久、怎么学”。</li>
+<li><code>dataset/</code>：数据文件（JSON），训练和测试都从这取数。</li>
+<li><code>evaluation/</code>：评估脚本，给模型的预测打分。</li>
+<li><code>reproduce/</code>：复现工作区——notebook、日志、源码逐段讲解都在这里。</li>
+<li><code>checkpoints/</code>：放训练出的模型权重，目前是空的（作者标 TODO）。</li>
+</ul>
+<p><strong>2. 终端和 notebook 是什么</strong>：</p>
+<ul>
+<li><code>.cmd</code> 文件 = Windows 批处理脚本，双击就自动执行一串命令（类比：双击运行一个打包好的“命令清单”）。</li>
+<li>JupyterLab notebook = 网页里的 Python 交互环境：一个格子写代码，按 <code>Shift+Enter</code> 运行，马上看到结果，比“写完整个程序再编译”更适合边学边试。</li>
+</ul>
+<p><strong>3. Python 列表和字典（C 对照）</strong>：</p>
+<ul>
+<li><code>list</code> ≈ 动态数组：<code>[1,2,3]</code>，有序、可增删（<code>append</code>）；C 里要自己管长度，Python 内置。</li>
+<li><code>dict</code> ≈ 哈希表：<code>{"键": 值}</code>，按键 O(1) 取数；C 里要自己写哈希表，Python 内置 <code>{}</code>。</li>
+</ul>
+<p><strong>4. JSON 一条“指令样本”长什么样</strong>：</p>
+<div class="example">{"instruction": "请预测该反应的产物", "input": "CCO.O=C=O", "output": "CC(=O)O"}</div>
+<ul>
+<li><code>instruction</code> 任务描述，<code>input</code> 输入，<code>output</code> 正确答案——模型要生成的就是 <code>output</code>。</li>
+</ul>
+<p><strong>5. 论文图 2 的四个方向</strong>（都用“输入 → 输出”记，这是整篇论文的坐标轴）：</p>
+<ul>
+<li>分子 → 片段：给整个分子，输出拆好的 BRICS 片段。</li>
+<li>片段 → 分子：给片段，输出拼好的完整分子。</li>
+<li>反应物 → 产物：<strong>反应预测</strong>（论文叫"正向任务 Forward"）。</li>
+<li>产物 → 反应物：<strong>逆合成</strong>（论文叫"反向任务 Backward"）。</li>
+</ul>
+<div class="example">正向和反向是<strong>互逆</strong>的：反应物→产物 是"预测反应会生成什么"，产物→反应物 是"这东西怎么做出来"。论文 3.3 节用一对公式记它：<code>f_forward: X→Y</code>、<code>f_backward: Y→X</code>——和"英译中 / 中译英"互为逆过程是一个道理。这个"互逆"思想就是 ChemDual 名字里 Dual 的由来。</div>
+<p><strong>6. smoke test 是什么</strong>：冒烟测试——用随机初始化的小模型快速跑通“训练→保存→评估”整条链路，只证明软件能跑，<strong>不追求结果，所以不是论文结果</strong>。</p>
+<p><strong>7. 论文到底在解决什么问题</strong>（论文 1 Introduction 开头，今天先有个印象）：</p>
+<ul>
+<li>任务背景：反应预测 + 逆合成预测是<strong>药物发现</strong>的基本任务——新药能不能合成、怎么合成，都靠这两个判断。</li>
+<li>两个挑战：① 化学合成实验数据又贵又少，喂不饱大模型；② 以前的模型把"反应预测"和"逆合成"当成两个独立任务分开训练，忽略了它们本来就是互逆的。</li>
+<li>ChemDual 的答案：造 440 万条便宜的大数据（D3 学）+ 让模型同时学正反两个方向（D6 学）。</li>
+</ul>
+<p><strong>8. 三个数据集名字先记住</strong>（论文 4.1 节，后面天天见）：</p>
+<ul>
+<li><strong>Mol-Instruction</strong>：28.2 万条反应指令——论文主战场，表 1 的分数都在这上面比。</li>
+<li><strong>USPTO-50K</strong>：5 万条真实化学反应，分 10 类——验证模型在其他数据集上也能打（表 2）。</li>
+<li><strong>ChEMBL</strong>：2000 万条分子 SMILES 的公开库——论文造 440 万数据用的原料（D3 细讲）。</li>
+</ul>
+<div class="example">你今天核对的 <code>dataset/</code> 里两个各 1000 条的测试 JSON，就是从论文测试集里抽出来的小样——字段一样、规模缩小，方便你本地跑得动。</div>
+</div>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
+<ol>
+<li>双击项目根目录的 <code>检查实验环境.cmd</code>，看输出——每项检查通过会给出提示，有报错先记下来。</li>
+<li>双击 <code>启动JupyterLab.cmd</code>，浏览器会自动打开 JupyterLab 页面。</li>
+<li>在文件列表里打开 <code>reproduce/本地实验入门.ipynb</code>，从上到下每个格子按 <code>Shift+Enter</code> 运行。</li>
+<li>在笔记里用自己的话写 4 个“输入→输出”（分子/片段、反应物/产物四个方向各一句）。</li>
+<li>核查并记录：LLaMA 3.1 的访问权限（需 Meta 授权）、作者训练数据与 tokenizer 来源是否可得。</li>
+</ol>
+</div>
+<div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
+<ul class="checklist">
+<li><input type="checkbox"><span>环境检查命令输出没有报错</span></li>
+<li><input type="checkbox"><span>入门 notebook 所有格子能正常运行</span></li>
+<li><input type="checkbox"><span>能默写 4 个“输入→输出”方向</span></li>
+<li><input type="checkbox"><span>能一句话说清 smoke test 为什么不算论文结果</span></li>
+<li><input type="checkbox"><span>记下了基础模型 / 数据 / tokenizer 的访问状态</span></li>
+</ul>
+</div>
+<div class="dblock"><h2><span class="tag ref">卡住看哪</span>最短资料入口</h2>
+<p><a href="https://docs.python.org/3/tutorial/datastructures.html" target="_blank" rel="noopener">Python 数据结构</a> · <a href="https://docs.python.org/3/library/json.html" target="_blank" rel="noopener">Python JSON</a> · 项目内《本地环境使用说明.md》——读完能统计一条 JSON 的条数和字段即可。</p>
+</div>
+<div class="day-nav"><a href="#day-d2">下一天：SMILES 与 RDKit →</a></div>
+</div>
+
+<div class="day-page view" id="day-d2">
+<div class="day-back"><a href="#home">← 返回 14 天总览</a><span class="dp">第 2 天 / 共 14 天</span></div>
+<div class="day-head"><div class="overline">DAY 2 · 10/16</div><h1>SMILES 与 RDKit</h1><p class="goal">今天目标：学会“用一行文本表示一个分子”，并用 RDKit 解析、画图、判断合法性。这是后面所有数据工作的地基——看不懂 SMILES，就看不懂训练样本。</p><div class="day-checkbar"><input type="checkbox" id="ck-d2" aria-label="D2 已完成"><label for="ck-d2">今天完成，标记打卡</label></div></div>
+<div class="chain"><strong>这条线怎么串起来的：</strong>D1 你学会了读 JSON、知道了论文有"反应预测 / 逆合成 / 拆片段 / 拼分子"四个方向 → 今天 D2 学它们的共同语言：SMILES（分子怎么用一行文本表示）→ D3 就要用你今天的语法，把分子按 BRICS 规则"切积木"拆成片段。今天看不懂括号和环，D3 就拆不动。</div>
+<div class=”dblock”><h2><span class=”tag learn”>学什么</span>今天要懂的知识点（比昨天深一层，全部来自论文 3.1 节）</h2>
+<p><strong>1. SMILES：把分子图写成一行文本</strong>，记住 5 条规则（这是”分子语言”的字母表）：</p>
+<ul>
+<li><strong>原子</strong>：直接写元素符号。<code>CCO</code> 是乙醇；碳链连写 <code>CCC</code>。</li>
+<li><strong>键</strong>：单键省略不写；双键 <code>=</code>、三键 <code>#</code>；芳香键用小写字母（苯环 <code>c1ccccc1</code>）。</li>
+<li><strong>分支</strong>：用括号。<code>CC(C)O</code> 是异丙醇——中间的 C 分出一个小分支甲基。</li>
+<li><strong>环</strong>：用闭环数字配对。<code>C1CCCCC1</code> 是环己烷：两个 1 之间连成环。</li>
+<li><strong>多组分</strong>：用点 <code>.</code> 隔开，如盐 <code>[Na+].[Cl-]</code>。</li>
+</ul>
+<div class=”example”>乙醇 <code>CCO</code> 拆开看：<code>C</code>-<code>C</code>-<code>O</code> 三个原子连成一串，氢原子默认省略。它和 <code>OCC</code> 是同一个分子——SMILES 只是”按某种顺序遍历的写法”，顺序不同但读出来都是乙醇。</div>
+<p><strong>2. RDKit 两个核心函数</strong>——这俩就是论文数据流水线的”质检员”：</p>
+<ul>
+<li><code>Chem.MolFromSmiles(“...”)</code>：文本 → 分子对象；解析失败返回 <code>None</code> → 这条 SMILES 非法，不能当合法数据训练。</li>
+<li><code>Chem.MolToSmiles(mol)</code>：分子 → <strong>规范 SMILES</strong>（唯一写法）。用途：去重。同一分子不管写成 <code>CCO</code> 还是 <code>OCC</code>，转成规范形式都一样——论文预处理第一步”removing duplicates（去重）”就是这么做的。</li>
+</ul>
+<p><strong>3. 为什么论文选 SMILES 当”语言”</strong>（论文 3.1 节数据预处理）：</p>
+<ul>
+<li>LLM 只会读文本，不会看分子结构图。所以分子必须翻译成文本，SMILES 就是最通用的”分子文本”。</li>
+<li>论文从 ChEMBL 库拿到 <strong>20M</strong> 条 SMILES，然后三道预处理：去重 → RDKit 过滤无效分子 → 扔掉分子量 &gt; 1000 的。最后得到 <strong>2.2M</strong> 分子库。</li>
+<li>你今天的 <code>MolFromSmiles</code> 练习，就是 2.2M 这条流水线上”过滤无效”那一步的缩小版。</li>
+</ul>
+<p><strong>4. 多组分 <code>.</code>：一个反应往往有多个分子</strong>（论文图 3 的 Input 例子）：</p>
+<ul>
+<li>论文里逆合成任务的输入长这样：<code>CCCCC1CO1.Cc1ccc(C)c1.Cl.[Cl-]</code>——三个点分隔了四个组分：一个环醚、一个芳香烃、氯气、氯离子。</li>
+<li>意思是”这个产物由这 4 个东西合成”。所以看到点 <code>.</code> 不是化学键，是”并列的一堆分子”。</li>
+</ul>
+<p><strong>5. 无效 SMILES = 训练毒药；VALIDITY 就是”能不能解析”</strong>（论文表 1 的 VALIDITY 列）：</p>
+<ul>
+<li>论文评估模型输出时，第一条硬指标就是 <strong>VALIDITY</strong>：把模型生成的 SMILES 交给 RDKit 解析，能解析 = 合法 = 算 1，解析失败 = 0。</li>
+<li>ChemDual 反应预测的 VALIDITY 是 0.996，意思是生成的分子里 99.6% 能被 RDKit 认出来——这是”模型没在胡扯”的第一道证明。</li>
+<li>你今天第 2 步故意写 3 条无效 SMILES，就是在体验 VALIDITY 判 0 的那一刻。</li>
+</ul>
+<p><strong>6. 数据三字段 = 一条完整的”提问-回答”</strong>（论文图 3 的指令模板）：</p>
+<ul>
+<li>每条测试数据是 <code>instruction / input / output</code>：instruction 是提问模板，input 是给的材料，output 是标准答案。</li>
+<li>两个任务方向正好相反：<strong>正向 = 逆合成</strong>（给产物，问反应物）、<strong>反向 = 反应预测</strong>（给反应物，问产物）。这就是论文双任务学习要同时优化的”一对互逆任务”。</li>
+</ul>
+<p><strong>7. 预习：dummy atom（虚拟原子）</strong>，明天 D3 的主角：</p>
+<ul>
+<li>BRICS 把分子”切积木”时，切口处会留下一个记号 <code>[4*]</code> <code>[5*]</code>，叫 dummy atom（占位符）。比如 <code>OCCCN1CCOCC1</code> 切成 <code>[4*]CCCO</code> + <code>[5*]N1CCOCC1</code>。</li>
+<li>明天 D3 你就能看懂：切口记号 + 片段列表 = 分子的”拆解说明书”。今天先记住 <code>[*]</code> 长这样就行。</li>
+</ul>
+</div>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带可直接复制的代码）</h2>
+<p>下面每一步都给了完整代码：在 notebook 里新建单元格粘贴、按 <code>Shift+Enter</code> 运行。如果你新建的单元格单独运行报 <code>NameError: name 'Chem' is not defined</code>，说明没先运行 notebook 顶部带 <code>from rdkit import Chem</code> 的单元格——回到顶部把前面几个单元格依次跑一遍即可。</p>
+<p><strong>第 1 步：10 条有效 SMILES（直链 / 分支 / 环 / 多组分），画出分子</strong><a class="explain" href="代码讲解.html#d2-1">逐行讲解 →</a></p>
+<pre><code>from rdkit import Chem
+from rdkit.Chem import Draw
+
+smiles_list = [
+    "CCCCO",          # 直链：丁醇
+    "CCCCCC",         # 直链：己烷
+    "CC(C)(C)O",      # 分支：叔丁醇
+    "CC(C)CC",        # 分支：异戊烷
+    "C1CCCCC1",       # 环：环己烷
+    "c1ccccc1",       # 环：苯
+    "c1ccncc1",       # 环：吡啶
+    "CC(=O)O",        # 直链+羧基
+    "CC.O",           # 多组分：乙醇+水
+    "c1ccccc1.CCO",   # 多组分：苯+乙醇
+]
+mols = [Chem.MolFromSmiles(s) for s in smiles_list]
+print("有效", sum(1 for m in mols if m is not None), "/", len(mols))
+Draw.MolsToGridImage(mols, molsPerRow=4, subImgSize=(300, 220))</code></pre>
+<p><strong>第 2 步：3 条无效 SMILES，理解"为什么无效"</strong><a class="explain" href="代码讲解.html#d2-2">逐行讲解 →</a></p>
+<p>故意写错三种典型情况，预期 <code>Chem.MolFromSmiles</code> 全部返回 <code>None</code>——返回 <code>None</code> 就是"这条 SMILES 非法，不能当合法数据"：</p>
+<pre><code>bad = {
+    "CCC(O":   "括号不闭合：有 ( 没有对应的 )",
+    "C1CCCCC": "环没闭合：C1 开环标记没遇到第二个 1",
+    "c1ccccc": "芳香环缺原子：苯环要 6 个 c，这里只有 5 个",
+}
+for s, why in bad.items():
+    print(f"{s:8} -&gt; {Chem.MolFromSmiles(s)}   原因：{why}")</code></pre>
+<p><strong>第 3 步：解析成功率，写进实验日志</strong><a class="explain" href="代码讲解.html#d2-3">逐行讲解 →</a></p>
+<pre><code>good = ["CCCCO", "CCCCCC", "CC(C)(C)O", "CC(C)CC", "C1CCCCC1",
+        "c1ccccc1", "c1ccncc1", "CC(=O)O", "CC.O", "c1ccccc1.CCO"]
+valid = sum(1 for s in good if Chem.MolFromSmiles(s) is not None)
+total = len(good) + 3          # 3 = 第 2 步的三条无效
+print(f"解析成功率：{valid}/{total} 条有效（{valid/total:.0%}）")
+
+log = Path.cwd()
+if log.name == "reproduce":
+    log = log.parent
+log = log / "reproduce" / "实验日志.md"
+with open(log, "a", encoding="utf-8") as f:
+    f.write("\n## 2026-10-17 · D2\n")
+    f.write("- 10 条有效 SMILES 全部解析并绘图（直链/分支/环/多组分）\n")
+    f.write("- 无效验证：3 条均返回 None（括号不闭合 / 环未闭合 / 芳香环缺原子）\n")
+    f.write(f"- 解析成功率：{valid}/{total}\n")
+print("已写入", log)</code></pre>
+<p><strong>第 4 步：核对两个测试 JSON（各 1000 条、字段正确）</strong><a class="explain" href="代码讲解.html#d2-4">逐行讲解 →</a></p>
+<pre><code>import json
+root = Path.cwd()
+if root.name == "reproduce":
+    root = root.parent
+for name in ["ChemDual_fragment_test.json", "ChemDual_recombination_test.json"]:
+    rows = json.loads((root / "dataset" / name).read_text(encoding="utf-8"))
+    print(name, "条数:", len(rows), "字段:", sorted(rows[0].keys()))</code></pre>
+<p><strong>实验日志写哪</strong>：<code>reproduce/实验日志.md</code>（文件已建好，开头有格式模板）。每天 15 分钟，固定写四件事：<strong>改了什么 / 跑了什么命令 / 看到了什么 / 下一步阻碍</strong>。第 3 步的代码会自动把当天的解析结果追加进去，其余手动内容自己补。</p>
+</div>
+<div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
+<ul class="checklist">
+<li><input type="checkbox"><span>10 条有效 SMILES 全部画出分子</span></li>
+<li><input type="checkbox"><span>3 条无效 SMILES 都返回 None 并理解原因</span></li>
+<li><input type="checkbox"><span>日志里记录了解析成功率</span></li>
+<li><input type="checkbox"><span>确认两个测试 JSON 各 1000 条、字段正确</span></li>
+</ul>
+</div>
+<div class="dblock"><h2><span class="tag ref">卡住看哪</span>最短资料入口</h2>
+<p><a href="https://www.rdkit.org/docs/GettingStartedInPython.html" target="_blank" rel="noopener">RDKit 入门</a> —— 先只用 <code>MolFromSmiles</code> 和 <code>MolToSmiles</code> 两个函数。</p>
+</div>
+<div class="day-nav"><a href="#day-d1">← 上一天：环境与四方向</a><a class="next" href="#day-d3">下一天：BRICS 拆分子 →</a></div>
+</div>
+
+<div class="day-page view" id="day-d3">
+<div class="day-back"><a href="#home">← 返回 14 天总览</a><span class="dp">第 3 天 / 共 14 天</span></div>
+<div class="day-head"><div class="overline">DAY 3 · 10/17</div><h1>BRICS 拆分子 + 数据从哪来</h1><p class="goal">今天目标：学会用 BRICS 把分子“切积木”式拆成片段——这是论文第一阶段“分子→片段”训练样本的来源；同时搞清作者的数据是怎么造的、我们还能从哪找独立数据。</p><div class="day-checkbar"><input type="checkbox" id="ck-d3" aria-label="D3 已完成"><label for="ck-d3">今天完成，标记打卡</label></div></div>
+<div class="chain"><strong>这条线怎么串起来的：</strong>D2 你学会了 SMILES 语法和 <code>[4*]</code> 这种切口标记 → 今天 D3 就用 BRICS 真正把分子"切积木"，每切一刀就是一条"分子→片段"训练样本（论文 440 万条数据就是这么造的）→ D4 要处理这些数据：怎么划分训练/验证/测试、怎么防泄漏。今天切的片段，明天就要分堆。</div>
+<div class="dblock"><h2><span class="tag learn">学什么</span>今天要懂的知识点（核心来自论文 3.1 节 + 图 2(a)）</h2>
+<p><strong>1. BRICS 是什么</strong>：Retrosynthetically Interesting Chemical Substructures——按“逆合成上有意义的键”规则切分子。像沿积木缝把分子拆成几块，断口都选在<strong>可逆反应</strong>的键上，拆出的块更接近真实合成子。</p>
+<p><strong>2. 虚拟原子 <code>[4*]</code> 是什么</strong>：切口的标记，表示“这里可以再接一块”，<strong>不是真实原子</strong>。片段带着这些“接头”，才能用于后面“片段→分子”的拼接任务。</p>
+<div class="example">论文图 2(a) 的原例：分子 <code>NC(=O)CN1CCC(N)CC1</code> 拆成 <code>[4*]CC(N)=O</code> 和 <code>[5*]N1CCC(N)CC1</code> 两个片段——<code>[4*]</code> <code>[5*]</code> 就是两个切口上的接头编号，一共 16 种（论文 3.2 节：<code>[1*]</code>~<code>[16*]</code>）。</div>
+<p><strong>3. 一次切分 = 一条“分子→片段”样本</strong>：输入完整分子，输出它的片段列表，这就是第一阶段训练数据的来源。反方向"片段→分子"就是<strong>重组</strong>——论文把"拆 + 拼"当成一对双任务同时训练（3.3 节，D6 会展开讲双任务）。</p>
+<p><strong>4. 重组时接头怎么处理</strong>（论文 3.1 节，防坑细节）：BRICS 在切口引入 dummy atom，论文重组时<strong>不额外处理</strong> dummy atom，但拼接时会把这些接头<code>[*]</code> 替换成碳原子（C）——因为留着 <code>*</code> 拼出来的 SMILES 常常非法，换 C 才能保证生成的是合法分子。</p>
+<p><strong>5. 为什么能拿片段当训练数据</strong>（论文图 1(a) 的证据）：作者算了所有分子"拆出的片段 vs 真实反应物"的相似度，平均 <strong>66.5%</strong>——片段和真实反应物长得挺像，所以用片段练出来的能力能迁移到真实反应预测上。这就是"4.4M 便宜大数据替代昂贵实验数据"的底气。</p>
+<p><strong>6. 切太多会爆内存，所以自适应</strong>（论文 3.1 节公式 1）：长 SMILES 用 BRICS 会切出大量碎片导致内存溢出，作者按分子长度限制片段数：<code>n = L（L&lt;k 时）</code>，否则 <code>n = min(L, ⌈L/k⌉^α)</code>——L 是 SMILES 长度，k 是平均长度，α 是"弹性系数"（按机器内存调）。这个公式你复现时不用背，知道"长分子限制切分数量"这个意图就行。</p>
+<p><strong>7. 数据过滤</strong>（论文 3.1 节预处理三道关）：去重 → RDKit 过滤无法解析的 → 分子量 ≤ 1000 且 token 长度 ≤ 512。从 ChEMBL 的 20M 条筛到 2.2M 分子库。</p>
+<p><strong>8. 440 万条是怎么拼出来的</strong>（论文图 2(a) 全流程）：2.2M 分子库 → BRICS 拆+重组 → 套指令模板（"请给出反应物/请预测产物"，图 3）→ 得到 <strong>4.4M</strong> 条指令样本（一个分子拆出多个片段，样本数就翻倍了）。</p>
+<p><strong>9. 作者数据可得性</strong>：论文说代码和附录在 GitHub 开源，但<strong>作者训练数据在仓库仍是 TODO</strong> → 需要自己找独立数据源（USPTO、ChEMBL 等）走方法级路线（D7 定规格时会再碰这个问题）。</p>
+</div>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
+<ol>
+<li>选 <strong>10 个自己挑的</strong>合法分子（从简单到复杂：直链、带分支、带环）。</li>
+<li>用 <code>BRICSDecompose</code> 逐个拆解，保存“原分子、片段、切分数量”：<div class="example"><code>from rdkit.Chem import BRICS</code><br><code>frags = BRICS.BRICSDecompose(mol)</code> —— 返回一组片段 SMILES</div></li>
+<li>画出其中 2 个例子，用一句话解释：为什么拆出的片段不等于真实实验反应物。</li>
+<li>定路线：作者数据 / tokenizer / GPU 在剩余时间里能否取得；不能 → 明确走方法级复现。</li>
+</ol>
+</div>
+<div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
+<ul class="checklist">
+<li><input type="checkbox"><span>10 个分子都拆出片段，结果存成表（原分子/片段/数量）</span></li>
+<li><input type="checkbox"><span>画了 2 个拆解例子</span></li>
+<li><input type="checkbox"><span>能说清“片段≠真实反应物”的原因</span></li>
+<li><input type="checkbox"><span>记录了作者数据/tokenizer/GPU 的可得性，并定了路线</span></li>
+</ul>
+</div>
+<div class="dblock"><h2><span class="tag ref">卡住看哪</span>最短资料入口</h2>
+<p><a href="https://rdkit.org/docs/source/rdkit.Chem.BRICS.html" target="_blank" rel="noopener">RDKit BRICS API</a> · 论文第 3 节（自己画出两个训练阶段）。</p>
+</div>
+<div class="day-nav"><a href="#day-d2">← 上一天：SMILES 与 RDKit</a><a class="next" href="#day-d4">下一天：数据划分与防泄漏 →</a></div>
+</div>
+
+<div class="day-page view" id="day-d4">
+<div class="day-back"><a href="#home">← 返回 14 天总览</a><span class="dp">第 4 天 / 共 14 天</span></div>
+<div class="day-head"><div class="overline">DAY 4 · 10/18</div><h1>数据划分 + 防数据泄漏</h1><p class="goal">今天目标：学会把数据分成训练/验证/测试三份，会成对构造正逆样本，并理解科研里最忌讳的“数据泄漏”——今天的内容直接决定你后面所有分数的可信度。</p><div class="day-checkbar"><input type="checkbox" id="ck-d4" aria-label="D4 已完成"><label for="ck-d4">今天完成，标记打卡</label></div></div>
+<div class="chain"><strong>这条线怎么串起来的：</strong>D3 你造/找出了分子-片段样本 → 今天 D4 把这些数据<strong>分堆</strong>（训练/验证/测试）并学会防泄漏 → D5 学模型怎么"读"SMILES，分好的数据马上要喂给它。今天定死的划分规则，D8、D9 训练时都要遵守——分错了，后面所有分数都不可信。</div>
+<div class="dblock"><h2><span class="tag learn">学什么</span>今天要懂的知识点</h2>
+<p><strong>1. 三种划分</strong>：</p>
+<ul>
+<li><strong>训练集</strong>：模型学习用。</li>
+<li><strong>验证集</strong>：选超参数、看训练进度（可以反复看）。</li>
+<li><strong>测试集</strong>：最终打分期——相当于“考生从没见过的考题”，<strong>只看一次</strong>，看完就不能再回头改模型。</li>
+</ul>
+<p><strong>2. 正逆样本成对构造</strong>：一个反应要生成两条样本——<code>反应物 → 产物</code> 和 <code>产物 → 反应物</code>，两个方向都要有（这正好对应论文的两个任务方向）。</p>
+<p><strong>3. 数据泄漏（最重要的一课）</strong>：训练时见过测试答案（或其等价表示）→ 测试分数虚高、不可信。类比：考试前把答案透给学生，考出来的高分没有意义。</p>
+<div class="example">核心规则：<strong>先按原始分子或反应 ID 划分，再生成正逆样本</strong>。同一反应的正、逆两个方向，绝不能一个进训练集、一个进测试集——那样等于漏题。</div>
+<p><strong>4. 随机种子</strong>：固定 seed 后划分结果可复现，别人照着跑能得到同样的切分。</p>
+<p><strong>5. 论文自己是怎么划分的</strong>（论文 4.1 节）：Mol-Instruction 是<strong>现成数据集</strong>，作者直接拿它微调（它自带反应指令）；USPTO-50K 则<strong>沿用 Graph2SMILES 的划分</strong>——复现时优先沿用作者/原始项目的 split，不要自己发明一套，否则分数没法跟论文比。</p>
+<p><strong>6. 正逆成对在论文里的样子</strong>（论文 3.3 节公式 2/3）：论文把数据写成 <code>(M, F)/(F, M)</code>（分子↔片段）和 <code>(M, R)/(R, M)</code>（产物↔反应物）两对——你今天"一个反应造两条样本"，造的就是 <code>(R, M)</code> 和 <code>(M, R)</code> 这两条。</p>
+<p><strong>7. 防泄漏 = 分数可信的入场券</strong>：论文表 1 每一个分数都建立在"测试集干净"的前提上。测试集里混进一条训练见过的反应，那个 EXACT 就是假的——这也是 D9 反复强调"公开测试 JSON 严禁进训练配置"的原因。</p>
+</div>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
+<ol>
+<li>准备一批独立分子样本（可以先从自己熟悉的分子开始，凑够数量）。</li>
+<li>先按分子/反应 ID 做三划分（训练/验证/测试），<strong>再做</strong>正逆样本生成。</li>
+<li>检查测试集与训练/验证<strong>零重叠</strong>（同一反应的正逆都不能跨集合）。</li>
+<li>保存记录：数据来源、筛选条件、随机种子、每个方向的条数。</li>
+<li>在日志里注明：这份演示集只用于学习链路，<strong>不能报论文性能</strong>。</li>
+</ol>
+</div>
+<div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
+<ul class="checklist">
+<li><input type="checkbox"><span>两方向各 ≥20 条演示数据</span></li>
+<li><input type="checkbox"><span>顺序正确：先划分、后生成正逆样本</span></li>
+<li><input type="checkbox"><span>测试集与训练/验证零重叠</span></li>
+<li><input type="checkbox"><span>记录齐全：来源/条件/种子/条数</span></li>
+</ul>
+</div>
+<div class="dblock"><h2><span class="tag ref">卡住看哪</span>最短资料入口</h2>
+<p><a href="https://www.ebi.ac.uk/training/online/courses/chembl-quick-tour/accessing-chembl-data/" target="_blank" rel="noopener">ChEMBL 获取说明</a> · <a href="https://github.com/zjunlp/Mol-Instructions" target="_blank" rel="noopener">Mol-Instructions 原始项目</a> —— 核对 SMILES/SELFIES 表示、任务字段、许可与划分。</p>
+</div>
+<div class="day-nav"><a href="#day-d3">← 上一天：BRICS 拆分子</a><a class="next" href="#day-d5">下一天：tokenizer 与词表扩展 →</a></div>
+</div>
+
+<div class="day-page view" id="day-d5">
+<div class="day-back"><a href="#home">← 返回 14 天总览</a><span class="dp">第 5 天 / 共 14 天</span></div>
+<div class="day-head"><div class="overline">DAY 5 · 10/19</div><h1>tokenizer 与词表扩展</h1><p class="goal">今天目标：弄清模型是怎么“读”SMILES 的——tokenizer 把字符串切成什么、论文往词表里加了哪些化学 token，以及为什么加新 token 要配新参数。</p><div class="day-checkbar"><input type="checkbox" id="ck-d5" aria-label="D5 已完成"><label for="ck-d5">今天完成，标记打卡</label></div></div>
+<div class="chain"><strong>这条线怎么串起来的：</strong>D4 分好的数据是纯文本 → 今天 D5 学模型第一步怎么处理文本：tokenizer 把 SMILES 切成小块、编号（论文还专门扩了化学 token）→ D6 这些编号进入训练循环被模型学习。今天搞不清"一个 token 是什么"，D6 的 loss 公式就看不懂。</div>
+<div class="dblock"><h2><span class="tag learn">学什么</span>今天要懂的知识点</h2>
+<p><strong>1. tokenizer 干什么</strong>（C 对照）：编译器词法分析把源码切成 token；这里把 SMILES 字符串切成模型能处理的最小单元，再转成编号喂给模型。</p>
+<p><strong>2. 一个字符 ≠ 一个 token</strong>：分词器会把常见子串（如 <code>cc</code>、<code>(=O)</code>）合并成一个 token，所以同一字符串切出的 token 列表和长度要看实际结果。</p>
+<p><strong>3. 论文往词表里加了什么（三个数字要记住）</strong>：</p>
+<ul>
+<li><strong>16</strong> 个虚拟原子类型：BRICS 的 <code>[4*]</code> 等切口标记。</li>
+<li><strong>180</strong> 个功能团：羰基、羧基等常见基团。作者<strong>未公开完整列表</strong>——不要自造一份冒充作者版本。</li>
+<li><strong>4</strong> 个边界标记：<code>&lt;BOF&gt;/&lt;EOF&gt;</code>（分子起止）、<code>&lt;BOM&gt;/&lt;EOM&gt;</code>（片段起止）。论文图 2 与第 3.2 节对这两组标记的文字归属不一致，需要作者代码确认。</li>
+</ul>
+<p><strong>4. 为什么新 token 要配嵌入参数</strong>：每个 token 在模型里占一行 embedding 向量；词表变大 → 嵌入矩阵行数变多，模型才有“认识”新 token 的参数。类比：新增一个汉字，字典里就要多一行解释。</p>
+<p><strong>5. 论文扩完的完整词表长这样</strong>（论文图 2(b) 的 token 表，照抄记不住就截图）：</p>
+<ul>
+<li>编号 <strong>0–15</strong>：16 个虚拟原子 <code>[1*]</code>~<code>[16*]</code>（BRICS 切口标记）。</li>
+<li>编号 <strong>16–195</strong>：180 个功能团（苯环 <code>c1ccccc1</code>、卤素 <code>Br</code> <code>Cl</code> 等）。</li>
+<li>编号 <strong>196–197</strong>：片段起止 <code>&lt;BOF&gt;</code> / <code>&lt;EOF&gt;</code>。</li>
+<li>编号 <strong>198–199</strong>：分子起止 <code>&lt;BOM&gt;</code> / <code>&lt;EOM&gt;</code>。</li>
+<li>编号 <strong>200–131072</strong>：LLaMA 3.1 原始词表（约 13 万 token）——新增的 200 个化学 token 是<strong>追加</strong>在原始词表前面的。</li>
+</ul>
+<p><strong>6. 完整分子和片段分别怎么包</strong>（论文图 2(b) 示例）：完整分子用分子标记包：<code>&lt;BOM&gt;NC(=O)CN1CCC(N)CC1&lt;EOM&gt;</code>；片段用片段标记包：<code>&lt;BOF&gt;[4*]CC(N)=O&lt;EOF&gt;</code>。模型看到标记就知道"这是完整分子还是片段"。</p>
+<p><strong>7. 多组分怎么处理</strong>（论文 3.2 节末尾）：反应物/产物里的点 <code>.</code>（D2 学过）在分词时会被<strong>拆成多个独立组件</strong>，各自包上自己的起止标记——模型就分得清"一组分子"和"单个分子"。</p>
+</div>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
+<ol>
+<li>用<strong>普通</strong> tokenizer 对 10 条 SMILES 做切分，输出 token 列表和长度。</li>
+<li>把结果和“一个字符一个 token”对比，看看哪些子串被合并了。</li>
+<li>在笔记里记下 16 / 180 / 4 三个数字，并标注“180 项列表未公开”。</li>
+<li>记录基础模型访问状态（能否拿到 LLaMA 3.1）。</li>
+</ol>
+</div>
+<div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
+<ul class="checklist">
+<li><input type="checkbox"><span>10 条 SMILES 都有 token 列表和长度输出</span></li>
+<li><input type="checkbox"><span>能说出 16 / 180 / 4 分别指什么</span></li>
+<li><input type="checkbox"><span>知道“新增 token 需要新嵌入参数”的道理</span></li>
+<li><input type="checkbox"><span>记录基础模型访问状态</span></li>
+</ul>
+</div>
+<div class="dblock"><h2><span class="tag ref">卡住看哪</span>最短资料入口</h2>
+<p><a href="https://huggingface.co/learn/llm-course/chapter2/4" target="_blank" rel="noopener">Hugging Face tokenizer 教程</a> —— 对同一条 SMILES 输出 token 列表和长度。</p>
+</div>
+<div class="day-nav"><a href="#day-d4">← 上一天：数据划分与防泄漏</a><a class="next" href="#day-d6">下一天：训练循环 + LoRA →</a></div>
+</div>
+
+<div class="day-page view" id="day-d6">
+<div class="day-back"><a href="#home">← 返回 14 天总览</a><span class="dp">第 6 天 / 共 14 天</span></div>
+<div class="day-head"><div class="overline">DAY 6 · 10/20</div><h1>训练循环 + LoRA + 显存</h1><p class="goal">今天目标：看懂“模型是怎么被训练出来的”——一次训练循环的五步、loss 是什么、LoRA 为什么省显存、batch/梯度累积/epoch 怎么算，并亲手跑一次本地 smoke test。</p><div class="day-checkbar"><input type="checkbox" id="ck-d6" aria-label="D6 已完成"><label for="ck-d6">今天完成，标记打卡</label></div></div>
+<div class="chain"><strong>这条线怎么串起来的：</strong>D5 知道 SMILES 怎么变成 token → 今天 D6 学这些 token 怎么被训练：一次循环五步、loss 怎么算、LoRA 怎么省显存 → D7 把实验规格定成制度。今天看懂的双任务 loss（两个方向各算一次再平均），D8 预训练和 D9 微调就是直接照搬。</div>
+<div class="dblock"><h2><span class="tag learn">学什么</span>今天要懂的知识点</h2>
+<p><strong>1. 训练五步循环</strong>：输入 → 预测 → 算 loss → 反向传播 → 更新参数。每一轮都让模型在“猜对”的方向上挪一点点，循环成千上万次。</p>
+<p><strong>2. 交叉熵 loss</strong>：衡量“预测结果 vs 正确答案”差多远，预测越偏 loss 越大。<strong>注意：loss 下降 ≠ 测试准确率高</strong>（可能过拟合或数据泄漏），两者要分开看。</p>
+<p><strong>3. LoRA</strong>：冻结基础模型绝大部分参数，只训练少量<strong>附加的小矩阵</strong>。类比：不重写整本书，只加一本“注释册”。省的是训练时的显存和算力。</p>
+<p><strong>4. 为什么 LoRA 仍要足够显存</strong>：模型本体还是要完整加载进显存；LoRA 只省了优化器状态 / 梯度那部分开销。</p>
+<p><strong>5. batch / 梯度累积 / epoch</strong>：</p>
+<ul>
+<li>batch：一次喂给模型 N 个样本。</li>
+<li>梯度累积：攒 K 个 batch 的梯度再更新一次 → 有效 batch = N × K。</li>
+<li>epoch：整个训练集完整走一遍。</li>
+</ul>
+<div class="example">计算题：2 卡 × 每卡 batch 2 × 累积 8 = 有效 batch <strong>32</strong>。</div>
+<p><strong>6. 参数差异要记录</strong>：论文附录写学习率 <code>1e-4</code>、每卡 batch 2；仓库 <code>conf/train_ChemDual.yaml</code> 写 <code>5e-5</code>、每卡 batch 3。未确认作者最终配置前，不能把任何一方直接当“完全论文设置”。</p>
+<p><strong>7. 论文的 loss 长什么样</strong>（论文 3.3 节公式 5/6，通俗版）：</p>
+<ul>
+<li>模型对下一个 token 算出一个概率分布 <code>softmax(z)</code>（z 是模型输出的打分）；</li>
+<li>交叉熵 loss = <code>-log(正确答案那个 token 的概率)</code>——模型越觉得正确答案该出现，loss 越小；</li>
+<li>和 C 里 printf 的"把每个位置拼对"一样，模型是一格一格预测整个 SMILES 的。</li>
+</ul>
+<p><strong>8. "双任务"在代码里就是两个方向各算一次 loss</strong>（论文公式 7/8）：</p>
+<ul>
+<li>预训练损失 <code>L_pt</code>：分子→片段 和 片段→分子 两条样本各算一次 loss，再取平均；</li>
+<li>微调损失 <code>L_ft</code>：反应物→产物 和 产物→反应物 同理。</li>
+<li>一句话：<strong>正向反向一起学 = 两条样本进同一个 batch，总 loss 是两者平均</strong>。</li>
+</ul>
+<p><strong>9. 双任务到底有没有用——论文自己的证据</strong>（论文图 1(c)）：加双任务学习后，LLaMA 的反应预测 Exact 从 <strong>66.6% → 72.9%</strong>（+6.3%），ChemDual 从 <strong>76.6% → 86.9%</strong>。这不是玄学，是论文实测的涨分——你 D10 的对照组就是在复刻这个对比。</p>
+</div>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
+<ol>
+<li>读 <code>reproduce/logs/smoke-training.log</code>，找出 loss 数值的变化趋势。</li>
+<li>运行一次 <code>python reproduce/smoke_test.py</code>，指出 loss 打印在哪一行、保存的 LoRA adapter 在哪个目录。</li>
+<li>用一句话写清：<strong>这是随机小模型的程序验证，不是论文结果</strong>。</li>
+<li>对比论文附录与 YAML 的 batch / 学习率 / epoch，把差异记进实验日志。</li>
+</ol>
+</div>
+<div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
+<ul class="checklist">
+<li><input type="checkbox"><span>能从日志里说出 loss 变化</span></li>
+<li><input type="checkbox"><span>能指出 adapter 保存位置</span></li>
+<li><input type="checkbox"><span>会算有效 batch（如 2卡×2×8=32）</span></li>
+<li><input type="checkbox"><span>记录了附录与 YAML 的参数差异</span></li>
+</ul>
+</div>
+<div class="dblock"><h2><span class="tag ref">卡住看哪</span>最短资料入口</h2>
+<p><a href="https://docs.pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html" target="_blank" rel="noopener">PyTorch Quickstart</a> · <a href="https://huggingface.co/docs/peft/main/en/conceptual_guides/lora" target="_blank" rel="noopener">PEFT LoRA 概念</a> —— 看懂 loss、optimizer、adapter 各负责什么。</p>
+</div>
+<div class="day-nav"><a href="#day-d5">← 上一天：tokenizer 与词表扩展</a><a class="next" href="#day-d7">下一天：实验规格与可复现 →</a></div>
+</div>
+
+<div class="day-page view" id="day-d7">
+<div class="day-back"><a href="#home">← 返回 14 天总览</a><span class="dp">第 7 天 / 共 14 天</span></div>
+<div class="day-head"><div class="overline">DAY 7 · 10/21</div><h1>实验规格与可复现性</h1><p class="goal">今天目标：把“每次实验怎么记录”这件事定下来——写一页《实验规格》，让以后的每一步都清楚、可审计；并诚实决定：两周目标定到哪一级。</p><div class="day-checkbar"><input type="checkbox" id="ck-d7" aria-label="D7 已完成"><label for="ck-d7">今天完成，标记打卡</label></div></div>
+<div class="chain"><strong>这条线怎么串起来的：</strong>D6 学完训练原理 → 今天 D7 停下来定制度：把"每次实验记什么、目标定到哪一级"写成一页《实验规格》→ D8、D9 开始真训练时，每一步都照这份规格留痕。论文能复现，靠的正是这种"配置留档"的习惯。</div>
+<div class="dblock"><h2><span class="tag learn">学什么</span>今天要懂的知识点</h2>
+<p><strong>1. 《实验规格》8 项</strong>：模型来源、数据来源与许可/版本、数据划分方式、tokenizer、任务模板、训练参数、硬件、评估协议。</p>
+<p><strong>2. 可复现性</strong> = 别人照着你的记录能重跑出相近结果；版本、种子、命令都要留痕。类比：实验报告里写清“用的哪瓶试剂、多少度、多久”，别人才能照着重做。</p>
+<p><strong>3. 检查关口</strong>：到这天仍缺作者训练数据 / tokenizer / GPU → 把两周目标定为“<strong>可审计的方法级复现准备 + 本地小模型验证</strong>”，不要写成论文数值复现。</p>
+<p><strong>4. 论文的"可复现配置"长什么样</strong>：论文附录 A 写了实验设置（硬件、超参），仓库 <code>conf/</code> 里放了一组 <code>train_ChemDual*.yaml</code> 配置——这就是作者给"别人能照着重跑"准备的。你的《实验规格》就是给这两周做同样的事，只是规模小。</p>
+<p><strong>5. 复现时双查</strong>：附录 A 和仓库 YAML 是两处权威来源（D6 已发现学习率/batch 对不上）——规格里每一行都要写"来自哪一处"，对不上的标出来，不猜。</p>
+</div>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
+<ol>
+<li>新建一份《实验规格》文档，按 8 项填空（不确定的先留空并标注“待补”）。</li>
+<li>开头写明：当前目标是三级中的哪一级、缺什么材料。</li>
+<li>把这份规格放进项目里，之后每天对照着更新。</li>
+</ol>
+</div>
+<div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
+<ul class="checklist">
+<li><input type="checkbox"><span>《实验规格》8 项都有内容或明确标“待补”</span></li>
+<li><input type="checkbox"><span>写清了目标级别（链路/方法级/论文数值）</span></li>
+<li><input type="checkbox"><span>知道缺什么、下一步去哪补</span></li>
+</ul>
+</div>
+<div class="dblock"><h2><span class="tag ref">卡住看哪</span>最短资料入口</h2>
+<p><a href="https://github.com/JacklinGroup/ChemDual" target="_blank" rel="noopener">ChemDual 仓库</a> · <a href="https://github.com/hiyouga/LLaMA-Factory/blob/main/data/README.md" target="_blank" rel="noopener">LLaMA-Factory 数据格式</a> —— 看懂 <code>dataset_info.json</code> 和训练 YAML 的输入输出（以本地装的 0.9.0 为准）。</p>
+</div>
+<div class="day-nav"><a href="#day-d6">← 上一天：训练循环 + LoRA</a><a class="next" href="#day-d8">下一天：第一阶段训练 →</a></div>
+</div>
+
+<div class="day-page view" id="day-d8">
+<div class="day-back"><a href="#home">← 返回 14 天总览</a><span class="dp">第 8 天 / 共 14 天</span></div>
+<div class="day-head"><div class="overline">DAY 8 · 10/22</div><h1>第一阶段训练：分子 ↔ 片段</h1><p class="goal">今天目标：跑通论文第一阶段——让模型同时学“分子→片段”和“片段→分子”两个方向，并学会保存/理解 checkpoint。有没有 GPU 走两条不同的路，都要跑通。</p><div class="day-checkbar"><input type="checkbox" id="ck-d8" aria-label="D8 已完成"><label for="ck-d8">今天完成，标记打卡</label></div></div>
+<div class="chain"><strong>这条线怎么串起来的：</strong>D7 定好实验规格 → 今天 D8 跑论文第一阶段：用 D3 造的分子-片段数据做<strong>预训练</strong>（分子↔片段双任务，就是 D6 公式 7 的 L_pt）→ D9 加载今天的 checkpoint 做第二阶段微调。今天跑通的流程，是明天 SFT 的起点。</div>
+<div class="dblock"><h2><span class="tag learn">学什么</span>今天要懂的知识点</h2>
+<p><strong>1. 第一阶段双任务</strong>：同时训练“分子→片段”和“片段→分子”两个方向——这是论文 dual-task 的第一组，让模型学会“分子和片段怎么互相转换”。</p>
+<p><strong>2. checkpoint 是什么</strong>：训练中间保存的状态（模型权重 + 优化器状态），可以恢复续训，是复现和后续微调的基础。类比：游戏存档——存了档，下次接着玩。</p>
+<p><strong>3. 数据装载与 label</strong>：训练前要确认——数据能正确读进来、每条的 <code>label</code>（该生成的答案）是对的、样本长度在模型能处理的范围内。</p>
+<p><strong>4. 今天跑的就是论文公式 7</strong>（论文 3.3 节）：预训练损失 <code>L_pt</code> 的样本对是 <code>(M, F)/(F, M)</code>——分子↔片段，和你 D3 造的"一次切分=一条样本"直接对应。训练数据规模：论文用 4.4M 条，你本地无 GPU 就用小样本跑通流程。</p>
+<p><strong>5. 为什么预训练不能省</strong>（论文图 4 消融）：跳过预训练直接微调（ChemDual w/o pre）在反应预测和逆合成上<strong>全部指标掉分</strong>——预训练让模型先学会"分子和片段怎么互相转换"，后面的反应任务才能学得动。这就是为什么 D8 是独立的一天，而不是直接跳到 D9。</p>
+</div>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（两条路）</h2>
+<p><strong>有真实训练数据和 GPU 时：</strong></p>
+<ol>
+<li>先用小样本跑通一个<strong>短训练</strong>（几十步就行），确认不报错。</li>
+<li>保存 checkpoint，记录耗时与显存占用。</li>
+<li>根据结果决定是否跑全量。</li>
+</ol>
+<p><strong>无 GPU 时（本地教学级）：</strong></p>
+<ol>
+<li>只用本地小模型跑双方向示例。</li>
+<li>检查：数据装载、label 是否正确、checkpoint 是否保存成功。</li>
+<li>在日志里明确标注<strong>“教学级实验”</strong>——不能报论文性能。</li>
+</ol>
+</div>
+<div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
+<ul class="checklist">
+<li><input type="checkbox"><span>训练入口能跑通（有资源则 checkpoint 保存成功）</span></li>
+<li><input type="checkbox"><span>确认数据装载和 label 正确</span></li>
+<li><input type="checkbox"><span>记录了耗时/显存（如有真实训练）</span></li>
+<li><input type="checkbox"><span>明确标注了实验级别（教学级/真实）</span></li>
+</ul>
+</div>
+<div class="dblock"><h2><span class="tag ref">卡住看哪</span>最短资料入口</h2>
+<p>ChemDual 仓库 <code>conf/train_ChemDual_pretrain.yaml</code>（第一阶段配置）· 论文第 3 节。</p>
+</div>
+<div class="day-nav"><a href="#day-d7">← 上一天：实验规格</a><a class="next" href="#day-d9">下一天：第二阶段训练 →</a></div>
+</div>
+
+<div class="day-page view" id="day-d9">
+<div class="day-back"><a href="#home">← 返回 14 天总览</a><span class="dp">第 9 天 / 共 14 天</span></div>
+<div class="day-head"><div class="overline">DAY 9 · 10/23</div><h1>第二阶段训练：反应 + 逆合成 SFT</h1><p class="goal">今天目标：用反应数据做第二阶段的监督微调（SFT）——训练“反应预测”和“逆合成”两个方向；同时记住：不同来源的数据标签不能混用，公开测试数据绝不能进训练。</p><div class="day-checkbar"><input type="checkbox" id="ck-d9" aria-label="D9 已完成"><label for="ck-d9">今天完成，标记打卡</label></div></div>
+<div class="chain"><strong>这条线怎么串起来的：</strong>D8 预训练完（模型会拆拼分子片段）→ 今天 D9 加载 checkpoint，用反应数据做第二阶段 SFT：反应预测 + 逆合成双任务（就是 D6 公式 8 的 L_ft）→ D10 设计对照组，证明这套双任务真有价值。论文表 1 的成绩就是今天这种 SFT 跑出来的。</div>
+<div class="dblock"><h2><span class="tag learn">学什么</span>今天要懂的知识点</h2>
+<p><strong>1. 第二阶段做什么</strong>：加载 D8 的 checkpoint，用反应数据做 SFT（给模型正确答案、让它学），两个方向：反应预测（反应物→产物）、逆合成（产物→反应物）。</p>
+<p><strong>2. 数据标签不能混用（重要）</strong>：Mol-Instruction 的任务标签，和 ChEMBL/BRICS 这类原始数据<strong>不是同一种标签</strong>；不同来源的表示（SMILES vs SELFIES）、任务字段、许可、划分都不同，不能想当然混用。类比：语文题和数学题的“标准答案”不能互相替换。</p>
+<p><strong>3. 红线</strong>：公开的测试 JSON <strong>严禁</strong>塞进训练配置——那会直接造成数据泄漏，分数全部作废。</p>
+<p><strong>4. 今天跑的就是论文公式 8</strong>（论文 3.3 节）：微调损失 <code>L_ft</code> 的样本对是 <code>(M, R)/(R, M)</code>——产物↔反应物，正好对应论文图 3 的两种指令模板（"请给出反应物"=逆合成正向 / "请预测产物"=反应预测反向）。</p>
+<p><strong>5. 论文成绩单长什么样</strong>（论文表 1，第二阶段的成果）：ChemDual 在 Mol-Instruction 上，反应预测 EXACT <strong>0.869</strong>、逆合成 EXACT <strong>0.670</strong>，都是全场最高——这个数字就是"SFT 双任务 + 预训练 + 数据"三件套一起挣来的。你复现不到这个数没关系，但要知道它是哪一步挣的。</p>
+</div>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（两条路）</h2>
+<p><strong>有数据/GPU 时：</strong>加载 D8 checkpoint，按已固定的划分训练正、逆两个方向。</p>
+<p><strong>无 GPU 时：</strong>用少量<strong>已核查的独立反应样本</strong>验证：数据格式、正逆指令模板、长度分布、训练入口是否正常。</p>
+<p>两种情况下都要检查：训练配置里没有出现测试 JSON。</p>
+</div>
+<div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
+<ul class="checklist">
+<li><input type="checkbox"><span>正逆两个方向的训练/验证入口都通</span></li>
+<li><input type="checkbox"><span>确认数据来源与标签类型（没混用）</span></li>
+<li><input type="checkbox"><span>训练配置里绝无测试 JSON</span></li>
+<li><input type="checkbox"><span>记录了数据量、划分与随机种子</span></li>
+</ul>
+</div>
+<div class="dblock"><h2><span class="tag ref">卡住看哪</span>最短资料入口</h2>
+<p><a href="https://www.ebi.ac.uk/training/online/courses/chembl-quick-tour/accessing-chembl-data/" target="_blank" rel="noopener">ChEMBL 获取说明</a> · <a href="https://github.com/zjunlp/Mol-Instructions" target="_blank" rel="noopener">Mol-Instructions 原始项目</a>。</p>
+</div>
+<div class="day-nav"><a href="#day-d8">← 上一天：第一阶段训练</a><a class="next" href="#day-d10">下一天：baseline 公平比较 →</a></div>
+</div>
+
+<div class="day-page view" id="day-d10">
+<div class="day-back"><a href="#home">← 返回 14 天总览</a><span class="dp">第 10 天 / 共 14 天</span></div>
+<div class="day-head"><div class="overline">DAY 10 · 10/24</div><h1>baseline 与公平比较</h1><p class="goal">今天目标：设计“对照组”实验，学会什么叫公平比较——只有这样才能证明“双任务”到底有没有用，而不是感觉上有效。</p><div class="day-checkbar"><input type="checkbox" id="ck-d10" aria-label="D10 已完成"><label for="ck-d10">今天完成，标记打卡</label></div></div>
+<div class="chain"><strong>这条线怎么串起来的：</strong>D9 双任务训练跑完 → 今天 D10 设计"对照组"：只去掉反向任务再训一个模型，和双任务比 → D11 两个模型都在同一测试集上批量生成预测，分数一比就知道双任务有没有用。论文图 4 就是作者自己做的这份对照。</div>
+<div class="dblock"><h2><span class="tag learn">学什么</span>今天要懂的知识点</h2>
+<p><strong>1. baseline = 对照组</strong>：要证明“双任务”有用，就训练一个<strong>单方向</strong>模型（去掉反向任务）作对照。类比：测试新药，要有一组吃安慰剂的病人对比。</p>
+<p><strong>2. 公平比较三要素</strong>：同一数据、同一基础模型、相近训练预算；唯一允许的改动是<strong>是否加入反向任务</strong>。其他变量一变，结论就不公平。</p>
+<p><strong>3. 论文图 4 就是作者的公平比较</strong>（论文 4.3 消融）：四组配置同数据同基座——LLaMA w/ dual vs w/o dual（比双任务）、ChemDual vs ChemDual w/o pre（比预训练）。结论：双任务和预训练<strong>都</strong>涨分。你的单方向对照就是复刻这套逻辑的最小版。</p>
+<p><strong>4. 仓库里现成的单方向配置</strong>：<code>conf/train_LLama_w_o*.yaml</code> 系列就是作者"去掉某个方向"的配置——直接抄它的结构，把数据集和路径换成你的。</p>
+</div>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
+<ol>
+<li>为同一数据/基座/预算设计单方向对照配置（复制双任务配置，只去掉反向任务）。</li>
+<li>记录改动清单：只有“是否加入反向任务”这一项。</li>
+<li>没有真实训练资源 → 完成<strong>可运行的配置 + 数据计数</strong>，结果栏如实填“未运行”。</li>
+</ol>
+</div>
+<div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
+<ul class="checklist">
+<li><input type="checkbox"><span>单方向对照配置写好、能跑（或标“未运行”）</span></li>
+<li><input type="checkbox"><span>改动只有“是否加反向任务”一项</span></li>
+<li><input type="checkbox"><span>记录了数据计数</span></li>
+</ul>
+</div>
+<div class="dblock"><h2><span class="tag ref">卡住看哪</span>最短资料入口</h2>
+<p>ChemDual 仓库的 <code>conf/train_LLama_w_o*.yaml</code> 系列（看“去掉某方向”的配置怎么写的）。</p>
+</div>
+<div class="day-nav"><a href="#day-d9">← 上一天：第二阶段训练</a><a class="next" href="#day-d11">下一天：推理生成 →</a></div>
+</div>
+
+<div class="day-page view" id="day-d11">
+<div class="day-back"><a href="#home">← 返回 14 天总览</a><span class="dp">第 11 天 / 共 14 天</span></div>
+<div class="day-head"><div class="overline">DAY 11 · 10/25</div><h1>推理生成 + 保存预测</h1><p class="goal">今天目标：让模型真正“答题”——给输入、生成预测，并把每一条结果连同元信息存成可追溯的 JSONL 文件，为明天打分做准备。</p><div class="day-checkbar"><input type="checkbox" id="ck-d11" aria-label="D11 已完成"><label for="ck-d11">今天完成，标记打卡</label></div></div>
+<div class="chain"><strong>这条线怎么串起来的：</strong>D10 定好对照组 → 今天 D11 让训练好的模型在测试集上批量"答题"（推理生成），每条答案连同元信息存成 JSONL → D12 就用这个文件算 5 个指标。今天的文件是明天所有分数的唯一输入，格式必须一次对。</div>
+<div class="dblock"><h2><span class="tag learn">学什么</span>今天要懂的知识点</h2>
+<p><strong>1. 推理 = 生成</strong>：训练是“算 loss 调参”，推理是“给输入，让模型逐 token 生成回答”。生成参数（温度、top-p、max length）会影响输出的质量和多样性——参数要固定下来并记录。</p>
+<p><strong>2. 预测文件（JSONL）每条应包含</strong>：<code>label</code>（正确答案）、<code>predict</code>（模型预测）、样本 ID、所用 checkpoint、生成参数、耗时——为了后面能复核和追溯。</p>
+<p><strong>3. 论文表 1 的每个分数都是从这个文件算出来的</strong>：作者的评估流程 = 先让模型逐条生成预测存文件，再用评估脚本算指标。你的 JSONL 就是这条流程的入口，字段齐全才追得回"这个分数是哪条预测、哪个模型出的"。</p>
+<p><strong>4. 为什么"没模型就不报告性能"</strong>：没有真实训练的 checkpoint 时，生成结果是随机垃圾——算出分数会给你一个"好像能打"的假象。D14 报告宁可写"未运行"，也不能报这种假数（论文可复现的底线）。</p>
+</div>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
+<ol>
+<li>对<strong>预先冻结的验证/测试集合</strong>逐条生成预测（不要临时换样本，集合要提前定死）。</li>
+<li>把结果按 JSONL 格式逐行保存（每行一条，含上面 6 项）。</li>
+<li>写一个读取脚本，打开预测文件并<strong>随机核对 10 条</strong>：label、predict、ID 是否对齐。</li>
+<li>没有真实模型时：只验证文件与评估链路，<strong>不报告性能</strong>。</li>
+</ol>
+</div>
+<div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
+<ul class="checklist">
+<li><input type="checkbox"><span>预测文件生成成功、每条字段齐全</span></li>
+<li><input type="checkbox"><span>能读回文件并随机核对 10 条</span></li>
+<li><input type="checkbox"><span>记录了 checkpoint、生成参数和耗时</span></li>
+<li><input type="checkbox"><span>没有真实模型时未报告性能</span></li>
+</ul>
+</div>
+<div class="dblock"><h2><span class="tag ref">卡住看哪</span>最短资料入口</h2>
+<p>仓库 <code>conf/predict_decompose.yaml</code> / <code>predict_synthesize.yaml</code>（看推理配置怎么传）。</p>
+</div>
+<div class="day-nav"><a href="#day-d10">← 上一天：baseline 公平比较</a><a class="next" href="#day-d12">下一天：评估指标 →</a></div>
+</div>
+
+<div class="day-page view" id="day-d12">
+<div class="day-back"><a href="#home">← 返回 14 天总览</a><span class="dp">第 12 天 / 共 14 天</span></div>
+<div class="day-head"><div class="overline">DAY 12 · 10/26</div><h1>评估指标</h1><p class="goal">今天目标：学会用 5 个指标给预测打分——Exact、Validity、BLEU、Levenshtein、指纹相似度，并记住两个大坑：脚本打印的 Accuracy ≠ 论文的 EXACT。</p><div class="day-checkbar"><input type="checkbox" id="ck-d12" aria-label="D12 已完成"><label for="ck-d12">今天完成，标记打卡</label></div></div>
+<div class="chain"><strong>这条线怎么串起来的：</strong>D11 存好预测文件 → 今天 D12 用 5 个指标给它打分（这就是论文表 1 那些列）→ D13 拿着分数看模型错在哪。今天学清楚每个指标"严在哪、松在哪"，才能看懂论文数字、也才不会被脚本的假 Accuracy 骗。</div>
+<div class="dblock"><h2><span class="tag learn">学什么</span>今天要懂的知识点</h2>
+<p><strong>五个指标，从“最严”到“最松”：</strong></p>
+<ul>
+<li><strong>Exact</strong>：答案完全一样才算对（逐字比对，错一个字符都不算）。</li>
+<li><strong>Validity</strong>：预测能否解析成分子（<code>MolFromSmiles</code> 不返回 <code>None</code>）。</li>
+<li><strong>BLEU</strong>：文本 n-gram 重合度（机器翻译常用的相似度）。</li>
+<li><strong>Levenshtein</strong>：编辑距离，字符串差几步变一致。</li>
+<li><strong>指纹相似度</strong>：Morgan/MACCS/RDK 指纹 + Tanimoto 系数算结构有多像；<strong>相似度高 ≠ 答案正确</strong>。</li>
+</ul>
+<p><strong>两个必须记住的坑：</strong></p>
+<ul>
+<li><strong>原仓库化学脚本打印的 <code>Accuracy</code> 是“组分交集比例”</strong>（宽松的部分匹配），<strong>不能</strong>直接当成论文表里的严格 <code>EXACT</code>。</li>
+<li>细节规则要记录：多组分如何排序比较、预测如何规范化、无效（非法 SMILES）样本是否计入分母。</li>
+</ul>
+<p><strong>论文表 1 的七列就是这些指标</strong>：EXACT / BLEU / LEVENSHTEIN / RDK / MACCS / MORGAN / VALIDITY——你学的 5 个指标全部上场（三个指纹相似度是三种指纹算同一类相似度）。ChemDual 反应预测那行：EXACT 0.869、BLEU 0.991、Levenshtein 2.099、三个 FTS 0.96+、VALIDITY 0.996——对照着看每个指标在说什么。</p>
+<p><strong>USPTO-50K 那边用的 Top-k</strong>（论文表 2）：逆合成允许模型给前 k 个候选答案，Top-1 46.25 / Top-3 60.14 / Top-5 66.95 / Top-10 77.42——"前 k 个里有没有对的"是逆合成的常见评估，和表 1 的 EXACT 不是一回事。</p>
+</div>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
+<ol>
+<li>用评估脚本测评真实预测：<div class="example"><code>python reproduce/evaluate_predictions.py 预测文件.jsonl --tokenizer 本地模型目录</code></div></li>
+<li>手算 3 例：严格 Exact（完全一致）与组分部分重合（交集比例）的区别。</li>
+<li>把多组分排序、规范化、无效样本分母规则写进实验日志。</li>
+</ol>
+</div>
+<div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
+<ul class="checklist">
+<li><input type="checkbox"><span>评估脚本跑通并出分</span></li>
+<li><input type="checkbox"><span>手算 3 例 Exact vs 部分重合，结果与脚本一致</span></li>
+<li><input type="checkbox"><span>能说清脚本 Accuracy 与论文 EXACT 的区别</span></li>
+<li><input type="checkbox"><span>记录了分母/排序/规范化规则</span></li>
+</ul>
+</div>
+<div class="dblock"><h2><span class="tag ref">卡住看哪</span>最短资料入口</h2>
+<p>仓库 <code>evaluation/eval_chem_metrics.py</code> 与 <code>eval_nlp_metrics.py</code> 源码（对着看指标怎么算）。</p>
+</div>
+<div class="day-nav"><a href="#day-d11">← 上一天：推理生成</a><a class="next" href="#day-d13">下一天：误差分析与消融 →</a></div>
+</div>
+
+<div class="day-page view" id="day-d13">
+<div class="day-back"><a href="#home">← 返回 14 天总览</a><span class="dp">第 13 天 / 共 14 天</span></div>
+<div class="day-head"><div class="overline">DAY 13 · 10/27</div><h1>误差分析与消融</h1><p class="goal">今天目标：看看模型到底错在哪（误差分析），并理解“删掉一个组件看掉多少分”（消融）怎么证明组件有用；没有真实训练时，只列缺项、不编造。</p><div class="day-checkbar"><input type="checkbox" id="ck-d13" aria-label="D13 已完成"><label for="ck-d13">今天完成，标记打卡</label></div></div>
+<div class="chain"><strong>这条线怎么串起来的：</strong>D12 打完分 → 今天 D13 两条线收尾：① 看模型错在哪（误差分析，对着 D12 的预测文件翻错例）；② 理解"删组件看掉分"（消融，D10 的对照组就是消融的雏形）→ D14 把所有材料编成报告。</div>
+<div class="dblock"><h2><span class="tag learn">学什么</span>今天要懂的知识点</h2>
+<p><strong>1. 消融（ablation）</strong>：删掉某个组件（比如删掉反向任务）看性能掉多少，用来证明该组件有用。类比：拆掉自行车的链条，看它还跑不跑得动。</p>
+<p><strong>2. 误差分类（常见三类）</strong>：</p>
+<ul>
+<li>无效 SMILES：预测根本解析不成分子。</li>
+<li>组分漏掉：产物有多个组分，只预测出一部分。</li>
+<li>近似但不同：结构很像，但不是正确答案。</li>
+</ul>
+<p><strong>3. 分子对接（docking）</strong>：如果要复现论文的对接实验，还需要受体结构、网格设置等材料；前两周优先做预测实验，对接先列缺项、作为后续工作。</p>
+<p><strong>4. 论文怎么做"看错在哪"</strong>（论文 5 节可视化）：作者用 t-SNE 把模型的输入表示投影到二维，8 类反应样本在 ChemDual 里<strong>簇更紧凑</strong>、在 LLaMA 里更散——"学到的化学知识更分明"，这就是误差分析之外的正向证据。</p>
+<p><strong>5. 论文的分子对接案例（可作 D14 报告的例子）</strong>（论文 5 节 + 图 6）：选药物分子 CHEMBL419018 → BRICS 拆片段 → ChemDual 重组出新分子 TOP1 → 与 MAP2 蛋白对接得分 <strong>-8.3 kcal/mol</strong>，形成 3 个氢键（ARG-417、TYR-383、LEU-18）——说明模型生成的分子不但合法，还能和真实靶点结合，这是论文"能用于药物设计"的最终证据链。</p>
+<p><strong>6. 论文的消融三组对照</strong>（论文 4.3）：w/o dual（删掉反应/逆合成对）、w/o pre（删掉预训练）、LLaMA w/ dual（只加双任务不加预训练）——你 D10 设计的对照组就是其中"w/o dual"的最小版，D14 报告里要能说清你复刻了哪一组。</p>
+</div>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（两条路）</h2>
+<p><strong>若 D8–D12 有真实可比训练：</strong>汇总双任务 vs 单任务差异，整理<strong>≥20 个错误例</strong>并分类。</p>
+<p><strong>否则：</strong>检查训练/评估脚本、列出待补材料与对接缺项，<strong>不编造图表</strong>。</p>
+</div>
+<div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
+<ul class="checklist">
+<li><input type="checkbox"><span>（有训练时）错误例 ≥20 个并分了类</span></li>
+<li><input type="checkbox"><span>（无训练时）列出了缺项，没有编造图表</span></li>
+<li><input type="checkbox"><span>对接实验的缺项清单已记录</span></li>
+</ul>
+</div>
+<div class="dblock"><h2><span class="tag ref">卡住看哪</span>最短资料入口</h2>
+<p>论文第 4 节实验部分（看作者怎么消融、怎么分析错误）。</p>
+</div>
+<div class="day-nav"><a href="#day-d12">← 上一天：评估指标</a><a class="next" href="#day-d14">下一天：复现报告 →</a></div>
+</div>
+
+<div class="day-page view" id="day-d14">
+<div class="day-back"><a href="#home">← 返回 14 天总览</a><span class="dp">第 14 天 / 共 14 天</span></div>
+<div class="day-head"><div class="overline">DAY 14 · 10/28</div><h1>科研复现报告</h1><p class="goal">今天目标：把两周做成一份可审计的报告——做了哪些、做到哪一级、缺什么、下一步需要什么，每个数字都能指回原始文件。</p><div class="day-checkbar"><input type="checkbox" id="ck-d14" aria-label="D14 已完成"><label for="ck-d14">今天完成，标记打卡</label></div></div>
+<div class="chain"><strong>这条线怎么串起来的：</strong>前 13 天是素材（D1-D2 地基 / D3-D4 数据 / D5-D6 模型 / D7 规格 / D8-D10 训练与对照 / D11-D13 推理-评估-分析）→ 今天 D14 把素材编成一份能交给别人审的报告。论文自己的总结（6 节）就三块：数据、分词器、双任务——你的报告就对着这三块写"我复现了哪块、缺哪块"。</div>
+<div class="dblock"><h2><span class="tag learn">学什么</span>今天要懂的知识点</h2>
+<p><strong>1. 复现报告 7 要素</strong>：</p>
+<ol>
+<li>方法流程图；</li>
+<li>环境与数据出处；</li>
+<li>配置 / 版本 / 种子；</li>
+<li>通过的链路；</li>
+<li>真实训练和指标表（若有）；</li>
+<li>与论文表 1 / 表 2 的<strong>可比性</strong>；</li>
+<li>未完成项和下一轮 GPU 计划。</li>
+</ol>
+<p><strong>2. 可审计</strong>：报告里每个数字都能指回原始预测文件和脚本——说清“这个分数是从哪个文件、哪条命令算出来的”。</p>
+<p><strong>3. 论文结论就三块，对着写</strong>（论文 6 节 Conclusion）：① 4.4M 指令数据（解决数据少）；② 多尺度分词器（让模型看懂不同粒度的化学结构）；③ 双任务学习（正反方向一起学）。报告主体就按这三块组织"我复现了哪块 / 到哪一级 / 缺什么"。</p>
+<p><strong>4. 报告开头的复现级别声明是诚实的底线</strong>：链路验证 / 方法级 / 论文数值三级里选一个——前两周大概率只能到前两级，明确写"没有报论文数值"比给一个看起来像的假数更可信（呼应 D11 的"不报假性能"）。</p>
+</div>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
+<ol>
+<li>按 7 要素搭报告骨架。</li>
+<li>逐项填内容；数字旁边标注来源文件与命令。</li>
+<li>开头写明复现级别（链路验证 / 方法级 / 论文数值），缺什么、为什么，一目了然。</li>
+<li>把每天的实验日志汇总成附录。</li>
+</ol>
+</div>
+<div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
+<ul class="checklist">
+<li><input type="checkbox"><span>报告七要素齐全</span></li>
+<li><input type="checkbox"><span>每个关键数字可溯源到文件/命令</span></li>
+<li><input type="checkbox"><span>明确标了复现级别与缺项</span></li>
+<li><input type="checkbox"><span>列了下一轮 GPU 计划</span></li>
+</ul>
+</div>
+<div class="dblock"><h2><span class="tag ref">卡住看哪</span>最短资料入口</h2>
+<p>自己的实验日志 + 论文表 1 / 表 2（对照可比性）。</p>
+</div>
+<div class="day-nav"><a href="#day-d13">← 上一天：误差分析与消融</a><a class="next" href="#home">完成！返回总览 →</a></div>
+</div>
+</main><footer class="pagefoot"><span><i class="dot"></i>本地学习笔记 · 可离线阅读</span><span>从概念到实践，留下一份自己的复现记录。</span></footer></div><script>
+(function(){
+const DAYS=['day-d1','day-d2','day-d3','day-d4','day-d5','day-d6','day-d7','day-d8','day-d9','day-d10','day-d11','day-d12','day-d13','day-d14'];
+const home=document.getElementById('home');
+let saved={};try{saved=JSON.parse(localStorage.getItem('chemdual-study-days-v1')||'{}')}catch(e){}
+let check={};try{check=JSON.parse(localStorage.getItem('chemdual-study-check-v1')||'{}')}catch(e){}
+function show(){
+  const h=(location.hash||'#home').replace('#','');
+  if(DAYS.includes(h)){
+    home.classList.remove('active');
+    DAYS.forEach(d=>document.getElementById(d).classList.toggle('active',d===h));
+    window.scrollTo({top:0,behavior:'auto'});
+  }else{
+    home.classList.add('active');
+    DAYS.forEach(d=>document.getElementById(d).classList.remove('active'));
+  }
+  paintTiles();
+}
+function paintTiles(){
+  document.querySelectorAll('.day-tile').forEach(t=>{const id=t.dataset.day;t.classList.toggle('done',!!saved[id])});
+  document.querySelectorAll('.day-checkbar input').forEach(i=>{const n=i.id.replace('ck-','').toLowerCase();i.checked=!!saved['D'+n.slice(1)]});
+  document.querySelectorAll('.day-page .checklist input').forEach(i=>{
+    const dayId=i.closest('.day-page').id;
+    const li=i.closest('li');
+    const idx=Array.prototype.indexOf.call(li.parentElement.children,li);
+    i.checked=!!((check[dayId]||[])[idx]);
+  });
+  const n=DAYS.filter(d=>saved['D'+d.replace('day-d','')]).length;
+  document.getElementById('home-count').textContent=n+' / 14 天';
+  document.getElementById('home-bar').style.width=(n/14*100)+'%';
+}
+document.querySelectorAll('.day-checkbar input').forEach(i=>i.addEventListener('change',()=>{const id='D'+i.id.replace('ck-','').slice(1);saved[id]=i.checked;try{localStorage.setItem('chemdual-study-days-v1',JSON.stringify(saved))}catch(e){}paintTiles()}));
+document.querySelectorAll('.day-page .checklist input').forEach(i=>i.addEventListener('change',()=>{
+  const dayId=i.closest('.day-page').id;
+  const li=i.closest('li');
+  const idx=Array.prototype.indexOf.call(li.parentElement.children,li);
+  const arr=(check[dayId]||[]).slice();
+  arr[idx]=i.checked;
+  check[dayId]=arr;
+  try{localStorage.setItem('chemdual-study-check-v1',JSON.stringify(check))}catch(e){}
+  const all=arr.length>0&&arr.every(Boolean);
+  if(all){const n='D'+dayId.replace('day-d','');saved[n]=true;try{localStorage.setItem('chemdual-study-days-v1',JSON.stringify(saved))}catch(e){}}
+  paintTiles();
+}));
+window.addEventListener('hashchange',show);
+show();
+})();
+</script></body></html>

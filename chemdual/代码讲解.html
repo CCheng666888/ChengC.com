@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>代码逐行讲解 · D2 SMILES 与 RDKit</title>
+<style>
+:root{--bg:#f6f5f0;--ink:#18382f;--green:#175e4d;--line:#dfe6d8;--paper:#fffdf7;--sub:#778470}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.85 "Microsoft YaHei","PingFang SC",sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:34px 22px 60px}
+.topbar{display:flex;align-items:center;gap:10px;margin-bottom:22px;font-size:13px}
+.topbar a{color:var(--green);text-decoration:none;border:1px solid #c9d8c0;border-radius:99px;padding:6px 14px;background:#fffdf7}
+.topbar a:hover{background:#edf5e6}
+h1{font-size:26px;margin:6px 0 4px;line-height:1.35}
+.sub{color:var(--sub);font-size:13px;margin:0 0 26px}
+.nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 30px}
+.nav a{font-size:12px;color:var(--green);text-decoration:none;border:1px solid #c9d8c0;border-radius:99px;padding:5px 12px;background:#fffdf7}
+.nav a:hover{background:#edf5e6}
+section{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:0 0 22px}
+.sec-tag{display:inline-block;background:#175e4d;color:#fff;font-size:11px;border-radius:4px;padding:2px 8px;margin-right:8px;vertical-align:2px}
+h2{font-size:19px;margin:4px 0 12px;line-height:1.4}
+h2 .where{font-size:12px;color:#8b9c7b;font-weight:400;margin-left:6px}
+pre{background:#1e2c26;color:#e8efe4;border-radius:8px;padding:14px 16px;font:12.5px/1.7 Consolas,monospace;overflow-x:auto;margin:10px 0 16px;white-space:pre}
+pre .cm{color:#7ea38c}
+pre .kw{color:#e8c56e}
+table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}
+th,td{border:1px solid #e4e9dc;padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#eef2e8;font-weight:600;width:34%}
+td code,th code,p code{background:#eef2e8;border-radius:4px;padding:1px 5px;font-size:12.5px;font-family:Consolas,monospace}
+.tip{background:#f4f1e2;border-left:3px solid #c9a94e;border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;margin:12px 0 4px}
+.note{background:#edf5e6;border-left:3px solid #4a8655;border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;margin:12px 0 4px}
+.backtop{display:block;text-align:center;color:var(--green);text-decoration:none;font-size:13px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="topbar"><a href="每日详细计划.html#day-d2">← 返回每日详细计划</a><span>D2 代码逐行讲解</span></div>
+<h1>代码逐行讲解：D2 · SMILES 与 RDKit</h1>
+<p class="sub">配套 notebook 里 D2 的四段代码，逐行告诉你"这一行在干嘛、为什么这样写"。打开 notebook 对照着看，看完一段回来勾掉一段。会用 C 的话，很多地方我都用 C 做了对照。</p>
+
+<div class="nav">
+<a href="#d2-1">第 1 步 · 10 条 SMILES 画图</a>
+<a href="#d2-2">第 2 步 · 3 条无效 SMILES</a>
+<a href="#d2-3">第 3 步 · 成功率 + 写日志</a>
+<a href="#d2-4">第 4 步 · 核对两个测试 JSON</a>
+</div>
+
+<section id="d2-1">
+<h2><span class="sec-tag">第 1 步</span>10 条有效 SMILES，画出分子</h2>
+<pre><code><span class="kw">from</span> rdkit <span class="kw">import</span> Chem
+<span class="kw">from</span> rdkit.Chem <span class="kw">import</span> Draw
+
+smiles_list = [
+    <span class="cm">"CCCCO",          # 直链：丁醇</span>
+    <span class="cm">"CCCCCC",         # 直链：己烷</span>
+    <span class="cm">"CC(C)(C)O",      # 分支：叔丁醇</span>
+    <span class="cm">"CC(C)CC",        # 分支：异戊烷</span>
+    <span class="cm">"C1CCCCC1",       # 环：环己烷</span>
+    <span class="cm">"c1ccccc1",       # 环：苯</span>
+    <span class="cm">"c1ccncc1",       # 环：吡啶</span>
+    <span class="cm">"CC(=O)O",        # 直链+羧基</span>
+    <span class="cm">"CC.O",           # 多组分：乙醇+水</span>
+    <span class="cm">"c1ccccc1.CCO",   # 多组分：苯+乙醇</span>
+]
+mols = [Chem.MolFromSmiles(s) <span class="kw">for</span> s <span class="kw">in</span> smiles_list]
+print(<span class="cm">"有效"</span>, sum(<span class="kw">1</span> <span class="kw">for</span> m <span class="kw">in</span> mols <span class="kw">if</span> m <span class="kw">is</span> <span class="kw">not</span> <span class="kw">None</span>), <span class="cm">"/"</span>, len(mols))
+Draw.MolsToGridImage(mols, molsPerRow=<span class="kw">4</span>, subImgSize=(<span class="kw">300</span>, <span class="kw">220</span>))</code></pre>
+
+<table>
+<tr><th>代码</th><th>在干嘛（通俗版）</th></tr>
+<tr><td><code>from rdkit import Chem</code></td><td>导入 RDKit 的 Chem 模块。RDKit 是化学的"标准库"：<code>Chem.MolFromSmiles</code> 这种"读分子"的函数都在里面。相当于 C 里 <code>#include</code> 一个头文件。</td></tr>
+<tr><td><code>from rdkit.Chem import Draw</code></td><td>再导入画图模块 Draw，最后一行画分子图就靠它。</td></tr>
+<tr><td><code>smiles_list = [...]</code></td><td>一个装着 10 条文本的列表（C 里就是字符串数组）。<code>#</code> 后面是注释。10 条故意覆盖四种结构：直链、分支、环、多组分——正好对应论文里分子的四种常见形态。</td></tr>
+<tr><td><code>mols = [Chem.MolFromSmiles(s) for s in smiles_list]</code></td><td>列表推导式：把 10 条文本 <strong>逐条</strong> 喂给 <code>MolFromSmiles</code>，得到 10 个分子对象。等价于 C 的 for 循环，只是 Python 一行写完。</td></tr>
+<tr><td><code>Chem.MolFromSmiles(s)</code></td><td>核心函数：<strong>文本 → 分子</strong>。把 SMILES 字符串解析成一个内部的分子结构（原子、键、环）。解析不了就返回 <code>None</code>（后面第 2 步专门测这个）。</td></tr>
+<tr><td><code>sum(1 for m in mols if m is not None)</code></td><td>数一数有几个不是 None（= 解析成功）。<code>if</code> 过滤掉失败项，每个成功项贡献 1。这就是"解析成功率"的分母来源。</td></tr>
+<tr><td><code>Draw.MolsToGridImage(mols, molsPerRow=4, ...)</code></td><td>把 10 个分子画成 4 个一行的网格图。看到图 = 解析成功 + 能画结构，第 1 步验收达成。</td></tr>
+</table>
+<div class="note"><strong>为什么要会这个：</strong>论文从 ChEMBL 库里拿 20M 条 SMILES，第一步就是拿 RDKit 解析过滤——<code>MolFromSmiles</code> 解析不出来的，直接当垃圾数据扔掉（论文 3.1 节数据预处理第 2 条）。你刚学的这个函数，就是论文数据流水线的第一道闸门。</div>
+</section>
+
+<section id="d2-2">
+<h2><span class="sec-tag">第 2 步</span>3 条无效 SMILES，理解"为什么无效"</h2>
+<pre><code>bad = {
+    <span class="cm">"CCC(O":   "括号不闭合：有 ( 没有对应的 )",</span>
+    <span class="cm">"C1CCCCC": "环没闭合：C1 开环标记没遇到第二个 1",</span>
+    <span class="cm">"c1ccccc": "芳香环缺原子：苯环要 6 个 c，这里只有 5 个",</span>
+}
+<span class="kw">for</span> s, why <span class="kw">in</span> bad.items():
+    print(f<span class="cm">"{s:8} -&gt; {Chem.MolFromSmiles(s)}   原因：{why}"</span>)</code></pre>
+
+<table>
+<tr><th>代码</th><th>在干嘛（通俗版）</th></tr>
+<tr><td><code>bad = { "CCC(O": "括号不闭合：..." , ... }</code></td><td>一个字典：键是"故意写错的 SMILES"，值是"它为什么错"的人话解释。字典 = C 里"键值对"的表。</td></tr>
+<tr><td><code>for s, why in bad.items()</code></td><td>遍历字典，每次取出一个键 <code>s</code> 和一个值 <code>why</code>。相当于 C 的 for 循环访问数组，只是同时拿到"文本"和"原因"两样东西。</td></tr>
+<tr><td><code>print(f"{s:8} -&gt; {Chem.MolFromSmiles(s)}   原因：{why}")</code></td><td><code>f"..."</code> 是格式化字符串：把 <code>{...}</code> 里的变量直接算好填进文字——相当于 C 的 <code>printf("%s", s)</code>。<code>:8</code> 表示占 8 个字符宽度对齐。<code>Chem.MolFromSmiles(s)</code> 在这里现场解析，输出 <code>None</code> 就是失败。</td></tr>
+<tr><td><code>None</code>（运行结果）</td><td>三条全是 None，说明三条都是非法 SMILES。RDKit 还会往日志里打一句 <code>SMILES Parse Error: ...</code>，那句英文就是失败原因的直接证据。</td></tr>
+</table>
+<table>
+<tr><th>SMILES</th><th>日志报错</th><th>人话</th></tr>
+<tr><td><code>CCC(O</code></td><td><code>extra open parentheses</code></td><td>开了一个 <code>(</code> 却始终没有 <code>)</code> 关回来——括号不配对。</td></tr>
+<tr><td><code>C1CCCCC</code></td><td><code>unclosed ring</code></td><td><code>C1</code> 声明"这里开一个环"，但直到结尾都没遇到第二个 <code>1</code> 来关环。</td></tr>
+<tr><td><code>c1ccccc</code></td><td><code>unclosed ring</code></td><td>芳香环（小写 c）至少要 6 个原子，这里只有 5 个，环没封口。</td></tr>
+</table>
+<div class="tip"><strong>为什么专门测无效：</strong>论文的 VALIDITY 指标就是"生成结果能不能被 RDKit 解析"。模型答了一串 <code>CCCCCCC(</code> 这种垃圾，VALIDITY 直接判 0。你在这里学会"什么是不合法"，后面看评估脚本才能看懂它在判什么。</div>
+</section>
+
+<section id="d2-3">
+<h2><span class="sec-tag">第 3 步</span>解析成功率 + 写进实验日志</h2>
+<pre><code>good = [<span class="cm">"CCCCO"</span>, <span class="cm">"CCCCCC"</span>, <span class="cm">"CC(C)(C)O"</span>, <span class="cm">"CC(C)CC"</span>, <span class="cm">"C1CCCCC1"</span>,
+        <span class="cm">"c1ccccc1"</span>, <span class="cm">"c1ccncc1"</span>, <span class="cm">"CC(=O)O"</span>, <span class="cm">"CC.O"</span>, <span class="cm">"c1ccccc1.CCO"</span>]
+valid = sum(<span class="kw">1</span> <span class="kw">for</span> s <span class="kw">in</span> good <span class="kw">if</span> Chem.MolFromSmiles(s) <span class="kw">is</span> <span class="kw">not</span> <span class="kw">None</span>)
+total = len(good) + <span class="kw">3</span>          <span class="cm"># 3 = 第 2 步的三条无效</span>
+print(f<span class="cm">"解析成功率：{valid}/{total} 条有效（{valid/total:.0%}）"</span>)
+
+<span class="kw">from</span> pathlib <span class="kw">import</span> Path
+log = Path.cwd()
+<span class="kw">if</span> log.name == <span class="cm">"reproduce"</span>:
+    log = log.parent
+log = log / <span class="cm">"reproduce"</span> / <span class="cm">"实验日志.md"</span>
+<span class="kw">with</span> open(log, <span class="cm">"a"</span>, encoding=<span class="cm">"utf-8"</span>) <span class="kw">as</span> f:
+    f.write(<span class="cm">"\n## 2026-10-17 · D2\n"</span>)
+    f.write(<span class="cm">"- 10 条有效 SMILES 全部解析并绘图（直链/分支/环/多组分）\n"</span>)
+    f.write(<span class="cm">"- 无效验证：3 条均返回 None（括号不闭合 / 环未闭合 / 芳香环缺原子）\n"</span>)
+    f.write(f<span class="cm">"- 解析成功率：{valid}/{total}\n"</span>)
+print(<span class="cm">"已写入"</span>, log)</code></pre>
+
+<table>
+<tr><th>代码</th><th>在干嘛（通俗版）</th></tr>
+<tr><td><code>good = [...]</code></td><td>10 条有效 SMILES 单独放一个列表——和第 1 步重复没关系，这里是"为了统计而单独拎出来"。</td></tr>
+<tr><td><code>valid = sum(...)</code></td><td>和前面一样，数出 10 条里成功解析几条（应该全成功 = 10）。</td></tr>
+<tr><td><code>total = len(good) + 3</code></td><td>总条数 = 10 有效 + 3 无效。成功率的分母。用 <code>len(good)</code> 而不是写死 10，是为了代码能复用。</td></tr>
+<tr><td><code>f"{valid/total:.0%}"</code></td><td><code>.0%</code> 把小数格式化成百分比且保留 0 位小数：10/13 → <code>77%</code>。相当于 C 里 <code>printf("%.0f%%", ...)</code>。</td></tr>
+<tr><td><code>from pathlib import Path</code></td><td>导入路径工具。<code>Path</code> 就是"文件路径"对象，比 C 里拼字符串路径方便得多。</td></tr>
+<tr><td><code>log = Path.cwd()</code></td><td><code>cwd</code> = current working directory，当前工作目录（notebook 运行时所在文件夹）。</td></tr>
+<tr><td><code>if log.name == "reproduce": log = log.parent</code></td><td><strong>防呆处理</strong>：如果当前目录正好叫 <code>reproduce</code>，就退回上一级。目的是无论 notebook 在哪启动，都能定位到 <code>reproduce/实验日志.md</code> 这个固定位置。</td></tr>
+<tr><td><code>log = log / "reproduce" / "实验日志.md"</code></td><td><code>/</code> 在 Path 里是"拼接路径"（不是除法！）。最终得到完整路径：<code>...\ChemDual\reproduce\实验日志.md</code>。</td></tr>
+<tr><td><code>with open(log, "a", encoding="utf-8") as f:</code></td><td>打开文件追加写入。<code>"a"</code> = append，不清空原内容、只往末尾加（C 里对应 <code>fopen(..., "a")</code>）。<code>encoding="utf-8"</code> 保证中文不乱码。用 <code>with</code> 会自动关闭文件，不用手动 close。</td></tr>
+<tr><td><code>f.write(...)</code></td><td>把当天记录逐行写进日志。四行分别是：改了什么 / 跑了什么 / 看到了什么（成功率）。</td></tr>
+<tr><td><code>print("已写入", log)</code></td><td>打印最终路径，让你去确认文件真的写了。</td></tr>
+</table>
+<div class="note"><strong>为什么要写日志：</strong>D14 的科研复现报告要求"每个数字都能指回原始文件"。现在写的每一行，都是两周后报告的证据。日志格式固定为四件事：<strong>改了什么 / 跑了什么命令 / 看到了什么 / 下一步阻碍</strong>，每天 15 分钟就够。</div>
+</section>
+
+<section id="d2-4">
+<h2><span class="sec-tag">第 4 步</span>核对两个测试 JSON</h2>
+<pre><code><span class="kw">import</span> json
+<span class="kw">from</span> pathlib <span class="kw">import</span> Path
+
+root = Path.cwd()
+<span class="kw">if</span> root.name == <span class="cm">"reproduce"</span>:
+    root = root.parent
+<span class="kw">for</span> name <span class="kw">in</span> [<span class="cm">"ChemDual_fragment_test.json"</span>, <span class="cm">"ChemDual_recombination_test.json"</span>]:
+    rows = json.loads((root / <span class="cm">"dataset"</span> / name).read_text(encoding=<span class="cm">"utf-8"</span>))
+    print(name, <span class="cm">"条数:"</span>, len(rows), <span class="cm">"字段:"</span>, sorted(rows[<span class="kw">0</span>].keys()))</code></pre>
+
+<table>
+<tr><th>代码</th><th>在干嘛（通俗版）</th></tr>
+<tr><td><code>import json</code></td><td>导入 JSON 处理模块。JSON 是存数据的标准文本格式（类似 C 的 <code>struct</code> 序列化后的文本）。</td></tr>
+<tr><td><code>root = Path.cwd() ...</code></td><td>同上一步的防呆逻辑：无论从哪启动，都定位到项目根目录（<code>...\ChemDual\</code>）。</td></tr>
+<tr><td><code>for name in [...两个文件名...]</code></td><td>循环处理两个测试文件：<code>fragment_test</code>（分子拆片段测试）和 <code>recombination_test</code>（片段拼分子测试）——正好对应论文双任务的预训练方向。</td></tr>
+<tr><td><code>json.loads(...)</code></td><td>把文件里的 JSON 文本解析成 Python 数据（列表）。<code>read_text(encoding="utf-8")</code> 先读成字符串，<code>json.loads</code> 再解析。</td></tr>
+<tr><td><code>len(rows)</code></td><td>列表长度 = 数据条数。应该输出 1000。</td></tr>
+<tr><td><code>sorted(rows[0].keys())</code></td><td>取第一条数据的字段名并排序。应该输出 <code>['input', 'instruction', 'output']</code>。<code>rows[0]</code> 就是第一条（C 里 <code>rows[0]</code>）。</td></tr>
+</table>
+<div class="tip"><strong>三个字段分别是什么：</strong><code>instruction</code> = 给模型的指令（"请给出反应物"这类提问模板），<code>input</code> = 输入分子/片段，<code>output</code> = 标准答案。这三段拼起来就是一条完整的训练/测试样本，和论文图 3 的模板一一对应。核对目的：确保测试集没被污染、字段没改名——数据可信，后面所有分数才可信。</div>
+</section>
+
+<a class="backtop" href="每日详细计划.html#day-d2">← 返回每日详细计划 · D2</a>
+</div>
+</body>
+</html>
