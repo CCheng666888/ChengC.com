@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-paper-theme>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101f24">
+  <title>把一只大肥鱼养进 QQ · ChenC 的萤火通讯</title>
+  <meta name="description" content="从本地调试到云服务器常驻，给 QQ 机器人套上大肥鱼人设、配上表情包，再接一台虚拟手机让她自己玩手机，一篇完整的养机记录。">
+  <!-- delivery:start -->
+  <link rel="stylesheet" href="../css/delivery-5ced4bb1e45f.css" data-sources="css/secret-arcade.css css/contact.css css/navigation.css css/night-lake.css css/site-refinements.css css/paper-theme.css">
+  <script data-theme-source="js/theme.js">(() => {
+  'use strict';
+  const paperPage = document.documentElement.hasAttribute('data-paper-theme');
+  const fallback = () => 'light';
+  let preference = null;
+  try { preference = localStorage.getItem('theme'); } catch {}
+  if (!['light', 'dark'].includes(preference)) preference = null;
+  function apply(theme) {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.classList.toggle('dark', theme !== 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = paperPage ? (theme === 'light' ? '#f5f3ee' : '#171e1b') : (theme === 'light' ? '#f3f7f5' : '#0b2431');
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.setAttribute('aria-label', theme === 'light' ? '切换深色主题' : '切换浅色主题');
+    });
+  }
+  apply(preference || fallback());
+  document.documentElement.classList.add('js');
+  function connect() {
+    apply(preference || fallback());
+    document.querySelectorAll('#themeToggle, #articleTheme').forEach(button => {
+      button.addEventListener('click', () => {
+        preference = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+        apply(preference);
+        try { localStorage.setItem('theme', preference); } catch {}
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', connect);
+  else connect();
+})();</script>
+  <script defer src="../js/navigation.js?v=ab7985e942a9"></script>
+  <!-- delivery:end -->
+</head>
+<body class="contact-page paper-theme">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="pixel-stars" aria-hidden="true"></div>
+  <header class="contact-header">
+    <a class="contact-brand" href="../index.html">ChenC<span>.</span></a>
+    <span class="header-frequency">FIREFLY FREQUENCY / 04</span>
+    <a class="back-link" href="../index.html#blog">返回博客</a>
+  </header>
+  <main id="main" class="contact-main">
+    <div class="page-label"><span class="pixel-cross" aria-hidden="true">✦</span><span>一篇关于养 QQ 机器人的折腾记录</span><span class="label-code">CHENC / POST</span></div>
+    <h1>把一只大肥鱼养进 QQ<span class="heading-dot" aria-hidden="true">.</span></h1>
+    <section class="firefly-window" aria-labelledby="articleTitle">
+      <div class="window-bar">
+        <span class="window-name"><span class="window-mark" aria-hidden="true"></span>萤火通讯 · 技术手记</span>
+        <div class="window-controls">
+          <a class="window-return" href="../index.html#blog" aria-label="关闭手记，返回博客">×</a>
+        </div>
+      </div>
+      <div class="window-body" style="display:block;border-left:0;border-right:0">
+        <div class="article-body" id="articleTitle">
+          <header class="article-head">
+            <p class="channel-label"><span aria-hidden="true">[</span> CHATBOT / 养机记录 <span aria-hidden="true">]</span></p>
+            <h2>把一只大肥鱼养进 QQ：从本地调试到云服务器常驻</h2>
+            <p class="article-meta"><time datetime="2026-10-20">2026 年 10 月 20 日</time><span>约 4 分钟阅读</span><span>QQ 机器人 · 大肥鱼人设</span></p>
+          </header>
+
+          <p>大肥鱼这阵子在表情包里见得多了，存了一整套图，可光存着有点不甘心——她只躺在相册里，不会开口。于是想干脆把她接进自己的 QQ：让她用大肥鱼的语气说话，聊到兴头上自动回一张表情包，平时就在列表里待着，像个不吵人的小房客。这篇记一下从「本地叫醒」到「云服务器常驻」的完整过程。</p>
+
+          <h3>先在本地把她叫醒</h3>
+          <p>框架用 AstrBot 当调度，QQ 账号那层交给 NapCat，大脑接 DeepSeek（DS）。先在自己电脑上跑通：发一句话她能接话，给几个指令她能照做，闲聊和基础命令先通了一遍。本地阶段图快，目的就是验证「说出去的话她接得住、给的指令她认得」，别的都先不管。</p>
+
+          <h3>搬上云服务器，让她一直在线</h3>
+          <p>本地跑最大的问题是<strong>关机就断线</strong>：电脑一合盖、一重启，她就人间蒸发，别人发消息只听见回声。Windows 自己也扛不住这套东西常驻，内存一紧，QQ 那层先被挤掉。所以最终把整套搬到了一台 Ubuntu 云服务器上，机器一直开着，她也就一直在线。</p>
+          <p>搬家路上磕了几处：环境版本对不上装不上，得先把运行环境补齐；SSH 一断开，后台进程跟着一起消失，得让她脱离终端单独常驻；QQ 第一次登录要扫码，服务器没有屏幕，得想办法把二维码送到眼前；内存按整套实际占用选，不用追求高配置——她的脑子在云端模型接口上，服务器只做转发，普通配置就够。</p>
+
+          <h3>给她套上人设和表情包</h3>
+          <p>能用之后就要让她「像大肥鱼」。把大肥鱼的性格、语气和口头禅整理成一段提示词喂给模型，聊起来的口吻就贴近了本人，而不是一个客气的通用助手。</p>
+          <p>表情包从梗鲸图库收了一批大肥鱼的图，按关键词配好触发：聊到对应情绪时，她在文字后面自动跟一张图。文字是她的话，图是她的表情，一来一回就活了。</p>
+
+          <h3>她现在会做的事</h3>
+          <p>日常闲聊不用多说；几条常用指令只留给管理员，别人发了不生效；好友申请由她先收到、报给我审批；群里有人@她，她也能接话回一句。</p>
+          <p>另外我没用现成的模拟器，而是<strong>自己用代码给她写了一部能用的虚拟手机</strong>：她能自己在上面点开、翻看、摆弄，想玩的时候自己就玩一会儿，不用我一步步把东西喂到眼前。</p>
+
+          <h3>几处调顺的小坎</h3>
+          <p>指令权限一开始谁都能用，得改成只管理员有效；好友申请有时收不到，不能只等事件上报，要主动去拉一次列表；模型名字头一回按印象拼错，照着接口报错里给的名单改对才通；后台进程偶尔掉线，也都一一调稳了。这些单独看都不复杂，凑在一起就是搬机器那几天最花时间的部分。</p>
+
+          <blockquote class="article-quote">养机器人和养植物差不多：不用她每天闹出动静，能一直在、偶尔回一句、顺手发张图，就挺好。</blockquote>
+        </div>
+      </div>
+      <div class="window-bottom"><span class="mechanical-ticks" aria-hidden="true">▰ ▰ ▰</span><span>把微小的光，留给明天。</span><span class="bottom-code" aria-hidden="true">TYPE-V</span></div>
+    </section>
+    <div class="contact-strip">
+      <div>
+        <p class="contact-kicker">NEXT STOP / 下一站</p>
+        <h2>回到博客列表</h2>
+        <p>这里记录我正在做的项目、学过的笔记和日常琐事。</p>
+      </div>
+      <a class="pixel-link" href="../index.html#blog"><span>↗</span>返回博客<small>全部文章</small></a>
+    </div>
+  </main>
+  <footer class="contact-footer"><span>© 2026 ChenC</span><a class="back-link" href="beacon-relay.html" style="padding:0">上一篇：烽火来信</a><span class="footer-sign">愿此行，终抵群星。</span></footer>
+</body>
+</html>

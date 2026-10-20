@@ -3,6 +3,15 @@
   const STORAGE_KEY = 'chengc_posts';
   const DEFAULT_POSTS = [
   {
+    "id": "whale-chan-qq",
+    "title": "把一只大肥鱼养进 QQ",
+    "category": "study",
+    "content": "用 AstrBot、NapCat 和 DeepSeek 给 QQ 接了一只大肥鱼：套人设、配表情包，搬上云服务器常驻，还用代码手写了一部虚拟手机给她自己玩。",
+    "date": "2026/10/20",
+    "builtin": true,
+    "url": "posts/whale-chan-qq.html"
+  },
+  {
     "id": "beacon-relay",
     "title": "烽火来信：把七道逻辑题写成一封军报",
     "category": "study",
