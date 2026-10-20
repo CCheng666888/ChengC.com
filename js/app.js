@@ -5,7 +5,7 @@
   {
     "id": "whale-chan-qq",
     "title": "把一只大肥鱼养进 QQ",
-    "category": "study",
+    "category": "life",
     "content": "用 AstrBot、NapCat 和 DeepSeek 给 QQ 接了一只大肥鱼：套人设、配表情包，搬上云服务器常驻，还用代码手写了一部虚拟手机给她自己玩。",
     "date": "2026/10/20",
     "builtin": true,
@@ -14,7 +14,7 @@
   {
     "id": "beacon-relay",
     "title": "烽火来信：把七道逻辑题写成一封军报",
-    "category": "study",
+    "category": "life",
     "content": "一个不联网、不考知识的离线推理小游戏：七座烽火燧台七道纯纸上逻辑题，从五人排序到十札联合，答错收坏收据、答对点回火，全程靠枚举验证答案唯一。",
     "date": "2026/10/16",
     "builtin": true,
@@ -32,7 +32,7 @@
   {
     "id": "building-this-site",
     "title": "我的小站是这样搭的：静态页面、博客系统与发布流程",
-    "category": "study",
+    "category": "life",
     "content": "一个人维护的静态小站，如何组织博客、动画与作品入口，再通过本地资源打包和 GitHub Pages 发布？本文保留早期建站记录，并补充当前流程。",
     "date": "2026/10/03",
     "builtin": true,
