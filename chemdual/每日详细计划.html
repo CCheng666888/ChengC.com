@@ -98,14 +98,17 @@
 </ul>
 <div class="example">你今天核对的 <code>dataset/</code> 里两个各 1000 条的测试 JSON，就是从论文测试集里抽出来的小样——字段一样、规模缩小，方便你本地跑得动。</div>
 </div>
-<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
-<ol>
-<li>双击项目根目录的 <code>检查实验环境.cmd</code>，看输出——每项检查通过会给出提示，有报错先记下来。</li>
-<li>双击 <code>启动JupyterLab.cmd</code>，浏览器会自动打开 JupyterLab 页面。</li>
-<li>在文件列表里打开 <code>reproduce/本地实验入门.ipynb</code>，从上到下每个格子按 <code>Shift+Enter</code> 运行。</li>
-<li>在笔记里用自己的话写 4 个“输入→输出”（分子/片段、反应物/产物四个方向各一句）。</li>
-<li>核查并记录：LLaMA 3.1 的访问权限（需 Meta 授权）、作者训练数据与 tokenizer 来源是否可得。</li>
-</ol>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（可直接照抄）</h2>
+<p><strong>第 1 步：检查实验环境</strong>——双击项目根目录的 <code>检查实验环境.cmd</code>，黑窗口会逐项检查并打印结果。</p>
+<p><strong>预期看到什么</strong>：每项检查前面打印"通过 / PASS / OK"，最后有一行汇总（如"全部通过，可以进入下一步"）。<strong>只要看到 ERROR / FAIL / 红字</strong>，就把那一行复制进实验日志（后面交给我处理）。窗口关掉前先截图或抄下来。</p>
+<p><strong>第 2 步：启动 JupyterLab</strong>——双击 <code>启动JupyterLab.cmd</code>。正常情况下浏览器会自动打开 JupyterLab 页面（地址形如 <code>http://localhost:8888/lab</code>）。</p>
+<p><strong>如果浏览器没自动打开</strong>：回终端窗口，把 <code>http://localhost:8888/lab?token=一串字符</code> 这一行手动复制到浏览器地址栏打开；页面要你输密码/token 时，就填链接里 <code>token=</code> 后面那一串。做实验时先别关这个 cmd 窗口，关掉会断开 Jupyter。</p>
+<p><strong>第 3 步：跑入门 notebook</strong>——在 JupyterLab 左侧文件列表里打开 <code>reproduce/本地实验入门.ipynb</code>，从上到下每个格子点一下、按 <code>Shift+Enter</code> 运行。</p>
+<p><strong>预期看到什么</strong>：每个格子运行后下方出现输出（文字或数字），正常都是"成功/通过"风格；<strong>某个格子出现红底报错</strong>（<code>Traceback</code> 开头）就停下来，把报错内容复制给我。跑完后会有一个格子自动往 <code>reproduce/实验日志.md</code> 里追加当天的解析记录。</p>
+<p><strong>第 4 步：写 4 个"输入 → 输出"方向</strong>（写进实验日志，用自己的话，下面模板照抄填空。注意：<strong>这段是文档内容，不是代码</strong>，不要粘进 Jupyter 运行）：</p>
+<div class="example">1) 分子 → 片段：给我一个完整分子 SMILES，输出它的 BRICS 片段列表（论文第一阶段前半）。<br>2) 片段 → 分子：给我一组片段 SMILES，输出拼回的分子（论文第一阶段后半）。<br>3) 反应物 → 产物：给我反应物 SMILES，预测反应产物（反应预测，论文第二阶段）。<br>4) 产物 → 反应物：给我产物 SMILES，预测可能的反应物（逆合成，论文第二阶段）。</div>
+<p><strong>第 5 步：核查并记录三样东西的"可得性"</strong>（写进实验日志，同样是文档内容不是代码）：</p>
+<div class="example">D1 访问状态核查（日期：____）<br>① 基础模型 LLaMA 3.1 8B：Hugging Face 上是否已批准访问？→ 是 / 否（申请了等 Meta 审核）<br>② 作者训练数据：ChemDual 仓库 data/ 是否公开？→ 是 / 否（当前仍 TODO）<br>③ 作者扩展 tokenizer：仓库是否提供？→ 是 / 否（当前未公开，D5 再核对）</div>
 </div>
 <div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
 <ul class="checklist">
@@ -126,7 +129,7 @@
 <div class="day-back"><a href="#home">← 返回 14 天总览</a><span class="dp">第 2 天 / 共 14 天</span></div>
 <div class="day-head"><div class="overline">DAY 2 · 10/16</div><h1>SMILES 与 RDKit</h1><p class="goal">今天目标：学会“用一行文本表示一个分子”，并用 RDKit 解析、画图、判断合法性。这是后面所有数据工作的地基——看不懂 SMILES，就看不懂训练样本。</p><div class="day-checkbar"><input type="checkbox" id="ck-d2" aria-label="D2 已完成"><label for="ck-d2">今天完成，标记打卡</label></div></div>
 <div class="chain"><strong>这条线怎么串起来的：</strong>D1 你学会了读 JSON、知道了论文有"反应预测 / 逆合成 / 拆片段 / 拼分子"四个方向 → 今天 D2 学它们的共同语言：SMILES（分子怎么用一行文本表示）→ D3 就要用你今天的语法，把分子按 BRICS 规则"切积木"拆成片段。今天看不懂括号和环，D3 就拆不动。</div>
-<div class=”dblock”><h2><span class=”tag learn”>学什么</span>今天要懂的知识点（比昨天深一层，全部来自论文 3.1 节）</h2>
+<div class="dblock"><h2><span class="tag learn">学什么</span>今天要懂的知识点（比昨天深一层，全部来自论文 3.1 节）</h2>
 <p><strong>1. SMILES：把分子图写成一行文本</strong>，记住 5 条规则（这是”分子语言”的字母表）：</p>
 <ul>
 <li><strong>原子</strong>：直接写元素符号。<code>CCO</code> 是乙醇；碳链连写 <code>CCC</code>。</li>
@@ -135,7 +138,7 @@
 <li><strong>环</strong>：用闭环数字配对。<code>C1CCCCC1</code> 是环己烷：两个 1 之间连成环。</li>
 <li><strong>多组分</strong>：用点 <code>.</code> 隔开，如盐 <code>[Na+].[Cl-]</code>。</li>
 </ul>
-<div class=”example”>乙醇 <code>CCO</code> 拆开看：<code>C</code>-<code>C</code>-<code>O</code> 三个原子连成一串，氢原子默认省略。它和 <code>OCC</code> 是同一个分子——SMILES 只是”按某种顺序遍历的写法”，顺序不同但读出来都是乙醇。</div>
+<div class="example">乙醇 <code>CCO</code> 拆开看：<code>C</code>-<code>C</code>-<code>O</code> 三个原子连成一串，氢原子默认省略。它和 <code>OCC</code> 是同一个分子——SMILES 只是”按某种顺序遍历的写法”，顺序不同但读出来都是乙醇。</div>
 <p><strong>2. RDKit 两个核心函数</strong>——这俩就是论文数据流水线的”质检员”：</p>
 <ul>
 <li><code>Chem.MolFromSmiles(“...”)</code>：文本 → 分子对象；解析失败返回 <code>None</code> → 这条 SMILES 非法，不能当合法数据训练。</li>
@@ -256,13 +259,103 @@ for name in ["ChemDual_fragment_test.json", "ChemDual_recombination_test.json"]:
 <p><strong>8. 440 万条是怎么拼出来的</strong>（论文图 2(a) 全流程）：2.2M 分子库 → BRICS 拆+重组 → 套指令模板（"请给出反应物/请预测产物"，图 3）→ 得到 <strong>4.4M</strong> 条指令样本（一个分子拆出多个片段，样本数就翻倍了）。</p>
 <p><strong>9. 作者数据可得性</strong>：论文说代码和附录在 GitHub 开源，但<strong>作者训练数据在仓库仍是 TODO</strong> → 需要自己找独立数据源（USPTO、ChEMBL 等）走方法级路线（D7 定规格时会再碰这个问题）。</p>
 </div>
-<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
-<ol>
-<li>选 <strong>10 个自己挑的</strong>合法分子（从简单到复杂：直链、带分支、带环）。</li>
-<li>用 <code>BRICSDecompose</code> 逐个拆解，保存“原分子、片段、切分数量”：<div class="example"><code>from rdkit.Chem import BRICS</code><br><code>frags = BRICS.BRICSDecompose(mol)</code> —— 返回一组片段 SMILES</div></li>
-<li>画出其中 2 个例子，用一句话解释：为什么拆出的片段不等于真实实验反应物。</li>
-<li>定路线：作者数据 / tokenizer / GPU 在剩余时间里能否取得；不能 → 明确走方法级复现。</li>
-</ol>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（可直接照抄运行）</h2>
+<p><strong>第 1 步：准备 10 个分子</strong>（不用自己挑，直接用下面这 10 个，从简单到复杂）：</p>
+<div class="example">直链 2 个：<code>CCC</code>（丙烷）· <code>CCCCO</code>（丁醇）<br>带分支 2 个：<code>CC(C)C</code>（异丁烷）· <code>CC(C)(C)O</code>（叔丁醇）<br>带环 2 个：<code>C1CCCCC1</code>（环己烷）· <code>c1ccccc1</code>（苯）<br>带官能团 1 个：<code>CC(=O)O</code>（乙酸）<br>双环 1 个：<code>C1CC2CCC1C2</code>（双环[2.2.1]庚烷）<br>复杂 2 个：<code>c1ccccc1CC(=O)O</code>（苯乙酸）· <code>NC(=O)CN1CCC(N)CC1</code>（论文图 2(a) 原例）</div>
+<p>为什么这样选：覆盖 D2 学过的全部结构类型，而且从简单到复杂——你会直观看到"分子越复杂，拆出的片段越多"，这就是论文里"1 个分子变出多条训练样本"的直觉来源。</p>
+<p><strong>第 2 步：用 BRICSDecompose 逐个拆解</strong>（完整代码，复制进 Jupyter 直接跑）：</p>
+<pre><code>from rdkit import Chem
+from rdkit.Chem import BRICS
+
+smiles_list = [
+    "CCC",                # 直链：丙烷
+    "CCCCO",              # 直链：丁醇
+    "CC(C)C",             # 分支：异丁烷
+    "CC(C)(C)O",          # 分支：叔丁醇
+    "C1CCCCC1",           # 环：环己烷
+    "c1ccccc1",           # 环：苯
+    "CC(=O)O",            # 官能团：乙酸
+    "C1CC2CCC1C2",        # 双环[2.2.1]庚烷
+    "c1ccccc1CC(=O)O",    # 苯乙酸
+    "NC(=O)CN1CCC(N)CC1", # 论文图2(a)原例
+]
+
+for s in smiles_list:
+    mol = Chem.MolFromSmiles(s)
+    if mol is None:
+        print(s, "解析失败，跳过")
+        continue
+    frags = BRICS.BRICSDecompose(mol)   # 返回一组片段 SMILES（自动去重）
+    print(f"原分子 {s} → 片段数 {len(frags)}")
+    for f in frags:
+        print("   ", f)</code></pre>
+<p><strong>预期输出</strong>：每个分子打印一行"原分子 → 片段数"，下面列出每个片段。论文原例应输出：</p>
+<div class="example"><code>NC(=O)CN1CCC(N)CC1 → 片段数 2</code><br><code>   [4*]CC(N)=O</code><br><code>   [5*]N1CCC(N)CC1</code></div>
+<p><strong>两个常见情况，见到别慌</strong>：① <strong>片段数 = 0</strong>——这个分子里没有 BRICS 规则表定义的可断键（比如纯苯环、小烷烃），拆不动是正常现象，照实记录即可；② <strong>片段带 <code>[n*]</code></strong>——接头不是真实原子，所以片段 SMILES 不能直接当分子用，它只是"带断口的积木"。</p>
+<p><strong>第 3 步：保存"原分子 / 片段 / 数量"</strong>——不用手填表格，下面这段代码会<strong>自动</strong>把结果追加进 <code>reproduce/实验日志.md</code>（它和第 2 步共用同一个分子清单，独立可跑）：</p>
+<pre><code>import datetime
+import pathlib
+from rdkit import Chem
+from rdkit.Chem import BRICS
+
+# 和第 2 步同一份分子清单
+smiles_list = [
+    "CCC", "CCCCO", "CC(C)C", "CC(C)(C)O", "C1CCCCC1",
+    "c1ccccc1", "CC(=O)O", "C1CC2CCC1C2", "c1ccccc1CC(=O)O",
+    "NC(=O)CN1CCC(N)CC1",
+]
+
+# 1) 逐个拆解，收集结果
+records = []
+for s in smiles_list:
+    mol = Chem.MolFromSmiles(s)
+    if mol is None:
+        records.append((s, "解析失败", "-"))
+        continue
+    frags = sorted(BRICS.BRICSDecompose(mol))
+    records.append((s, len(frags), "; ".join(frags) if frags else "无可断键"))
+
+# 2) 先打印汇总，看一遍对不对
+for s, n, frag in records:
+    print(f"{s:24} 片段数 {n:2}  {frag}")
+
+# 3) 自动追加到 reproduce/实验日志.md（没有文件会自动创建）
+root = pathlib.Path.cwd()
+if root.name == "reproduce":
+    root = root.parent
+log = root / "reproduce" / "实验日志.md"
+with open(log, "a", encoding="utf-8") as fh:
+    fh.write(f"\n## {datetime.date.today().isoformat()} · D3\n")
+    fh.write("分子清单：10 个（直链2 / 分支2 / 环2 / 官能团1 / 双环1 / 复杂2）\n")
+    fh.write("| 原分子 | 片段数 | 片段 |\n|---|---|---|\n")
+    for s, n, frag in records:
+        fh.write(f"| {s} | {n} | {frag} |\n")
+print("已写入", log)</code></pre>
+<p><strong>预期看到什么</strong>：先打印 10 行汇总（原分子 + 片段数 + 片段列表），然后打印 <code>已写入 ...\实验日志.md</code>。打开日志文件翻到最底部，能看到刚追加的 <code>## 日期 · D3</code> 段落和 10 行表格。片段数为 0 的分子（比如纯苯环、小烷烃）在表里显示"无可断键"——这是正常现象，不是报错。</p>
+<p><strong>第 4 步：画出其中 2 个例子</strong>（用 D2 学过的 Draw，原分子一张、片段一张）。<strong>注意：必须用 <code>display()</code> 才会在 Jupyter 里显示图片</strong>——<code>MolsToGridImage</code> 只生成图片对象，在循环里不会自动显示：</p>
+<pre><code>from rdkit.Chem import Draw
+from rdkit.Chem import BRICS
+from rdkit import Chem
+from IPython.display import display    # 显示图片必须用它
+
+for s in ["NC(=O)CN1CCC(N)CC1", "C1CC2CCC1C2"]:
+    mol = Chem.MolFromSmiles(s)
+    frags = list(BRICS.BRICSDecompose(mol))
+    frag_mols = [Chem.MolFromSmiles(f) for f in frags]
+    print("原分子:", s, "→", len(frags), "个片段")
+
+    img1 = Draw.MolsToGridImage([mol], molsPerRow=1, subImgSize=(360, 260),
+                                legends=["原分子 " + s])
+    display(img1)                      # 显示原分子
+
+    img2 = Draw.MolsToGridImage(frag_mols, molsPerRow=4, subImgSize=(300, 220),
+                                legends=frags)
+    display(img2)                      # 显示片段</code></pre>
+<p><strong>预期看到什么</strong>：先打印"原分子: … → 2 个片段"，然后依次显示两张图（第一张是原分子，第二张是它的片段）。想存图就在后面加一行 <code>img1.save("d3_例子.png")</code>。</p>
+<p><strong>第 5 步：用一句话解释"为什么片段 ≠ 真实实验反应物"</strong>（写进日志，参考答案）：</p>
+<div class="example">BRICS 只按"逆合成上有意义的键"机械切分，切出的是结构积木（骨架近似）；真实反应物还带着完整的官能团、离去基团和反应条件，所以片段不等于反应物——论文图 1(a) 里片段与真实反应物平均相似度只有 66.5%，就是这个道理。</div>
+<p><strong>第 6 步：定路线（作者数据 / tokenizer / GPU 能否取得）</strong>——打开 <a href="https://github.com/JacklinGroup/ChemDual" target="_blank" rel="noopener">ChemDual 仓库</a> 的 data/ 目录逐项核对，结果写进日志：</p>
+<div class="example">路线判定（日期：____）<br>① 作者训练数据：仓库 data/ 是否公开？→ 是 / 否（当前：作者训练数据仍是 TODO，未公开）<br>② 作者扩展 tokenizer：仓库是否提供？→ 是 / 否（D5 会细讲，当前：未公开）<br>③ GPU：本机有没有？→ 是 / 否（当前：无 GPU，只有 CPU）<br><br>结论：三项都不满足 → 明确走"方法级复现"（链路验证 + 本地小模型），不追求论文数值</div>
 </div>
 <div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
 <ul class="checklist">
@@ -297,14 +390,66 @@ for name in ["ChemDual_fragment_test.json", "ChemDual_recombination_test.json"]:
 <p><strong>6. 正逆成对在论文里的样子</strong>（论文 3.3 节公式 2/3）：论文把数据写成 <code>(M, F)/(F, M)</code>（分子↔片段）和 <code>(M, R)/(R, M)</code>（产物↔反应物）两对——你今天"一个反应造两条样本"，造的就是 <code>(R, M)</code> 和 <code>(M, R)</code> 这两条。</p>
 <p><strong>7. 防泄漏 = 分数可信的入场券</strong>：论文表 1 每一个分数都建立在"测试集干净"的前提上。测试集里混进一条训练见过的反应，那个 EXACT 就是假的——这也是 D9 反复强调"公开测试 JSON 严禁进训练配置"的原因。</p>
 </div>
-<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
-<ol>
-<li>准备一批独立分子样本（可以先从自己熟悉的分子开始，凑够数量）。</li>
-<li>先按分子/反应 ID 做三划分（训练/验证/测试），<strong>再做</strong>正逆样本生成。</li>
-<li>检查测试集与训练/验证<strong>零重叠</strong>（同一反应的正逆都不能跨集合）。</li>
-<li>保存记录：数据来源、筛选条件、随机种子、每个方向的条数。</li>
-<li>在日志里注明：这份演示集只用于学习链路，<strong>不能报论文性能</strong>。</li>
-</ol>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（可直接照抄运行）</h2>
+<p><strong>第 1 步：准备 ≥20 条演示反应</strong>——下面 8 条先直接用，再把你 D2/D3 用过的分子两两"猜一个可逆反应"（如 丁醇↔丁醛、乙醇↔乙醛、异丙醇↔丙酮）凑到 ≥20 条即可。这是演示集，只学链路，化学上不要求严格正确：</p>
+<pre><code>reactions = [  # 格式：(产物, 反应物)
+    ("CCO.CCO", "CCOCC"),               # 乙醇+乙醇 → 乙醚
+    ("CCO", "CC=O"),                    # 乙醇 → 乙醛
+    ("CC(=O)O", "CCO"),                 # 乙酸 → 乙醇
+    ("C1CCCCC1O", "C1CCCCC1=O"),        # 环己醇 → 环己酮
+    ("c1ccccc1N", "c1ccccc1[N+](=O)[O-]"),  # 苯胺 ← 硝基苯
+    ("CCCCO", "CCCC=O"),                # 丁醇 → 丁醛
+    ("CC(C)O", "CC(C)=O"),              # 异丙醇 → 丙酮
+    ("NC(=O)CN1CCC(N)CC1", "NC(=O)CN1CCC(N)CC1"),  # 占位（仅演示流程）
+]
+print("当前条数:", len(reactions), "（自行补到 ≥20）")</code></pre>
+<p><strong>第 2 步：按反应 ID 三划分</strong>（训练 70% / 验证 15% / 测试 15%）——<strong>先划分、后生成正逆</strong>，顺序反了就是泄漏：</p>
+<pre><code>import random
+rng = random.Random(42)          # 固定种子：别人能重跑出同样划分
+rng.shuffle(reactions)           # 打乱顺序
+n = len(reactions)
+train = reactions[:int(n*0.7)]
+valid = reactions[int(n*0.7):int(n*0.85)]
+test  = reactions[int(n*0.85):]
+print("训练/验证/测试 =", len(train), len(valid), len(test))</code></pre>
+<p><strong>第 3 步：把每条反应扩成正逆两条样本</strong>（产物→反应物、反应物→产物），存成 <code>instruction/input/output</code> 三字段（论文图 3 的模板）：</p>
+<pre><code>def make_pairs(pairs):
+    out = []
+    for product, reactant in pairs:   # (产物, 反应物)
+        out.append({"instruction": "请给出该分子的合成反应物",
+                    "input": product, "output": reactant})   # 逆合成：产物→反应物
+        out.append({"instruction": "请预测这些反应物的产物",
+                    "input": reactant, "output": product})   # 反应预测：反应物→产物
+    return out
+
+train_pairs = make_pairs(train)
+valid_pairs = make_pairs(valid)
+test_pairs  = make_pairs(test)
+print("三份样本条数（正+逆）:", len(train_pairs), len(valid_pairs), len(test_pairs))</code></pre>
+<p><strong>第 4 步：检查测试集与训练/验证零重叠</strong>（同一反应的任意一端都不能跨集合）：</p>
+<pre><code>def ids(pairs):
+    return {p["input"] + ">>" + p["output"] for p in pairs}
+
+overlap_test_train = ids(test_pairs) & ids(train_pairs)
+overlap_test_valid = ids(test_pairs) & ids(valid_pairs)
+print("测试∩训练:", len(overlap_test_train), " 测试∩验证:", len(overlap_test_valid))
+assert not overlap_test_train and not overlap_test_valid, "有重叠！检查划分"</code></pre>
+<p><strong>第 5 步：自动保存记录</strong>——下面代码把上面的数字追加进 <code>reproduce/实验日志.md</code>（独立可跑）：</p>
+<pre><code>import datetime
+import pathlib
+
+root = pathlib.Path.cwd()
+if root.name == "reproduce":
+    root = root.parent
+log = root / "reproduce" / "实验日志.md"
+with open(log, "a", encoding="utf-8") as fh:
+    fh.write(f"\n## {datetime.date.today().isoformat()} · D4\n")
+    fh.write("数据来源：自造演示反应（只学链路，化学上未严格核验）\n")
+    fh.write(f"随机种子：42　划分比例：70/15/15　条数：训练{len(train_pairs)} 验证{len(valid_pairs)} 测试{len(test_pairs)}\n")
+    fh.write("零重叠检查：测试∩训练=0，测试∩验证=0（断言通过）\n")
+    fh.write("注明：演示集只用于学习链路，不能报论文性能\n")
+print("已写入", log)</code></pre>
+<p><strong>预期看到什么</strong>：第 4 步断言通过（无输出即通过）；第 5 步打印 <code>已写入 ...实验日志.md</code>。日志底部出现 <code>## 日期 · D4</code> 段落。</p>
 </div>
 <div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
 <ul class="checklist">
@@ -345,13 +490,43 @@ for name in ["ChemDual_fragment_test.json", "ChemDual_recombination_test.json"]:
 <p><strong>6. 完整分子和片段分别怎么包</strong>（论文图 2(b) 示例）：完整分子用分子标记包：<code>&lt;BOM&gt;NC(=O)CN1CCC(N)CC1&lt;EOM&gt;</code>；片段用片段标记包：<code>&lt;BOF&gt;[4*]CC(N)=O&lt;EOF&gt;</code>。模型看到标记就知道"这是完整分子还是片段"。</p>
 <p><strong>7. 多组分怎么处理</strong>（论文 3.2 节末尾）：反应物/产物里的点 <code>.</code>（D2 学过）在分词时会被<strong>拆成多个独立组件</strong>，各自包上自己的起止标记——模型就分得清"一组分子"和"单个分子"。</p>
 </div>
-<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
-<ol>
-<li>用<strong>普通</strong> tokenizer 对 10 条 SMILES 做切分，输出 token 列表和长度。</li>
-<li>把结果和“一个字符一个 token”对比，看看哪些子串被合并了。</li>
-<li>在笔记里记下 16 / 180 / 4 三个数字，并标注“180 项列表未公开”。</li>
-<li>记录基础模型访问状态（能否拿到 LLaMA 3.1）。</li>
-</ol>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（可直接照抄运行）</h2>
+<p><strong>第 1 步：准备 10 条 SMILES 当"训练语料"</strong>（就用 D3 那 10 个分子，这次角色是分词器的学习材料）：</p>
+<pre><code>corpus = [
+    "CCC", "CCCCO", "CC(C)C", "CC(C)(C)O", "C1CCCCC1",
+    "c1ccccc1", "CC(=O)O", "C1CC2CCC1C2", "c1ccccc1CC(=O)O",
+    "NC(=O)CN1CCC(N)CC1",
+]</code></pre>
+<p><strong>第 2 步：训练一个微型 BPE 分词器</strong>（离线可跑；这是论文"多尺度分词器"思想的缩小版——先定语料，算法自动学会把常见子串合并成一个 token）：</p>
+<pre><code>from tokenizers import Tokenizer, models, pre_tokenizers, trainers
+
+tok = Tokenizer(models.BPE())
+tok.pre_tokenizer = pre_tokenizers.ByteLevel(add_prefix_space=False)
+trainer = trainers.BpeTrainer(vocab_size=200, special_tokens=["[PAD]", "[UNK]"])
+tok.train_from_iterator(corpus, trainer=trainer)
+print("词表大小:", tok.get_vocab_size())</code></pre>
+<p><strong>第 3 步：对每条 SMILES 输出 token 列表和长度，对比"一个字符一个 token"</strong>：</p>
+<pre><code>for s in corpus:
+    enc = tok.encode(s)
+    print(f"{s:22} tokens={len(enc.ids):3}  {enc.tokens}")
+print("对照：CCC 是 3 个字符；上面 tokens 如果只有 1~2，说明子串被合并成了一个 token")</code></pre>
+<p><strong>预期看到什么</strong>：同一字符串的 token 数明显小于字符数——比如 <code>c1ccccc1</code> 可能被切成 2~3 个 token（<code>c1cc</code>、<code>ccc1</code> 这类常见子串被合并）。这就是"一个字符 ≠ 一个 token"的直接证据。</p>
+<p><strong>第 4 步：自动记录三个数字 + 一个标注</strong>（代码自动追加日志，直接跑）：</p>
+<pre><code>import datetime
+import pathlib
+
+root = pathlib.Path.cwd()
+if root.name == "reproduce":
+    root = root.parent
+log = root / "reproduce" / "实验日志.md"
+with open(log, "a", encoding="utf-8") as fh:
+    fh.write(f"\n## {datetime.date.today().isoformat()} · D5\n")
+    fh.write("- 16 = BRICS 虚拟原子类型（[1*]~[16*]，D3 切口编号）\n")
+    fh.write("- 180 = 作者扩展功能团数量（完整列表未公开，不自造）\n")
+    fh.write("- 4 = 边界标记：&lt;BOF&gt;/&lt;EOF&gt;（片段起止）、&lt;BOM&gt;/&lt;EOM&gt;（分子起止）\n")
+    fh.write("- 本地演示：微型 BPE 词表大小 " + str(tok.get_vocab_size()) + "\n")
+print("已写入", log)</code></pre>
+<p><strong>第 5 步：记录基础模型访问状态</strong>——同 D1 模板再核一遍（这是文档内容，不是代码）：LLaMA 3.1 8B 是否已批准访问，打开 Hugging Face 页面看状态，写进日志。</p>
 </div>
 <div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
 <ul class="checklist">
@@ -399,12 +574,25 @@ for name in ["ChemDual_fragment_test.json", "ChemDual_recombination_test.json"]:
 <p><strong>9. 双任务到底有没有用——论文自己的证据</strong>（论文图 1(c)）：加双任务学习后，LLaMA 的反应预测 Exact 从 <strong>66.6% → 72.9%</strong>（+6.3%），ChemDual 从 <strong>76.6% → 86.9%</strong>。这不是玄学，是论文实测的涨分——你 D10 的对照组就是在复刻这个对比。</p>
 </div>
 <div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
-<ol>
-<li>读 <code>reproduce/logs/smoke-training.log</code>，找出 loss 数值的变化趋势。</li>
-<li>运行一次 <code>python reproduce/smoke_test.py</code>，指出 loss 打印在哪一行、保存的 LoRA adapter 在哪个目录。</li>
-<li>用一句话写清：<strong>这是随机小模型的程序验证，不是论文结果</strong>。</li>
-<li>对比论文附录与 YAML 的 batch / 学习率 / epoch，把差异记进实验日志。</li>
-</ol>
+<p><strong>第 1 步：读已有 smoke 训练日志，找 loss 变化</strong>——在项目根目录打开终端（或 WSL），运行下面任一命令：</p>
+<pre><code># PowerShell（项目根目录）：
+Select-String -Path reproduce\logs\smoke-training.log -Pattern "loss" | Select-Object -Last 15
+
+# WSL：
+grep -i loss reproduce/logs/smoke-training.log | tail -15</code></pre>
+<p><strong>预期看到什么</strong>：日志里有训练 step 的 loss 打印行。把开头几条和最后几条的 loss 数字抄进实验日志，看它是变大还是变小——教学级 demo 里 loss 往往小幅波动甚至上升，这正常（随机初始化的极小模型，不追求收敛）。</p>
+<p><strong>第 2 步：自己跑一次 smoke_test.py</strong>（项目根目录，它会跑通 BRICS 拆解、对接配体、训练一个 tiny 模型一步）：</p>
+<pre><code>python reproduce/smoke_test.py</code></pre>
+<p><strong>预期看到什么</strong>：逐项打印 PASS；末尾打印 <code>report = {...}</code> 汇总。<strong>重点找两样</strong>：① loss 打印在哪一行；② LoRA adapter 保存目录——一般在 <code>reproduce/smoke-generated/</code> 下面，把路径抄进日志。如果报 <code>ModuleNotFoundError</code>，先 <code>pip install -r requirements-local.txt</code> 补依赖。</p>
+<p><strong>第 3 步：用一句话写清"这是什么"</strong>（文档内容，不是代码，写进实验日志）：</p>
+<div class="example">这是随机初始化极小模型的程序验证（smoke test），只证明训练→保存→评估链路能跑，不是论文结果，不能报性能。</div>
+<p><strong>第 4 步：对比论文附录与仓库 YAML 的参数差异</strong>——打开 <code>conf/train_ChemDual.yaml</code> 看学习率和 batch：</p>
+<pre><code># PowerShell：
+Select-String -Path conf\train_ChemDual.yaml -Pattern "learning_rate|per_device_train_batch|gradient_accumulation|num_train_epochs"
+
+# WSL：
+grep -E "learning_rate|per_device_train_batch|gradient_accumulation|num_train_epochs" conf/train_ChemDual.yaml</code></pre>
+<p><strong>记什么</strong>：论文附录写学习率 <code>1e-4</code>、每卡 batch 2；YAML 里写的是多少？把两边的数值和出处写进实验日志，对不上的标出来、不猜谁对。</p>
 </div>
 <div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
 <ul class="checklist">
@@ -431,12 +619,28 @@ for name in ["ChemDual_fragment_test.json", "ChemDual_recombination_test.json"]:
 <p><strong>4. 论文的"可复现配置"长什么样</strong>：论文附录 A 写了实验设置（硬件、超参），仓库 <code>conf/</code> 里放了一组 <code>train_ChemDual*.yaml</code> 配置——这就是作者给"别人能照着重跑"准备的。你的《实验规格》就是给这两周做同样的事，只是规模小。</p>
 <p><strong>5. 复现时双查</strong>：附录 A 和仓库 YAML 是两处权威来源（D6 已发现学习率/batch 对不上）——规格里每一行都要写"来自哪一处"，对不上的标出来，不猜。</p>
 </div>
-<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
-<ol>
-<li>新建一份《实验规格》文档，按 8 项填空（不确定的先留空并标注“待补”）。</li>
-<li>开头写明：当前目标是三级中的哪一级、缺什么材料。</li>
-<li>把这份规格放进项目里，之后每天对照着更新。</li>
-</ol>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（模板可直接复制）</h2>
+<p><strong>第 1 步：新建《实验规格》文档</strong>——在项目根目录新建 <code>实验规格.md</code>，把下面整段复制进去，逐项填空；不确定的写"待补"并注明原因。<strong>注意：这一段是文档内容，不是代码，直接粘进 .md 文件保存即可，不要粘进 Jupyter</strong>：</p>
+<pre><code># ChemDual 复现 · 实验规格（D7 建立，之后每天更新）
+
+## 目标级别（三选一，如实勾）
+[ ] 链路验证（软件能跑通）
+[x] 方法级复现（真实数据缩小规模 / 本地小模型）
+[ ] 论文数值复现（作者数据 + 8B + GPU）
+
+当前缺什么：作者训练数据（仓库 TODO）、作者扩展 tokenizer（未公开）、GPU（无）
+
+## 8 项规格
+1. 模型来源：____（LLaMA 3.1 8B 申请中 / 本地小模型替代）
+2. 数据来源与许可/版本：____（dataset/ 两个 1000 条测试 JSON，只测不训）
+3. 数据划分方式：____（D4：按反应 ID，种子 42，70/15/15，正逆成对）
+4. tokenizer：____（D5：微型 BPE 演示；作者版未公开）
+5. 任务模板：____（D4/D9：instruction/input/output 三字段）
+6. 训练参数：____（conf/train_ChemDual.yaml 实际值 + 论文附录差异，D6 已记）
+7. 硬件：CPU-only（Windows + WSL venv；无 GPU）
+8. 评估协议：____（D12：5 指标 + 手算核对；不报假性能）</code></pre>
+<p><strong>第 2 步：开头写明目标级别与缺什么</strong>——模板里已带，确认勾选和缺项与事实一致（D3 第 6 步已判定：走方法级复现）。</p>
+<p><strong>第 3 步：把这份规格放进项目根目录，之后每天对照更新</strong>——以后每天动手前先看一眼，做完把变化补进去（新增数据、换了参数、发现新缺口都改）。</p>
 </div>
 <div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
 <ul class="checklist">
@@ -462,19 +666,63 @@ for name in ["ChemDual_fragment_test.json", "ChemDual_recombination_test.json"]:
 <p><strong>4. 今天跑的就是论文公式 7</strong>（论文 3.3 节）：预训练损失 <code>L_pt</code> 的样本对是 <code>(M, F)/(F, M)</code>——分子↔片段，和你 D3 造的"一次切分=一条样本"直接对应。训练数据规模：论文用 4.4M 条，你本地无 GPU 就用小样本跑通流程。</p>
 <p><strong>5. 为什么预训练不能省</strong>（论文图 4 消融）：跳过预训练直接微调（ChemDual w/o pre）在反应预测和逆合成上<strong>全部指标掉分</strong>——预训练让模型先学会"分子和片段怎么互相转换"，后面的反应任务才能学得动。这就是为什么 D8 是独立的一天，而不是直接跳到 D9。</p>
 </div>
-<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（两条路）</h2>
-<p><strong>有真实训练数据和 GPU 时：</strong></p>
-<ol>
-<li>先用小样本跑通一个<strong>短训练</strong>（几十步就行），确认不报错。</li>
-<li>保存 checkpoint，记录耗时与显存占用。</li>
-<li>根据结果决定是否跑全量。</li>
-</ol>
-<p><strong>无 GPU 时（本地教学级）：</strong></p>
-<ol>
-<li>只用本地小模型跑双方向示例。</li>
-<li>检查：数据装载、label 是否正确、checkpoint 是否保存成功。</li>
-<li>在日志里明确标注<strong>“教学级实验”</strong>——不能报论文性能。</li>
-</ol>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（两条路，代码可直接照抄）</h2>
+<p><strong>有真实训练数据和 GPU 时</strong>：用仓库第一阶段配置跑一个<strong>短训练</strong>（几十步即可），命令模板：</p>
+<pre><code>python src/train.py --config conf/train_ChemDual_pretrain.yaml \
+    --max_steps 50 --output_dir checkpoints/d8-pretrain-smoke</code></pre>
+<p>（具体入口以仓库 README 为准；目标是"不报错 + checkpoint 保存成功 + 记下耗时/显存"，不是跑全量。）</p>
+<p><strong>无 GPU 时（本地教学级）</strong>——用 transformers 造一个极小的随机初始化模型，在 20 条双方向样本上训一小段，把 checkpoint 保存下来。完整代码直接复制（预计 CPU 几分钟跑完）：</p>
+<pre><code>import torch
+from datasets import Dataset
+from transformers import (LlamaConfig, LlamaForCausalLM, Trainer,
+                          TrainingArguments, PreTrainedTokenizerFast)
+from tokenizers import Tokenizer, models, pre_tokenizers, trainers
+
+# 1) 微型模型：约 2M 参数，随机初始化（不加载任何真实权重）
+cfg = LlamaConfig(vocab_size=256, hidden_size=128, intermediate_size=512,
+                  num_hidden_layers=2, num_attention_heads=4)
+model = LlamaForCausalLM(cfg)
+
+# 2) 微型分词器（字符级，够演示用）
+tok = Tokenizer(models.BPE())
+tok.pre_tokenizer = pre_tokenizers.ByteLevel(add_prefix_space=False)
+tok.train_from_iterator(["CCO", "CCC", "c1ccccc1", "C1CCCCC1"],
+                        trainers.BpeTrainer(vocab_size=256,
+                                            special_tokens=["[PAD]", "[UNK]"]))
+fast = PreTrainedTokenizerFast(tokenizer_object=tok,
+                               pad_token="[PAD]", unk_token="[UNK]")
+
+# 3) 20 条双方向样本：分子→片段 / 片段→分子（正逆各 4 条 × 3 遍 = 24 条）
+frag_pairs = [
+    ("NC(=O)CN1CCC(N)CC1", "[4*]CC(N)=O [5*]N1CCC(N)CC1"),
+    ("C1CC2CCC1C2", "C1CC2CCC1C2"),
+    ("CC(=O)O", "[4*]CC(=O)O"),
+    ("c1ccccc1CC(=O)O", "[4*]c1ccccc1CC(=O)O [5*]"),
+]
+texts = [f"分子：{a} 片段：{b}" for a, b in frag_pairs] + \
+        [f"片段：{b} 分子：{a}" for a, b in frag_pairs]
+train_texts = texts * 3
+
+# 4) 编码 + 自回归标签（labels = input_ids：预测下一个 token）
+enc = fast(train_texts, return_tensors="pt", padding=True,
+           truncation=True, max_length=64)
+ds = Dataset.from_dict({
+    "input_ids": enc["input_ids"].numpy(),
+    "attention_mask": enc["attention_mask"].numpy(),
+    "labels": enc["input_ids"].clone().numpy(),
+})
+
+# 5) 训练并保存 checkpoint
+trainer = Trainer(model=model, args=TrainingArguments(
+    output_dir="checkpoints/d8-pretrain-smoke",
+    num_train_epochs=1, per_device_train_batch_size=4,
+    logging_steps=10, save_strategy="epoch", report_to=[]),
+    train_dataset=ds)
+trainer.train()
+trainer.save_model("checkpoints/d8-pretrain-smoke")
+print("checkpoint 已保存到 checkpoints/d8-pretrain-smoke")</code></pre>
+<p><strong>然后检查三件事</strong>（写进实验日志）：① 数据装载没报错（<code>ds</code> 正常建出来）；② label 设置对不对（<code>labels = input_ids</code>，即"预测下一个 token"的自回归设置）；③ <code>checkpoints/d8-pretrain-smoke/</code> 下出现了 <code>config.json</code> 和 <code>model.safetensors</code>（或 <code>pytorch_model.bin</code>）。</p>
+<p><strong>最后在日志里明确标注</strong>：这是<strong>教学级实验</strong>（随机小模型 + 24 条样本），只验证链路，不能报论文性能。</p>
 </div>
 <div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
 <ul class="checklist">
@@ -501,10 +749,44 @@ for name in ["ChemDual_fragment_test.json", "ChemDual_recombination_test.json"]:
 <p><strong>4. 今天跑的就是论文公式 8</strong>（论文 3.3 节）：微调损失 <code>L_ft</code> 的样本对是 <code>(M, R)/(R, M)</code>——产物↔反应物，正好对应论文图 3 的两种指令模板（"请给出反应物"=逆合成正向 / "请预测产物"=反应预测反向）。</p>
 <p><strong>5. 论文成绩单长什么样</strong>（论文表 1，第二阶段的成果）：ChemDual 在 Mol-Instruction 上，反应预测 EXACT <strong>0.869</strong>、逆合成 EXACT <strong>0.670</strong>，都是全场最高——这个数字就是"SFT 双任务 + 预训练 + 数据"三件套一起挣来的。你复现不到这个数没关系，但要知道它是哪一步挣的。</p>
 </div>
-<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（两条路）</h2>
-<p><strong>有数据/GPU 时：</strong>加载 D8 checkpoint，按已固定的划分训练正、逆两个方向。</p>
-<p><strong>无 GPU 时：</strong>用少量<strong>已核查的独立反应样本</strong>验证：数据格式、正逆指令模板、长度分布、训练入口是否正常。</p>
-<p>两种情况下都要检查：训练配置里没有出现测试 JSON。</p>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（两条路，代码可直接照抄）</h2>
+<p><strong>有数据/GPU 时</strong>：加载 D8 的 checkpoint，用第二阶段配置（<code>conf/train_ChemDual.yaml</code>）训练正、逆两个方向；先用 <code>--max_steps 50</code> 短跑通再放量。</p>
+<p><strong>无 GPU 时（本地教学级）</strong>——验证数据格式、指令模板、长度分布、训练入口四件事，代码直接复制：</p>
+<pre><code>import json
+import pathlib
+
+root = pathlib.Path.cwd()
+if root.name == "reproduce":
+    root = root.parent
+
+# 1) 看 dataset_info.json：确认每个数据集的字段映射（prompt→instruction / query→input / response→output）
+info = json.loads((root / "dataset" / "dataset_info.json").read_text(encoding="utf-8"))
+print("数据集注册数:", len(info))
+
+# 2) 读两个测试 JSON：条数、字段、一条样例
+for name in ["ChemDual_fragment_test.json", "ChemDual_recombination_test.json"]:
+    rows = json.loads((root / "dataset" / name).read_text(encoding="utf-8"))
+    print(name, "条数:", len(rows), "字段:", sorted(rows[0].keys()))
+    print("  样例:", rows[0]["instruction"][:40], "| input:",
+          rows[0]["input"][:40], "| output:", rows[0]["output"][:40])
+
+# 3) 长度分布：input/output 的字符长度（模型能处理的范围检查）
+lens_i, lens_o = [], []
+for name in ["ChemDual_fragment_test.json", "ChemDual_recombination_test.json"]:
+    rows = json.loads((root / "dataset" / name).read_text(encoding="utf-8"))
+    lens_i += [len(r["input"]) for r in rows]
+    lens_o += [len(r["output"]) for r in rows]
+print("input  长度: 最短", min(lens_i), "最长", max(lens_i), "平均", sum(lens_i) // len(lens_i))
+print("output 长度: 最短", min(lens_o), "最长", max(lens_o), "平均", sum(lens_o) // len(lens_o))</code></pre>
+<p><strong>预期看到什么</strong>：两个 JSON 各 1000 条、字段是 <code>instruction/input/output</code>；长度分布落在几十到一两百字符内（远小于 512 上限，符合论文过滤标准）。</p>
+<p><strong>红线检查：训练配置里绝不能出现测试 JSON</strong>——运行下面命令，输出里若出现 <code>fragment_test</code> 或 <code>recombination_test</code> 就是泄漏，必须改掉：</p>
+<pre><code># PowerShell：
+Select-String -Path conf\*.yaml -Pattern "fragment_test|recombination_test"
+
+# WSL：
+grep -rE "fragment_test|recombination_test" conf/</code></pre>
+<p><strong>预期</strong>：无输出 = 通过（配置文件里没有引用测试 JSON）。</p>
+<p><strong>写进实验日志</strong>（文档内容，不是代码）：数据来源与标签类型、条数、划分与随机种子（D4 定的）、长度分布数字、"训练配置无测试 JSON"检查结果。</p>
 </div>
 <div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
 <ul class="checklist">
@@ -531,11 +813,18 @@ for name in ["ChemDual_fragment_test.json", "ChemDual_recombination_test.json"]:
 <p><strong>4. 仓库里现成的单方向配置</strong>：<code>conf/train_LLama_w_o*.yaml</code> 系列就是作者"去掉某个方向"的配置——直接抄它的结构，把数据集和路径换成你的。</p>
 </div>
 <div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
-<ol>
-<li>为同一数据/基座/预算设计单方向对照配置（复制双任务配置，只去掉反向任务）。</li>
-<li>记录改动清单：只有“是否加入反向任务”这一项。</li>
-<li>没有真实训练资源 → 完成<strong>可运行的配置 + 数据计数</strong>，结果栏如实填“未运行”。</li>
-</ol>
+<p><strong>第 1 步：看懂作者的"单方向"配置长什么样</strong>——仓库里已有一组现成的：<code>conf/train_LLama_w_o.yaml</code>（去掉双任务）、<code>train_LLama_w_o_f.yaml</code> / <code>train_LLama_w_o_s.yaml</code>（去掉正向/去掉反向）。先对比它和双任务配置差在哪：</p>
+<pre><code># PowerShell：
+Select-String -Path conf\train_ChemDual.yaml,conf\train_LLama_w_o.yaml -Pattern "dataset|template|learning_rate"
+
+# WSL：
+grep -E "dataset|template|learning_rate" conf/train_ChemDual.yaml conf/train_LLama_w_o.yaml</code></pre>
+<p><strong>第 2 步：复制双任务配置，只去掉反向任务，做出你的对照配置</strong>：</p>
+<pre><code>Copy-Item conf\train_ChemDual.yaml conf\train_ChemDual_dual_vs_single.yaml</code></pre>
+<p>然后打开新文件，找到数据列表那一项，<strong>删掉逆合成（产物→反应物）那一个数据集条目</strong>，其余一字不动，保存。</p>
+<p><strong>第 3 步：记录改动清单 + 数据计数</strong>（文档内容，不是代码，写进实验日志）：</p>
+<div class="example">## D10 对照设计（日期：____）<br>对照组：双任务 vs 单方向（删反向任务）<br>改动清单：只改了一处——训练数据列表删掉"逆合成"条目；数据、基座、预算与双任务版完全一致<br>数据计数：训练 ____ 条 / 验证 ____ 条 / 测试 ____ 条（抄 D4 的数字）<br>结果栏：未运行（无真实训练资源，如实填写）<br>公平性说明：唯一变量 = 是否加入反向任务，满足公平比较三要素</div>
+<p><strong>第 4 步：没有真实训练资源时</strong>——完成"可运行的配置 + 数据计数"即可，<strong>结果栏如实写"未运行"</strong>，不要为了好看编数字。</p>
 </div>
 <div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
 <ul class="checklist">
@@ -560,13 +849,51 @@ for name in ["ChemDual_fragment_test.json", "ChemDual_recombination_test.json"]:
 <p><strong>3. 论文表 1 的每个分数都是从这个文件算出来的</strong>：作者的评估流程 = 先让模型逐条生成预测存文件，再用评估脚本算指标。你的 JSONL 就是这条流程的入口，字段齐全才追得回"这个分数是哪条预测、哪个模型出的"。</p>
 <p><strong>4. 为什么"没模型就不报告性能"</strong>：没有真实训练的 checkpoint 时，生成结果是随机垃圾——算出分数会给你一个"好像能打"的假象。D14 报告宁可写"未运行"，也不能报这种假数（论文可复现的底线）。</p>
 </div>
-<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
-<ol>
-<li>对<strong>预先冻结的验证/测试集合</strong>逐条生成预测（不要临时换样本，集合要提前定死）。</li>
-<li>把结果按 JSONL 格式逐行保存（每行一条，含上面 6 项）。</li>
-<li>写一个读取脚本，打开预测文件并<strong>随机核对 10 条</strong>：label、predict、ID 是否对齐。</li>
-<li>没有真实模型时：只验证文件与评估链路，<strong>不报告性能</strong>。</li>
-</ol>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令，代码可直接照抄）</h2>
+<p><strong>有真实 checkpoint 时</strong>：用推理配置逐条生成预测，命令模板：</p>
+<pre><code>python src/predict.py --config conf/predict_decompose.yaml \
+    --checkpoint checkpoints/d8-pretrain-smoke --output predictions/d8.jsonl</code></pre>
+<p>（以仓库 README 为准；生成参数如 temperature/top_p 先固定并记进日志。）</p>
+<p><strong>没有真实模型时（本地教学级）</strong>——把链路跑通：生成一个字段齐全的预测文件（predict 用占位符），再写脚本读回核对 10 条。代码直接复制：</p>
+<pre><code>import json
+import pathlib
+import random
+
+root = pathlib.Path.cwd()
+if root.name == "reproduce":
+    root = root.parent
+
+# 1) 从测试 JSON 抽 20 条，生成占位预测文件（链路验证：predict 只是占位，不是模型输出）
+rows = json.loads((root / "dataset" / "ChemDual_fragment_test.json")
+                  .read_text(encoding="utf-8"))[:20]
+out = []
+for i, r in enumerate(rows):
+    out.append({
+        "id": i,
+        "instruction": r["instruction"],
+        "input": r["input"],
+        "label": r["output"],                    # 正确答案
+        "predict": "[占位]未运行真实模型",           # 模型预测（链路验证用占位）
+        "checkpoint": "none",
+        "gen_params": {"temperature": None, "top_p": None, "max_length": None},
+        "elapsed_sec": None,
+    })
+(root / "predictions").mkdir(exist_ok=True)
+p = root / "predictions" / "d8_link_check.jsonl"
+with open(p, "w", encoding="utf-8") as fh:
+    for row in out:
+        fh.write(json.dumps(row, ensure_ascii=False) + "\n")
+print("已生成", len(out), "条 →", p)
+
+# 2) 读回文件，随机核对 10 条：label / predict / id 是否对齐
+rows2 = [json.loads(line) for line in open(p, encoding="utf-8")]
+random.seed(1)
+for k in random.sample(range(len(rows2)), 10):
+    r = rows2[k]
+    print(f"#{r['id']} label={r['label'][:24]} predict={r['predict'][:24]}")</code></pre>
+<p><strong>预期看到什么</strong>：第 1 步打印 <code>已生成 20 条 → ...predictions\d8_link_check.jsonl</code>；第 2 步打印 10 行核对结果（每条都有 id、label、predict）。</p>
+<p><strong>第 3 步：写进实验日志</strong>（文档内容，不是代码）：预测文件路径、条数、字段清单（id/instruction/input/label/predict/checkpoint/gen_params/elapsed_sec）、核对结果（10 条对齐）。</p>
+<p><strong>第 4 步（红线）</strong>：没有真实模型时<strong>不报告任何性能数字</strong>——占位 predict 算出来的分数是垃圾，报了就是假数据。</p>
 </div>
 <div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
 <ul class="checklist">
@@ -603,12 +930,32 @@ for name in ["ChemDual_fragment_test.json", "ChemDual_recombination_test.json"]:
 <p><strong>论文表 1 的七列就是这些指标</strong>：EXACT / BLEU / LEVENSHTEIN / RDK / MACCS / MORGAN / VALIDITY——你学的 5 个指标全部上场（三个指纹相似度是三种指纹算同一类相似度）。ChemDual 反应预测那行：EXACT 0.869、BLEU 0.991、Levenshtein 2.099、三个 FTS 0.96+、VALIDITY 0.996——对照着看每个指标在说什么。</p>
 <p><strong>USPTO-50K 那边用的 Top-k</strong>（论文表 2）：逆合成允许模型给前 k 个候选答案，Top-1 46.25 / Top-3 60.14 / Top-5 66.95 / Top-10 77.42——"前 k 个里有没有对的"是逆合成的常见评估，和表 1 的 EXACT 不是一回事。</p>
 </div>
-<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
-<ol>
-<li>用评估脚本测评真实预测：<div class="example"><code>python reproduce/evaluate_predictions.py 预测文件.jsonl --tokenizer 本地模型目录</code></div></li>
-<li>手算 3 例：严格 Exact（完全一致）与组分部分重合（交集比例）的区别。</li>
-<li>把多组分排序、规范化、无效样本分母规则写进实验日志。</li>
-</ol>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令，代码可直接照抄）</h2>
+<p><strong>第 1 步：用评估脚本测评预测文件</strong>（用 D11 生成的 <code>predictions/d8_link_check.jsonl</code> 就行——它会算 validity 和三个指纹相似度；有本地模型目录时加 <code>--tokenizer</code> 再出 NLP 指标）：</p>
+<pre><code>python reproduce/evaluate_predictions.py predictions/d8_link_check.jsonl</code></pre>
+<p><strong>预期看到什么</strong>：输出一个 JSON，包含 <code>validity</code>、<code>maccs_similarity</code>、<code>rdk_similarity</code>、<code>morgan_similarity</code> 等键。占位 predict 跑出来 validity 是 0（占位不是合法 SMILES）——这正是"没有真实模型不算分"的证据。</p>
+<p><strong>第 2 步：跑下面代码，看"严格 Exact"和"组分部分重合"的区别</strong>（3 个例子写死在代码里，直接运行）：</p>
+<pre><code>def exact(label, predict):
+    """严格 Exact：逐字符完全一致才算对"""
+    return 1 if label == predict else 0
+
+def component_overlap(label, predict):
+    """组分部分重合：按点 . 拆组分，算匹配组分的比例"""
+    a = set(label.split("."))
+    b = set(predict.split("."))
+    return len(a & b) / max(len(a), len(b), 1)
+
+cases = [
+    ("CC.O", "CC.O"),        # 完全相同
+    ("CC.O", "CC"),          # 预测少了水组分
+    ("c1ccccc1", "c1ccccc1C"),  # 预测多了个甲基
+]
+for label, predict in cases:
+    print(f"label={label:10} predict={predict:10} "
+          f"Exact={exact(label, predict)} 交集={component_overlap(label, predict)}")</code></pre>
+<p><strong>预期看到什么</strong>：三行输出——例 1 两者都是 1；例 2 Exact=0 但交集=0.5；例 3 Exact=0 且交集=0（苯环不是点分隔组分）。这就是脚本打印的 Accuracy（交集比例）和论文 EXACT 不是一回事的直接演示。</p>
+<p><strong>第 3 步：把评估规则写进实验日志</strong>（文档内容，不是代码，模板）：</p>
+<div class="example">## D12 评估规则记录（日期：____）<br>① 多组分：预测与答案按组分集合比还是逐字符比 → 记录你采用哪种<br>② 规范化：预测/答案先过 Chem.MolToSmiles 再比，还是原样比 → 记录<br>③ 无效样本：非法 SMILES 是否计入分母 → 记录（论文 VALIDITY 单独一列，无效=0）<br>④ 脚本 Accuracy ≠ 论文 EXACT：Accuracy 是组分交集比例，不能当 EXACT</div>
 </div>
 <div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
 <ul class="checklist">
@@ -642,8 +989,32 @@ for name in ["ChemDual_fragment_test.json", "ChemDual_recombination_test.json"]:
 <p><strong>6. 论文的消融三组对照</strong>（论文 4.3）：w/o dual（删掉反应/逆合成对）、w/o pre（删掉预训练）、LLaMA w/ dual（只加双任务不加预训练）——你 D10 设计的对照组就是其中"w/o dual"的最小版，D14 报告里要能说清你复刻了哪一组。</p>
 </div>
 <div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（两条路）</h2>
-<p><strong>若 D8–D12 有真实可比训练：</strong>汇总双任务 vs 单任务差异，整理<strong>≥20 个错误例</strong>并分类。</p>
-<p><strong>否则：</strong>检查训练/评估脚本、列出待补材料与对接缺项，<strong>不编造图表</strong>。</p>
+<p><strong>若 D8–D12 有真实可比训练</strong>——汇总双任务 vs 单任务差异，整理 ≥20 个错误例并分类（代码直接跑，预测文件路径换成你的真实文件）：</p>
+<pre><code>import json
+from collections import Counter
+from rdkit import Chem
+
+rows = [json.loads(l) for l in open("predictions/真实预测.jsonl", encoding="utf-8")]
+bad = [r for r in rows if r["label"] != r["predict"]]
+print("错误例数:", len(bad))
+
+def classify(r):
+    if Chem.MolFromSmiles(r["predict"]) is None:
+        return "无效SMILES"          # 预测根本解析不成分子
+    label_components = r["label"].split(".")
+    pred_components = r["predict"].split(".")
+    if len(pred_components) < len(label_components):
+        return "组分漏掉"            # 产物多组分，只预测出一部分
+    return "近似但不同"              # 结构很像，但不是正确答案
+
+print(Counter(classify(r) for r in bad))
+bad_sorted = sorted(bad, key=classify)
+for r in bad_sorted[:20]:
+    print(classify(r), "|", r["input"][:30], "→", r["predict"][:30])</code></pre>
+<p>（错误例 ≥20 个按类整理进日志；三类定义见"学什么"。）</p>
+<p><strong>否则（无真实训练）</strong>——做"缺项审计"，不编造图表。清单模板（文档内容，不是代码，写进实验日志）：</p>
+<div class="example">## D13 缺项审计（日期：____）<br>① 训练/评估脚本：evaluate_predictions.py 可跑通（D12 已验证）→ 缺真实预测文件<br>② 数据：两个 1000 条测试 JSON 可用，但缺训练数据（作者未公开）<br>③ GPU：无 → 无法跑真实双任务/单任务对照<br>④ 对接实验缺项：受体结构、网格设置、docking 工具链（setup_docking.sh 未跑）<br>结论：本轮不做误差分析图表，D14 报告如实写"未运行真实训练"</div>
+<p><strong>把 D12 评估脚本的输出 JSON 存好</strong>，作为"链路已通"的证据链一环（存到 <code>reproduce/smoke-generated/</code> 或 predictions/ 下即可）。</p>
 </div>
 <div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
 <ul class="checklist">
@@ -677,13 +1048,37 @@ for name in ["ChemDual_fragment_test.json", "ChemDual_recombination_test.json"]:
 <p><strong>3. 论文结论就三块，对着写</strong>（论文 6 节 Conclusion）：① 4.4M 指令数据（解决数据少）；② 多尺度分词器（让模型看懂不同粒度的化学结构）；③ 双任务学习（正反方向一起学）。报告主体就按这三块组织"我复现了哪块 / 到哪一级 / 缺什么"。</p>
 <p><strong>4. 报告开头的复现级别声明是诚实的底线</strong>：链路验证 / 方法级 / 论文数值三级里选一个——前两周大概率只能到前两级，明确写"没有报论文数值"比给一个看起来像的假数更可信（呼应 D11 的"不报假性能"）。</p>
 </div>
-<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（带命令）</h2>
-<ol>
-<li>按 7 要素搭报告骨架。</li>
-<li>逐项填内容；数字旁边标注来源文件与命令。</li>
-<li>开头写明复现级别（链路验证 / 方法级 / 论文数值），缺什么、为什么，一目了然。</li>
-<li>把每天的实验日志汇总成附录。</li>
-</ol>
+<div class="dblock"><h2><span class="tag do">干什么</span>一步一步做（模板可直接复制）</h2>
+<p><strong>第 1 步：搭报告骨架</strong>——新建 <code>复现报告.md</code>（放项目根目录），标题结构直接复制。<strong>注意：这一段是文档内容，不是代码，直接粘进 .md 文件保存</strong>：</p>
+<pre><code># ChemDual 14 天复现报告（日期：____）
+
+## 0. 复现级别声明（三选一，如实勾）
+[ ] 链路验证（软件能跑通）
+[x] 方法级复现（无 GPU，本地小模型）
+[ ] 论文数值复现（作者数据 + 8B + GPU）
+
+明确写：本报告没有报论文数值，原因是缺作者数据 / tokenizer / GPU（详见第 6 节）。
+
+## 1. 方法流程图
+（自己画：分子→片段 / 片段→分子 / 反应物→产物 / 产物→反应物 四条线，标注你跑到哪条）
+
+## 2. 环境与数据出处
+（抄 D7《实验规格》第 1、2、7 项）
+
+## 3. 配置 / 版本 / 种子
+（抄 D7 第 3、4、6 项 + D4 的种子 42）
+
+## 4. 通过的链路（D1–D13 每一步的验证结果）
+（逐天一行：日期 · 做了什么 · 关键输出）
+
+## 5. 真实训练和指标表
+（若有真实训练才填；没有就写"未运行"，不要编表）
+
+## 6. 与论文表 1 / 表 2 的可比性 + 未完成项 + 下一轮 GPU 计划</code></pre>
+<p><strong>第 2 步：逐项填内容</strong>——每填一个数字，旁边标注来源：哪个文件、哪条命令（如"解析成功率 10/13 ← reproduce/实验日志.md D2 段"）。对照 D7 的《实验规格》逐项抄。</p>
+<p><strong>第 3 步：开头声明级别</strong>（模板第 0 节已带）——缺什么、为什么，让读者一眼看清。</p>
+<p><strong>第 4 步：把每天实验日志汇总成附录</strong>——把 <code>reproduce/实验日志.md</code> 按天复制进报告末尾，或直接引用文件路径，保证可审计。</p>
+<p><strong>写完自查</strong>（对应验收 4 项）：每个关键数字都能指回文件/命令吗？没报假性能吗？下一轮 GPU 计划写了吗？</p>
 </div>
 <div class="dblock"><h2><span class="tag accept">验收</span>做完这些才算过</h2>
 <ul class="checklist">

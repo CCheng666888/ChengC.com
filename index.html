@@ -107,9 +107,13 @@
   </aside>
 <script>
 (()=>{
-  var EXPIRES = new Date('2026-10-19T14:05:00+08:00').getTime();
+  var EXPIRES = new Date('2026-10-22T22:51:46+08:00').getTime();
   var el = document.getElementById('chemdualHiddenEntry');
   if(!el) return;
+  if(Date.now() >= EXPIRES){
+    var item = el.closest('.timeline-item');
+    if(item) item.style.display = 'none';
+  }
   el.addEventListener('click', function(){
     if(Date.now() < EXPIRES){
       location.href = 'chemdual/';
