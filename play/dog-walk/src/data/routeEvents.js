@@ -1,0 +1,5 @@
+export const ROUTE_EVENTS = {
+  river:{riverWind:{tag:'RIVER / A SOFT GUST',title:'河风吹来了一个好主意。',icon:'≈',text:'风拂过草坪，小狗看看你，又看看飞盘。要不要停一停？',choices:[{label:'去草坪接飞盘',note:'玩一局飞盘',game:'frisbee'},{label:'先坐着听一会儿水声',note:'精力 +10 · 信任 +3',changes:{energy:10,trust:3},reply:'水慢慢流过，小狗也慢慢安静下来。'},{label:'沿岸继续走',note:'快乐 +2',changes:{happiness:2},reply:'前面还有一座木桥在等你们。'}]}},
+  orchard:{fallenApple:{tag:'ORCHARD / UNDER THE TREES',title:'树下滚来一颗苹果。',icon:'◉',text:'一颗苹果从树梢落下，小狗闻着味道凑了过去。',choices:[{label:'移开苹果，给它自己的零食',note:'安全第一 · 信任 +3',special:'safeTreat',changes:{energy:6,trust:3}},{label:'温柔地叫它过来',note:'试试你们的默契',special:'recall'},{label:'一起退开，再找丝带',note:'服从 +3 · 信任 +2',changes:{obedience:3,trust:2},reply:'它看看苹果，又选择跟着你。'}]}},
+  dusk:{passingBike:{tag:'DUSK / A LITTLE BELL',title:'远处传来一声车铃。',icon:'☾',text:'有人骑车经过，小狗竖起了耳朵。你们停在亮着的路灯旁。',choices:[{label:'等自行车先过去',note:'服从 +4 · 信任 +3',changes:{obedience:4,trust:3},reply:'你们等了一会儿，再一起回家。'},{label:'顺便练习听指令',note:'玩一局听指令',game:'commands'},{label:'陪它歇口气',note:'精力 +12',changes:{energy:12},reply:'天色慢慢暗下来，它安心地靠着你。'}]}}
+};

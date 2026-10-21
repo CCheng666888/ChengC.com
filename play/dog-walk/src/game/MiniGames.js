@@ -5,6 +5,7 @@ export class MiniGames {
   constructor(game) { this.game=game;this.active=null; }
   start(type) {
     const g=this.game;if(this.active||g.state!=='playing')return;
+    g.route?.cancelHold();
     g.ui.closeModal();g.input.clear();
     this.active={type,time:0,phase:'ready'};
     if(type==='frisbee') {
@@ -14,8 +15,9 @@ export class MiniGames {
       const candidates=[[130,-70],[-120,-90],[0,135],[-150,60],[120,90],[0,-155]];
       const spots=[];
       for(const [dx,dy] of candidates){const p={x:clamp(g.player.x+dx,80,1520),y:clamp(g.player.y+dy,80,920)};if(!g.world.blocked(p.x,p.y,24)&&!spots.some(s=>distance(s,p)<65))spots.push(p);if(spots.length===3)break;}
-      if(spots.length<3){for(const p of [{x:755,y:730},{x:945,y:650},{x:630,y:695}])if(!spots.some(s=>distance(s,p)<65))spots.push(p);}
-      Object.assign(this.active,{spots:spots.slice(0,3),target:Math.floor(random(0,3)),remaining:35,hint:'先靠近三个小土堆，看看它的反应。'});
+      // Only use reachable ground; river banks and water are real collision boundaries.
+      if(spots.length<3)for(let dy=-220;dy<=220&&spots.length<3;dy+=55)for(let dx=-220;dx<=220&&spots.length<3;dx+=55){const p={x:clamp(g.player.x+dx,80,1520),y:clamp(g.player.y+dy,80,920)};if(!g.world.blocked(p.x,p.y,24)&&!spots.some(s=>distance(s,p)<65))spots.push(p);}
+      Object.assign(this.active,{spots:spots.slice(0,3),target:Math.floor(random(0,Math.min(3,spots.length))),remaining:35,hint:'先靠近三个小土堆，看看它的反应。'});
       g.dog.think('跟着鼻子走！');g.ui.showBone();
     }else {
       Object.assign(this.active,{round:0,correct:0,remaining:4,commands:['坐下','过来','等待','握手'],wanted:choose(['坐下','过来','等待','握手']),locked:0});
@@ -66,7 +68,7 @@ export class MiniGames {
     const type=this.active?.type;if(!type)return;
     this.active=null;const g=this.game,s=g.storage.data;g.ui.hideBone();g.ui.closeModal();
     if(success) {
-      g.dog.change({happiness:10,trust:7,obedience:5,energy:-5,curiosity:2});g.session.games++;
+      g.dog.change({happiness:10,trust:7,obedience:5,energy:-5,curiosity:2});g.session.games++;g.route?.onMini(type);
       if(type==='frisbee')s.frisbeeCatches++;if(type==='bone')s.bonesFound++;if(type==='commands')s.commandsPassed++;
       g.dog.state='happy';g.dog.think('还想再玩！');g.rewardInteraction(65);
     } else {g.dog.change({energy:-3,trust:1});g.rewardInteraction(8);}

@@ -11,5 +11,8 @@ export const ACHIEVEMENTS = [
   {id:'commands',icon:'✓',name:'默契满分',description:'完成 5 轮听指令小游戏。',test:s=>s.commandsPassed>=5},
   {id:'explorer',icon:'⚑',name:'公园探险家',description:'一局里走访全部 4 个地点。',test:(s,g)=>g?.session.visits.size>=4},
   {id:'social',icon:'∞',name:'交个新朋友',description:'认识 3 次公园里的狗狗。',test:s=>s.dogsMet>=3},
+  {id:'riverWalk',icon:'≈',name:'与水鸟做邻居',description:'完成河畔慢行。',test:s=>s.routes?.cleared.includes('river')},
+  {id:'orchardWalk',icon:'⌕',name:'秋天的气味',description:'完成果园寻踪。',test:s=>s.routes?.cleared.includes('orchard')},
+  {id:'duskWalk',icon:'☾',name:'把回家的路点亮',description:'完成暮色归途。',test:s=>s.routes?.cleared.includes('dusk')},
   {id:'safe',icon:'♧',name:'安全第一',description:'阻止 3 次乱吃路边食物。',test:s=>s.foodsAvoided>=3}
 ];

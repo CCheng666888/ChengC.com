@@ -23,6 +23,7 @@ export class Dog {
     }
     if (gap > 130 + (100 - s.obedience) * .35) { this.target = null; this.state = s.energy > 45 ? 'running' : 'calm'; }
     let target = this.target || { x: player.x - player.direction * 48, y: player.y + 25 };
+    if(world.guide)target=world.guide(this,target);
     if ((this.state === 'tired' || this.state === 'sitting') && gap < 125) target = this;
     const d = distance(this, target);
     this.moving = d > (this.target ? 12 : 26);

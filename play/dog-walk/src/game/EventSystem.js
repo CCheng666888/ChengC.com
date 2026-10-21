@@ -1,4 +1,5 @@
 import { EVENTS } from '../data/events.js';
+import { ROUTE_EVENTS } from '../data/routeEvents.js';
 import { choose, random } from './math.js';
 export class EventSystem {
   constructor(game) {this.game=game;this.timer=9;this.active=null;this.timeLeft=0;this.last=null;}
@@ -6,11 +7,11 @@ export class EventSystem {
     if(this.active){if(this.active.timeout){this.timeLeft-=dt;this.game.ui.eventTime(this.timeLeft);if(this.timeLeft<=0){this.game.dog.change({obedience:-4,happiness:-2});this.close();this.game.ui.toast('你轻轻拉开它，下次要更及时。','!');}}return;}
     if(!this.game.player.moving)return;
     this.timer-=dt;
-    if(this.timer<=0){const near=this.game.world.nearest(this.game.player);const type=near&&EVENTS[near.kind]?near.kind:choose(['frisbee','bird','dog','food','bone'].filter(x=>x!==this.last));this.open(type);}
+    if(this.timer<=0){const near=this.game.world.nearest(this.game.player);const types=['frisbee','bird','dog','food','bone',...Object.keys(ROUTE_EVENTS[this.game.session.routeId]||{})];const type=near&&EVENTS[near.kind]?near.kind:choose(types.filter(x=>x!==this.last));this.open(type);}
   }
   open(type) {
     if(this.game.ui.hasModal||this.game.mini.active||this.game.state!=='playing')return;
-    this.active=EVENTS[type];this.type=type;this.last=type;this.timeLeft=this.active.timeout||0;this.game.input.clear();this.game.dog.think(type==='bird'?'小鸟！':'发现了！');this.game.audio.play('bark');this.game.ui.showEvent(this.active);
+    this.active=EVENTS[type]||ROUTE_EVENTS[this.game.session.routeId]?.[type];if(!this.active)return;this.type=type;this.last=type;this.timeLeft=this.active.timeout||0;this.game.input.clear();this.game.dog.think(type==='bird'?'小鸟！':'发现了！');this.game.audio.play('bark');this.game.ui.showEvent(this.active);
   }
   choose(index) {
     const choice=this.active?.choices[index];if(!choice)return;

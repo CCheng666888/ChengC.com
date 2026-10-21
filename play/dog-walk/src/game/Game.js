@@ -13,6 +13,8 @@ import { DOGS } from '../data/dogs.js';
 import { approach, clamp, distance } from './math.js';
 import { drawDog, drawPlayer, drawLeash, ellipse } from './Art.js';
 import { device } from './Device.js';
+import { RouteSystem } from './RouteSystem.js';
+import { routeById, routeUnlocked } from '../data/routes.js';
 
 export class Game {
   constructor(canvas,backend) {
@@ -20,7 +22,7 @@ export class Game {
     this.state='menu';this.suspended=false;this.backgroundPaused=document.hidden;this.time=0;this.cooldown=0;
     this.player=new Player();this.dog=this.createDog();this.session=this.newSession();this.camera={x:this.player.x,y:this.player.y};
     this.audio=new AudioManager(this.storage.data.settings);this.input=new Input(key=>this.action(key));this.ui=new UI(this);
-    this.mini=new MiniGames(this);this.events=new EventSystem(this);this.achievements=new AchievementSystem(this);this.secret=new SecretSystem(this);
+    this.mini=new MiniGames(this);this.events=new EventSystem(this);this.achievements=new AchievementSystem(this);this.route=new RouteSystem(this);this.secret=new SecretSystem(this);
     this.autosave=0;this.footsteps=0;this.birds=8;
     window.addEventListener('resize',()=>this.resize());
     document.addEventListener('visibilitychange',()=>{this.backgroundPaused=document.hidden;if(document.hidden)this.saveWalk();});
@@ -30,12 +32,16 @@ export class Game {
     this.resize();this.ui.menu();this.last=performance.now();this.frame=this.frame.bind(this);requestAnimationFrame(this.frame);
   }
   createDog() {return new Dog(DOGS.find(d=>d.id===this.storage.data.selectedDog)||DOGS[0],this.storage.data.dogTrust);}
-  newSession() {return {elapsed:0,distance:0,score:0,duration:this.storage.data.settings.duration,visits:new Set(),interactions:0,games:0};}
-  start(resume=false) {
-    this.ui.closeModal();this.mini.cancel();this.events=new EventSystem(this);this.player=new Player();this.dog=this.createDog();this.session=this.newSession();
+  newSession() {return {elapsed:0,distance:0,score:0,duration:this.storage.data.settings.duration,visits:new Set(),interactions:0,games:0,routeId:'maple',routeStep:0,routeGames:{frisbee:0,bone:0,commands:0},routeReturned:false};}
+  start(resume=false,routeId='maple') {
     const saved=resume&&this.storage.data.currentWalk;
+    const selected=routeById(saved?.routeId||routeId);
+    if(!saved&&!routeUnlocked(this.storage.data,selected.id)){this.ui.toast('先完成前一段旅程，再出发吧。','⚑');return;}
+    this.ui.closeModal();this.mini.cancel();this.events=new EventSystem(this);this.player=new Player();this.dog=this.createDog();this.session=this.newSession();
+    this.session.routeId=selected.id;this.session.duration=selected.id==='maple'?this.storage.data.settings.duration:selected.duration;
+    this.world=new World(selected.id);this.route=new RouteSystem(this);Object.assign(this.player,selected.spawn);Object.assign(this.dog,{x:selected.spawn.x+48,y:selected.spawn.y+20});document.body.dataset.route=selected.id;
     if(saved){Object.assign(this.player,saved.player);Object.assign(this.dog,saved.dog);this.dog.stats={...saved.stats};Object.assign(this.session,saved);this.session.visits=new Set(saved.visits);}
-    this.state='playing';this.cooldown=0;this.autosave=0;this.input.clear();this.camera={x:this.player.x,y:this.player.y};this.saveWalk();this.ui.hud();
+    this.state='playing';this.cooldown=0;this.autosave=0;this.input.clear();this.camera={x:this.player.x,y:this.player.y};document.querySelector('#toasts').replaceChildren();this.saveFailureShown=false;this.saveWalk();this.ui.hud();this.render();
     this.ui.toast(resume?'接着刚刚的路，慢慢走。':device.mobile?'用摇杆走走，靠近后点「和它互动」。':'去公园走走吧。靠近物品，按 E 互动。','☀');this.audio.play('success');
   }
   action(key) {
@@ -47,6 +53,7 @@ export class Game {
   }
   interact() {
     if(this.state!=='playing'||this.suspended||this.ui.hasModal||this.mini.active)return;
+    if(this.route.interact())return;
     const p=this.world.nearest(this.player);
     if(p&&['frisbee','bone','dog'].includes(p.kind)){this.events.open(p.kind);return;}
     if(p?.kind==='ball'&&this.cooldown<=0){this.dog.change({happiness:8,energy:-2,trust:4});this.dog.state='excited';this.dog.think('我的球！');this.cooldown=5;this.rewardInteraction(18);this.ui.toast('小球滚过去，它开心地追了回来。','◉');return;}
@@ -74,10 +81,11 @@ export class Game {
     const s=this.storage.data,stats=this.dog.stats,score=Math.round(clamp(this.session.score+Math.min(this.session.distance,700)*.22+(stats.happiness+stats.trust+stats.obedience)*1.15+this.session.visits.size*35,0,1000));
     const stars=score>=750?5:score>=560?4:score>=380?3:score>=210?2:1;
     const oldBest=s.bestScore;s.bestScore=Math.max(s.bestScore,score);s.totalWalks++;s.totalDistance+=this.session.distance;s.dogTrust=stats.trust;s.currentWalk=null;
+    const routeResult=this.route?.result(score);
     this.achievements.check();this.storage.save();
-    this.ui.results({score,stars,newBest:score>oldBest,title:['新手遛狗员','合格铲屎官','合格铲屎官','优秀铲屎官','狗狗最好的朋友'][stars-1]});this.audio.play('achievement');
+    this.ui.results({score,stars,routeResult,newBest:score>oldBest,title:['新手遛狗员','合格铲屎官','合格铲屎官','优秀铲屎官','狗狗最好的朋友'][stars-1]});this.audio.play('achievement');
   }
-  toMenu() {this.saveWalk();this.mini.cancel();this.events.active=null;this.ui.closeModal();this.input.clear();this.state='menu';this.ui.menu();}
+  toMenu() {this.saveWalk();this.route.cancelHold();this.mini.cancel();this.events.active=null;this.ui.closeModal();this.input.clear();this.state='menu';this.world=new World();document.body.dataset.route='maple';this.ui.menu();}
   resize() {device.apply();this.width=innerWidth;this.height=innerHeight;this.dpr=device.pixelRatio;this.canvas.width=Math.round(this.width*this.dpr);this.canvas.height=Math.round(this.height*this.dpr);this.lastPaint=0;}
   frame(now) {
     const dt=Math.min((now-this.last)/1000,.05);this.last=now;
@@ -91,7 +99,8 @@ export class Game {
     if(this.events.active){this.events.update(dt);return;}
     this.mini.update(dt);if(this.ui.hasModal)return;
     const meters=this.player.update(dt,this.input,this.world);this.session.distance+=meters;this.dog.update(dt,this.player,this.world);
-    if(!this.mini.active){this.session.elapsed+=dt;this.events.update(dt);}
+    this.route.update(dt);
+    if(!this.mini.active){this.session.elapsed+=dt;if(!this.route.active)this.events.update(dt);}
     for(const p of this.world.landmarks)if(distance(this.player,p)<135&&!this.session.visits.has(p.landmark)){this.session.visits.add(p.landmark);this.ui.toast(`走到了${p.label} · ${this.session.visits.size} / 4`,'⚑');this.achievements.check();}
     this.camera.x=approach(this.camera.x,this.player.x,dt,4);this.camera.y=approach(this.camera.y,this.player.y,dt,4);
     this.autosave+=dt;if(this.autosave>5){this.autosave=0;this.saveWalk();}
@@ -107,7 +116,8 @@ export class Game {
     c.save();c.translate(sx-focus.x*scale,sy-focus.y*scale);c.scale(scale,scale);this.world.drawGround(c);
     const previewPlayer={x:1000+Math.sin(this.time*.35)*55,y:650,direction:Math.cos(this.time*.35)>=0?1:-1,moving:true,phase:this.time*6};
     const player=menu?previewPlayer:this.player,dog=menu?{x:previewPlayer.x+Math.sin(this.time*.8)*65+65,y:670+Math.sin(this.time*.5)*10,direction:previewPlayer.direction,moving:true,phase:this.time*8,state:'happy',spec:this.dog.spec}:this.dog;
-    this.mini.drawBone(c);this.world.drawMarkers(c,menu?new Set():this.session.visits);drawLeash(c,player,dog);
+    this.mini.drawBone(c);this.world.drawMarkers(c,menu?new Set():this.session.visits);if(!menu)this.route.draw(c);drawLeash(c,player,dog);
+    this.world.litCount=menu?0:this.session.routeStep;
     const actors=this.world.props.filter(p=>p.kind!=='dog').map(p=>({y:p.y,draw:()=>this.world.drawProp(c,p,this.time)}));
     actors.push({y:player.y,draw:()=>drawPlayer(c,player,this.time)},{y:dog.y,draw:()=>drawDog(c,dog,this.time)});
     const other=this.world.props.find(p=>p.kind==='dog');actors.push({y:other.y,draw:()=>drawDog(c,{...other,spec:{color:'#c7b7a0',light:'#fbf1da'},phase:this.time*4,direction:-1,state:'sitting',moving:false},this.time)});

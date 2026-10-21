@@ -1,6 +1,7 @@
 import { clamp } from './math.js';
+import { cleanRouteProgress, routeById } from '../data/routes.js';
 export const SAVE_KEY = 'dog-walk-save-v1';
-export const defaults = () => ({ version: 1, bestScore: 0, achievements: [], unlockedHiddenAchievement: false, archiveDiscovered: false, totalWalks: 0, totalDistance: 0, dogTrust: 55, frisbeeCatches: 0, bonesFound: 0, commandsPassed: 0, interactions: 0, dogsMet: 0, foodsAvoided: 0, selectedDog: 'milo', settings: { sound: true, volume: 0.45, duration: 180, reducedMotion: false }, currentWalk: null });
+export const defaults = () => ({ version: 1, bestScore: 0, achievements: [], unlockedHiddenAchievement: false, archiveDiscovered: false, totalWalks: 0, totalDistance: 0, dogTrust: 55, frisbeeCatches: 0, bonesFound: 0, commandsPassed: 0, interactions: 0, dogsMet: 0, foodsAvoided: 0, selectedDog: 'milo', routes:cleanRouteProgress(null), settings: { sound: true, volume: 0.45, duration: 180, reducedMotion: false }, currentWalk: null });
 
 export class Storage {
   constructor(backend) {
@@ -20,11 +21,14 @@ export class Storage {
       base.unlockedHiddenAchievement = raw.unlockedHiddenAchievement === true;
       base.archiveDiscovered = raw.archiveDiscovered === true;
       base.selectedDog = ['milo', 'mochi', 'pepper'].includes(raw.selectedDog) ? raw.selectedDog : 'milo';
+      base.routes=cleanRouteProgress(raw.routes,base.totalWalks);
       const s = raw.settings || {};
       base.settings = { sound: s.sound !== false, volume: clamp(s.volume ?? .45, 0, 1), duration: [180, 300].includes(s.duration) ? s.duration : 180, reducedMotion: s.reducedMotion === true };
       const w = raw.currentWalk;
       if (w && w.player && w.dog && w.stats && Number.isFinite(w.elapsed) && Number.isFinite(w.distance)) {
         base.currentWalk = { player: { x: clamp(w.player.x, 40, 1560), y: clamp(w.player.y, 40, 960) }, dog: { x: clamp(w.dog.x, 40, 1560), y: clamp(w.dog.y, 40, 960) }, stats: Object.fromEntries(['happiness','energy','obedience','curiosity','trust'].map(k => [k, clamp(w.stats[k])])), elapsed: clamp(w.elapsed, 0, 300), distance: clamp(w.distance, 0, 1e6), score: clamp(w.score, 0, 1e5), duration: [180,300].includes(w.duration) ? w.duration : 180, visits: Array.isArray(w.visits) ? w.visits.filter(x => typeof x === 'string') : [], interactions: clamp(w.interactions, 0, 1e4), games: clamp(w.games, 0, 1e4) };
+        const route=routeById(w.routeId);
+        Object.assign(base.currentWalk,{routeId:route.id,routeStep:Math.floor(clamp(w.routeStep||0,0,route.stops.length)),routeGames:Object.fromEntries(['frisbee','bone','commands'].map(k=>[k,Math.floor(clamp(w.routeGames?.[k]||0,0,1e4))])),routeReturned:w.routeReturned===true});
       }
     } catch { this.available = false; }
     return base;

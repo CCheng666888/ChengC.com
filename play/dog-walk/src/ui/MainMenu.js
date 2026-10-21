@@ -10,11 +10,11 @@ export function mainMenu(game) {
       <p class="menu-chinese">没什么大事。只是一起出去走走。</p>
       <nav class="menu-buttons" aria-label="主菜单">${button('start','开始游戏 <span>↗</span>','primary big')}
       ${s.currentWalk?button('resume','继续上次散步 <span>↝</span>','resume'):''}
-      <div class="menu-secondary">${button('codex','狗狗图鉴')}${button('achievements','成就')}${button('settings','设置')}</div></nav>
+      ${button('routes','散步手册 <small>4 段旅程 ↗</small>','journey-menu')}<div class="menu-secondary">${button('codex','狗狗图鉴')}${button('achievements','成就')}${button('settings','设置')}</div></nav>
       <div class="menu-best"><span>YOUR LITTLE JOURNEY</span><p>${s.totalWalks} 次散步 <i>·</i> ${Math.round(s.totalDistance)} m <i>·</i> 最高 ${s.bestScore} 分</p></div>
       <div class="menu-links">${button('about','玩法与版本','text-button')}</div>
     </section>
     <div class="park-note"><span class="note-pin"></span><p>A little fresh air.<br>A lot of good company.</p><small>MAPLE PARK / EST. 2026</small><span class="note-paw">${paw}</span></div>
-    <footer class="menu-footer"><span>${device.mobile?'TOUCH EDITION · 为拇指留一点空间':'DESKTOP EDITION · TAKE A LITTLE BREAK'}</span><span>01.10 <i>●</i> ${game.storage.available?'自动存档已开启':'存档暂不可用'}</span></footer>
+    <footer class="menu-footer"><span>${device.mobile?'TOUCH EDITION · 为拇指留一点空间':'DESKTOP EDITION · TAKE A LITTLE BREAK'}</span><span>01.20 <i>●</i> ${game.storage.available?'自动存档已开启':'存档暂不可用'}</span></footer>
   </div>`;
 }

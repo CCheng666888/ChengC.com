@@ -6,6 +6,8 @@ import { DOGS, STATE_LABELS } from '../data/dogs.js';
 import { drawDog, ellipse } from '../game/Art.js';
 import { timeLabel, clamp } from '../game/math.js';
 import { device } from '../game/Device.js';
+import { routePanel, routeInfo } from './RoutePanel.js';
+import { routeById, routeUnlocked } from '../data/routes.js';
 
 export class UI {
   constructor(game) {
@@ -19,7 +21,12 @@ export class UI {
     const action=b.dataset.action,g=this.game;g.audio.unlock();g.audio.play('click');
     const handlers={
       stats:()=>{const expanded=this.root.querySelector('.dog-card').classList.toggle('stats-expanded');b.setAttribute('aria-expanded',String(expanded));b.textContent=expanded?'收起 ⌃':'状态 ⌄';},
-      about:()=>this.showModal('DOG WALK · 1.1.0','一起出去走走。','<p class="about-intro">A little walk with a<br>very unpredictable dog.</p><div class="about-grid"><div><h3>公园里有什么</h3><p>三位搭档，五项状态。接飞盘、找骨头、听指令，在随机事件里慢慢建立信任。</p></div><div><h3>按照你的节奏</h3><p>散步途中自动保存，3 或 5 分钟一局。结束后查看分数、成就和你们今天的默契。</p></div></div><p class="edition-note">'+(device.mobile?'手机：左下摇杆移动，右下互动；点击狗狗状态展开五项属性。':'电脑：WASD / 方向键移动，E 互动，空格投掷，ESC 暂停。')+'</p><p class="edition-note">HTML 试玩版可离线直接打开；Windows 正式版独立保存散步进度。</p>',button('close','带它出门吧','primary'),true),
+      about:()=>this.showModal('DOG WALK · 1.2.0','一起出去走走。','<p class="about-intro">A little walk with a<br>very unpredictable dog.</p><div class="about-grid"><div><h3>公园里有什么</h3><p>三位搭档，四段旅程。公园、河畔、果园与暮色归途，每段都有不同的目标，按顺序解锁。</p></div><div><h3>按照你的节奏</h3><p>散步途中自动保存，3 或 5 分钟一局。结束后查看分数、成就和你们今天的默契。</p></div></div><p class="edition-note">'+(device.mobile?'手机：左下摇杆移动，右下互动；点击狗狗状态展开五项属性。':'电脑：WASD / 方向键移动，E 互动，空格投掷，ESC 暂停。')+'</p><p class="edition-note">HTML 试玩版可离线直接打开；Windows 正式版独立保存散步进度。</p>',button('close','带它出门吧','primary'),true),
+      routes:()=>this.showRoutes(),
+      'route-info':()=>this.showModal('WALKING JOURNAL',g.route.spec.name,routeInfo(g),button('close','继续这段旅程','primary')),
+      'route-start':()=>this.chooseRoute(b.dataset.route),
+      'route-confirm':()=>g.start(false,b.dataset.route),
+      'route-retry':()=>g.start(false,g.session.routeId),
       start:()=>g.storage.data.currentWalk?this.showModal('A FRESH START','重新开始散步？','<p class="panel-intro">上次的散步还没走完。开始新的散步会替换中途进度，累计记录会保留。</p>',`${button('resume','继续上次','primary')}${button('start-fresh','重新开始')}`):g.start(),
       'start-fresh':()=>g.start(),resume:()=>g.start(true),codex:()=>this.showCodex(),achievements:()=>this.showAchievements(),settings:()=>this.showSettings(),
       close:()=>{if(g.mini.active)g.mini.cancel();else if(g.events.active)g.events.choose(2);else this.closeModal();},
@@ -55,10 +62,16 @@ export class UI {
     const nodes=[...this.dialogs.querySelectorAll('button:not(:disabled),input,select,[tabindex="0"]')];if(!nodes.length)return;
     const first=nodes[0],last=nodes[nodes.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
   }
+  showRoutes() {this.showModal('YOUR LITTLE JOURNEYS','下一段路，会遇见什么？',routePanel(this.game),this.game.storage.data.currentWalk?button('resume','继续未完成的旅程','primary'):button('close','先看看公园'),true);}
+  chooseRoute(id) {
+    const g=this.game,route=routeById(id);if(!routeUnlocked(g.storage.data,route.id))return;
+    if(g.storage.data.currentWalk)this.showModal('A NEW JOURNEY','这次去'+route.name+'？','<p class="panel-intro">开始新旅程会替换当前未完成的散步。已经解锁的路线、成就与最高分都会保留。</p>',`${button('resume','继续原来的旅程','primary')}${button('route-confirm','出发吧','',`data-route="${route.id}"`)}`);
+    else g.start(false,route.id);
+  }
   showCodex() {this.showModal('YOUR WALKING COMPANIONS','认识你的散步搭档',codex(this.game),button('close','好，我们走吧','primary'),true);document.querySelectorAll('[data-dog-portrait]').forEach(c=>this.portrait(c,DOGS.find(d=>d.id===c.dataset.dogPortrait)));}
   showAchievements() {this.showModal('THE LITTLE MILESTONES','一点点，变得更好。',achievementPanel(this.game),button('close','继续好好散步','primary'),true);}
   showSettings() {this.showModal('MAKE YOURSELF AT HOME','按照你的节奏。',settings(this.game),button('close','保存并返回','primary'));}
-  pause() {this.game.saveWalk();this.showModal('TAKE A BREATHER','歇一小会儿。','<div class="pause-art">'+paw+'</div><p class="panel-intro">公园还在这里。你的散步搭档也在等你。</p>',`${button('unpause','继续散步','primary')}${button('settings','设置')}${button('achievements','成就')}${button('menu','返回主菜单')}`);}
+  pause() {this.game.saveWalk();this.showModal('TAKE A BREATHER','歇一小会儿。','<div class="pause-art">'+paw+'</div><p class="panel-intro">公园还在这里。你的散步搭档也在等你。</p>',`${button('unpause','继续散步','primary')}${button('settings','设置')}${button('achievements','成就')}${button('routes','散步手册')}${button('menu','返回主菜单')}`);}
   interaction(bench=false) {this.showModal('A MOMENT TOGETHER',bench?'一起坐一会儿吧。':'它想和你待在一起。',`<p class="panel-intro">${this.game.dog.spec.name}抬头看着你。每一点耐心，都会被它记住。</p><div class="choice-list">${button('care','<span>♡ 摸摸它<small>快乐 +7 · 信任 +5</small></span><b>↗</b>','choice','data-care="pet"')}${button('care','<span>♧ 喂点零食<small>精力 +12 · 服从 +4</small></span><b>↗</b>','choice','data-care="treat"')}${button('care','<span>☀ 陪它休息<small>精力 +18 · 信任 +3</small></span><b>↗</b>','choice','data-care="rest"')}${button('call','<span>↝ 叫它过来<small>让它回到你身边</small></span><b>↗</b>','choice')}</div>`);}
   showEvent(event) {this.showModal(event.tag,event.title,`<div class="event-emblem">${event.icon}</div><p class="panel-intro">${event.text}</p>${event.timeout?'<div class="event-timer"><span data-event-timer></span></div>':''}<div class="choice-list">${event.choices.map((c,i)=>button('event-choice',`<span>${c.label}<small>${c.note}</small></span><b>↗</b>`,'choice',`data-index="${i}"`)).join('')}</div>`,'',false,false);}
   eventTime(t) {const el=document.querySelector('[data-event-timer]');if(el)el.style.width=`${clamp(t/7*100)}%`;}
@@ -74,8 +87,10 @@ export class UI {
   commandFeedback(ok,text) {const el=document.querySelector('[data-command-feedback]');if(el)el.textContent=ok?'✓ 做到了！好乖。':text;document.querySelectorAll('[data-command]').forEach(b=>b.disabled=true);}
   showMiniResult(ok,message) {this.showModal(ok?'A LITTLE WIN':'KEEP TRYING',ok?'好搭档，就是你们。':'没关系，再试一次。',`<div class="event-emblem">${ok?'✧':'♡'}</div><p class="panel-intro">${message}</p>`,button('close','继续散步','primary'));}
   results(result) {
-    const g=this.game,s=g.dog.stats;
-    this.root.innerHTML='';this.showModal('UNTIL THE NEXT LITTLE WALK','WALK COMPLETE',`<div class="result-paw">${paw}</div><p class="result-title">${result.title}</p><div class="result-stats"><div><span>Distance</span><b>${Math.round(g.session.distance)}<small> m</small></b></div><div><span>Happiness</span><b>${Math.round(s.happiness)}</b></div><div><span>Trust</span><b>${Math.round(s.trust)}</b></div><div><span>Obedience</span><b>${Math.round(s.obedience)}</b></div></div><div class="walk-score"><span>Walk Score ${result.newBest?'<i>NEW BEST</i>':''}</span><strong>${result.score}<small> / 1000</small></strong><div class="stars">${'★'.repeat(result.stars)}<span>${'☆'.repeat(5-result.stars)}</span></div></div><p class="panel-footnote">${g.session.visits.size} 个地点 · ${g.session.interactions} 次互动 · ${g.session.games} 次小游戏成功</p>`,`${button('start-fresh','再走一次','primary')}${button('menu','返回主菜单')}`,false,false);
+    const g=this.game,s=g.dog.stats,r=result.routeResult;
+    const outcome=r?`<div class="route-outcome ${r.passed?'':'incomplete'}"><h3>${r.passed?'旅程完成 · ':'这次还差一点 · '}${r.name}</h3><p>${r.passed?r.next?'下一段旅程已开放：'+r.next.name:'四段旅程都走过了，随时可以再回来。':'未完成的目标列在下方。已有路线记录保留，准备好后再试一次。'}</p>${!r.passed?'<ol class="route-checklist">'+r.summary.map(item=>`<li class="${item.done?'done':''}"><span>${item.done?'✓':'○'}</span>${item.text}</li>`).join('')+'</ol>':''}</div>`:'';
+    const routeButtons=r?`${r.passed&&r.next?button('route-start','前往'+r.next.name+' ↗','primary',`data-route="${r.next.id}"`):button('route-retry','重走这段路','primary')}${button('routes','散步手册')}`:button('start-fresh','再走一次','primary');
+    this.root.innerHTML='';this.showModal('UNTIL THE NEXT LITTLE WALK','WALK COMPLETE',`<div class="result-paw">${paw}</div><p class="result-title">${result.title}</p>${outcome}<div class="result-stats"><div><span>Distance</span><b>${Math.round(g.session.distance)}<small> m</small></b></div><div><span>Happiness</span><b>${Math.round(s.happiness)}</b></div><div><span>Trust</span><b>${Math.round(s.trust)}</b></div><div><span>Obedience</span><b>${Math.round(s.obedience)}</b></div></div><div class="walk-score"><span>Walk Score ${result.newBest?'<i>NEW BEST</i>':''}</span><strong>${result.score}<small> / 1000</small></strong><div class="stars">${'★'.repeat(result.stars)}<span>${'☆'.repeat(5-result.stars)}</span></div></div><p class="panel-footnote">${g.session.visits.size} 个地点 · ${g.session.interactions} 次互动 · ${g.session.games} 次小游戏成功</p>`,`${routeButtons}${button('menu','返回主菜单')}`,false,false);
   }
   toast(message,icon='♡') {
     const el=document.createElement('div');el.className='toast';const glyph=document.createElement('span');glyph.className='toast-icon';glyph.textContent=icon;const text=document.createElement('span');text.textContent=message;el.append(glyph,text);const box=document.querySelector('#toasts');box.append(el);if(box.children.length>3)box.firstChild.remove();setTimeout(()=>{el.classList.add('leaving');setTimeout(()=>el.remove(),300);},3500);
@@ -86,8 +101,13 @@ export class UI {
     set('time',timeLabel(Math.max(0,g.session.duration-g.session.elapsed)));set('distance',Math.round(g.session.distance));set('state',STATE_LABELS[g.dog.state]||'悠闲散步');set('save',g.storage.available?'● 已存档':'○ 存档不可用');
     Object.entries(s).forEach(([key,v])=>{const val=this.root.querySelector(`[data-stat-value="${key}"]`),bar=this.root.querySelector(`[data-stat-bar="${key}"]`);if(val)val.textContent=Math.round(v);if(bar){bar.style.width=`${v}%`;bar.classList.toggle('low',v<25);}});
     for(const [key,done,max] of [['visits',g.session.visits.size,4],['interactions',g.session.interactions,5],['games',g.session.games,1]]) {const q=this.root.querySelector(`[data-quest="${key}"]`);if(q){q.querySelector('b').textContent=`${Math.min(done,max)} / ${max}`;q.querySelector('span').textContent=done>=max?'✓':'○';q.classList.toggle('done',done>=max);}}
-    const p=g.world.nearest(g.player);set('context',g.mini.active?.type==='bone'?'靠近土堆，观察它的嗅闻提示。':p?`E · ${p.label}`:g.dog.stats.energy<25?'它有点累了，陪它休息一下吧。':'慢慢走，看看这个公园。');
-    const map=document.querySelector('#mini-map');if(map){const c=map.getContext('2d');c.clearRect(0,0,160,100);c.fillStyle='#d8dfb8';c.fillRect(0,0,160,100);c.strokeStyle='#f7edd4';c.lineWidth=8;c.beginPath();c.ellipse(81,46,29,24,0,0,Math.PI*2);c.stroke();c.beginPath();c.moveTo(80,68);c.lineTo(80,100);c.stroke();g.world.landmarks.forEach(p=>ellipse(c,p.x/10,p.y/10,3,3,g.session.visits.has(p.landmark)?'#809962':'#e7b35e'));ellipse(c,g.player.x/10,g.player.y/10,4,4,'#e4825b');ellipse(c,g.dog.x/10,g.dog.y/10,2,2,'#775f47');}
+    const r=g.route,summary=r.summary(),done=summary.filter(item=>item.done).length,hint=this.root.querySelector('[data-route-hint]'),count=this.root.querySelector('[data-route-count]'),meter=this.root.querySelector('[data-route-meter]>i');
+    if(hint)hint.textContent=r.active?r.message:r.step?r.step.hint:r.gameDone?'目标完成，带小狗回入口，点互动。':r.spec.gameLabel+'，然后一起回家。';
+    const dx=r.target.x-g.player.x,dy=r.target.y-g.player.y,heading=['→ 东','↘ 东南','↓ 南','↙ 西南','← 西','↖ 西北','↑ 北','↗ 东北'][(Math.round(Math.atan2(dy,dx)/(Math.PI/4))+8)%8];
+    if(count)count.textContent=`${done}/${summary.length} 目标 · ${r.step||r.gameDone?heading+' '+Math.round(Math.hypot(dx,dy)*.055)+'m':'点小游戏按钮开始'}`;
+    if(meter)meter.style.width=(r.active?r.progress/r.step.seconds:done/Math.max(1,summary.length))*100+'%';
+    const p=g.world.nearest(g.player);set('context',g.mini.active?.type==='bone'?'靠近土堆，观察它的嗅闻提示。':r.step&&Math.hypot(dx,dy)<95?`${device.mobile?'互动':'E'} · ${r.step.name}`:p?`${device.mobile?'互动':'E'} · ${p.label}`:g.dog.stats.energy<25?'它有点累了，陪它休息一下吧。':'慢慢走，看看这个公园。');
+    const map=document.querySelector('#mini-map');if(map){const c=map.getContext('2d');c.clearRect(0,0,160,100);c.fillStyle='#d8dfb8';c.fillRect(0,0,160,100);c.drawImage(g.world.ground,0,0,160,100);g.route.drawMap(c);g.world.landmarks.forEach(p=>ellipse(c,p.x/10,p.y/10,3,3,g.session.visits.has(p.landmark)?'#809962':'#e7b35e'));ellipse(c,g.player.x/10,g.player.y/10,4,4,'#e4825b');ellipse(c,g.dog.x/10,g.dog.y/10,2,2,'#775f47');}
     const interact=this.root.querySelector('[data-action="interact"]');if(interact)interact.disabled=!!g.mini.active;
   }
 }

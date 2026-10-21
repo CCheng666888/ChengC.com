@@ -1,0 +1,15 @@
+import { ROUTES, routeUnlocked } from '../data/routes.js';
+import { button } from './icons.js';
+
+export function routeArt(route){
+  const scene=route.id==='river'?'<path d="M90 0Q135 40 100 80T115 160H165Q140 100 170 65T150 0" fill="#91bbb8"/><path d="M72 85h107v25H72z" fill="#bf9e76"/><path d="M80 88v19m13-19v19m13-19v19m13-19v19m13-19v19m13-19v19m13-19v19m13-19v19" stroke="#eddbac" stroke-width="6"/>':route.id==='orchard'?'<path d="M0 140Q110 60 260 145" stroke="#dfc69b" stroke-width="35" fill="none"/><path d="M60 94V58m130 35V57" stroke="#9a805d" stroke-width="10"/><g fill="#a5b785"><circle cx="60" cy="48" r="34"/><circle cx="190" cy="48" r="34"/></g><g fill="#cf8656"><circle cx="44" cy="48" r="5"/><circle cx="72" cy="32" r="5"/><circle cx="184" cy="35" r="5"/><circle cx="203" cy="57" r="5"/></g>':route.id==='dusk'?'<path d="M0 150Q120 75 260 140" stroke="#b7b39d" stroke-width="30" fill="none"/><circle cx="215" cy="30" r="15" fill="#e9dcae"/><g stroke="#6b7c74" stroke-width="5"><path d="M65 105V46m113 64V53"/></g><g fill="#f1d39a"><circle cx="65" cy="46" r="18" opacity=".24"/><circle cx="178" cy="53" r="18" opacity=".24"/><rect x="58" y="35" width="14" height="18" rx="3"/><rect x="171" y="42" width="14" height="18" rx="3"/></g>':'<path d="M0 150Q130 40 260 150" stroke="#eadbb5" stroke-width="33" fill="none"/><ellipse cx="133" cy="80" rx="39" ry="22" fill="#e5d9b9"/><ellipse cx="133" cy="76" rx="32" ry="16" fill="#94beb4"/><path d="M133 76V43" stroke="#ece5ca" stroke-width="9"/>';
+  return `<svg viewBox="0 0 260 160" aria-hidden="true"><rect width="260" height="160" fill="${route.id==='dusk'?'#87958c':'#d4ddbb'}"/>${scene}<g fill="#879e74"><circle cx="20" cy="35" r="25"/><circle cx="245" cy="115" r="24"/></g></svg>`;
+}
+export function routePanel(game){
+  const save=game.storage.data;
+  return `<p class="panel-intro">一段一段，走得更远。每段旅程结束后，下一条路线就会开放。原公园仍可随时自由散步。</p><div class="route-grid">${ROUTES.map(route=>{
+    const open=routeUnlocked(save,route.id),done=save.routes.cleared.includes(route.id),best=save.routes.best[route.id]||0;
+    return `<article class="route-card ${open?'':'locked'}" data-route-card="${route.id}"><div class="route-art">${routeArt(route)}<span>${route.number} / 04</span></div><div class="route-card-copy"><p class="eyebrow">${route.place}</p><h3>${route.name}<small>${done?'✓ 已完成':open?'可以出发':'待解锁'}</small></h3><p>${route.subtitle}</p><div class="route-card-goal">${route.brief}</div><p class="route-record">${best?'路线最高 '+best+' 分':route.id==='maple'&&done?'已保留原有散步记录':route.duration/60+' 分钟 · 可中途保存'}</p>${button('route-start',done?'再走一遍 ↗':open?'开始这段旅程 ↗':'完成前一段旅程后开放','primary',`data-route="${route.id}" ${open?'':'disabled'}`)}</div></article>`;
+  }).join('')}</div>`;
+}
+export function routeInfo(game){const route=game.route.spec;return `<p class="route-brief">${route.brief}</p><ol class="route-checklist">${game.route.summary().map(item=>`<li class="${item.done?'done':''}"><span>${item.done?'✓':'○'}</span>${item.text}</li>`).join('')}</ol><p class="panel-footnote">靠近标记按 E，手机点「和它互动」。沿途目标会保存；提前结束或时间用完，可以重试本关。</p>`;}
