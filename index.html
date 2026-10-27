@@ -107,25 +107,10 @@
   </aside>
 <script>
 (()=>{
-  var EXPIRES = new Date('2026-10-22T22:51:46+08:00').getTime();
   var el = document.getElementById('chemdualHiddenEntry');
   if(!el) return;
-  if(Date.now() >= EXPIRES){
-    var item = el.closest('.timeline-item');
-    if(item) item.style.display = 'none';
-  }
   el.addEventListener('click', function(){
-    if(Date.now() < EXPIRES){
-      location.href = 'chemdual/';
-      return;
-    }
-    var tip = document.createElement('div');
-    tip.textContent = '该入口已关闭';
-    tip.setAttribute('role','status');
-    tip.style.cssText = 'position:fixed;right:18px;bottom:18px;z-index:999;background:#18382f;color:#f6f5f0;padding:9px 16px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .3s';
-    document.body.appendChild(tip);
-    requestAnimationFrame(function(){ tip.style.opacity = 1; });
-    setTimeout(function(){ tip.style.opacity = 0; setTimeout(function(){ tip.remove(); }, 350); }, 1800);
+    location.href = 'vib-freq/';
   });
 })();
 </script>
