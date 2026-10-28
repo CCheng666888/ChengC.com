@@ -1,0 +1,159 @@
+{
+  "created_utc": "2026-10-27T14:27:57.153906+00:00",
+  "source": "20261020.pptx slide 5, embedded image2.png; manually transcribed, no original XYZ supplied",
+  "not_a_new_quantum_chemistry_calculation": true,
+  "properties_count": 15,
+  "atomic_rows": 5,
+  "element_counts": {
+    "C": 1,
+    "H": 4
+  },
+  "all_electron_count": 10,
+  "mulliken_charge_sum_e": 2.7755575615628914e-17,
+  "mulliken_electron_populations": [
+    6.535689,
+    0.866079,
+    0.866078,
+    0.866077,
+    0.866077
+  ],
+  "frequency_count": 9,
+  "expected_nonlinear_modes": 9,
+  "near_degenerate_groups_teaching_tolerance_cm-1": 0.15,
+  "frequency_groups": [
+    {
+      "values": [
+        1341.307,
+        1341.3284,
+        1341.365
+      ],
+      "mean_cm-1": 1341.3334666666667,
+      "count": 3
+    },
+    {
+      "values": [
+        1562.6731,
+        1562.7453
+      ],
+      "mean_cm-1": 1562.7092,
+      "count": 2
+    },
+    {
+      "values": [
+        3038.3205
+      ],
+      "mean_cm-1": 3038.3205,
+      "count": 1
+    },
+    {
+      "values": [
+        3151.6034,
+        3151.6788,
+        3151.7078
+      ],
+      "mean_cm-1": 3151.6633333333334,
+      "count": 3
+    }
+  ],
+  "frequency_grouping_note": "Closeness grouping only; symmetry assignments require eigenvectors/symmetry analysis",
+  "zero_point_energy_from_frequencies_Ha": 0.044749429986498106,
+  "zero_point_energy_file_Ha": 0.044749,
+  "zpve_absolute_difference_Ha": 4.2998649810860323e-07,
+  "lumo_minus_homo_Ha": 0.5048,
+  "file_gap_Ha": 0.5048,
+  "methane_total_dipole_D": 0.0,
+  "CHGCAR_screenshot_grid_points": 175616,
+  "CHGCAR_screenshot_values_per_full_line": 5,
+  "CHGCAR_density_first_line": 16,
+  "CHGCAR_density_last_line": 35139,
+  "CHGCAR_augmentation_first_line": 35140,
+  "CHGCAR_full_data_not_available_for_integration": true,
+  "CUBE_20261020_grid_points": 90240,
+  "CUBE_newer_sample_grid_point_count_from_slide_only": 161568,
+  "bohr_to_angstrom": 0.529177210544,
+  "grid_step_0_4_bohr_angstrom": 0.21167088421760002,
+  "modes_by_molecule": [
+    {
+      "分子": "甲烷",
+      "分子式": "CH4",
+      "原子数_含氢": 5,
+      "线性": false,
+      "完整振动模式数": 9
+    },
+    {
+      "分子": "水",
+      "分子式": "H2O",
+      "原子数_含氢": 3,
+      "线性": false,
+      "完整振动模式数": 3
+    },
+    {
+      "分子": "二氧化碳",
+      "分子式": "CO2",
+      "原子数_含氢": 3,
+      "线性": true,
+      "完整振动模式数": 4
+    },
+    {
+      "分子": "氢气",
+      "分子式": "H2",
+      "原子数_含氢": 2,
+      "线性": true,
+      "完整振动模式数": 1
+    },
+    {
+      "分子": "乙醇",
+      "分子式": "C2H6O",
+      "原子数_含氢": 9,
+      "线性": false,
+      "完整振动模式数": 21
+    },
+    {
+      "分子": "苯",
+      "分子式": "C6H6",
+      "原子数_含氢": 12,
+      "线性": false,
+      "完整振动模式数": 30
+    },
+    {
+      "分子": "阿司匹林",
+      "分子式": "C9H8O4",
+      "原子数_含氢": 21,
+      "线性": false,
+      "完整振动模式数": 57
+    }
+  ],
+  "two_AO_toy_example": {
+    "S": [
+      [
+        1.0,
+        0.2
+      ],
+      [
+        0.2,
+        1.0
+      ]
+    ],
+    "P": [
+      [
+        1.1831288918485856,
+        0.7745396719693377
+      ],
+      [
+        0.7745396719693377,
+        0.5070552393636794
+      ]
+    ],
+    "gross_populations": [
+      1.3380368262424531,
+      0.6619631737575469
+    ],
+    "charges": [
+      -0.3380368262424531,
+      0.3380368262424531
+    ],
+    "trace_P": 1.690184131212265,
+    "trace_PS": 2.0,
+    "is_methane": false
+  }
+}

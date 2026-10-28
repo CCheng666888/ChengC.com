@@ -1,0 +1,147 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>阅读人2：9篇论文整理与原文证据</title><style>body{margin:0;background:#f4f6fa;color:#18283f;font:16px/1.7 "Microsoft YaHei",sans-serif}main{max-width:1000px;margin:32px auto;padding:0 24px}header,article{background:white;padding:30px 36px;margin:22px 0;border-radius:10px;border:1px solid #dae1eb}h1{font-size:27px;margin:0 0 12px}h2{font-size:22px;line-height:1.5}h3{font-size:17px;margin:20px 0 4px}a{color:#225b9c;overflow-wrap:anywhere}p{margin:6px 0}blockquote{margin:8px 0;padding:8px 14px;border-left:4px solid #d5b85a;background:#fffae7;font:15px/1.6 Georgia,serif}.meta,.loc{color:#596b80;font-size:14px}.note{background:#f2f5fb;padding:12px 16px;border-radius:5px;font-size:14px}.tag{display:inline-block;font:13px sans-serif;background:#e7edf6;padding:5px 8px;border-radius:4px}.item{padding-bottom:12px;border-bottom:1px solid #e7ebf1}nav a{display:inline-block;margin:2px 13px 2px 0}.legend{font-size:14px}@media print{body{background:#fff}article{break-before:page;border:0;padding:0}header{border:0}nav{display:none}}</style><main><header><h1>阅读人2：9篇论文整理与原文证据</h1><p>范围为分工表“阅读人2”的第10–18篇，共9篇。每篇按模型、年份、输入形式、编码方式、GitHub、下游任务六项整理。输入形式指模型接收什么，编码方式指如何转成可计算表示。</p><p class="meta">核验日期：2026-10-28</p><p class="legend">短引用于快速辨认对应位置。8篇PDF保留完整正文，并在相关语句/段落添加高亮、中文批注和书签；点击原文链接或按标记编号查阅上下文。xTB使用官方网页段落高亮链接，需联网且浏览器支持文本片段高亮。页码均为PDF文件页序，可能与期刊印刷页码不同。</p><nav>
+<a href="#N21">10. N21</a>
+<a href="#N04">11. N04</a>
+<a href="#L11">12. L11</a>
+<a href="#N08">13. N08</a>
+<a href="#L25">14. L25</a>
+<a href="#N03">15. N03</a>
+<a href="#N17">16. N17</a>
+<a href="#L03">17. L03</a>
+<a href="#L23">18. L23</a>
+</nav><p class="note">GitHub只在明确关联时列出。未查到不等于不存在；相关基线、作者配套脚本、论文原链接和当前仓库分别注明。下游任务区分已验证与潜在用途。</p></header>
+<article id="N21"><span class="tag">10 / N21</span><h2>ELECTRA: A Cartesian Network for 3D Charge Density Prediction with Floating Orbitals</h2><p class="meta">2025 · NeurIPS 2025 · 电子密度预测方法</p>
+<section class="item"><h3>N21-1　模型</h3><p>ELECTRA；以改造的HotPP等变消息传递网络为骨干，预测浮动高斯轨道的位置、权重和协方差。</p><blockquote>modified version of the HotPP</blockquote><p class="loc">PDF p5，§3 Equivariant backbone neural network　<a href="原文标注/N21_原文标注.pdf#page=5">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N21-2　年份</h3><p>2025，NeurIPS正式会议论文。</p><blockquote>NeurIPS 2025</blockquote><p class="loc">PDF p1，首页会议脚注　<a href="原文标注/N21_原文标注.pdf#page=1">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N21-3　输入形式</h3><p>分子原子结构与元素信息；由结构推断三维电荷密度，密度是预测目标。</p><blockquote>atomic structures</blockquote><p class="loc">PDF p2，§1 Introduction　<a href="原文标注/N21_原文标注.pdf#page=2">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N21-4　编码方式</h3><p>SpookyNet式元素电子组态特征经MLP嵌入；局部惯性矩特征向量初始化方向特征；最终以浮动3D高斯混合重建密度。</p><blockquote>nuclear and electronic embeddings</blockquote><p class="loc">PDF p20，Appendix G；另见§3 p5–6　<a href="原文标注/N21_原文标注.pdf#page=20">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N21-5　GitHub</h3><p>作者仓库可访问。</p><blockquote>https://github.com/Jotels/ELECTRA_2025.git</blockquote><p class="loc">PDF p25，Checklist Q4　<a href="原文标注/N21_原文标注.pdf#page=25">打开并查看原文标注</a></p>
+<p><a href="https://github.com/Jotels/ELECTRA_2025">https://github.com/Jotels/ELECTRA_2025</a></p>
+</section>
+<section class="item"><h3>N21-6　下游任务</h3><p>已验证：分子电荷密度预测，以及用预测密度初始化DFT、减少SCF迭代。</p><blockquote>self-consistent field (SCF) iterations</blockquote><p class="loc">PDF p1，Abstract　<a href="原文标注/N21_原文标注.pdf#page=1">打开并查看原文标注</a></p>
+</section>
+<p class="note">将预测密度用于DFT初始化，报告的是SCF迭代次数平均减少50.72%，不等同于总耗时同比减少。</p><p class="meta">原始来源：<a href="https://proceedings.neurips.cc/paper_files/paper/2025/file/288b63aa98084366c4536ba0574a0f22-Paper-Conference.pdf">官方论文正文</a></p></article>
+<article id="N04"><span class="tag">11 / N04</span><h2>∇²DFT: A Universal Quantum Chemistry Dataset of Drug-Like Molecules and a Benchmark for Neural Network Potentials</h2><p class="meta">2024 · NeurIPS 2024 Datasets and Benchmarks · 数据集与多模型基准</p>
+<section class="item"><h3>N04-1　模型</h3><p>10个神经模型：SchNOrb、PhiSNet、QHNet、SchNet、DimeNet++、PaiNN、Graphormer3D、GemNet-OC、EquiformerV2、eSCN。</p><blockquote>SchNOrb</blockquote><p class="loc">PDF p7，§4 Benchmark setup and results　<a href="原文标注/N04_原文标注.pdf#page=7">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N04-2　年份</h3><p>2024，NeurIPS数据集与基准轨道。</p><blockquote>NeurIPS 2024</blockquote><p class="loc">PDF p1，首页会议脚注　<a href="原文标注/N04_原文标注.pdf#page=1">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N04-3　输入形式</h3><p>原子序数z和三维坐标X组成的构象；监督数据含能量、力、Fock/重叠矩阵及波函数对象。</p><blockquote>Atom numbers, atom positions</blockquote><p class="loc">PDF p6，Table 2；§4.2 p7　<a href="原文标注/N04_原文标注.pdf#page=6">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N04-4　编码方式</h3><p>各模型分别进行几何编码，没有单一通用编码；电子结构数据用def2-SVP原子轨道基表示，含矩阵和轨道系数，不能混同为输入体素图。</p><blockquote>ωB97X-D/def2-SVP</blockquote><p class="loc">PDF p5，§3 Dataset；另见Table 2 p6　<a href="原文标注/N04_原文标注.pdf#page=5">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N04-5　GitHub</h3><p>作者提供数据、训练框架与检查点。</p><blockquote>https://github.com/AIRI-Institute/nablaDFT</blockquote><p class="loc">PDF p3，贡献段脚注1　<a href="原文标注/N04_原文标注.pdf#page=3">打开并查看原文标注</a></p>
+<p><a href="https://github.com/AIRI-Institute/nablaDFT">https://github.com/AIRI-Institute/nablaDFT</a></p>
+</section>
+<section class="item"><h3>N04-6　下游任务</h3><p>已验证：Fock矩阵/部分模型的重叠矩阵预测、构象能量与原子力预测、构象几何优化。</p><blockquote>conformational optimization</blockquote><p class="loc">PDF p7，§4 开头；§4.1–4.3　<a href="原文标注/N04_原文标注.pdf#page=7">打开并查看原文标注</a></p>
+</section>
+<p class="note">这是数据集/基准论文，没有唯一的统一编码器。10个神经模型之外，还比较了线性回归以及构象优化中的MMFF、xTB。</p><p class="meta">原始来源：<a href="https://papers.nips.cc/paper/2024/file/40d45b1e23d00d5895e65778e85cf8ee-Paper-Datasets_and_Benchmarks_Track.pdf">官方论文正文</a></p></article>
+<article id="L11"><span class="tag">12 / L11</span><h2>A pocket-based 3D molecule generative model fueled by experimental electron density</h2><p class="meta">2022 · Scientific Reports 12, 15100 · 基于口袋的分子生成</p>
+<section class="item"><h3>L11-1　模型</h3><p>条件GAN（V-Net 3D生成器、复合物/配体两个判别器）生成配体密度；VQ-VAE2和条件PixelCNN将密度转成分子。</p><blockquote>V-Net</blockquote><p class="loc">PDF p10，Methods: Ligand ED generative model；p11　<a href="原文标注/L11_原文标注.pdf#page=10">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L11-2　年份</h3><p>2022，Scientific Reports。</p><blockquote>(2022)</blockquote><p class="loc">PDF p1，首页期刊栏　<a href="原文标注/L11_原文标注.pdf#page=1">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L11-3　输入形式</h3><p>蛋白口袋的实验电子密度2Fo–Fc图；配体计算电子密度作为训练标签。</p><blockquote>2Fo-Fc map</blockquote><p class="loc">PDF p11，Methods: 数据准备　<a href="原文标注/L11_原文标注.pdf#page=11">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L11-4　编码方式</h3><p>密度体素化为24 Å立方区域、0.5 Å间距，单通道1×48×48×48张量；VQ-VAE2双层离散码本，潜变量网格6³/12³。</p><blockquote>0.5 Å cubic grid</blockquote><p class="loc">PDF p11，Methods: Ligand structure generative model　<a href="原文标注/L11_原文标注.pdf#page=11">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L11-5　GitHub</h3><p>未查到本文公开GitHub；原文称部分代码可依合理请求向通信作者申请。</p><blockquote>on reasonable request</blockquote><p class="loc">PDF p12，Data availability；与上方Benchmark model区分　<a href="原文标注/L11_原文标注.pdf#page=12">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L11-6　下游任务</h3><p>已验证：面向HPK1、SARS-CoV-2主蛋白酶、VDR口袋的三维分子生成，并评价药物样性、可合成性和结合模式。</p><blockquote>generation of drug-like three-dimensional molecules</blockquote><p class="loc">PDF p1，Abstract　<a href="原文标注/L11_原文标注.pdf#page=1">打开并查看原文标注</a></p>
+</section>
+<p class="note">原文出现的luost26/3D-Generative-SBDD是对比基线代码，不是本文模型。本文只说部分代码可向通信作者合理申请。</p><p class="meta">原始来源：<a href="https://www.nature.com/articles/s41598-022-19363-6.pdf">官方论文正文</a></p></article>
+<article id="N08"><span class="tag">13 / N08</span><h2>Extended tight-binding quantum chemistry methods</h2><p class="meta">2021 · WIREs Computational Molecular Science 11, e1493 · 半经验量子化学方法综述</p>
+<section class="item"><h3>N08-1　模型</h3><p>综述GFN1-xTB、GFN2-xTB、GFN0-xTB、sTDA-xTB和GFN-FF；核心是半经验紧束缚方法族。</p><blockquote>GFN1-xTB</blockquote><p class="loc">§1 Introduction（官方网页；对应PDF p3）　<a href="https://wires.onlinelibrary.wiley.com/doi/full/10.1002/wcms.1493#:~:text=The%20GFNn-xTB%20methods,Chemical%20energies">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N08-2　年份</h3><p>期刊卷期2021；首次在线发表2020-08-09。</p><blockquote>09 August 2020</blockquote><p class="loc">网页Publication History；PDF首页卷期栏（官方网页；对应PDF p1）　<a href="https://wires.onlinelibrary.wiley.com/doi/full/10.1002/wcms.1493#:~:text=First%20published%3A,09%20August%202020">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N08-3　输入形式</h3><p>分子元素组成、笛卡尔坐标；多数常规计算只需输入几何。本文没有神经网络训练输入的统一格式。</p><blockquote>input geometry</blockquote><p class="loc">§3 Implementation（官方网页；对应PDF p21）　<a href="https://wires.onlinelibrary.wiley.com/doi/full/10.1002/wcms.1493#:~:text=The%20GFN%20methods%20are%20implemented,most%20calculations%20with%20xtb.">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N08-4　编码方式</h3><p>以最小价电子为主、部分极化的球形GTO原子轨道基；轨道作AO线性组合，通过Hamiltonian/重叠矩阵求解电子结构。</p><blockquote>Gaussian-type atomic orbital</blockquote><p class="loc">§2.1.2 The wavefunction choice（官方网页；对应PDF p8）　<a href="https://wires.onlinelibrary.wiley.com/doi/full/10.1002/wcms.1493#:~:text=The%20GFN1-%2C%20GFN2-%2C%20and%20GFN0-xTB%20wavefunctions,as%20in%20Reference%2056">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N08-5　GitHub</h3><p>xtb为原文给出的开源程序；CREST为配套构象搜索工具。</p><blockquote>https://github.com/grimme-lab/xtb</blockquote><p class="loc">§3；Reference 47（官方网页；对应PDF p45）　<a href="https://wires.onlinelibrary.wiley.com/doi/full/10.1002/wcms.1493#:~:text=Semiempirical%20extended%20tight-binding%20program%20package%20xtb.,Accessed%20April%208%2C%202020.">打开并查看原文标注</a></p>
+<p><a href="https://github.com/grimme-lab/xtb">https://github.com/grimme-lab/xtb</a></p>
+</section>
+<section class="item"><h3>N08-6　下游任务</h3><p>综述应用：几何优化、振动频率、非共价相互作用、构象搜索和MD；特定变体处理光谱、反应路径、周期体系。</p><blockquote>vibrational frequency calculations</blockquote><p class="loc">§3 Implementation；§4应用（官方网页；对应PDF p21）　<a href="https://wires.onlinelibrary.wiley.com/doi/full/10.1002/wcms.1493#:~:text=xtb%20provides%20a%20userfriendly%20interface,MD%20simulations.">打开并查看原文标注</a></p>
+</section>
+<p class="note">期刊卷期年2021；首次在线发表2020-08-09。本篇PDF下载返回403，按官方网页正文逐段定位，原文高亮链接收入配套HTML。</p><p class="meta">原始来源：<a href="https://wires.onlinelibrary.wiley.com/doi/full/10.1002/wcms.1493">官方论文正文</a></p></article>
+<article id="L25"><span class="tag">14 / L25</span><h2>Electron Density Learning of Non-Covalent Systems</h2><p class="meta">2019 · Chemical Science 10, 9424–9432 · 可迁移电子密度学习</p>
+<section class="item"><h3>L25-1　模型</h3><p>对称适配高斯过程回归SA-GPR，预测原子中心密度展开系数。</p><blockquote>symmetry-adapted Gaussian process regression</blockquote><p class="loc">PDF p3，§1–§2 Methods　<a href="原文标注/L25_原文标注.pdf#page=3">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L25-2　年份</h3><p>2019；原文注明2019-09-09在线发表。</p><blockquote>09 September 2019</blockquote><p class="loc">PDF p2，首页/页边出版信息　<a href="原文标注/L25_原文标注.pdf#page=2">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L25-3　输入形式</h3><p>分子原子坐标与原子中心局域环境；训练对象为BFDb筛选的2291个侧链二聚体。</p><blockquote>atomic coordinates</blockquote><p class="loc">PDF p2，Abstract；§2.1 PDF p4　<a href="原文标注/L25_原文标注.pdf#page=2">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L25-4　编码方式</h3><p>O(3)对称适配环境核描述局域原子环境；电子密度在cc-pVQZ/JKFIT RI辅助基上展开，回归系数并重建连续密度。</p><blockquote>cc-pVQZ/JKFIT</blockquote><p class="loc">PDF p4，§2 Methods；局域性讨论PDF p5　<a href="原文标注/L25_原文标注.pdf#page=4">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L25-5　GitHub</h3><p>作者配套RHO-Decomposition仓库可访问，内容主要是密度分解；原文未给该GitHub地址。</p><blockquote>RHO-Decomposition</blockquote><p class="loc">作者仓库README（外部补充证据）　<a href="https://github.com/lcmd-epfl/RHO-Decomposition">打开并查看原文标注</a></p>
+<p class="loc">本项代码链接取自作者仓库，不伪造为论文中的原句。</p>
+<p><a href="https://github.com/lcmd-epfl/RHO-Decomposition">https://github.com/lcmd-epfl/RHO-Decomposition</a></p>
+</section>
+<section class="item"><h3>L25-6　下游任务</h3><p>已验证：非共价相互作用DORI可视化、静电势与残基间静电相互作用分析，以及向8条多肽的密度预测迁移。</p><blockquote>density overlap region indicator</blockquote><p class="loc">PDF p6，§3 Results and discussion；§4 PDF p8　<a href="原文标注/L25_原文标注.pdf#page=6">打开并查看原文标注</a></p>
+</section>
+<p class="note">作者配套仓库仅支持电子密度分解和相关量生成，不能据此声称已公开完整SA-GPR训练流水线。下载版PDF含封面，PDF p2才是文章首页9424页。</p><p class="meta">原始来源：<a href="https://pubs.rsc.org/en/content/articlehtml/2019/sc/c9sc02696g">官方论文正文</a></p></article>
+<article id="N03"><span class="tag">15 / N03</span><h2>Learning Equivariant Non-Local Electron Density Functionals</h2><p class="meta">2025 · ICLR 2025 · 学习交换相关泛函</p>
+<section class="item"><h3>N03-1　模型</h3><p>EG-XC：用等变GNN（NequIP消息传递）学习非局域交换相关泛函，与meta-GGA及图读出结合。</p><blockquote>Equivariant Graph Exchange Correlation</blockquote><p class="loc">PDF p4，§4；NequIP见p5　<a href="原文标注/N03_原文标注.pdf#page=4">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N03-2　年份</h3><p>2025正式发表于ICLR；arXiv初稿为2024。</p><blockquote>ICLR 2025</blockquote><p class="loc">PDF p1，首页会议栏　<a href="原文标注/N03_原文标注.pdf#page=1">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N03-3　输入形式</h3><p>SCF迭代中的电子密度场ρ(r)、核位置、积分点/权重及半局域密度量；训练监督仅需总能量目标。</p><blockquote>requiring only energy targets</blockquote><p class="loc">PDF p1，Abstract；§4 Eq.13 p5　<a href="原文标注/N03_原文标注.pdf#page=1">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N03-4　编码方式</h3><p>软分区密度与径向滤波、球谐函数卷积，得到SO(3)等变的核中心点云；再经等变消息传递产生非局域特征。</p><blockquote>spherical harmonics</blockquote><p class="loc">PDF p4，Figure 1；Eq.9–14 p4–5　<a href="原文标注/N03_原文标注.pdf#page=4">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N03-5　GitHub</h3><p>论文旧链接失效；作者现有eg-xc可访问，维护版本为ML4DFT。</p><blockquote>https://github.com/eseberhard/eg-ex</blockquote><p class="loc">PDF p2，脚注1；作者仓库README核验　<a href="原文标注/N03_原文标注.pdf#page=2">打开并查看原文标注</a></p>
+<p><a href="https://github.com/ESEberhard/eg-xc">https://github.com/ESEberhard/eg-xc</a></p>
+</section>
+<section class="item"><h3>N03-6　下游任务</h3><p>已验证：分子能量/势能面、3BPA分布外构象与QM9分子尺寸外推；这是DFT内的泛函模型。</p><blockquote>out-of-distribution conformations</blockquote><p class="loc">PDF p1，Abstract　<a href="原文标注/N03_原文标注.pdf#page=1">打开并查看原文标注</a></p>
+</section>
+<p class="note">论文脚注旧链接为eseberhard/eg-ex，核验时404。作者现有eg-xc仓库指向维护中的ML4DFT：https://github.com/ESEberhard/ML4DFT。</p><p class="meta">原始来源：<a href="https://proceedings.iclr.cc/paper_files/paper/2025/file/7d95d65059958ba8667be1f642c6447c-Paper-Conference.pdf">官方论文正文</a></p></article>
+<article id="N17"><span class="tag">16 / N17</span><h2>Physics-Informed Pre-training on Efficient Electron-Density Images for Organic Material Property Prediction</h2><p class="meta">2026 · ICML 2026，PMLR 306 · 电子密度图像预训练</p>
+<section class="item"><h3>N17-1　模型</h3><p>VisionED：共享ViT-Base/16图像编码器、视图集合池化及性质预测MLP，结合CAP/EGP/QSP物理预训练。</p><blockquote>ViT-Base/16</blockquote><p class="loc">PDF p5，§5.1 Implementation details；§4.3–4.5　<a href="原文标注/N17_原文标注.pdf#page=5">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N17-2　年份</h3><p>2026，ICML，PMLR 306。</p><blockquote>PMLR 306, 2026</blockquote><p class="loc">PDF p1，首页会议脚注　<a href="原文标注/N17_原文标注.pdf#page=1">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N17-3　输入形式</h3><p>每分子6张224×224 RGB电子密度图像；下游可成对输入给体–受体或发光体–溶剂图像。</p><blockquote>K= 6</blockquote><p class="loc">PDF p3，§3 Problem Definition；§4.5 p4　<a href="原文标注/N17_原文标注.pdf#page=3">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N17-4　编码方式</h3><p>将ED等值面以ESP着色，从6个方向渲染；切为16×16 patches经ViT编码，再做视图平均池化。</p><blockquote>patch size of</blockquote><p class="loc">PDF p4，§4.3；渲染方法§4.2 p3　<a href="原文标注/N17_原文标注.pdf#page=4">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>N17-5　GitHub</h3><p>作者代码与数据仓库可访问。</p><blockquote>https://github.com/ZhixiangCheng/VisionED</blockquote><p class="loc">PDF p1，Abstract末尾　<a href="原文标注/N17_原文标注.pdf#page=1">打开并查看原文标注</a></p>
+<p><a href="https://github.com/ZhixiangCheng/VisionED">https://github.com/ZhixiangCheng/VisionED</a></p>
+</section>
+<section class="item"><h3>N17-6　下游任务</h3><p>已验证：有机光伏VOC/JSC/FF/PCE，色团吸收/发射、PLQY/FWHM预测，并测试三元混合器件趋势。</p><blockquote>photophysical dataset</blockquote><p class="loc">PDF p5，§5.1 Datasets and evaluation protocol　<a href="原文标注/N17_原文标注.pdf#page=5">打开并查看原文标注</a></p>
+</section>
+<p class="note">6个视图是近似旋转不变，并非严格SO(3)等变。69维ESSOR是预训练监督目标，不应直接称为推理时输入。</p><p class="meta">原始来源：<a href="https://raw.githubusercontent.com/mlresearch/v306/main/assets/cheng26m/cheng26m.pdf">官方论文正文</a></p></article>
+<article id="L03"><span class="tag">17 / L03</span><h2>Gaussian Plane-Wave Neural Operator for Electron Density Estimation</h2><p class="meta">2024 · ICML 2024，PMLR 235 · 电子密度神经算子</p>
+<section class="item"><h3>L03-1　模型</h3><p>GPWNO：TFN初始化，组合Gaussian-type orbital支路和plane-wave/Fourier neural operator支路。</p><blockquote>Gaussian plane-wave neural operator</blockquote><p class="loc">PDF p1，Abstract；§4　<a href="原文标注/L03_原文标注.pdf#page=1">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L03-2　年份</h3><p>2024，ICML，PMLR 235。</p><blockquote>PMLR 235, 2024</blockquote><p class="loc">PDF p1，首页会议脚注　<a href="原文标注/L03_原文标注.pdf#page=1">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L03-3　输入形式</h3><p>原子三维坐标X、原子特征A、晶胞L及查询点Q；非周期分子用较大晶胞和零填充边界处理。</p><blockquote>atom positions</blockquote><p class="loc">PDF p3，§3.1 Problem Definition　<a href="原文标注/L03_原文标注.pdf#page=3">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L03-4　编码方式</h3><p>TFN将几何转成等变原子特征；GTO用径向基×球谐描述高频，PW支路经规则探针网格和FFT描述低频，二者相加重建ρ。</p><blockquote>plane-wave basis</blockquote><p class="loc">PDF p4，§4.1 Overview及§4.2　<a href="原文标注/L03_原文标注.pdf#page=4">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L03-5　GitHub</h3><p>作者GPWNO仓库可访问。</p><blockquote>https://github.com/seongsukim-ml/GPWNO</blockquote><p class="loc">PDF p6，§5.1脚注3　<a href="原文标注/L03_原文标注.pdf#page=6">打开并查看原文标注</a></p>
+<p><a href="https://github.com/seongsukim-ml/GPWNO">https://github.com/seongsukim-ml/GPWNO</a></p>
+</section>
+<section class="item"><h3>L03-6　下游任务</h3><p>已验证：QM9、MD和周期材料数据上的电子密度估计。潜在用途：电子结构计算；交换相关能误差尚待验证。</p><blockquote>leave this for future work</blockquote><p class="loc">PDF p8，§6 Conclusion　<a href="原文标注/L03_原文标注.pdf#page=8">打开并查看原文标注</a></p>
+</section>
+<p class="note">直接验证的是密度估计。结论p8明确将交换相关能误差评估留待未来，不把材料/药物发现写成已验证任务。</p><p class="meta">原始来源：<a href="https://raw.githubusercontent.com/mlresearch/v235/main/assets/kim24b/kim24b.pdf">官方论文正文</a></p></article>
+<article id="L23"><span class="tag">18 / L23</span><h2>Bypassing the Kohn–Sham Equations with Machine Learning</h2><p class="meta">2017 · Nature Communications 8, 872 · 学习Hohenberg–Kohn映射</p>
+<section class="item"><h3>L23-1　模型</h3><p>ML-HK：多组高斯核岭回归KRR学习势→密度展开系数，再学习密度→总能量；并与ML-KS、ML-OF比较。</p><blockquote>kernel ridge regression</blockquote><p class="loc">PDF p3，Results中ML-HK推导；Methods p9　<a href="原文标注/L23_原文标注.pdf#page=3">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L23-2　年份</h3><p>2017，Nature Communications 8:872，2017-10-11发表。</p><blockquote>11 October 2017</blockquote><p class="loc">出版商网页Article information　<a href="https://www.nature.com/articles/s41467-017-00839-3#:~:text=11%20October%202017">打开并查看原文标注</a></p>
+<p class="loc">PDF首页未写出版年份；年份按出版商网页核验，不以Received/Accepted日期代替。</p>
+</section>
+<section class="item"><h3>L23-3　输入形式</h3><p>分子核电荷Z和原子坐标R构造的外势代理；1D演示则输入人工势函数。</p><blockquote>artificial Gaussian potential</blockquote><p class="loc">PDF p4，Molecules，Eq.12　<a href="原文标注/L23_原文标注.pdf#page=4">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L23-4　编码方式</h3><p>把原子中心高斯叠加势离散成网格并展平向量；回归密度的3D Fourier系数。1D还比较原始网格和KPCA基。</p><blockquote>flatten it into a vector</blockquote><p class="loc">PDF p4，Eq.12下方；密度基比较p3　<a href="原文标注/L23_原文标注.pdf#page=4">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L23-5　GitHub</h3><p>未查到本文作者官方GitHub；原文提供数据集下载入口。</p><blockquote>http://quantum-machine.org/datasets/</blockquote><p class="loc">PDF p9，Data availability　<a href="原文标注/L23_原文标注.pdf#page=9">打开并查看原文标注</a></p>
+</section>
+<section class="item"><h3>L23-6　下游任务</h3><p>已验证：分子电子密度和总能量预测、构型能量面及丙二醛分子动力学/质子转移相关能量分析。</p><blockquote>Molecular dynamics</blockquote><p class="loc">PDF p9，Methods: Molecular dynamics；Fig.5 p7　<a href="原文标注/L23_原文标注.pdf#page=9">打开并查看原文标注</a></p>
+</section>
+<p class="note">未查到与本文明确对应的作者官方GitHub。原文只给数据集地址，不能把相关方法的第三方实现当作本文代码。</p><p class="meta">原始来源：<a href="https://www.nature.com/articles/s41467-017-00839-3.pdf">官方论文正文</a></p></article>
+</main></html>

@@ -1,0 +1,355 @@
+{
+  "rdkit_version": "2024.03.4",
+  "note": "Structural parser check only; no Mulliken/DFT computation",
+  "checks": [
+    {
+      "SMILES": "CCO",
+      "parsed": true,
+      "canonical": "CCO",
+      "formula": "C2H6O",
+      "explicit_nodes_before_AddHs": 3,
+      "atoms_including_H": 9,
+      "aromatic_carbon_count": 0,
+      "atom_info": [
+        {
+          "index": 0,
+          "element": "C",
+          "Z": 6,
+          "aromatic": false
+        },
+        {
+          "index": 1,
+          "element": "C",
+          "Z": 6,
+          "aromatic": false
+        },
+        {
+          "index": 2,
+          "element": "O",
+          "Z": 8,
+          "aromatic": false
+        }
+      ]
+    },
+    {
+      "SMILES": "OCC",
+      "parsed": true,
+      "canonical": "CCO",
+      "formula": "C2H6O",
+      "explicit_nodes_before_AddHs": 3,
+      "atoms_including_H": 9,
+      "aromatic_carbon_count": 0,
+      "atom_info": [
+        {
+          "index": 0,
+          "element": "O",
+          "Z": 8,
+          "aromatic": false
+        },
+        {
+          "index": 1,
+          "element": "C",
+          "Z": 6,
+          "aromatic": false
+        },
+        {
+          "index": 2,
+          "element": "C",
+          "Z": 6,
+          "aromatic": false
+        }
+      ]
+    },
+    {
+      "SMILES": "cco",
+      "parsed": false
+    },
+    {
+      "SMILES": "c1ccccc1",
+      "parsed": true,
+      "canonical": "c1ccccc1",
+      "formula": "C6H6",
+      "explicit_nodes_before_AddHs": 6,
+      "atoms_including_H": 12,
+      "aromatic_carbon_count": 6,
+      "atom_info": [
+        {
+          "index": 0,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        },
+        {
+          "index": 1,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        },
+        {
+          "index": 2,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        },
+        {
+          "index": 3,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        },
+        {
+          "index": 4,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        },
+        {
+          "index": 5,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        }
+      ]
+    },
+    {
+      "SMILES": "C1=CC=CC=C1",
+      "parsed": true,
+      "canonical": "c1ccccc1",
+      "formula": "C6H6",
+      "explicit_nodes_before_AddHs": 6,
+      "atoms_including_H": 12,
+      "aromatic_carbon_count": 6,
+      "atom_info": [
+        {
+          "index": 0,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        },
+        {
+          "index": 1,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        },
+        {
+          "index": 2,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        },
+        {
+          "index": 3,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        },
+        {
+          "index": 4,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        },
+        {
+          "index": 5,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        }
+      ]
+    },
+    {
+      "SMILES": "C1CCCCC1",
+      "parsed": true,
+      "canonical": "C1CCCCC1",
+      "formula": "C6H12",
+      "explicit_nodes_before_AddHs": 6,
+      "atoms_including_H": 18,
+      "aromatic_carbon_count": 0,
+      "atom_info": [
+        {
+          "index": 0,
+          "element": "C",
+          "Z": 6,
+          "aromatic": false
+        },
+        {
+          "index": 1,
+          "element": "C",
+          "Z": 6,
+          "aromatic": false
+        },
+        {
+          "index": 2,
+          "element": "C",
+          "Z": 6,
+          "aromatic": false
+        },
+        {
+          "index": 3,
+          "element": "C",
+          "Z": 6,
+          "aromatic": false
+        },
+        {
+          "index": 4,
+          "element": "C",
+          "Z": 6,
+          "aromatic": false
+        },
+        {
+          "index": 5,
+          "element": "C",
+          "Z": 6,
+          "aromatic": false
+        }
+      ]
+    },
+    {
+      "SMILES": "Cl",
+      "parsed": true,
+      "canonical": "Cl",
+      "formula": "HCl",
+      "explicit_nodes_before_AddHs": 1,
+      "atoms_including_H": 2,
+      "aromatic_carbon_count": 0,
+      "atom_info": [
+        {
+          "index": 0,
+          "element": "Cl",
+          "Z": 17,
+          "aromatic": false
+        }
+      ]
+    },
+    {
+      "SMILES": "[Co]",
+      "parsed": true,
+      "canonical": "[Co]",
+      "formula": "Co",
+      "explicit_nodes_before_AddHs": 1,
+      "atoms_including_H": 1,
+      "aromatic_carbon_count": 0,
+      "atom_info": [
+        {
+          "index": 0,
+          "element": "Co",
+          "Z": 27,
+          "aromatic": false
+        }
+      ]
+    },
+    {
+      "SMILES": "CO",
+      "parsed": true,
+      "canonical": "CO",
+      "formula": "CH4O",
+      "explicit_nodes_before_AddHs": 2,
+      "atoms_including_H": 6,
+      "aromatic_carbon_count": 0,
+      "atom_info": [
+        {
+          "index": 0,
+          "element": "C",
+          "Z": 6,
+          "aromatic": false
+        },
+        {
+          "index": 1,
+          "element": "O",
+          "Z": 8,
+          "aromatic": false
+        }
+      ]
+    },
+    {
+      "SMILES": "CC(=O)Oc1ccccc1C(=O)O",
+      "parsed": true,
+      "canonical": "CC(=O)Oc1ccccc1C(=O)O",
+      "formula": "C9H8O4",
+      "explicit_nodes_before_AddHs": 13,
+      "atoms_including_H": 21,
+      "aromatic_carbon_count": 6,
+      "atom_info": [
+        {
+          "index": 0,
+          "element": "C",
+          "Z": 6,
+          "aromatic": false
+        },
+        {
+          "index": 1,
+          "element": "C",
+          "Z": 6,
+          "aromatic": false
+        },
+        {
+          "index": 2,
+          "element": "O",
+          "Z": 8,
+          "aromatic": false
+        },
+        {
+          "index": 3,
+          "element": "O",
+          "Z": 8,
+          "aromatic": false
+        },
+        {
+          "index": 4,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        },
+        {
+          "index": 5,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        },
+        {
+          "index": 6,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        },
+        {
+          "index": 7,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        },
+        {
+          "index": 8,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        },
+        {
+          "index": 9,
+          "element": "C",
+          "Z": 6,
+          "aromatic": true
+        },
+        {
+          "index": 10,
+          "element": "C",
+          "Z": 6,
+          "aromatic": false
+        },
+        {
+          "index": 11,
+          "element": "O",
+          "Z": 8,
+          "aromatic": false
+        },
+        {
+          "index": 12,
+          "element": "O",
+          "Z": 8,
+          "aromatic": false
+        }
+      ]
+    }
+  ]
+}

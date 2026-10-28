@@ -1,0 +1,36 @@
+{
+  "generated_utc": "2026-10-27T15:09:06.271810+00:00",
+  "seed": 20261027,
+  "question_count": 85,
+  "topic_counts": {
+    "Mulliken 电荷": 8,
+    "振动模式数量": 8,
+    "频率来源与测量": 7,
+    "频率数值和单位": 7,
+    "QM9 的十五项性质": 7,
+    "SMILES 大小写": 7,
+    "电子密度概念": 5,
+    "密度矩阵": 6,
+    "CUBE 与 CHGCAR": 6,
+    "SCF 和几何优化": 6,
+    "方法与 xTB": 6,
+    "报告与数据展示": 5,
+    "当场计算题": 7
+  },
+  "section_coverage": [
+    "case",
+    "cube",
+    "density",
+    "frequency",
+    "matrix",
+    "modecount",
+    "mulliken",
+    "numbers",
+    "qm9fields",
+    "scf",
+    "xtb"
+  ],
+  "source_cards_sha256": "24289f2dc5e2078c8e0706f70607a3996a641b15b255fe5c0d24daa3279e0a85",
+  "method": "Deterministic composition of reviewed topic cards plus rule-calculated mode-count examples; no prediction model",
+  "source_boundary": "Answers combine supplied slide content, primary documentation, and explicit teaching calculations"
+}

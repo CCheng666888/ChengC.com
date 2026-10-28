@@ -1,0 +1,14 @@
+﻿运行说明
+读网页：双击 00_学习资料.html，无需安装任何库或联网。将整个文件夹一起移动，图片和原件链接即可保留。
+正文：01_纯文本复习资料.txt。题库：02_追问与参考答案.txt。
+
+Python 程序：
+1. python 程序/audit_sample.py：读取截图转录的甲烷 XYZ，核验计数、荷电守恒、能隙、零点能和 CHGCAR 行号。
+2. python 程序/check_smiles.py：需要 RDKit。仅做字符串和结构解析，不做 DFT。
+3. python 程序/generate_questions.py：生成题库 JSON、CSV、纯文本与固定12题口头练习。
+4. python 程序/build_html.py：读取上述输出和前置知识模块，生成24节HTML和纯文本正文。
+5. node 程序/check_html.cjs：用当前配置的Playwright与Microsoft Edge进行离线浏览器检查，预览存入.build/网页预览_20261028。
+
+本次使用 Windows 随附 Python 运行步骤1、3、4；步骤2使用已配置的 WSL ChemDual 环境，RDKit 2024.03.4。
+环境中未安装 PySCF，本次未为此安装新软件，也没有重新运行量子化学计算。
+主题卡与答案是根据 PPT 和原始资料人工核对后编写，程序负责整理、去重、生成计算题及链接，不能预测导师会问什么。
