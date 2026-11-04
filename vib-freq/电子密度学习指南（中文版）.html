@@ -1,0 +1,2344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>电子密度学习指南</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="通过交互模型、记忆卡和测验学习电子密度的基础知识。">
+<style>
+/* Layout: a sticky study rail (progress, module path, focus timer) beside one reading column.
+   Interactive "labs" widen to the full column; prose stays near 68ch. */
+:root {
+  --bg: #f3f5fa;
+  --surface: #ffffff;
+  --sunken: #e9edf6;
+  --ink: #131a35;
+  --ink-2: #474f6e;
+  --ink-3: #656d8c;
+  --line: #d8deeb;
+  --line-strong: #b9c1d6;
+  --brand: #2a50c8;
+  --brand-ink: #ffffff;
+  --brand-wash: #e4eafb;
+  --idea: #2a50c8;  --idea-wash: #e8edfc;
+  --try: #0b7a70;   --try-wash: #dcf2ee;
+  --warn: #c23b2f;  --warn-wash: #fbe8e5;
+  --fact: #9a6312;  --fact-wash: #fbf0dc;
+  --quiz: #6b46c1;  --quiz-wash: #efe9fb;
+  --good: #0a7d3b;  --good-wash: #ddf3e5;
+  --chart-surface: #ffffff;
+  --grid: #e3e7f0;
+  --axis: #c3c9d8;
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --cloud: #2a50c8;
+  --map-line: rgba(13, 54, 107, 0.45);
+  --map-ramp: #cde2fb,#b7d3f6,#9ec5f4,#86b6ef,#6da7ec,#5598e7,#3987e5,#2a78d6,#256abf,#1c5cab,#184f95,#104281,#0d366b;
+  --esp-neg: #d8423f;
+  --esp-mid: #ecebe6;
+  --esp-pos: #2f6fd6;
+  --shadow: 0 1px 2px rgba(19, 26, 53, 0.06), 0 10px 28px rgba(19, 26, 53, 0.07);
+
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --font-math: "STIX Two Text", "Cambria Math", Cambria, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.9375rem;
+  --fs-md: 1.0625rem;
+  --fs-lg: 1.25rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1222; --surface: #161b30; --sunken: #0a0d1a;
+    --ink: #e8ebf7; --ink-2: #b4bad3; --ink-3: #8b92ad;
+    --line: #262d47; --line-strong: #3a4263;
+    --brand: #7d9cff; --brand-ink: #0e1222; --brand-wash: #1b2547;
+    --idea: #8ea8ff; --idea-wash: #182142;
+    --try: #4fd1c0;  --try-wash: #0f2a2a;
+    --warn: #ff8a7a; --warn-wash: #351a1c;
+    --fact: #f0b65a; --fact-wash: #2e2414;
+    --quiz: #b49cff; --quiz-wash: #241d40;
+    --good: #3ccf7a; --good-wash: #10301f;
+    --chart-surface: #161b30; --grid: #232a43; --axis: #3a4263;
+    --s1: #3987e5; --s2: #d95926; --cloud: #8ea8ff;
+    --map-line: rgba(205, 226, 251, 0.42);
+    --map-ramp: #13254a,#0d366b,#104281,#184f95,#1c5cab,#256abf,#2a78d6,#3987e5,#5598e7,#6da7ec,#86b6ef,#9ec5f4,#cde2fb;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 10px 28px rgba(0, 0, 0, 0.28);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1222; --surface: #161b30; --sunken: #0a0d1a;
+  --ink: #e8ebf7; --ink-2: #b4bad3; --ink-3: #8b92ad;
+  --line: #262d47; --line-strong: #3a4263;
+  --brand: #7d9cff; --brand-ink: #0e1222; --brand-wash: #1b2547;
+  --idea: #8ea8ff; --idea-wash: #182142;
+  --try: #4fd1c0;  --try-wash: #0f2a2a;
+  --warn: #ff8a7a; --warn-wash: #351a1c;
+  --fact: #f0b65a; --fact-wash: #2e2414;
+  --quiz: #b49cff; --quiz-wash: #241d40;
+  --good: #3ccf7a; --good-wash: #10301f;
+  --chart-surface: #161b30; --grid: #232a43; --axis: #3a4263;
+  --s1: #3987e5; --s2: #d95926; --cloud: #8ea8ff;
+  --map-line: rgba(205, 226, 251, 0.42);
+  --map-ramp: #13254a,#0d366b,#104281,#184f95,#1c5cab,#256abf,#2a78d6,#3987e5,#5598e7,#6da7ec,#86b6ef,#9ec5f4,#cde2fb;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 10px 28px rgba(0, 0, 0, 0.28);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 var(--fs-md)/1.65 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+[hidden] { display: none !important; }
+img, canvas, svg { max-width: 100%; }
+a { color: var(--brand); text-underline-offset: 3px; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.1; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+sub, sup { line-height: 0; }
+.mono { font-family: var(--font-mono); }
+.math { font-family: var(--font-math); font-size: 1.08em; }
+.math var, .eq var { font-style: italic; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.icon { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- Shell & rail ---------- */
+.shell {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 72px;
+  display: grid;
+  gap: 28px;
+}
+@media (min-width: 768px) {
+  .shell {
+    padding-left: max(32px, env(safe-area-inset-left, 0px));
+    padding-right: max(32px, env(safe-area-inset-right, 0px));
+    padding-block: 28px 96px;
+  }
+}
+.rail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "brand timer" "progress progress" "path path";
+  gap: 14px 16px;
+  align-items: center;
+}
+.brand { grid-area: brand; display: flex; align-items: center; gap: 12px; min-width: 0; text-decoration: none; color: inherit; }
+.brand-mark {
+  width: 44px; height: 44px; flex: none; border-radius: 12px;
+  display: grid; place-items: center;
+  background: var(--brand); color: var(--brand-ink);
+  font: italic 600 1.6rem/1 var(--font-math);
+}
+.brand-name { font-family: var(--font-display); font-weight: 700; font-size: 1.02rem; line-height: 1.15; }
+.brand-sub { display: block; font-size: var(--fs-xs); color: var(--ink-3); font-weight: 400; font-family: var(--font-body); }
+.progress { grid-area: progress; display: grid; gap: 8px; }
+.progress-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: var(--fs-xs); color: var(--ink-3); }
+.progress-row strong { color: var(--ink); font-size: var(--fs-sm); }
+.meter { height: 8px; border-radius: 99px; background: var(--brand-wash); overflow: hidden; }
+.meter > span { display: block; height: 100%; width: 0; background: var(--try); border-radius: inherit; transition: width 0.5s ease; }
+.path {
+  grid-area: path; list-style: none; margin: 0; padding: 0 0 4px;
+  display: flex; gap: 8px; overflow-x: auto; scrollbar-width: thin;
+}
+.path a {
+  display: flex; align-items: center; gap: 9px; white-space: nowrap;
+  padding: 6px 12px 6px 6px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--surface);
+  color: var(--ink-2); text-decoration: none; font-size: var(--fs-sm);
+  transition: background 0.2s, color 0.2s;
+}
+.path a:hover { color: var(--ink); background: var(--sunken); }
+.path a[aria-current="true"] { color: var(--ink); border-color: var(--brand); background: var(--brand-wash); }
+.path .num {
+  width: 24px; height: 24px; flex: none; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 1.5px solid var(--line-strong);
+  font: 600 0.72rem/1 var(--font-mono); color: var(--ink-3);
+}
+.path li.done .num { background: var(--try); border-color: var(--try); color: var(--surface); }
+.path li.done .num .icon { width: 14px; height: 14px; stroke-width: 3; }
+.rail-reset { display: none; }
+.timer {
+  grid-area: timer; display: flex; align-items: center; gap: 8px;
+  padding: 6px 6px 6px 12px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--line);
+}
+.timer-label { display: none; }
+.timer-time { font: 600 1rem/1 var(--font-mono); font-variant-numeric: tabular-nums; min-width: 3.1em; }
+.timer.running .timer-time { color: var(--try); }
+.timer.break .timer-time { color: var(--fact); }
+.icon-btn {
+  width: 34px; height: 34px; border-radius: 50%; border: 0; cursor: pointer;
+  display: grid; place-items: center; background: var(--sunken); color: var(--ink);
+  transition: background 0.2s;
+}
+.icon-btn:hover { background: var(--brand-wash); }
+.icon-btn .icon { width: 16px; height: 16px; }
+
+@media (min-width: 1100px) {
+  .shell { grid-template-columns: 252px minmax(0, 1fr); gap: 56px; align-items: start; }
+  .rail {
+    position: sticky; top: calc(env(safe-area-inset-top, 0px) + 28px);
+    max-height: calc(100vh - 56px); overflow-y: auto;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "brand" "progress" "path" "timer";
+    gap: 22px; padding-right: 4px;
+  }
+  .path { flex-direction: column; gap: 2px; overflow: visible; padding: 0; }
+  .path a { border: 0; background: transparent; border-radius: 10px; padding: 7px 10px 7px 6px; white-space: normal; }
+  .timer { flex-wrap: wrap; border-radius: 14px; padding: 12px 12px 12px 14px; }
+  .timer-label { display: block; width: 100%; font-size: var(--fs-xs); color: var(--ink-3); }
+  .timer-time { font-size: 1.5rem; margin-right: auto; }
+  .rail-reset { display: block; justify-self: start; background: none; border: 0; padding: 0; font-size: var(--fs-xs); color: var(--ink-3); text-decoration: underline; cursor: pointer; }
+}
+
+/* ---------- Main column ---------- */
+main { min-width: 0; display: grid; gap: clamp(64px, 9vw, 104px); }
+.eyebrow { font: 500 0.78rem/1.4 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+
+.hero { display: grid; gap: 28px; align-items: center; }
+@media (min-width: 960px) { .hero { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: 40px; } }
+.hero-copy { display: grid; gap: 20px; min-width: 0; }
+.hero h1 { font-size: clamp(2.6rem, 6.2vw, 4.4rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.0; }
+.hero h1 .rho { font: italic 400 1em/1 var(--font-math); color: var(--brand); letter-spacing: 0; }
+.lede { font-size: 1.2rem; line-height: 1.55; color: var(--ink-2); max-width: 46ch; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.hero-meta { font-size: var(--fs-sm); color: var(--ink-3); }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+  font: 700 0.95rem/1 var(--font-body); text-decoration: none;
+  padding: 12px 18px; border-radius: 999px; border: 1.5px solid transparent;
+  transition: transform 0.15s, background 0.2s, border-color 0.2s;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-primary { background: var(--brand); color: var(--brand-ink); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+.btn-ghost:hover { border-color: var(--ink-3); }
+.btn-small { padding: 8px 13px; font-size: 0.86rem; }
+.btn[disabled] { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+/* ---------- Modules ---------- */
+.module { display: grid; gap: 24px; scroll-margin-top: 24px; min-width: 0; }
+.module-head { display: grid; gap: 12px; max-width: 70ch; }
+.module-tag { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font: 500 0.78rem/1.4 var(--font-mono); letter-spacing: 0.07em; text-transform: uppercase; color: var(--brand); }
+.module-tag .mins { color: var(--ink-3); }
+.module h2 { font-size: clamp(1.9rem, 3.8vw, 2.7rem); font-weight: 750; }
+.module-head .intro { font-size: 1.14rem; color: var(--ink-2); }
+.prose { display: grid; gap: 14px; max-width: 68ch; }
+.prose h3 { font-size: 1.32rem; font-weight: 700; margin-top: 10px; }
+.prose ul, .prose ol { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
+.prose strong { font-weight: 700; }
+.cols-2 { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); }
+.cols-2 > * { min-width: 0; }
+
+.note { --c: var(--idea); --w: var(--idea-wash); background: var(--w); border-radius: 12px; padding: 16px 18px; display: grid; gap: 6px; max-width: 72ch; }
+.note-label { display: flex; align-items: center; gap: 8px; color: var(--c); font: 700 0.76rem/1.3 var(--font-body); letter-spacing: 0.09em; text-transform: uppercase; }
+.note-label .icon { width: 17px; height: 17px; }
+.note.try { --c: var(--try); --w: var(--try-wash); }
+.note.warn { --c: var(--warn); --w: var(--warn-wash); }
+.note.fact { --c: var(--fact); --w: var(--fact-wash); }
+
+.formula { background: var(--sunken); border-radius: 14px; padding: 18px 20px; display: grid; gap: 12px; max-width: 72ch; min-width: 0; }
+.formula-title { font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+.eq { font-family: var(--font-math); font-size: clamp(1.2rem, 2.6vw, 1.5rem); line-height: 1.6; overflow-x: auto; white-space: nowrap; padding-bottom: 2px; }
+.eq .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; font-size: 0.86em; line-height: 1.2; margin: 0 0.15em; }
+.eq .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 0.2em; }
+.eq .big { font-size: 1.45em; vertical-align: -0.12em; }
+.formula dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 0; font-size: var(--fs-sm); color: var(--ink-2); }
+.formula dt { font-family: var(--font-math); font-style: italic; color: var(--ink); font-size: 1.05rem; }
+.formula dd { margin: 0; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 8px; align-content: start; }
+.card h3 { font-size: 1.16rem; font-weight: 700; }
+.card p, .card li { color: var(--ink-2); font-size: var(--fs-sm); }
+.card ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+
+.module-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
+.done-btn {
+  display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+  padding: 10px 16px; border-radius: 999px; font-weight: 700; font-size: 0.95rem;
+  background: transparent; color: var(--ink-2); border: 1.5px dashed var(--line-strong);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.done-btn:hover { color: var(--ink); border-color: var(--ink-3); }
+.done-btn[aria-pressed="true"] { border-style: solid; border-color: var(--try); background: var(--try-wash); color: var(--try); }
+.next-link { font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+
+/* ---------- Labs (interactive panels) ---------- */
+.lab { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: clamp(14px, 2.6vw, 24px); display: grid; gap: 16px; box-shadow: var(--shadow); min-width: 0; }
+.lab-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.lab-title { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-family: var(--font-display); font-weight: 700; font-size: 1.16rem; letter-spacing: -0.01em; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font: 700 0.7rem/1 var(--font-body); letter-spacing: 0.09em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--try-wash); color: var(--try); }
+.lab-grid { display: grid; gap: 18px; }
+@media (min-width: 780px) { .lab-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; } }
+.lab-grid > * { min-width: 0; }
+.lab-caption { font-size: var(--fs-xs); color: var(--ink-3); line-height: 1.5; }
+.lab-tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+
+.seg { display: inline-flex; flex-wrap: wrap; gap: 3px; padding: 4px; background: var(--sunken); border-radius: 12px; }
+.seg button { border: 0; background: transparent; color: var(--ink-2); font-weight: 700; font-size: 0.88rem; padding: 7px 11px; border-radius: 9px; cursor: pointer; transition: background 0.15s, color 0.15s; }
+.seg button:hover { color: var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14); }
+.seg.mono-labels button { font-family: var(--font-mono); font-weight: 600; }
+
+.canvas-wrap { position: relative; border-radius: 12px; overflow: hidden; background: var(--chart-surface); border: 1px solid var(--line); max-width: 100%; }
+.canvas-wrap canvas { display: block; width: 100%; height: 100%; }
+.ratio-43 { aspect-ratio: 4 / 3; }
+.ratio-1 { aspect-ratio: 1 / 1; }
+.ratio-wide { aspect-ratio: 16 / 9; }
+.overlay-label { position: absolute; left: 10px; top: 8px; font: 500 0.72rem/1.3 var(--font-mono); color: var(--ink-3); pointer-events: none; }
+.overlay-label.right { left: auto; right: 10px; }
+.readout { font: 500 0.9rem/1.45 var(--font-mono); font-variant-numeric: tabular-nums; color: var(--ink); }
+.readout .dim { color: var(--ink-3); }
+
+/* Hero density map */
+.mapcard { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px; display: grid; gap: 12px; box-shadow: var(--shadow); min-width: 0; }
+.mapcard-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 2px 4px 0; }
+.mapcard-title { font: 600 0.95rem/1.3 var(--font-body); }
+.probe { position: absolute; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; border: 2px solid var(--ink); box-shadow: 0 0 0 2px var(--chart-surface); pointer-events: none; transition: opacity 0.2s; }
+#heroMap { cursor: crosshair; touch-action: pan-y; }
+.map-readout { display: grid; gap: 4px; padding: 10px 12px; border-radius: 12px; background: var(--sunken); min-height: 4.6em; }
+.map-where { font-size: var(--fs-sm); color: var(--ink-2); }
+.levels { display: flex; align-items: center; gap: 8px; font: 500 0.7rem/1 var(--font-mono); color: var(--ink-3); flex-wrap: wrap; }
+.levels-bar { display: flex; height: 10px; flex: 1 1 160px; min-width: 120px; border-radius: 3px; overflow: hidden; gap: 1px; }
+.levels-bar span { flex: 1; }
+
+/* Charts */
+.chart-wrap { position: relative; min-width: 0; }
+.chart { display: block; width: 100%; height: auto; overflow: visible; touch-action: pan-y; }
+.chart text { fill: var(--ink-3); font: 500 11px var(--font-mono); }
+.chart .lbl { fill: var(--ink-2); font: 600 11px var(--font-body); }
+.chart .grid { stroke: var(--grid); stroke-width: 1; }
+.chart .axis { stroke: var(--axis); stroke-width: 1; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: var(--fs-xs); color: var(--ink-2); }
+.key { display: inline-flex; align-items: center; gap: 8px; }
+.key i { width: 18px; height: 3px; border-radius: 2px; background: var(--k); display: inline-block; }
+.key i.sq { width: 11px; height: 11px; border-radius: 3px; }
+.tip { position: absolute; z-index: 3; pointer-events: none; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; box-shadow: var(--shadow); font-size: 0.8rem; color: var(--ink-2); white-space: nowrap; display: grid; gap: 3px; }
+.tip b { font: 600 0.92rem/1.2 var(--font-mono); color: var(--ink); }
+.tip .row { display: flex; align-items: center; gap: 8px; }
+.tip .row i { width: 12px; height: 3px; border-radius: 2px; background: var(--k); }
+
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+.data-table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); font-variant-numeric: tabular-nums; }
+.data-table th, .data-table td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.data-table tr:last-child td { border-bottom: 0; }
+.data-table th { font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); font-weight: 700; background: var(--sunken); }
+.data-table td.num { font-family: var(--font-mono); font-size: 0.86rem; }
+.data-table tr.is-current td { background: var(--brand-wash); }
+.data-table caption { caption-side: bottom; text-align: left; padding: 8px 12px; font-size: var(--fs-xs); color: var(--ink-3); }
+</style>
+<style>
+/* ---------- Bond polarity lab ---------- */
+.bond-controls { display: grid; gap: 14px; align-content: start; }
+.pickers { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: end; }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); }
+.field select {
+  width: 100%; font: 600 1rem/1.2 var(--font-body); color: var(--ink);
+  padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--surface);
+}
+.pickers .dash { padding-bottom: 10px; font-weight: 700; color: var(--ink-3); }
+.presets { display: flex; flex-wrap: wrap; gap: 6px; }
+.presets button {
+  font: 600 0.84rem/1 var(--font-mono); padding: 7px 11px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--line-strong); background: transparent; color: var(--ink-2);
+}
+.presets button:hover { color: var(--ink); border-color: var(--ink-3); }
+.presets button[aria-pressed="true"] { background: var(--brand); border-color: var(--brand); color: var(--brand-ink); }
+.stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.stat { background: var(--sunken); border-radius: 10px; padding: 10px 12px; display: grid; gap: 2px; min-width: 0; }
+.stat-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); }
+.stat-value { font: 600 1.12rem/1.3 var(--font-mono); }
+.bond-type { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; }
+.bond-type::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--bt, var(--ink-3)); }
+.continuum { display: grid; gap: 6px; }
+.continuum-track { position: relative; display: grid; grid-template-columns: 0.4fr 1.3fr 1.6fr; gap: 2px; height: 12px; }
+.continuum-track span { border-radius: 3px; }
+.continuum-track span:nth-child(1) { background: var(--try-wash); outline: 1px solid var(--try); outline-offset: -1px; }
+.continuum-track span:nth-child(2) { background: var(--idea-wash); outline: 1px solid var(--idea); outline-offset: -1px; }
+.continuum-track span:nth-child(3) { background: var(--quiz-wash); outline: 1px solid var(--quiz); outline-offset: -1px; }
+.continuum-marker { position: absolute; top: -5px; width: 4px; height: 22px; margin-left: -2px; border-radius: 2px; background: var(--ink); box-shadow: 0 0 0 2px var(--surface); transition: left 0.5s ease; }
+.continuum-labels { display: grid; grid-template-columns: 0.4fr 1.3fr 1.6fr; gap: 2px; font-size: 0.72rem; color: var(--ink-3); }
+.continuum-labels span:nth-child(1) { white-space: nowrap; }
+.continuum-ticks { display: flex; justify-content: space-between; font: 500 0.68rem/1 var(--font-mono); color: var(--ink-3); }
+.bond-explain { font-size: var(--fs-sm); color: var(--ink-2); }
+
+/* ---------- ESP lab ---------- */
+.esp-side { display: grid; gap: 14px; align-content: start; }
+.esp-legend { display: grid; gap: 6px; }
+.esp-bar { height: 12px; border-radius: 99px; background: linear-gradient(90deg, var(--esp-neg), var(--esp-mid) 50%, var(--esp-pos)); border: 1px solid var(--line); }
+.esp-ticks { display: flex; justify-content: space-between; gap: 8px; font: 500 0.7rem/1.3 var(--font-mono); color: var(--ink-3); }
+.esp-ticks span:last-child { text-align: right; }
+.esp-name { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; letter-spacing: -0.01em; }
+.esp-formula { font: 500 0.95rem var(--font-mono); color: var(--ink-3); }
+.esp-dipole { display: inline-flex; gap: 8px; align-items: baseline; font: 600 0.95rem var(--font-mono); }
+.esp-dipole .dim { font-family: var(--font-body); font-weight: 400; color: var(--ink-3); font-size: var(--fs-xs); }
+
+/* ---------- Reactivity ---------- */
+.duo-card .tag { font: 700 0.72rem/1 var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; }
+.duo-card.rich .tag { color: var(--warn); }
+.duo-card.poor .tag { color: var(--idea); }
+.species { display: flex; flex-wrap: wrap; gap: 6px; }
+.species span { font: 500 0.84rem/1 var(--font-mono); padding: 6px 9px; border-radius: 8px; background: var(--sunken); color: var(--ink); }
+.mech { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: grid; gap: 8px; }
+.mech svg { width: 100%; height: auto; display: block; }
+.mech svg text { font-family: var(--font-body); }
+.subst-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+.subst { border-radius: 14px; padding: 14px; display: grid; gap: 8px; align-content: start; border: 1px solid var(--line); background: var(--surface); }
+.subst h4 { font-size: 1rem; font-weight: 700; letter-spacing: -0.005em; }
+.subst .effect { font-size: var(--fs-xs); color: var(--ink-3); }
+.subst .species span { background: var(--w, var(--sunken)); }
+.subst.don { --w: var(--warn-wash); }
+.subst.weak { --w: var(--fact-wash); }
+.subst.hal { --w: var(--try-wash); }
+.subst.wd { --w: var(--idea-wash); }
+.flow { display: flex; align-items: center; gap: 6px; font-size: var(--fs-xs); font-weight: 700; }
+.flow .icon { width: 15px; height: 15px; }
+.subst.don .flow, .subst.weak .flow { color: var(--warn); }
+.subst.hal .flow { color: var(--try); }
+.subst.wd .flow { color: var(--idea); }
+
+/* ---------- Timeline ---------- */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; max-width: 72ch; }
+.timeline li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 16px; padding-bottom: 18px; position: relative; }
+.timeline li::before { content: ""; position: absolute; left: 76px; top: 10px; bottom: -6px; width: 2px; background: var(--line); }
+.timeline li:last-child::before { display: none; }
+.timeline .year { font: 600 0.95rem/1.6 var(--font-mono); color: var(--brand); }
+.timeline .ev { padding-left: 22px; position: relative; color: var(--ink-2); font-size: var(--fs-sm); }
+.timeline .ev::before { content: ""; position: absolute; left: -3px; top: 8px; width: 10px; height: 10px; border-radius: 50%; background: var(--surface); border: 2px solid var(--brand); }
+.timeline .ev strong { color: var(--ink); }
+
+/* ---------- Flip cards (myths, flashcards) ---------- */
+.flip { display: grid; perspective: 1200px; cursor: pointer; border: 0; padding: 0; background: none; text-align: left; width: 100%; }
+.flip-inner { display: grid; transition: transform 0.55s cubic-bezier(.3,.7,.2,1); transform-style: preserve-3d; }
+.flip[aria-pressed="true"] .flip-inner, .flip.is-flipped .flip-inner { transform: rotateY(180deg); }
+.face { grid-area: 1 / 1; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 14px; padding: 18px; display: grid; gap: 8px; align-content: start; }
+.face.back { transform: rotateY(180deg); }
+.myth .face.front { background: var(--warn-wash); }
+.myth .face.back { background: var(--good-wash); }
+.face-label { display: flex; align-items: center; justify-content: space-between; gap: 8px; font: 700 0.72rem/1.2 var(--font-body); letter-spacing: 0.09em; text-transform: uppercase; }
+.myth .front .face-label { color: var(--warn); }
+.myth .back .face-label { color: var(--good); }
+.face-label .hint { font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--ink-3); font-size: 0.78rem; }
+.face p { color: var(--ink); font-size: var(--fs-sm); }
+.myth .front p { font-weight: 700; font-size: 1rem; }
+.myth-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); }
+
+.deck { display: grid; gap: 14px; max-width: 720px; }
+.deck-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; align-items: center; font-size: var(--fs-sm); color: var(--ink-3); }
+.deck-top b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.flash .face { min-height: 220px; padding: 26px; align-content: center; justify-items: start; border: 1px solid var(--line); }
+.flash .front { background: var(--surface); box-shadow: var(--shadow); }
+.flash .back { background: var(--quiz-wash); }
+.flash .term { font-family: var(--font-display); font-size: clamp(1.5rem, 3.6vw, 2.1rem); font-weight: 750; letter-spacing: -0.02em; line-height: 1.15; }
+.flash .face-label { color: var(--quiz); width: 100%; }
+.flash .def { font-size: 1.08rem; line-height: 1.6; color: var(--ink); }
+.deck-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.deck-controls .spacer { flex: 1; }
+.known-pill { font: 600 0.82rem var(--font-mono); padding: 6px 10px; border-radius: 999px; background: var(--good-wash); color: var(--good); }
+
+/* ---------- Quiz ---------- */
+.quiz { display: grid; gap: 18px; max-width: 760px; }
+.quiz-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.quiz-dots { display: flex; flex-wrap: wrap; gap: 5px; }
+.quiz-dots i { width: 22px; height: 6px; border-radius: 3px; background: var(--line); }
+.quiz-dots i.ok { background: var(--good); }
+.quiz-dots i.no { background: var(--warn); }
+.quiz-dots i.now { background: var(--quiz); }
+.quiz-score { font: 600 0.9rem var(--font-mono); color: var(--ink-2); }
+.q-text { font-family: var(--font-display); font-size: clamp(1.25rem, 2.6vw, 1.55rem); font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; }
+.q-options { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.q-options button {
+  width: 100%; text-align: left; cursor: pointer; display: grid; grid-template-columns: 30px 1fr auto; gap: 12px; align-items: center;
+  padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 1rem; line-height: 1.4;
+  transition: border-color 0.15s, background 0.15s;
+}
+.q-options button:hover:not([disabled]) { border-color: var(--quiz); }
+.q-options .letter { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; background: var(--sunken); font: 600 0.82rem var(--font-mono); color: var(--ink-2); }
+.q-options button[disabled] { cursor: default; }
+.q-options button.correct { border-color: var(--good); background: var(--good-wash); }
+.q-options button.correct .letter { background: var(--good); color: var(--surface); }
+.q-options button.wrong { border-color: var(--warn); background: var(--warn-wash); }
+.q-options button.wrong .letter { background: var(--warn); color: var(--surface); }
+.q-options .verdict { font-size: 0.8rem; font-weight: 700; }
+.q-options .correct .verdict { color: var(--good); }
+.q-options .wrong .verdict { color: var(--warn); }
+.q-feedback { border-radius: 12px; padding: 14px 16px; background: var(--sunken); display: grid; gap: 6px; font-size: var(--fs-sm); color: var(--ink-2); }
+.q-feedback strong { color: var(--ink); }
+.q-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.result { display: grid; gap: 14px; justify-items: start; }
+.result-score { font-family: var(--font-display); font-size: clamp(2.6rem, 7vw, 3.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+.result-score small { font-size: 0.4em; color: var(--ink-3); font-weight: 600; letter-spacing: 0; }
+.result ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; color: var(--ink-2); font-size: var(--fs-sm); }
+
+/* ---------- Summary & footer ---------- */
+.takeaways { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
+.takeaways li { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.takeaways .k { font-family: var(--font-display); font-weight: 700; font-size: 1.04rem; letter-spacing: -0.01em; }
+.takeaways p { font-size: var(--fs-sm); color: var(--ink-2); }
+.page-foot { border-top: 1px solid var(--line); padding-top: 22px; display: grid; gap: 8px; font-size: var(--fs-xs); color: var(--ink-3); max-width: 80ch; }
+
+/* ---------- Horizontal bar chart (pKa) ---------- */
+.hbars { display: grid; gap: 8px; }
+.hbar, .hbar-axis { display: grid; grid-template-columns: minmax(130px, 220px) minmax(0, 1fr) 3.4em; gap: 14px; align-items: center; padding: 5px 8px; }
+.hbar { border-radius: 10px; cursor: default; }
+.hbar:hover, .hbar:focus-visible { background: var(--sunken); }
+.hbar-label { display: grid; line-height: 1.3; min-width: 0; }
+.hbar-label b { font-size: var(--fs-sm); }
+.hbar-label span { font: 500 0.76rem/1.3 var(--font-mono); color: var(--ink-3); }
+.hbar-track { position: relative; height: 22px; border-left: 1px solid var(--axis); background-image: linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 20% 100%; }
+.hbar-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--s1); border-radius: 0 4px 4px 0; transition: width 0.6s ease, opacity 0.2s; }
+.hbars:hover .hbar:not(:hover) .hbar-fill { opacity: 0.55; }
+.hbar-val { font: 600 0.95rem/1 var(--font-mono); font-variant-numeric: tabular-nums; }
+.hbar-axis { padding-top: 0; padding-bottom: 0; }
+.hbar-ticks { position: relative; height: 16px; font: 500 0.7rem/1 var(--font-mono); color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.hbar-ticks span { position: absolute; top: 2px; transform: translateX(-50%); }
+.hbar-axis-title { grid-column: 2; font-size: var(--fs-xs); color: var(--ink-3); padding: 0 8px; }
+.face .txt { display: block; color: var(--ink); font-size: var(--fs-sm); line-height: 1.55; }
+.myth .front .txt { font-weight: 700; font-size: 1rem; }
+
+@media (max-width: 520px) {
+  .hbar, .hbar-axis { grid-template-columns: minmax(0, 1fr) 3em; gap: 4px 10px; }
+  .hbar-label { grid-column: 1 / -1; }
+  .hbar-axis > span:first-child { display: none; }
+  .hbar-axis-title { grid-column: 1; }
+  .stats { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .timeline li { grid-template-columns: 50px minmax(0, 1fr); gap: 10px; }
+  .timeline li::before { left: 56px; }
+  .flash .face { padding: 20px; min-height: 200px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  .flip-inner { transform: none !important; }
+  .flip .face.back { transform: none; visibility: hidden; }
+  .flip[aria-pressed="true"] .face.back, .flip.is-flipped .face.back { visibility: visible; }
+  .flip[aria-pressed="true"] .face.front, .flip.is-flipped .face.front { visibility: hidden; }
+}
+</style>
+<style id="ed-paper-theme">
+/* Paper theme v1: shared with the nine-day study notes. */
+:root {
+  --bg:#f5f3ed; --surface:#fffefb; --surface-2:#eceee5; --sunken:#eceee5;
+  --ink:#172c39; --muted:#5f6d72; --ink-2:#4e6067; --ink-3:#64736d;
+  --line:#dcded5; --line-strong:#aabbb1;
+  --brand:#126b63; --brand-ink:#fffefb; --brand-wash:#e7f1e9;
+  --accent:#126b63; --accent-soft:#e7f1e9; --try:#126b63; --try-wash:#e7f1e9;
+  --idea:#335da0; --idea-wash:#e9eff8; --quiz:#6d587f; --quiz-wash:#f0ebf3;
+  --rich:#bf443a; --rich-soft:#f9e7e2; --poor:#335da0; --poor-soft:#e9eff8;
+  --warn:#ae482f; --warn-wash:#f9e7e2;
+  --fact:#946018; --fact-wash:#fbefdf; --glow:#b67a28; --glow-soft:#fbefdf;
+  --good:#276949; --good-wash:#e7f1e9;
+  --cloud:#126b63; --cloud-soft:#e7f1e9; --contour:rgba(18,107,99,.06);
+  --chart-surface:#fffefb; --grid:#e5e8df; --axis:#b7c2b7;
+  --s1:#126b63; --s2:#b65d2c;
+  --map-line:rgba(18,80,73,.5);
+  --map-ramp:#e4efe6,#cfe3d7,#b9d6c8,#9ec7b6,#83b8a5,#68a993,#4d9a82,#358c73,#247d65,#196e58,#135e4c,#104e40,#0d3f34;
+  --esp-neg:#bf443a; --esp-mid:#eeeae1; --esp-pos:#335da0;
+  --shadow:0 1px 2px rgba(23,44,57,.035),0 6px 18px rgba(23,44,57,.035);
+  --font-body:"Microsoft YaHei UI","Microsoft YaHei","PingFang SC","Segoe UI",system-ui,sans-serif;
+  --font-display:var(--font-body);
+  --font-mono:"Cascadia Code",Consolas,"Microsoft YaHei",monospace;
+  --font-math:"Cambria Math",Cambria,"Times New Roman",serif;
+  --r:12px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141d1c; --surface:#1c2926; --surface-2:#23322d; --sunken:#18231f;
+  --ink:#e8eee6; --muted:#b1c1b8; --ink-2:#c1cdc5; --ink-3:#a5b8ac;
+  --line:#35463c; --line-strong:#5b7364;
+  --brand:#8bd0b9; --brand-ink:#142720; --brand-wash:#233d32;
+  --accent:#8bd0b9; --accent-soft:#233d32; --try:#8bd0b9; --try-wash:#233d32;
+  --idea:#a6bee9; --idea-wash:#263346; --quiz:#c5b2d8; --quiz-wash:#322b3b;
+  --rich:#f39588; --rich-soft:#422d29; --poor:#a6bee9; --poor-soft:#263346;
+  --warn:#f39588; --warn-wash:#422d29;
+  --fact:#e9c17e; --fact-wash:#3c3323; --glow:#e9c17e; --glow-soft:#3c3323;
+  --good:#98d6ad; --good-wash:#263e2e;
+  --cloud:#8bd0b9; --cloud-soft:#233d32; --contour:rgba(139,208,185,.065);
+  --chart-surface:#1c2926; --grid:#304137; --axis:#5a6e5e;
+  --s1:#8bd0b9; --s2:#e9ab7f;
+  --map-line:rgba(210,236,222,.45);
+  --map-ramp:#18332a,#214337,#2b5344,#356351,#42745f,#51856e,#64967f,#79a78f,#90b8a2,#a8c9b5,#c0d9c8,#d7e9db,#edf6ef;
+  --esp-neg:#f39588; --esp-mid:#c9c8b9; --esp-pos:#a6bee9;
+  --shadow:0 1px 2px rgba(0,0,0,.1),0 6px 18px rgba(0,0,0,.1);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#141d1c; --surface:#1c2926; --surface-2:#23322d; --sunken:#18231f;
+  --ink:#e8eee6; --muted:#b1c1b8; --ink-2:#c1cdc5; --ink-3:#a5b8ac;
+  --line:#35463c; --line-strong:#5b7364;
+  --brand:#8bd0b9; --brand-ink:#142720; --brand-wash:#233d32;
+  --accent:#8bd0b9; --accent-soft:#233d32; --try:#8bd0b9; --try-wash:#233d32;
+  --idea:#a6bee9; --idea-wash:#263346; --quiz:#c5b2d8; --quiz-wash:#322b3b;
+  --rich:#f39588; --rich-soft:#422d29; --poor:#a6bee9; --poor-soft:#263346;
+  --warn:#f39588; --warn-wash:#422d29;
+  --fact:#e9c17e; --fact-wash:#3c3323; --glow:#e9c17e; --glow-soft:#3c3323;
+  --good:#98d6ad; --good-wash:#263e2e;
+  --cloud:#8bd0b9; --cloud-soft:#233d32; --contour:rgba(139,208,185,.065);
+  --chart-surface:#1c2926; --grid:#304137; --axis:#5a6e5e;
+  --s1:#8bd0b9; --s2:#e9ab7f;
+  --map-line:rgba(210,236,222,.45);
+  --map-ramp:#18332a,#214337,#2b5344,#356351,#42745f,#51856e,#64967f,#79a78f,#90b8a2,#a8c9b5,#c0d9c8,#d7e9db,#edf6ef;
+  --esp-neg:#f39588; --esp-mid:#c9c8b9; --esp-pos:#a6bee9;
+  --shadow:0 1px 2px rgba(0,0,0,.1),0 6px 18px rgba(0,0,0,.1);
+  color-scheme:dark;
+}
+
+body{margin:0;line-height:1.85;-webkit-font-smoothing:antialiased}
+h1{line-height:1.3!important;letter-spacing:-.025em}
+h2,h3,h4{line-height:1.45!important;letter-spacing:-.01em}
+button,input,select,textarea{font-family:var(--font-body)}
+a{text-underline-offset:4px}
+.btn,.btn-primary,.btn-ghost,.done-btn{border-radius:8px}
+.hero,.widget,.formula,.card,.lab,.subst,.mech{border-radius:12px}
+.hero{box-shadow:none}
+.hero h1 em,.hero h1 .rho{color:var(--brand);font-style:normal}
+.hero .lede,.hero .lede strong{line-height:1.8}
+.prose,.module .prose{line-height:1.85}
+.eq{line-height:1.8}
+.toc a.active,.path a[aria-current="true"]{background:var(--brand-wash);box-shadow:none}
+.toc a.active{border-left:2px solid var(--brand)}
+.lesson-num{color:var(--brand);-webkit-text-stroke:0;font-weight:600}
+.studymap,.rail{scrollbar-color:var(--line-strong) transparent;scrollbar-width:thin}
+:focus-visible{outline:3px solid var(--glow);outline-offset:3px}
+@media(max-width:760px){.hero{padding:22px}.hero h1{line-height:1.35!important}}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface-2:#f2f3ef;--sunken:#f2f3ef;--ink:#172c39;--ink-2:#4e6067;--ink-3:#5f6d72;--muted:#5f6d72;--line:#dcded5;--brand:#126b63;color-scheme:light}
+  body{background:#fff;color:#172c39}
+  .hero,.widget,.lab{box-shadow:none}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-bulb" viewbox="0 0 24 24"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"></path></symbol>
+    <symbol id="i-flask" viewbox="0 0 24 24"><path d="M9 2h6M10 2v6.5L4.6 18.2A2.5 2.5 0 0 0 6.8 22h10.4a2.5 2.5 0 0 0 2.2-3.8L14 8.5V2M7.5 15h9"></path></symbol>
+    <symbol id="i-alert" viewbox="0 0 24 24"><path d="M12 3 2 21h20L12 3zM12 10v5M12 18h.01"></path></symbol>
+    <symbol id="i-spark" viewbox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"></path></symbol>
+    <symbol id="i-check" viewbox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></symbol>
+    <symbol id="i-arrow" viewbox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></symbol>
+    <symbol id="i-play" viewbox="0 0 24 24"><path d="M7 4v16l13-8z"></path></symbol>
+    <symbol id="i-pause" viewbox="0 0 24 24"><path d="M8 5v14M16 5v14"></path></symbol>
+    <symbol id="i-reset" viewbox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path><path d="M3 3v5h5"></path></symbol>
+    <symbol id="i-left" viewbox="0 0 24 24"><path d="M15 18l-6-6 6-6"></path></symbol>
+    <symbol id="i-right" viewbox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></symbol>
+    <symbol id="i-shuffle" viewbox="0 0 24 24"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path></symbol>
+    <symbol id="i-in" viewbox="0 0 24 24"><path d="M3 12h12M10 6l6 6-6 6M21 4v16"></path></symbol>
+    <symbol id="i-out" viewbox="0 0 24 24"><path d="M3 4v16M8 12h12M15 6l6 6-6 6"></path></symbol>
+  </defs>
+</svg>
+
+<div class="shell">
+  <nav class="rail" aria-label="学习路径">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true">ρ</span>
+      <span class="brand-name">电子密度<span class="brand-sub">学习指南</span></span>
+    </a>
+    <div class="progress">
+      <div class="progress-row"><span>你的进度</span><strong id="progressText">已完成 7 个模块中的 0 个</strong></div>
+      <div class="meter" role="progressbar" aria-label="已理解的模块" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0" id="progressMeter"><span></span></div>
+    </div>
+    <ol class="path" id="path">
+      <li data-mod="basics"><a href="#basics"><span class="num">1</span><span>它是什么</span></a></li>
+      <li data-mod="atoms"><a href="#atoms"><span class="num">2</span><span>原子中的密度</span></a></li>
+      <li data-mod="bonds"><a href="#bonds"><span class="num">3</span><span>化学键中的密度</span></a></li>
+      <li data-mod="maps"><a href="#maps"><span class="num">4</span><span>解读 ESP 图</span></a></li>
+      <li data-mod="reactivity"><a href="#reactivity"><span class="num">5</span><span>密度与反应性</span></a></li>
+      <li data-mod="measure"><a href="#measure"><span class="num">6</span><span>测量与计算</span></a></li>
+      <li data-mod="myths"><a href="#myths"><span class="num">7</span><span>常见混淆</span></a></li>
+      <li><a href="#flashcards"><span class="num">Aa</span><span>记忆卡</span></a></li>
+      <li><a href="#quiz"><span class="num">?</span><span>测验</span></a></li>
+      <li><a href="#summary"><span class="num">∑</span><span>速查表</span></a></li>
+    </ol>
+    <div class="timer" id="timer">
+      <span class="timer-label" id="timerLabel">专注计时器 · 25 分钟</span>
+      <span class="timer-time" id="timerTime" aria-live="off">25:00</span>
+      <button class="icon-btn" id="timerToggle" type="button" aria-label="开始专注计时"><svg class="icon"><use href="#i-play"></use></svg></button>
+      <button class="icon-btn" id="timerReset" type="button" aria-label="重置计时器"><svg class="icon"><use href="#i-reset"></use></svg></button>
+    </div>
+    <button class="rail-reset" id="resetProgress" type="button">重置我的进度</button>
+  </nav>
+
+  <main>
+    <header class="hero" id="top">
+      <div class="hero-copy">
+        <p class="eyebrow">学习指南 · 7 个模块 · 约 35 分钟</p>
+        <h1>电子在哪里</h1>
+        <p class="lede">电子密度，写作<span class="math"><var>ρ</var>(<b>r</b>)</span>，告诉你空间中每一点聚集了多少电子电荷。它决定原子的大小和形状、把化学键维系在一起，并预示反应会在哪里发生。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#basics">开始模块 1<svg class="icon"><use href="#i-arrow"></use></svg></a>
+          <a class="btn btn-ghost" href="#quiz">先自我测试</a>
+        </div>
+        <p class="hero-meta">每个模块末尾都有一个按钮，用来标记你已经掌握。你的进度、记忆卡和最佳测验成绩都会保存在这个浏览器中。</p>
+      </div>
+
+      <figure class="mapcard" style="margin:0">
+        <div class="mapcard-head">
+          <span class="mapcard-title" id="heroTitle">水的密度图，H₂O</span>
+          <div class="seg" role="group" aria-label="分子" id="heroMols">
+            <button type="button" data-mol="water" aria-pressed="true">水</button>
+            <button type="button" data-mol="formaldehyde" aria-pressed="false">甲醛</button>
+            <button type="button" data-mol="benzene" aria-pressed="false">苯</button>
+          </div>
+        </div>
+        <div class="canvas-wrap ratio-43">
+          <canvas id="heroMap" tabindex="0" role="img" aria-label="分子平面内电子密度的等高线图。使用方向键或指针探测数值。"></canvas>
+          <span class="probe" id="heroProbe" style="opacity:0"></span>
+          <span class="overlay-label">沿分子平面的切片</span>
+          <span class="overlay-label right" id="heroScale">1 Å</span>
+        </div>
+        <div class="map-readout" aria-live="polite">
+          <div class="readout" id="heroValue">ρ = <span class="dim">在图上移动</span></div>
+          <div class="map-where" id="heroWhere">指向原子核、化学键，再到边缘，观察数值的变化。</div>
+        </div>
+        <div class="levels" aria-hidden="true"><span>0.001</span><div class="levels-bar" id="heroLevels"></div><span>20 e/bohr³</span></div>
+        <figcaption class="lab-caption">等高线以 0.001、0.002、0.004、0.008、0.02 … 20 e/bohr³ 递进。它们按对数间隔，因为原子核附近的密度比分子边缘大 10 万倍以上。模型：自由原子密度之和，在浏览器中计算。</figcaption>
+      </figure>
+    </header>
+
+    <!-- ============ Module 1 ============ -->
+    <section class="module" id="basics" data-module="basics" aria-labelledby="h-basics">
+      <div class="module-head">
+        <p class="module-tag">模块 1<span class="mins">· 5 分钟</span></p>
+        <h2 id="h-basics">什么是电子密度</h2>
+        <p class="intro">电子不像微小的行星那样沿固定轨道运动。量子力学用波函数描述每个电子，而波函数的平方告诉我们电子可能在何处。把所有电子的份额加起来，就得到电子密度。</p>
+      </div>
+
+      <div class="prose">
+        <h3>从波函数到电子云</h3>
+        <p>原子或分子中的电子由波函数描述，<span class="math"><var>ψ</var></span>（ψ）。1926 年，马克斯·玻恩提出<span class="math">|<var>ψ</var>|²</span> 是一种 <strong>概率密度</strong>：在小体积内找到电子的概率<span class="math"><var>dV</var></span>等于<span class="math">|<var>ψ</var>|² <var>dV</var></span>.</p>
+        <p><strong>电子密度</strong>, <span class="math"><var>ρ</var>(<b>r</b>)</span>，把同样的思想一次应用到所有电子上。它是点 <span class="math"><b>r</b></span>。其中<span class="math"><var>ρ</var></span>大时电子云厚，而它小时电子云薄。</p>
+      </div>
+
+      <div class="formula">
+        <span class="formula-title">三个需要知道的公式</span>
+        <div class="eq"><var>ρ</var>(<b>r</b>) = <span class="big">Σ</span><sub><var>i</var></sub> <var>n</var><sub><var>i</var></sub> |<var>φ</var><sub><var>i</var></sub>(<b>r</b>)|²</div>
+        <p>密度是被占据轨道的总和<span class="math"><var>φ</var><sub><var>i</var></sub></span>，每个轨道按它容纳的电子数（0、1 或 2）加权。</p>
+        <div class="eq"><span class="big">∫</span> <var>ρ</var>(<b>r</b>)<var>d</var><b>r</b> = <var>N</var></div>
+        <p>对整个空间积分密度会数出每个电子。对一个水分子，<span class="math"><var>N</var></span> = 10。</p>
+        <div class="eq"><var>ρ</var><sub>1s</sub>(<var>r</var>) = <span class="frac"><span><var>e</var><sup>−2<var>r</var>/<var>a</var><sub>0</sub></sup></span><span><var>π a</var><sub>0</sub><sup>3</sup></span></span></div>
+        <p>氢原子处于 1s 基态时的密度。它在原子核处最大，并随距离指数衰减。</p>
+        <dl>
+          <dt>ρ(r)</dt><dd>点 r 处每单位体积的电子数</dd>
+          <dt>φᵢ, nᵢ</dt><dd>轨道 i 及其电子数</dd>
+          <dt>N</dt><dd>电子总数</dd>
+          <dt>a₀</dt><dd>玻尔半径，52.9 pm（0.529 Å）</dd>
+        </dl>
+      </div>
+
+      <div class="note">
+        <span class="note-label"><svg class="icon"><use href="#i-bulb"></use></svg>关键要点</span>
+        <p>你无法直接观测波函数，但电子密度是真实、可测量的量。X 射线衍射可以测量它，而且它永不为负。</p>
+      </div>
+
+      <div class="cols-2">
+        <div class="card">
+          <h3>想想一摞快照</h3>
+          <p>想象把电子的位置记录一百万次，再把每张快照叠加起来。密度高的地方点子会堆积。教科书上的点密度图正是这幅画面。</p>
+        </div>
+        <div class="card">
+          <h3>你会遇到的单位</h3>
+          <p>密度以每立方玻尔的电子数（e/bohr³，原子单位）报告，或以每立方埃（e/ų）。由于 1 bohr = 0.529 Å，故 1 e/bohr³ = 6.75 e/ų。</p>
+        </div>
+        <div class="card">
+          <h3>数值的巨大范围</h3>
+          <p>在氧原子核处<span class="math"><var>ρ</var></span> 约为 290 e/bohr³。在分子外缘约为 0.001 e/bohr³。探测页面顶部的图可以看到这两者。</p>
+        </div>
+      </div>
+
+      <div class="note fact">
+        <span class="note-label"><svg class="icon"><use href="#i-spark"></use></svg>你知道吗？</span>
+        <p>化学家常把满足<span class="math"><var>ρ</var></span>= 0.001 e/bohr³ 的曲面视为分子的外边界。它的大小与气相中测得的范德华半径吻合良好。</p>
+      </div>
+
+      <div class="module-foot">
+        <button class="done-btn" type="button" data-done="basics" aria-pressed="false"><svg class="icon"><use href="#i-check"></use></svg><span>标记为已理解</span></button>
+        <a class="next-link" href="#atoms">下一步：原子中的密度<svg class="icon"><use href="#i-arrow"></use></svg></a>
+      </div>
+    </section>
+
+    <!-- ============ Module 2 ============ -->
+    <section class="module" id="atoms" data-module="atoms" aria-labelledby="h-atoms">
+      <div class="module-head">
+        <p class="module-tag">模块 2<span class="mins">· 6 分钟</span></p>
+        <h2 id="h-atoms">原子中的密度</h2>
+        <p class="intro">每个原子轨道都有自己独特的密度图案。在下方的探索器中，每个点都标记了测量可能找到电子的一个位置，而图表显示密度如何随离原子核的距离变化。</p>
+      </div>
+
+      <div class="lab" id="orbitalLab">
+        <div class="lab-head">
+          <div class="lab-title"><span class="chip"><svg class="icon"><use href="#i-flask"></use></svg>试试看</span>氢原子轨道探索器</div>
+          <div class="seg mono-labels" role="group" aria-label="轨道" id="orbButtons">
+            <button type="button" data-orb="1s" aria-pressed="true">1s</button>
+            <button type="button" data-orb="2s" aria-pressed="false">2s</button>
+            <button type="button" data-orb="2p" aria-pressed="false">2p</button>
+            <button type="button" data-orb="3s" aria-pressed="false">3s</button>
+            <button type="button" data-orb="3p" aria-pressed="false">3p</button>
+            <button type="button" data-orb="3dxz" aria-pressed="false">3d<sub>xz</sub></button>
+            <button type="button" data-orb="3dz2" aria-pressed="false">3d<sub>z²</sub></button>
+          </div>
+        </div>
+        <div class="lab-tools">
+          <div class="seg" role="group" aria-label="视图" id="orbView">
+            <button type="button" data-view="density" aria-pressed="true">密度 |ψ|²</button>
+            <button type="button" data-view="phase" aria-pressed="false">ψ 的相位</button>
+          </div>
+          <button class="btn btn-ghost btn-small" type="button" id="orbReplay"><svg class="icon"><use href="#i-reset"></use></svg>回放构建过程</button>
+        </div>
+        <div class="lab-grid">
+          <div style="display:grid;gap:8px">
+            <div class="canvas-wrap ratio-1">
+              <canvas id="orbCanvas" role="img" aria-label="所选轨道的点密度图"></canvas>
+              <span class="overlay-label">穿过原子核的 xz 平面</span>
+              <span class="overlay-label right" id="orbCount">0 个点</span>
+            </div>
+            <div class="legend" id="orbLegend"></div>
+          </div>
+          <div style="display:grid;gap:10px">
+            <div class="legend">
+              <span class="key" style="--k:var(--s1)"><i></i>沿一条射线的密度，∝ |R(r)|²</span>
+              <span class="key" style="--k:var(--s2)"><i></i>径向概率 P(r) = r²|R(r)|²</span>
+            </div>
+            <div class="chart-wrap" id="radialWrap">
+              <svg class="chart" id="radialChart" viewbox="0 0 520 300" role="img" aria-label="径向密度与径向概率随距离的变化" tabindex="0"></svg>
+              <div class="tip" id="radialTip" hidden></div>
+            </div>
+            <p class="lab-caption">每条曲线都按峰值缩放为 1，以便比较形状。竖线标记径向节点。悬停或使用方向键可读取数值。</p>
+            <p class="readout" id="orbFacts"></p>
+          </div>
+        </div>
+        <div class="table-scroll">
+          <table class="data-table" id="orbTable">
+            <caption>氢原子数值。1 a₀ = 52.9 pm。高亮行是上面显示的轨道。</caption>
+            <thead><tr><th scope="col">轨道</th><th scope="col">径向节点</th><th scope="col">角向节点</th><th scope="col">最概然 r</th><th scope="col">平均 r</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="prose">
+        <h3>密度与径向概率的对比</h3>
+        <p>对每个 s 轨道，密度在原子核处最高。然而 1s 电子最可能的距离是 1 <span class="math"><var>a</var><sub>0</sub></span>= 52.9 pm。两种说法都对。半径为<span class="math"><var>r</var></span>的薄壳有体积<span class="math">4<var>πr</var>² <var>dr</var></span>，随向外移动而增大。把下降的密度乘以上升的壳体积，就得到径向概率，<span class="math"><var>P</var>(<var>r</var>) = 4<var>πr</var>² <var>ρ</var>(<var>r</var>)</span>，它在<span class="math"><var>a</var><sub>0</sub></span>.</p>
+        <h3>数节点</h3>
+        <p>节点是 ρ =<span class="math"><var>ψ</var> = 0</span> 的地方，那里的密度为零。量子数为<span class="math"><var>n</var></span>和<span class="math"><var>l</var></span>的轨道有<strong><span class="math"><var>n</var> − <var>l</var> − 1</span>个径向节点</strong>（球面）和<strong><span class="math"><var>l</var></span>个角向节点</strong>（平面或锥面）。检查 3s 轨道：点图中两个环，图表上两个零。</p>
+      </div>
+
+      <div class="cols-2">
+        <div class="note warn">
+          <span class="note-label"><svg class="icon"><use href="#i-alert"></use></svg>当心</span>
+          <p>轨道图上的两种颜色表示<span class="math"><var>ψ</var></span> 的正负（相位），而不是电荷。两个瓣都含有同样的负电子密度。把探索器切换到 <em>ψ 的相位</em>来比较。</p>
+        </div>
+        <div class="note fact">
+          <span class="note-label"><svg class="icon"><use href="#i-spark"></use></svg>你知道吗？</span>
+          <p>完全填满的支壳层是完美球形的（翁索尔德定理）。氖的六个 2p 电子加起来形成圆形的密度，尽管每个 2p 轨道都有两个瓣。</p>
+        </div>
+      </div>
+
+      <div class="module-foot">
+        <button class="done-btn" type="button" data-done="atoms" aria-pressed="false"><svg class="icon"><use href="#i-check"></use></svg><span>标记为已理解</span></button>
+        <a class="next-link" href="#bonds">下一步：化学键中的密度<svg class="icon"><use href="#i-arrow"></use></svg></a>
+      </div>
+    </section>
+
+    <!-- ============ Module 3 ============ -->
+    <section class="module" id="bonds" data-module="bonds" aria-labelledby="h-bonds">
+      <div class="module-head">
+        <p class="module-tag">模块 3<span class="mins">· 5 分钟</span></p>
+        <h2 id="h-bonds">化学键中的密度</h2>
+        <p class="intro">化学键是两个原子核之间聚集的电子密度。这部分密度共享得多均匀，取决于哪个原子拉得更用力。</p>
+      </div>
+
+      <div class="prose">
+        <h3>共享的密度把原子维系在一起</h3>
+        <p>当两个氢原子成键时，部分密度移入两个原子核之间的区域。两个正核都被这份累积的密度吸引，这份吸引把它们维系在一起。如果从分子密度中减去自由原子密度，剩余的 <strong>形变密度</strong>显示每个键和孤对电子中的额外电荷。</p>
+        <h3>电负性使共享发生倾斜</h3>
+        <p><strong>电负性</strong> 衡量一个原子吸引共享电子密度的强弱。在鲍林标度上氟最高为 3.98，铯属于最低之一为 0.79。当两个成键原子不同时，共享密度会向电负性更强的原子移动。那一端获得部分负电荷，<strong>δ−</strong>，另一端留部分正电荷，<strong>δ+</strong>.</p>
+      </div>
+
+      <div class="lab" id="bondLab">
+        <div class="lab-head">
+          <div class="lab-title"><span class="chip"><svg class="icon"><use href="#i-flask"></use></svg>试试看</span>键极性探索器</div>
+        </div>
+        <div class="lab-grid">
+          <div class="bond-controls">
+            <div class="pickers">
+              <div class="field"><label for="atomA">原子 A</label><select id="atomA"></select></div>
+              <span class="dash" aria-hidden="true">—</span>
+              <div class="field"><label for="atomB">原子 B</label><select id="atomB"></select></div>
+            </div>
+            <div class="presets" role="group" aria-label="示例化学键" id="bondPresets">
+              <button type="button" data-pair="H,H">H–H</button>
+              <button type="button" data-pair="C,H">C–H</button>
+              <button type="button" data-pair="N,H">N–H</button>
+              <button type="button" data-pair="H,Cl">H–Cl</button>
+              <button type="button" data-pair="O,H">O–H</button>
+              <button type="button" data-pair="H,F">H–F</button>
+              <button type="button" data-pair="Na,Cl">Na–Cl</button>
+            </div>
+            <div class="stats">
+              <div class="stat"><span class="stat-label">ΔEN</span><span class="stat-value" id="bDelta">0.00</span></div>
+              <div class="stat"><span class="stat-label">键类型</span><span class="stat-value bond-type" id="bType" style="font-family:var(--font-body);font-size:1rem">非极性共价</span></div>
+              <div class="stat"><span class="stat-label">离子性</span><span class="stat-value" id="bIonic">0%</span></div>
+              <div class="stat"><span class="stat-label" id="bShareLabel">靠近 B 的电子对</span><span class="stat-value" id="bShare">50%</span></div>
+            </div>
+            <div class="continuum">
+              <div class="continuum-track" aria-hidden="true"><span></span><span></span><span></span><i class="continuum-marker" id="bMarker" style="left:0%"></i></div>
+              <div class="continuum-labels"><span>非极性</span><span>极性共价</span><span>主要为离子</span></div>
+              <div class="continuum-ticks" aria-hidden="true"><span>ΔEN 0</span><span>0.4</span><span>1.7</span><span>3.3</span></div>
+            </div>
+          </div>
+          <div style="display:grid;gap:10px">
+            <div class="canvas-wrap ratio-43">
+              <canvas id="bondCanvas" role="img" aria-label="所选化学键的电子云"></canvas>
+            </div>
+            <p class="bond-explain" id="bondExplain" aria-live="polite"></p>
+          </div>
+        </div>
+        <p class="lab-caption">一对成键电子的云模型。电子对按鲍林对离子性的估计 1 − e<sup>−(ΔEN)²/4</sup> 移动。交叉箭头遵循化学家的约定，指向 δ− 一端。键类型之间的分界在各教科书中有所不同。</p>
+      </div>
+
+      <div class="cols-2">
+        <div class="note">
+          <span class="note-label"><svg class="icon"><use href="#i-bulb"></use></svg>关键要点</span>
+          <p>键极性是一个连续谱。完全共享（非极性共价）和完全转移（离子）是两端，真实的键处于两者之间。</p>
+        </div>
+        <div class="note fact">
+          <span class="note-label"><svg class="icon"><use href="#i-spark"></use></svg>你知道吗？</span>
+          <p>离子键常用的 ΔEN ≈ 1.7 分界来自鲍林公式：在该差值处它预测约 50% 的离子性。</p>
+        </div>
+      </div>
+
+      <div class="module-foot">
+        <button class="done-btn" type="button" data-done="bonds" aria-pressed="false"><svg class="icon"><use href="#i-check"></use></svg><span>标记为已理解</span></button>
+        <a class="next-link" href="#maps">下一步：解读 ESP 图<svg class="icon"><use href="#i-arrow"></use></svg></a>
+      </div>
+    </section>
+
+    <!-- ============ Module 4 ============ -->
+    <section class="module" id="maps" data-module="maps" aria-labelledby="h-maps">
+      <div class="module-head">
+        <p class="module-tag">模块 4<span class="mins">· 5 分钟</span></p>
+        <h2 id="h-maps">解读 ESP 图</h2>
+        <p class="intro">静电势（ESP）图根据一个小正检验电荷在该处的感受为分子表面着色。这是看清分子哪些部分富电子、哪些部分贫电子的最快方式。</p>
+      </div>
+
+      <div class="prose">
+        <h3>图是如何制作的</h3>
+        <ol>
+          <li>选一个恒定电子密度面，通常<span class="math"><var>ρ</var></span>= 0.001 或 0.002 e/bohr³。这赋予分子形状和大小。</li>
+          <li>在该表面上的每一点，由所有原子核和所有电子计算静电势。</li>
+          <li>为表面着色：势为负（富电子）处为红色，势为正（贫电子）处为蓝色，接近零处为淡色。</li>
+        </ol>
+      </div>
+
+      <div class="lab" id="espLab">
+        <div class="lab-head">
+          <div class="lab-title"><span class="chip"><svg class="icon"><use href="#i-flask"></use></svg>试试看</span>ESP 图查看器</div>
+          <div class="seg" role="group" aria-label="分子" id="espButtons">
+            <button type="button" data-esp="water" aria-pressed="true">H₂O</button>
+            <button type="button" data-esp="ammonia" aria-pressed="false">NH₃</button>
+            <button type="button" data-esp="hf" aria-pressed="false">HF</button>
+            <button type="button" data-esp="methane" aria-pressed="false">CH₄</button>
+            <button type="button" data-esp="co2" aria-pressed="false">CO₂</button>
+            <button type="button" data-esp="benzene" aria-pressed="false">C₆H₆</button>
+          </div>
+        </div>
+        <div class="lab-grid">
+          <div class="canvas-wrap ratio-1">
+            <canvas id="espCanvas" role="img" aria-label="所选分子的静电势图"></canvas>
+          </div>
+          <div class="esp-side">
+            <div>
+              <div class="esp-name" id="espName">水</div>
+              <div class="esp-formula" id="espFormula">H₂O</div>
+            </div>
+            <div class="esp-dipole"><span id="espDipole">μ = 1.85 D</span><span class="dim">偶极矩</span></div>
+            <p id="espText" style="color:var(--ink-2)"></p>
+            <div class="esp-legend">
+              <div class="esp-bar" aria-hidden="true"></div>
+              <div class="esp-ticks"><span>−50<br>富电子</span><span>0</span><span>+50<br>贫电子</span></div>
+              <span class="lab-caption">+1 检验电荷的势能，kcal/mol</span>
+            </div>
+          </div>
+        </div>
+        <p class="lab-caption">在浏览器中计算的简化模型：每个原子上近似部分电荷产生的电势，绘制在范德华表面上并按深度着色。完整量子计算的图看起来相似，但能更清晰地捕捉孤对电子和 π 云。</p>
+      </div>
+
+      <div class="cols-2">
+        <div class="note warn">
+          <span class="note-label"><svg class="icon"><use href="#i-alert"></use></svg>当心</span>
+          <p>教科书使用不同的色标，许多用从红经黄、绿到蓝的彩虹色。两端总是表示相同含义：红色为负且富电子，蓝色为正且贫电子。</p>
+        </div>
+        <div class="note">
+          <span class="note-label"><svg class="icon"><use href="#i-bulb"></use></svg>关键要点</span>
+          <p>极性键并不总是产生极性分子。在 CO₂ 中，两个 C=O 键偶极指向相反方向并相互抵消，所以该分子没有偶极矩。</p>
+        </div>
+      </div>
+
+      <div class="module-foot">
+        <button class="done-btn" type="button" data-done="maps" aria-pressed="false"><svg class="icon"><use href="#i-check"></use></svg><span>标记为已理解</span></button>
+        <a class="next-link" href="#reactivity">下一步：密度与反应性<svg class="icon"><use href="#i-arrow"></use></svg></a>
+      </div>
+    </section>
+
+    <!-- ============ Module 5 ============ -->
+    <section class="module" id="reactivity" data-module="reactivity" aria-labelledby="h-react">
+      <div class="module-head">
+        <p class="module-tag">模块 5<span class="mins">· 6 分钟</span></p>
+        <h2 id="h-react">密度与反应性</h2>
+        <p class="intro">大多数反应从富电子位点遇到贫电子位点开始。如果你知道密度在哪里，往往就能预测什么会反应、在哪里反应。</p>
+      </div>
+
+      <div class="cols-2">
+        <div class="card duo-card rich">
+          <span class="tag">富电子 · 给出电子对</span>
+          <h3>亲核试剂</h3>
+          <p>有可分享的密度：孤对电子、π 键或负电荷。名字的意思是“喜爱原子核”。</p>
+          <div class="species"><span>OH⁻</span><span>CN⁻</span><span>Br⁻</span><span>NH₃</span><span>H₂O</span><span>CH₂=CH₂</span></div>
+        </div>
+        <div class="card duo-card poor">
+          <span class="tag">贫电子 · 接受电子对</span>
+          <h3>亲电试剂</h3>
+          <p>有 δ+ 原子、正电荷或空轨道。名字意为“爱电子”。</p>
+          <div class="species"><span>H⁺</span><span>R₃C⁺</span><span>BF₃</span><span>C=O 的碳</span><span>C–Br 的碳</span></div>
+        </div>
+      </div>
+
+      <figure class="mech" style="margin:0">
+        <svg viewbox="0 0 420 150" role="img" aria-label="氢氧根的孤对电子进攻甲醛的部分正电碳，同时碳–氧的 π 电子移到氧上">
+          <defs>
+            <marker id="arrowHead" viewbox="0 0 10 10" refx="8" refy="5" markerwidth="7" markerheight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" style="fill:var(--brand)"></path></marker>
+          </defs>
+          <text x="38" y="96" style="fill:var(--ink);font-size:30px;font-weight:700">HO</text>
+          <text x="80" y="78" style="fill:var(--ink);font-size:20px;font-weight:700"> − </text>
+          <circle cx="83" cy="104" r="2.6" style="fill:var(--ink)"></circle><circle cx="91" cy="104" r="2.6" style="fill:var(--ink)"></circle>
+          <path d="M92 70 C 128 14, 196 14, 222 66" style="fill:none;stroke:var(--brand);stroke-width:2.4" marker-end="url(#arrowHead)"></path>
+          <text x="196" y="96" style="fill:var(--ink);font-size:30px;font-weight:700">H₂C</text>
+          <line x1="262" y1="80" x2="300" y2="80" style="stroke:var(--ink);stroke-width:2.6"></line>
+          <line x1="262" y1="90" x2="300" y2="90" style="stroke:var(--ink);stroke-width:2.6"></line>
+          <text x="306" y="96" style="fill:var(--ink);font-size:30px;font-weight:700">O</text>
+          <text x="236" y="58" style="fill:var(--idea);font-size:17px;font-weight:700">δ+</text>
+          <text x="306" y="58" style="fill:var(--warn);font-size:17px;font-weight:700">δ−</text>
+          <path d="M281 96 C 286 128, 318 132, 322 104" style="fill:none;stroke:var(--brand);stroke-width:2.4" marker-end="url(#arrowHead)"></path>
+          <text x="12" y="140" style="fill:var(--ink-3);font-size:12.5px">亲核试剂</text>
+          <text x="212" y="140" style="fill:var(--ink-3);font-size:12.5px">亲电试剂（δ+ 碳）</text>
+        </svg>
+        <figcaption class="lab-caption">弯箭头总是从电子密度（孤对电子或化学键）开始，指向电子去往之处。氢氧根的孤对电子进攻甲醛的 δ+ 碳，C=O 的 π 电子移到氧上。</figcaption>
+      </figure>
+
+      <div class="prose">
+        <h3>诱导效应：沿 σ 键拉电子</h3>
+        <p>电负性原子沿 σ 键链把密度拉向自己。当羧酸失去 H⁺ 时，附近的氯原子把部分负电荷从羧酸根拉开。这使电荷分散、稳定了阴离子并让酸更强，表现为更低的 pKa。每多一个氯，效应就累加，并随距离迅速减弱。</p>
+      </div>
+
+      <div class="lab" id="pkaLab">
+        <div class="lab-head">
+          <div class="lab-title"><span class="chip"><svg class="icon"><use href="#i-flask"></use></svg>试试看</span>氯与酸性</div>
+          <div class="seg" role="group" aria-label="比较" id="pkaButtons">
+            <button type="button" data-set="count" aria-pressed="true">更多氯</button>
+            <button type="button" data-set="distance" aria-pressed="false">更远</button>
+          </div>
+        </div>
+        <div class="chart-wrap" id="pkaWrap">
+          <div class="hbars" id="pkaChart" aria-label="氯化羧酸的 pKa 数值"></div>
+          <div class="tip" id="pkaTip" hidden></div>
+        </div>
+        <p class="readout" id="pkaTakeaway"></p>
+        <p class="lab-caption">25 °C 水中的 pKa，取自标准有机化学表。更低的 pKa 意味着更强的酸，每个单位是 K 的 10 倍<sub>a</sub>.</p>
+      </div>
+
+      <div class="prose">
+        <h3>推电子或拉电子的基团</h3>
+        <p>在苯环上，取代基会提高或降低环的电子密度。这控制亲电试剂进攻的速度和位置。</p>
+      </div>
+      <div class="subst-grid">
+        <div class="subst don">
+          <h4>强给电子基</h4>
+          <span class="flow"><svg class="icon"><use href="#i-in"></use></svg>把密度推入环</span>
+          <span class="effect">活化 · 导向邻/对位</span>
+          <div class="species"><span>–NH₂</span><span>–OH</span><span>–OR</span><span>–NHCOR</span></div>
+        </div>
+        <div class="subst weak">
+          <h4>弱给电子基</h4>
+          <span class="flow"><svg class="icon"><use href="#i-in"></use></svg>稍推入一点</span>
+          <span class="effect">弱活化 · 邻/对位</span>
+          <div class="species"><span>–CH₃</span><span>–R</span><span>–C₆H₅</span></div>
+        </div>
+        <div class="subst hal">
+          <h4>卤素</h4>
+          <span class="flow"><svg class="icon"><use href="#i-out"></use></svg>诱导拉走、共振推入</span>
+          <span class="effect">轻微钝化 · 邻/对位</span>
+          <div class="species"><span>–F</span><span>–Cl</span><span>–Br</span><span>–I</span></div>
+        </div>
+        <div class="subst wd">
+          <h4>拉电子基</h4>
+          <span class="flow"><svg class="icon"><use href="#i-out"></use></svg>把密度拉出环</span>
+          <span class="effect">钝化 · 导向间位</span>
+          <div class="species"><span>–NO₂</span><span>–CN</span><span>–CF₃</span><span>–CHO</span><span>–COOH</span></div>
+        </div>
+      </div>
+
+      <div class="note fact">
+        <span class="note-label"><svg class="icon"><use href="#i-spark"></use></svg>你知道吗？</span>
+        <p>苯酚在室温下无需催化剂即可与溴水反应，生成 2,4,6-三溴苯酚。而苯需要 FeBr₃ 催化剂才能与溴反应。–OH 基团把那么多额外的密度推入环中。</p>
+      </div>
+
+      <div class="module-foot">
+        <button class="done-btn" type="button" data-done="reactivity" aria-pressed="false"><svg class="icon"><use href="#i-check"></use></svg><span>标记为已理解</span></button>
+        <a class="next-link" href="#measure">下一步：测量与计算<svg class="icon"><use href="#i-arrow"></use></svg></a>
+      </div>
+    </section>
+
+    <!-- ============ Module 6 ============ -->
+    <section class="module" id="measure" data-module="measure" aria-labelledby="h-measure">
+      <div class="module-head">
+        <p class="module-tag">模块 6<span class="mins">· 4 分钟</span></p>
+        <h2 id="h-measure">测量与计算它</h2>
+        <p class="intro">电子密度是少数几种既能在实验室测量、又能在计算机上计算的量子量之一。</p>
+      </div>
+
+      <div class="cols-2">
+        <div class="card">
+          <h3>X 射线晶体学</h3>
+          <p>X 射线从电子而非原子核散射。晶体产生的斑点图案在数学上正是其电子密度的傅里叶变换。逆变换后得到密度图，其中原子以峰的形式出现。蛋白质数据库中的大多数蛋白质结构都是这样解析的。</p>
+          <p>关键在于<strong>相位问题</strong>：探测器只记录每个斑点的强度，因此相位必须间接求出来。</p>
+        </div>
+        <div class="card">
+          <h3>密度泛函理论</h3>
+          <p>霍亨伯格–科恩定理证明，仅凭基态密度就能确定体系的能量和所有其他基态性质。DFT 借此用密度代替依赖 3<span class="math"><var>N</var></span> 个坐标的多电子波函数，而密度只依赖三个坐标。它现在是计算化学中使用最广泛的方法。</p>
+        </div>
+        <div class="card">
+          <h3>分子中的原子</h3>
+          <p>理查德·贝德的分子中原子量子理论（QTAIM）沿密度梯度从不穿过的表面把分子划分为原子。在两个成键原子之间有一个 <strong>键临界点</strong>，它是<span class="math"><var>ρ</var></span>中的一个鞍点，那里的密度跟随键的强度。</p>
+        </div>
+      </div>
+
+      <div class="prose">
+        <h3>里程碑</h3>
+      </div>
+      <ol class="timeline">
+        <li><span class="year">1913</span><span class="ev"><strong>威廉·亨利·布拉格与威廉·劳伦斯·布拉格</strong>用 X 射线衍射解析了第一批晶体结构，包括氯化钠。</span></li>
+        <li><span class="year">1926</span><span class="ev"><strong>马克斯·玻恩</strong>把 |ψ|² 诠释为概率密度。</span></li>
+        <li><span class="year">1964</span><span class="ev"><strong>皮埃尔·霍亨伯格与沃尔特·科恩</strong>证明基态密度决定所有基态性质。</span></li>
+        <li><span class="year">1965</span><span class="ev"><strong>沃尔特·科恩与吕吉安·沈</strong>把该证明变成实用的计算方法。</span></li>
+        <li><span class="year">1990</span><span class="ev"><strong>理查德·贝德</strong>发表<em>《分子中的原子：一种量子理论》</em>，依据 ρ 的形状定义原子和化学键。</span></li>
+        <li><span class="year">1998</span><span class="ev"><strong>沃尔特·科恩</strong> 与约翰·波普尔分享诺贝尔化学奖。科恩因发展密度泛函理论而获奖。</span></li>
+      </ol>
+
+      <div class="note fact">
+        <span class="note-label"><svg class="icon"><use href="#i-spark"></use></svg>你知道吗？</span>
+        <p>氢原子在 X 射线结构中最难找到。每个只有一个电子，而且其中一部分密度被拉进化学键，所以峰很弱且略微偏离原子核。中子衍射从原子核散射，反而能精确定位氢原子。</p>
+      </div>
+
+      <div class="module-foot">
+        <button class="done-btn" type="button" data-done="measure" aria-pressed="false"><svg class="icon"><use href="#i-check"></use></svg><span>标记为已理解</span></button>
+        <a class="next-link" href="#myths">下一步：常见混淆<svg class="icon"><use href="#i-arrow"></use></svg></a>
+      </div>
+    </section>
+
+    <!-- ============ Module 7 ============ -->
+    <section class="module" id="myths" data-module="myths" aria-labelledby="h-myths">
+      <div class="module-head">
+        <p class="module-tag">模块 7<span class="mins">· 3 分钟</span></p>
+        <h2 id="h-myths">常见混淆</h2>
+        <p class="intro">每张卡片展示一个学生常犯的错误。点击或按回车翻面，看看实际情况是怎样的。</p>
+      </div>
+      <div class="myth-grid" id="mythGrid"></div>
+      <div class="module-foot">
+        <button class="done-btn" type="button" data-done="myths" aria-pressed="false"><svg class="icon"><use href="#i-check"></use></svg><span>标记为已理解</span></button>
+        <a class="next-link" href="#flashcards">下一步：记忆卡<svg class="icon"><use href="#i-arrow"></use></svg></a>
+      </div>
+    </section>
+
+    <!-- ============ Flashcards ============ -->
+    <section class="module" id="flashcards" aria-labelledby="h-flash">
+      <div class="module-head">
+        <p class="module-tag" style="color:var(--quiz)">练习</p>
+        <h2 id="h-flash">记忆卡</h2>
+        <p class="intro">翻转一张卡，然后归类。打开<em>只看我仍在学习的卡</em>来练习你还没标记的卡。键盘：空格翻转，方向键移动。</p>
+      </div>
+      <div class="deck" id="deck">
+        <div class="deck-top">
+          <span>卡 <b id="fcPos">1 / 14</b></span>
+          <label style="display:inline-flex;gap:8px;align-items:center;cursor:pointer"><input type="checkbox" id="fcFilter">只看我仍在学习的卡</label>
+          <span class="known-pill" id="fcKnown"> 已知 0 / 14</span>
+        </div>
+        <button class="flip flash" type="button" id="fcCard" aria-pressed="false" aria-label="记忆卡。按此翻转。">
+          <span class="flip-inner">
+            <span class="face front">
+              <span class="face-label">术语 <span class="hint">点击翻面</span></span>
+              <span class="term" id="fcTerm"></span>
+            </span>
+            <span class="face back">
+              <span class="face-label">定义</span>
+              <span class="def" id="fcDef"></span>
+            </span>
+          </span>
+        </button>
+        <div class="deck-controls">
+          <button class="icon-btn" type="button" id="fcPrev" aria-label="上一张卡"><svg class="icon"><use href="#i-left"></use></svg></button>
+          <button class="icon-btn" type="button" id="fcNext" aria-label="下一张卡"><svg class="icon"><use href="#i-right"></use></svg></button>
+          <button class="icon-btn" type="button" id="fcShuffle" aria-label="洗牌"><svg class="icon"><use href="#i-shuffle"></use></svg></button>
+          <span class="spacer"></span>
+          <button class="btn btn-ghost btn-small" type="button" id="fcAgain">仍在学习</button>
+          <button class="btn btn-primary btn-small" type="button" id="fcGot"><svg class="icon"><use href="#i-check"></use></svg>明白了</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Quiz ============ -->
+    <section class="module" id="quiz" aria-labelledby="h-quiz">
+      <div class="module-head">
+        <p class="module-tag" style="color:var(--quiz)">练习</p>
+        <h2 id="h-quiz">快速测验</h2>
+        <p class="intro">十二道题，即时反馈。每道题的解析都链接回对应的模块。</p>
+      </div>
+      <div class="lab quiz" id="quizApp" aria-live="polite"></div>
+    </section>
+
+    <!-- ============ Summary ============ -->
+    <section class="module" id="summary" aria-labelledby="h-summary">
+      <div class="module-head">
+        <p class="module-tag">复习</p>
+        <h2 id="h-summary">速查表</h2>
+        <p class="intro">整个指南集中在一屏。考试前一晚再看一遍。</p>
+      </div>
+      <ul class="takeaways">
+        <li><span class="k">ρ(r) 计算每体积的电子数</span><p>对整个空间积分得到 N。单位是 e/bohr³ 或 e/ų，且 1 e/bohr³ = 6.75 e/ų。</p></li>
+        <li><span class="k">密度来自轨道</span><p>ρ = Σ nᵢ|φᵢ|²。轨道在有些地方可以为负；密度永远不会。</p></li>
+        <li><span class="k">s 轨道的密度在原子核处达到峰值</span><p>径向概率 4πr²ρ 在更远处达到峰值，对氢 1s 在 a₀ = 52.9 pm。</p></li>
+        <li><span class="k">数节点</span><p>n − l − 1 个径向节点和 l 个角向节点。密度在每个节点上为零。</p></li>
+        <li><span class="k">化学键是共享的密度</span><p>密度在原子核之间累积。电负性更强的原子占更大份额并变为 δ−。</p></li>
+        <li><span class="k">极性是一个连续谱</span><p>ΔEN 低于约 0.4 为非极性，约 0.4 到 1.7 为极性共价，高于约 1.7 主要为离子。</p></li>
+        <li><span class="k">解读 ESP 图</span><p>红色意味着负势且富电子。蓝色意味着正势且贫电子。</p></li>
+        <li><span class="k">富电子进攻贫电子</span><p>亲核试剂向亲电试剂给出电子对。弯箭头从密度出发指向电子去向。</p></li>
+        <li><span class="k">拉电子基团拉走密度</span><p>它们稳定阴离子，从而让酸更强，并钝化芳香环。给电子基则相反。</p></li>
+        <li><span class="k">测量它，计算它</span><p>X 射线衍射测量电子密度。DFT 由它计算能量和性质。</p></li>
+      </ul>
+    </section>
+
+    <footer class="page-foot">
+      <p><strong>关于这些模型。</strong> 密度图、轨道云、键云和 ESP 图都是在浏览器中计算的简化模型。氢原子轨道是精确的。分子密度图累加用斯莱特定则构建的自由原子密度，ESP 图使用近似的部分电荷。</p>
+      <p>电负性为鲍林值。pKa 数值是 25 °C 水中标准教科书的数值。</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  const ED = (window.ED = {});
+  ED.reduceMotion = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+  /* ---------- storage (per-viewer conveniences only) ---------- */
+  const KEY = "ed-study-guide-v1:";
+  ED.store = {
+    get(k, fallback) {
+      try { const raw = localStorage.getItem(KEY + k); return raw == null ? fallback : JSON.parse(raw); }
+      catch (e) { return fallback; }
+    },
+    set(k, v) { try { localStorage.setItem(KEY + k, JSON.stringify(v)); } catch (e) { /* storage blocked */ } }
+  };
+
+  /* ---------- theme tokens and refresh ---------- */
+  ED.token = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const themeSubs = [];
+  ED.onTheme = (fn) => themeSubs.push(fn);
+  ED.refreshAll = () => themeSubs.forEach((fn) => { try { fn(); } catch (e) { console.error(e); } });
+  if (window.matchMedia) {
+    const mq = matchMedia("(prefers-color-scheme: dark)");
+    if (mq.addEventListener) mq.addEventListener("change", ED.refreshAll); else if (mq.addListener) mq.addListener(ED.refreshAll);
+  }
+  new MutationObserver(ED.refreshAll).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(ED.refreshAll);
+
+  /* ---------- canvas + layout helpers ---------- */
+  ED.fitCanvas = function (canvas, maxDpr) {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, maxDpr || 2);
+    const pw = Math.max(1, Math.round(rect.width * dpr));
+    const ph = Math.max(1, Math.round(rect.height * dpr));
+    if (canvas.width !== pw || canvas.height !== ph) { canvas.width = pw; canvas.height = ph; }
+    return { w: rect.width, h: rect.height, dpr, pw, ph };
+  };
+  ED.onResize = function (el, fn) {
+    if (!window.ResizeObserver) return;
+    let last = Math.round(el.getBoundingClientRect().width), timer = 0;
+    new ResizeObserver((entries) => {
+      const w = Math.round(entries[0].contentRect.width);
+      if (w === last) return;
+      last = w; clearTimeout(timer); timer = setTimeout(fn, 140);
+    }).observe(el);
+  };
+  ED.press = function (group, btn) {
+    group.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+  };
+
+  /* ---------- color helpers ---------- */
+  ED.hexToRgb = function (h) {
+    h = h.replace("#", "").trim();
+    if (h.length === 3) h = h.split("").map((c) => c + c).join("");
+    const n = parseInt(h, 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  };
+  ED.parseColor = function (str) {
+    str = (str || "").trim();
+    if (str[0] === "#") return ED.hexToRgb(str).concat(1);
+    const m = str.match(/[\d.]+/g) || [0, 0, 0, 1];
+    return [+m[0], +m[1], +m[2], m[3] == null ? 1 : +m[3]];
+  };
+  ED.mix = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
+  ED.rampColors = () => ED.token("--map-ramp").split(",").map((s) => ED.hexToRgb(s));
+  ED.rampAt = function (ramp, t) {
+    const x = Math.max(0, Math.min(1, t)) * (ramp.length - 1);
+    const i = Math.min(ramp.length - 2, Math.floor(x));
+    return ED.mix(ramp[i], ramp[i + 1], x - i);
+  };
+  ED.css = (rgb) => "rgb(" + rgb.map((v) => Math.round(v)).join(",") + ")";
+
+  const SUP = { "-": "⁻", "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹" };
+  ED.fmt = function (v) {
+    if (v <= 0) return "0";
+    if (v >= 100) return v.toFixed(0);
+    if (v >= 10) return v.toFixed(1);
+    if (v >= 0.01) return v.toPrecision(3);
+    const e = Math.floor(Math.log10(v));
+    return (v / Math.pow(10, e)).toFixed(2) + " × 10" + String(e).split("").map((c) => SUP[c]).join("");
+  };
+
+  /* Elements: Pauling electronegativity and CPK-style colors (Jmol palette) */
+  ED.EL = {
+    H:  { name: "hydrogen",  en: 2.20, color: "#ffffff" },
+    Li: { name: "lithium",   en: 0.98, color: "#cc80ff" },
+    Be: { name: "beryllium", en: 1.57, color: "#c2ff00" },
+    B:  { name: "boron",     en: 2.04, color: "#ffb5b5" },
+    C:  { name: "carbon",    en: 2.55, color: "#909090" },
+    N:  { name: "nitrogen",  en: 3.04, color: "#3050f8" },
+    O:  { name: "oxygen",    en: 3.44, color: "#ff0d0d" },
+    F:  { name: "fluorine",  en: 3.98, color: "#90e050" },
+    Na: { name: "sodium",    en: 0.93, color: "#ab5cf2" },
+    Mg: { name: "magnesium", en: 1.31, color: "#8aff00" },
+    Al: { name: "aluminium", en: 1.61, color: "#bfa6a6" },
+    Si: { name: "silicon",   en: 1.90, color: "#f0c8a0" },
+    P:  { name: "phosphorus", en: 2.19, color: "#ff8000" },
+    S:  { name: "sulfur",    en: 2.58, color: "#ffff30" },
+    Cl: { name: "chlorine",  en: 3.16, color: "#1ff01f" },
+    K:  { name: "potassium", en: 0.82, color: "#8f40d4" },
+    Br: { name: "bromine",   en: 2.96, color: "#a62929" },
+    I:  { name: "iodine",    en: 2.66, color: "#940094" },
+    Cs: { name: "cesium",    en: 0.79, color: "#57178f" }
+  };
+
+  /* Draw a nucleus dot with a halo-labelled symbol */
+  ED.drawNucleus = function (ctx, x, y, sym, dpr, opts) {
+    opts = opts || {};
+    const r = (opts.r || (sym === "H" ? 4.5 : 6)) * dpr;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = ED.EL[sym] ? ED.EL[sym].color : "#999";
+    ctx.fill();
+    ctx.lineWidth = 1.5 * dpr; ctx.strokeStyle = ED.token("--ink"); ctx.stroke();
+    if (opts.label === false) return;
+    ctx.font = "700 " + Math.round(13 * dpr) + 'px "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif';
+    ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+    const lx = x + r + 3 * dpr, ly = y - r - 2 * dpr;
+    ctx.lineWidth = 3.5 * dpr; ctx.strokeStyle = ED.token("--chart-surface"); ctx.lineJoin = "round";
+    ctx.strokeText(sym, lx, ly);
+    ctx.fillStyle = ED.token("--ink"); ctx.fillText(sym, lx, ly);
+  };
+
+  /* ================= Hero: molecular density contour map ================= */
+  const A2B = 1.8897259886; // bohr per ångström
+  // Slater-rule orbital exponents: [core 1s electrons, zeta], [valence n=2 electrons, zeta]
+  const SLATER = {
+    H: { n1: 1, z1: 1.0, n2: 0, z2: 0 },
+    C: { n1: 2, z1: 5.70, n2: 4, z2: 1.625 },
+    N: { n1: 2, z1: 6.70, n2: 5, z2: 1.95 },
+    O: { n1: 2, z1: 7.70, n2: 6, z2: 2.275 }
+  };
+  function atomRho(sym, r) {
+    const a = SLATER[sym];
+    let rho = a.n1 * Math.pow(a.z1, 3) * Math.exp(-2 * a.z1 * r) / Math.PI;
+    if (a.n2) rho += a.n2 * Math.pow(a.z2, 5) * r * r * Math.exp(-2 * a.z2 * r) / (3 * Math.PI);
+    return rho;
+  }
+  const RMAX = 18, NT = 8192, DR = RMAX / (NT - 1);
+  const TABLE = {};
+  Object.keys(SLATER).forEach((s) => {
+    const t = new Float32Array(NT);
+    for (let i = 0; i < NT; i++) t[i] = atomRho(s, i * DR);
+    TABLE[s] = t;
+  });
+  function lookup(t, r) {
+    if (r >= RMAX - DR) return 0;
+    const f = r / DR, i = f | 0;
+    return t[i] + (t[i + 1] - t[i]) * (f - i);
+  }
+  ED.atomRho = atomRho;
+
+  const LEVELS = [0.001, 0.002, 0.004, 0.008, 0.02, 0.04, 0.08, 0.2, 0.4, 0.8, 2, 4, 8, 20];
+  const COV = { H: 0.31, C: 0.76, N: 0.71, O: 0.66 };
+
+  function ring() {
+    const out = [];
+    for (let k = 0; k < 6; k++) {
+      const a = Math.PI / 2 + k * Math.PI / 3;
+      out.push(["C", 1.397 * Math.cos(a), 1.397 * Math.sin(a)]);
+    }
+    for (let k = 0; k < 6; k++) {
+      const a = Math.PI / 2 + k * Math.PI / 3;
+      out.push(["H", 2.481 * Math.cos(a), 2.481 * Math.sin(a)]);
+    }
+    return out;
+  }
+  const MOLS = {
+    water:        { title: "水的密度图，H₂O", atoms: [["O", 0, 0.293], ["H", 0.757, -0.293], ["H", -0.757, -0.293]] },
+    formaldehyde: { title: "甲醛的密度图，H₂CO", atoms: [["C", 0, -0.2], ["O", 0, 1.005], ["H", 0.943, -0.788], ["H", -0.943, -0.788]] },
+    benzene:      { title: "苯的密度图，C₆H₆", atoms: ring() }
+  };
+  Object.values(MOLS).forEach((m) => {
+    m.atomsB = m.atoms.map(([s, x, y]) => ({ s, x: x * A2B, y: y * A2B, t: TABLE[s] }));
+    m.bonds = [];
+    for (let i = 0; i < m.atoms.length; i++) for (let j = i + 1; j < m.atoms.length; j++) {
+      const a = m.atoms[i], b = m.atoms[j];
+      if (Math.hypot(a[1] - b[1], a[2] - b[2]) < 1.25 * (COV[a[0]] + COV[b[0]])) m.bonds.push([i, j]);
+    }
+  });
+
+  const heroCanvas = document.getElementById("heroMap");
+  if (heroCanvas) {
+    const probe = document.getElementById("heroProbe");
+    const valueEl = document.getElementById("heroValue");
+    const whereEl = document.getElementById("heroWhere");
+    const titleEl = document.getElementById("heroTitle");
+    const levelsEl = document.getElementById("heroLevels");
+    const scaleEl = document.getElementById("heroScale");
+    if (scaleEl) scaleEl.hidden = true;
+    let mol = MOLS.water, view = null, bands = null, dims = null, kbd = null;
+
+    function render() {
+      const fit = ED.fitCanvas(heroCanvas, 2);
+      const { pw, ph } = fit;
+      let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+      mol.atomsB.forEach((a) => { minX = Math.min(minX, a.x); maxX = Math.max(maxX, a.x); minY = Math.min(minY, a.y); maxY = Math.max(maxY, a.y); });
+      const pad = 3.7;
+      const scale = Math.min(pw / (maxX - minX + 2 * pad), ph / (maxY - minY + 2 * pad));
+      view = { scale, mx: (minX + maxX) / 2, my: (minY + maxY) / 2, cx: pw / 2, cy: ph / 2, dpr: fit.dpr };
+      const atoms = mol.atomsB, n = atoms.length;
+      bands = new Uint8Array(pw * ph);
+      for (let py = 0; py < ph; py++) {
+        const Y = view.my - (py + 0.5 - view.cy) / scale;
+        for (let px = 0; px < pw; px++) {
+          const X = view.mx + (px + 0.5 - view.cx) / scale;
+          let rho = 0;
+          for (let k = 0; k < n; k++) { const a = atoms[k], dx = X - a.x, dy = Y - a.y; rho += lookup(a.t, Math.sqrt(dx * dx + dy * dy)); }
+          let b = 0; while (b < 14 && rho >= LEVELS[b]) b++;
+          bands[py * pw + px] = b;
+        }
+      }
+      dims = [pw, ph];
+      paint();
+    }
+
+    function paint() {
+      if (!bands) return;
+      const [pw, ph] = dims, ctx = heroCanvas.getContext("2d");
+      const img = ctx.createImageData(pw, ph), d = img.data;
+      const ramp = ED.rampColors();
+      const cols = [null];
+      for (let k = 1; k <= 14; k++) cols.push(ED.rampAt(ramp, (k - 1) / 13));
+      const line = ED.parseColor(ED.token("--map-line")), la = line[3];
+      const total = pw * ph;
+      for (let p = 0; p < total; p++) {
+        const b = bands[p], o = p * 4, x = p % pw;
+        const edge = (x < pw - 1 && bands[p + 1] !== b) || (p + pw < total && bands[p + pw] !== b);
+        if (b === 0) {
+          if (edge) { d[o] = line[0]; d[o + 1] = line[1]; d[o + 2] = line[2]; d[o + 3] = 255 * la; }
+          continue;
+        }
+        const c = cols[b];
+        if (edge) { d[o] = c[0] * (1 - la) + line[0] * la; d[o + 1] = c[1] * (1 - la) + line[1] * la; d[o + 2] = c[2] * (1 - la) + line[2] * la; }
+        else { d[o] = c[0]; d[o + 1] = c[1]; d[o + 2] = c[2]; }
+        d[o + 3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+      const dpr = view.dpr;
+      mol.atomsB.forEach((a) => {
+        const [sx, sy] = toScreen(a.x, a.y);
+        ED.drawNucleus(ctx, sx, sy, a.s, dpr);
+      });
+      // 1 Å scale bar, bottom right
+      const len = A2B * view.scale, x1 = pw - 14 * dpr, x0 = x1 - len, yb = ph - 14 * dpr;
+      ctx.strokeStyle = ED.token("--ink"); ctx.lineWidth = 2 * dpr; ctx.lineCap = "butt";
+      ctx.beginPath(); ctx.moveTo(x0, yb); ctx.lineTo(x1, yb);
+      ctx.moveTo(x0, yb - 4 * dpr); ctx.lineTo(x0, yb + 4 * dpr); ctx.moveTo(x1, yb - 4 * dpr); ctx.lineTo(x1, yb + 4 * dpr); ctx.stroke();
+      ctx.font = "500 " + Math.round(11 * dpr) + 'px "IBM Plex Mono", ui-monospace, monospace';
+      ctx.textAlign = "center"; ctx.fillStyle = ED.token("--ink-2");
+      ctx.fillText("1 Å", (x0 + x1) / 2, yb - 7 * dpr);
+      if (levelsEl) {
+        levelsEl.innerHTML = "";
+        for (let k = 1; k <= 14; k++) { const s = document.createElement("span"); s.style.background = ED.css(cols[k]); levelsEl.appendChild(s); }
+      }
+    }
+
+    function toScreen(X, Y) { return [view.cx + (X - view.mx) * view.scale, view.cy - (Y - view.my) * view.scale]; }
+
+    function probeAt(cssX, cssY) {
+      if (!view) return;
+      const rect = heroCanvas.getBoundingClientRect();
+      cssX = Math.max(0, Math.min(rect.width, cssX)); cssY = Math.max(0, Math.min(rect.height, cssY));
+      const px = cssX * view.dpr, py = cssY * view.dpr;
+      const X = view.mx + (px - view.cx) / view.scale, Y = view.my - (py - view.cy) / view.scale;
+      let rho = 0, near = null, nd = Infinity;
+      mol.atomsB.forEach((a, i) => {
+        const r = Math.hypot(X - a.x, Y - a.y);
+        rho += atomRho(a.s, r);
+        if (r < nd) { nd = r; near = i; }
+      });
+      probe.style.left = cssX + "px"; probe.style.top = cssY + "px"; probe.style.opacity = "1";
+      valueEl.innerHTML = "ρ = <b>" + ED.fmt(rho) + "</b> e/bohr³ <span class=\"dim\">· " + ED.fmt(rho * 6.7483) + " e/ų</span>";
+      const A = mol.atomsB[near], name = ED.EL[A.s].name;
+      let where;
+      if (nd < 0.3) {
+        where = A.s === "H"
+          ? "在氢原子核处。只有一个电子，连氢的峰也很小。"
+          : "在 " + name + " 原子核处。密度在这里急剧达到峰值，因为两个 1s 核心电子被紧紧束缚。";
+      } else if (rho < 0.001) {
+        where = "在 0.001 e/bohr³ 等高线之外，超出分子通常的外边界。";
+      } else {
+        let bondTxt = null;
+        mol.bonds.forEach(([i, j]) => {
+          const a = mol.atomsB[i], b = mol.atomsB[j];
+          const vx = b.x - a.x, vy = b.y - a.y, L2 = vx * vx + vy * vy;
+          const t = ((X - a.x) * vx + (Y - a.y) * vy) / L2;
+          if (t < 0.15 || t > 0.85) return;
+          const dist = Math.hypot(X - (a.x + t * vx), Y - (a.y + t * vy));
+          if (dist < 0.45) bondTxt = "在 " + a.s + "–" + b.s + " 键中，共享密度在两个原子核之间累积。";
+        });
+        where = bondTxt || (rho > 1 ? "在 " + name + " 的致密内区。" : "在 " + name + " 的价电子云中。");
+      }
+      whereEl.textContent = where;
+    }
+
+    heroCanvas.addEventListener("pointermove", (e) => { const r = heroCanvas.getBoundingClientRect(); kbd = [e.clientX - r.left, e.clientY - r.top]; probeAt(kbd[0], kbd[1]); });
+    heroCanvas.addEventListener("pointerdown", (e) => { const r = heroCanvas.getBoundingClientRect(); kbd = [e.clientX - r.left, e.clientY - r.top]; probeAt(kbd[0], kbd[1]); });
+    heroCanvas.addEventListener("pointerleave", () => { probe.style.opacity = "0"; });
+    heroCanvas.addEventListener("keydown", (e) => {
+      const step = e.shiftKey ? 24 : 8, moves = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] };
+      if (!moves[e.key]) return;
+      e.preventDefault();
+      const r = heroCanvas.getBoundingClientRect();
+      if (!kbd) kbd = [r.width / 2, r.height / 2];
+      kbd = [kbd[0] + moves[e.key][0], kbd[1] + moves[e.key][1]];
+      probeAt(kbd[0], kbd[1]);
+    });
+
+    const molGroup = document.getElementById("heroMols");
+    molGroup.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-mol]");
+      if (!btn) return;
+      ED.press(molGroup, btn);
+      mol = MOLS[btn.dataset.mol];
+      titleEl.textContent = mol.title;
+      probe.style.opacity = "0"; kbd = null;
+      valueEl.innerHTML = 'ρ = <span class="dim">在图上移动</span>';
+      whereEl.textContent = "指向原子核、化学键，再到边缘，观察数值的变化。";
+      render();
+    });
+
+    render();
+    ED.onTheme(paint);
+    ED.onResize(heroCanvas, render);
+  }
+})();
+</script>
+<script>
+(function () {
+  "use strict";
+  const ED = window.ED;
+  const NS = "http://www.w3.org/2000/svg";
+  const A0_PM = 52.918;
+
+  /* ================= Hydrogen orbital explorer ================= */
+  const S3 = Math.sqrt(3), S6 = Math.sqrt(6), S30 = Math.sqrt(30);
+  const RAD = {
+    "10": (r) => 2 * Math.exp(-r),
+    "20": (r) => (1 / (2 * Math.SQRT2)) * (2 - r) * Math.exp(-r / 2),
+    "21": (r) => (1 / (2 * S6)) * r * Math.exp(-r / 2),
+    "30": (r) => (2 / (81 * S3)) * (27 - 18 * r + 2 * r * r) * Math.exp(-r / 3),
+    "31": (r) => (8 / (27 * S6)) * r * (1 - r / 6) * Math.exp(-r / 3),
+    "32": (r) => (4 / (81 * S30)) * r * r * Math.exp(-r / 3)
+  };
+  const one = () => 1, pz = (x, z, r) => z / r;
+  const ORB = {
+    "1s":   { name: "1s", n: 1, l: 0, R: RAD["10"], ang: one, L: 5, rmax: 6, ticks: [0, 2, 4, 6], 节点s: [], lines: [], mp: 1.0, mean: 1.5, angText: "0", dots: 3500, bar: 1 },
+    "2s":   { name: "2s", n: 2, l: 0, R: RAD["20"], ang: one, L: 14, rmax: 15, ticks: [0, 5, 10, 15], 节点s: [2], lines: [], mp: 3 + Math.sqrt(5), mean: 6, angText: "0", dots: 7000, bar: 5 },
+    "2p":   { name: "2p", n: 2, l: 1, R: RAD["21"], ang: pz, L: 14, rmax: 15, ticks: [0, 5, 10, 15], 节点s: [], lines: [0], mp: 4, mean: 5, angText: "1 (plane)", dots: 7000, bar: 5 },
+    "3s":   { name: "3s", n: 3, l: 0, R: RAD["30"], ang: one, L: 25, rmax: 25, ticks: [0, 5, 10, 15, 20, 25], 节点s: [1.902, 7.098], lines: [], mp: 13.07, mean: 13.5, angText: "0", dots: 8000, bar: 5 },
+    "3p":   { name: "3p", n: 3, l: 1, R: RAD["31"], ang: pz, L: 25, rmax: 25, ticks: [0, 5, 10, 15, 20, 25], 节点s: [6], lines: [0], mp: 12, mean: 12.5, angText: "1 (plane)", dots: 8000, bar: 5 },
+    "3dxz": { name: "3dxz", n: 3, l: 2, R: RAD["32"], ang: (x, z, r) => (x * z) / (r * r), L: 22, rmax: 25, ticks: [0, 5, 10, 15, 20, 25], 节点s: [], lines: [0, 90], mp: 9, mean: 10.5, angText: "2 (planes)", dots: 8000, bar: 5 },
+    "3dz2": { name: "3dz²", n: 3, l: 2, R: RAD["32"], ang: (x, z, r) => (2 * z * z - x * x) / (r * r), L: 22, rmax: 25, ticks: [0, 5, 10, 15, 20, 25], 节点s: [], lines: [35.26, -35.26], mp: 9, mean: 10.5, angText: "2 (cones)", dots: 8000, bar: 5 }
+  };
+  const a0 = (v, d) => v.toFixed(d == null ? 2 : d) + " a₀";
+  const pm = (v) => Math.round(v * A0_PM) + " pm";
+
+  const orbCanvas = document.getElementById("orbCanvas");
+  if (orbCanvas) {
+    const countEl = document.getElementById("orbCount");
+    const legendEl = document.getElementById("orbLegend");
+    const factsEl = document.getElementById("orbFacts");
+    const tableBody = document.querySelector("#orbTable tbody");
+    const svg = document.getElementById("radialChart");
+    const tip = document.getElementById("radialTip");
+    const wrap = document.getElementById("radialWrap");
+    let key = "1s", view = "density", samples = null, shown = 0, anim = 0;
+    const cache = {};
+
+    function psi(o, x, z) {
+      let r = Math.hypot(x, z); if (r < 1e-6) r = 1e-6;
+      return o.R(r) * o.ang(x, z, r);
+    }
+    function sample(k) {
+      if (cache[k]) return cache[k];
+      const o = ORB[k], L = o.L;
+      let max = 0;
+      for (let i = 0; i <= 240; i++) for (let j = 0; j <= 240; j++) {
+        const v = psi(o, -L + (2 * L * i) / 240, -L + (2 * L * j) / 240); if (v * v > max) max = v * v;
+      }
+      max *= 1.08;
+      const out = new Float32Array(o.dots * 3);
+      let n = 0, tries = 0;
+      while (n < o.dots && tries < 4e6) {
+        tries++;
+        const x = (Math.random() * 2 - 1) * L, z = (Math.random() * 2 - 1) * L;
+        const v = psi(o, x, z);
+        if (Math.random() * max < v * v) { out[n * 3] = x; out[n * 3 + 1] = z; out[n * 3 + 2] = v >= 0 ? 1 : -1; n++; }
+      }
+      return (cache[k] = out.subarray(0, n * 3));
+    }
+
+    function drawOverlay(ctx, o, fit, s) {
+      const { pw, ph, dpr } = fit, cx = pw / 2, cy = ph / 2;
+      ctx.save();
+      ctx.strokeStyle = ED.token("--ink-2"); ctx.lineWidth = 1.2 * dpr; ctx.setLineDash([5 * dpr, 4 * dpr]);
+      o.节点s.forEach((rn) => { ctx.beginPath(); ctx.arc(cx, cy, rn * s, 0, Math.PI * 2); ctx.stroke(); });
+      o.lines.forEach((deg) => {
+        const a = (deg * Math.PI) / 180, R = Math.max(pw, ph);
+        ctx.beginPath(); ctx.moveTo(cx - Math.cos(a) * R, cy + Math.sin(a) * R); ctx.lineTo(cx + Math.cos(a) * R, cy - Math.sin(a) * R); ctx.stroke();
+      });
+      ctx.setLineDash([]);
+      ctx.beginPath(); ctx.arc(cx, cy, 3 * dpr, 0, Math.PI * 2); ctx.fillStyle = ED.token("--ink"); ctx.fill();
+      const len = o.bar * s, x0 = 14 * dpr, yb = ph - 14 * dpr;
+      ctx.strokeStyle = ED.token("--ink"); ctx.lineWidth = 2 * dpr;
+      ctx.beginPath(); ctx.moveTo(x0, yb); ctx.lineTo(x0 + len, yb); ctx.stroke();
+      ctx.font = "500 " + Math.round(11 * dpr) + 'px "IBM Plex Mono", ui-monospace, monospace';
+      ctx.fillStyle = ED.token("--ink-2"); ctx.textAlign = "left";
+      ctx.fillText(o.bar + " a₀ = " + Math.round(o.bar * A0_PM) + " pm", x0, yb - 7 * dpr);
+      ctx.restore();
+    }
+
+    function drawDots(upto, clear) {
+      const o = ORB[key], fit = ED.fitCanvas(orbCanvas, 2), ctx = orbCanvas.getContext("2d");
+      const s = fit.pw / (2 * o.L), cx = fit.pw / 2, cy = fit.ph / 2, size = Math.max(1, 1.35 * fit.dpr);
+      if (clear) { ctx.clearRect(0, 0, fit.pw, fit.ph); shown = 0; }
+      const cPos = ED.token(view === "phase" ? "--s1" : "--cloud"), cNeg = ED.token(view === "phase" ? "--s2" : "--cloud");
+      ctx.globalAlpha = view === "phase" ? 0.7 : 0.55;
+      for (let i = shown; i < upto; i++) {
+        ctx.fillStyle = samples[i * 3 + 2] > 0 ? cPos : cNeg;
+        ctx.fillRect(cx + samples[i * 3] * s - size / 2, cy - samples[i * 3 + 1] * s - size / 2, size, size);
+      }
+      ctx.globalAlpha = 1;
+      shown = upto;
+      drawOverlay(ctx, o, fit, s);
+      countEl.textContent = upto.toLocaleString() + " dots";
+    }
+
+    function showCloud(animate) {
+      cancelAnimationFrame(anim);
+      samples = sample(key);
+      const total = samples.length / 3;
+      if (!animate || ED.reduceMotion) { drawDots(total, true); return; }
+      drawDots(0, true);
+      const step = Math.ceil(total / 55);
+      const tick = () => { const next = Math.min(total, shown + step); drawDots(next, false); if (next < total) anim = requestAnimationFrame(tick); };
+      anim = requestAnimationFrame(tick);
+    }
+
+    function buildLegend() {
+      legendEl.innerHTML = "";
+      const add = (color, text, sq) => {
+        const k = document.createElement("span"); k.className = "key"; k.style.setProperty("--k", color);
+        const i = document.createElement("i"); if (sq) i.className = "sq"; k.appendChild(i);
+        k.appendChild(document.createTextNode(text)); legendEl.appendChild(k);
+      };
+      if (view === "phase") { add("var(--s1)", "ψ 为正", true); add("var(--s2)", "ψ 为负", true); }
+      else add("var(--cloud)", "一个可能的电子位置", true);
+      add("var(--ink-2)", "虚线：节点（ψ = 0）");
+    }
+
+    /* ---- radial chart ---- */
+    const M = { l: 46, r: 16, t: 18, b: 46 }, VW = 520, VH = 300, PW = VW - M.l - M.r, PH = VH - M.t - M.b;
+    let curve = null, cross = null;
+    function el(name, attrs, parent) {
+      const e = document.createElementNS(NS, name);
+      for (const k in attrs) e.setAttribute(k, attrs[k]);
+      if (parent) parent.appendChild(e);
+      return e;
+    }
+    function drawChart() {
+      const o = ORB[key], N = 500;
+      const rs = [], dn = [], pr = [];
+      let mdn = 0, mpr = 0;
+      for (let i = 0; i <= N; i++) {
+        const r = (o.rmax * i) / N, R = o.R(r), d = R * R, p = r * r * R * R;
+        rs.push(r); dn.push(d); pr.push(p); if (d > mdn) mdn = d; if (p > mpr) mpr = p;
+      }
+      for (let i = 0; i <= N; i++) { dn[i] /= mdn; pr[i] /= mpr; }
+      curve = { rs, dn, pr, o };
+      const X = (r) => M.l + (r / o.rmax) * PW, Y = (v) => M.t + PH - v * PH;
+      svg.innerHTML = "";
+      const g = el("g", {}, svg);
+      [0.5, 1].forEach((v) => el("line", { class: "grid", x1: M.l, x2: M.l + PW, y1: Y(v), y2: Y(v) }, g));
+      [0, 0.5, 1].forEach((v) => { const t = el("text", { x: M.l - 8, y: Y(v) + 4, "text-anchor": "end" }, g); t.textContent = v === 0.5 ? "0.5" : String(v); });
+      o.ticks.forEach((r) => { const t = el("text", { x: X(r), y: M.t + PH + 18, "text-anchor": "middle" }, g); t.textContent = r; });
+      const xl = el("text", { x: M.l + PW / 2, y: VH - 6, "text-anchor": "middle", class: "lbl" }, g); xl.textContent = "离原子核的距离，r (a₀)";
+      const yl = el("text", { x: 12, y: M.t + PH / 2, "text-anchor": "middle", class: "lbl", transform: "rotate(-90 12 " + (M.t + PH / 2) + ")" }, g); yl.textContent = "相对值";
+      o.节点s.forEach((rn) => {
+        el("line", { x1: X(rn), x2: X(rn), y1: M.t, y2: M.t + PH, style: "stroke:var(--ink-3);stroke-width:1" }, g);
+        const t = el("text", { x: X(rn) + 4, y: M.t + 10 }, g); t.textContent = "节点";
+      });
+      const path = (arr) => arr.map((v, i) => (i ? "L" : "M") + X(rs[i]).toFixed(1) + " " + Y(v).toFixed(1)).join("");
+      el("path", { d: path(pr) + "L" + X(o.rmax) + " " + Y(0) + "L" + X(0) + " " + Y(0) + "Z", style: "fill:var(--s2);fill-opacity:0.1;stroke:none" }, g);
+      el("line", { class: "axis", x1: M.l, x2: M.l + PW, y1: Y(0), y2: Y(0) }, g);
+      el("path", { d: path(dn), style: "fill:none;stroke:var(--s1);stroke-width:2;stroke-linejoin:round;stroke-linecap:round" }, g);
+      el("path", { d: path(pr), style: "fill:none;stroke:var(--s2);stroke-width:2;stroke-linejoin:round;stroke-linecap:round" }, g);
+      const px = X(o.mp);
+      el("circle", { cx: px, cy: Y(1), r: 5, style: "fill:var(--s2);stroke:var(--chart-surface);stroke-width:2" }, g);
+      const right = px > M.l + PW * 0.62;
+      const lab = el("text", { x: right ? px - 10 : px + 10, y: Y(1) + 4, "text-anchor": right ? "end" : "start", class: "lbl" }, g);
+      lab.textContent = "最概然 r = " + o.mp.toFixed(2) + " a₀";
+      cross = el("g", { style: "display:none" }, svg);
+      el("line", { x1: 0, x2: 0, y1: M.t, y2: M.t + PH, style: "stroke:var(--ink-3);stroke-width:1" }, cross);
+      el("circle", { r: 4.5, style: "fill:var(--s1);stroke:var(--chart-surface);stroke-width:2" }, cross);
+      el("circle", { r: 4.5, style: "fill:var(--s2);stroke:var(--chart-surface);stroke-width:2" }, cross);
+      el("rect", { x: M.l, y: M.t, width: PW, height: PH, style: "fill:transparent" }, svg);
+    }
+    let cur = -1;
+    function showCross(i) {
+      if (!curve) return;
+      i = Math.max(0, Math.min(curve.rs.length - 1, i)); cur = i;
+      const o = curve.o, X = M.l + (curve.rs[i] / o.rmax) * PW;
+      const c = cross.children;
+      cross.style.display = "";
+      c[0].setAttribute("x1", X); c[0].setAttribute("x2", X);
+      c[1].setAttribute("cx", X); c[1].setAttribute("cy", M.t + PH - curve.dn[i] * PH);
+      c[2].setAttribute("cx", X); c[2].setAttribute("cy", M.t + PH - curve.pr[i] * PH);
+      tip.innerHTML = "";
+      const b = document.createElement("b"); b.textContent = "r = " + a0(curve.rs[i]) + " (" + pm(curve.rs[i]) + ")"; tip.appendChild(b);
+      [["var(--s1)", "密度", curve.dn[i]], ["var(--s2)", "径向概率", curve.pr[i]]].forEach(([k, name, v]) => {
+        const row = document.createElement("span"); row.className = "row"; row.style.setProperty("--k", k);
+        row.appendChild(document.createElement("i"));
+        row.appendChild(document.createTextNode(name + ": " + v.toFixed(2)));
+        tip.appendChild(row);
+      });
+      tip.hidden = false;
+      const scale = svg.getBoundingClientRect().width / VW, tw = tip.offsetWidth, ww = wrap.clientWidth;
+      let left = X * scale + 12; if (left + tw > ww) left = X * scale - tw - 12;
+      tip.style.left = Math.max(0, left) + "px"; tip.style.top = (M.t * scale) + "px";
+    }
+    function hideCross() { if (cross) cross.style.display = "none"; tip.hidden = true; }
+    svg.addEventListener("pointermove", (e) => {
+      const rect = svg.getBoundingClientRect(), sx = ((e.clientX - rect.left) / rect.width) * VW;
+      if (sx < M.l || sx > M.l + PW) { hideCross(); return; }
+      showCross(Math.round(((sx - M.l) / PW) * 500));
+    });
+    svg.addEventListener("pointerleave", hideCross);
+    svg.addEventListener("blur", hideCross);
+    svg.addEventListener("keydown", (e) => {
+      const step = e.shiftKey ? 25 : 5;
+      if (e.key === "ArrowRight") { e.preventDefault(); showCross((cur < 0 ? 0 : cur) + step); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); showCross((cur < 0 ? 0 : cur) - step); }
+      else if (e.key === "Escape") hideCross();
+    });
+
+    function buildTable() {
+      tableBody.innerHTML = "";
+      Object.keys(ORB).forEach((k) => {
+        const o = ORB[k], tr = document.createElement("tr");
+        if (k === key) tr.className = "is-current";
+        const radial = o.节点s.length ? o.节点s.length + " (at " + o.节点s.map((v) => v.toFixed(2)).join(", ") + " a₀)" : "0";
+        [o.name, radial, o.angText, a0(o.mp) + " · " + pm(o.mp), a0(o.mean) + " · " + pm(o.mean)].forEach((txt, i) => {
+          const td = document.createElement(i === 0 ? "th" : "td"); if (i === 0) td.scope = "row"; else if (i > 2) td.className = "num";
+          td.textContent = txt; tr.appendChild(td);
+        });
+        tableBody.appendChild(tr);
+      });
+    }
+    function facts() {
+      const o = ORB[key];
+      factsEl.textContent = o.name + " · n = " + o.n + ", l = " + o.l + " · radial 节点s " + o.节点s.length + " · angular 节点s " + o.l + " · peak of P(r) at " + a0(o.mp) + " (" + pm(o.mp) + ")";
+    }
+    function select(k, animate) {
+      key = k; showCloud(animate); drawChart(); hideCross(); buildTable(); facts();
+    }
+
+    const orbGroup = document.getElementById("orbButtons");
+    orbGroup.addEventListener("click", (e) => {
+      const b = e.target.closest("button[data-orb]"); if (!b) return;
+      ED.press(orbGroup, b); select(b.dataset.orb, true);
+    });
+    const viewGroup = document.getElementById("orbView");
+    viewGroup.addEventListener("click", (e) => {
+      const b = e.target.closest("button[data-view]"); if (!b) return;
+      ED.press(viewGroup, b); view = b.dataset.view; buildLegend(); showCloud(false);
+    });
+    document.getElementById("orbReplay").addEventListener("click", () => showCloud(true));
+
+    buildLegend();
+    select("1s", false);
+    ED.onTheme(() => showCloud(false));
+    ED.onResize(orbCanvas, () => showCloud(false));
+  }
+
+  /* ================= Bond polarity explorer ================= */
+  const bondCanvas = document.getElementById("bondCanvas");
+  if (bondCanvas) {
+    const EL = ED.EL;
+    const selA = document.getElementById("atomA"), selB = document.getElementById("atomB");
+    const presetGroup = document.getElementById("bondPresets");
+    const out = {
+      delta: document.getElementById("bDelta"), type: document.getElementById("bType"), ionic: document.getElementById("bIonic"),
+      share: document.getElementById("bShare"), shareLabel: document.getElementById("bShareLabel"), marker: document.getElementById("bMarker"),
+      explain: document.getElementById("bondExplain")
+    };
+    Object.keys(EL).forEach((s) => {
+      [selA, selB].forEach((sel) => { const o = document.createElement("option"); o.value = s; o.textContent = s + " · " + EL[s].en.toFixed(2); sel.appendChild(o); });
+    });
+    selA.value = "H"; selB.value = "Cl";
+
+    const WX = 8, WY = 6, POOL = 26000;
+    const pool = new Float32Array(POOL * 3);
+    for (let i = 0; i < POOL; i++) { pool[i * 3] = (Math.random() - 0.5) * WX; pool[i * 3 + 1] = (Math.random() - 0.5) * WY; pool[i * 3 + 2] = Math.random(); }
+    const AX = -1.25, BX = 1.25;
+    let q = 0, qTarget = 0, tween = 0;
+
+    const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+    function signedPolarity() {
+      const d = EL[selB.value].en - EL[selA.value].en, p = 1 - Math.exp(-(d * d) / 4);
+      return d === 0 ? 0 : Math.sign(d) * p;
+    }
+    function densityFn(qq) {
+      const th = Math.PI / 4 + qq * (Math.PI / 4), cA = Math.cos(th), cB = Math.sin(th);
+      const sA = 0.85 + 0.25 * Math.max(0, -qq) - 0.12 * Math.max(0, qq);
+      const sB = 0.85 + 0.25 * Math.max(0, qq) - 0.12 * Math.max(0, -qq);
+      return (x, y) => { const v = cA * Math.exp(-Math.hypot(x - AX, y) / sA) + cB * Math.exp(-Math.hypot(x - BX, y) / sB); return v * v; };
+    }
+    function draw() {
+      const fit = ED.fitCanvas(bondCanvas, 2), ctx = bondCanvas.getContext("2d"), { pw, ph, dpr } = fit;
+      ctx.clearRect(0, 0, pw, ph);
+      const s = Math.min(pw / WX, ph / WY), cx = pw / 2, cy = ph / 2 - 0.25 * s;
+      const f = densityFn(q);
+      let dmax = 0;
+      for (let x = -3; x <= 3; x += 0.05) { const v = f(x, 0); if (v > dmax) dmax = v; }
+      dmax *= 1.02;
+      ctx.fillStyle = ED.token("--cloud"); ctx.globalAlpha = 0.55;
+      const size = Math.max(1, 1.6 * dpr);
+      for (let i = 0; i < POOL; i++) {
+        const x = pool[i * 3], y = pool[i * 3 + 1];
+        if (pool[i * 3 + 2] * dmax < f(x, y)) ctx.fillRect(cx + x * s - size / 2, cy - y * s - size / 2, size, size);
+      }
+      ctx.globalAlpha = 1;
+      const xa = cx + AX * s, xb = cx + BX * s;
+      ED.drawNucleus(ctx, xa, cy, selA.value, dpr, { label: false, r: 6 });
+      ED.drawNucleus(ctx, xb, cy, selB.value, dpr, { label: false, r: 6 });
+      const ink = ED.token("--ink"), halo = ED.token("--chart-surface");
+      const text = (t, x, y, size2, color, weight) => {
+        ctx.font = (weight || 700) + " " + Math.round(size2 * dpr) + 'px "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif';
+        ctx.textAlign = "center"; ctx.lineJoin = "round"; ctx.lineWidth = 4 * dpr; ctx.strokeStyle = halo; ctx.strokeText(t, x, y); ctx.fillStyle = color; ctx.fillText(t, x, y);
+      };
+      text(selA.value, xa, cy + 34 * dpr, 20, ink);
+      text(selB.value, xb, cy + 34 * dpr, 20, ink);
+      const d = Math.abs(EL[selB.value].en - EL[selA.value].en);
+      if (d >= 0.05) {
+        const negB = EL[selB.value].en > EL[selA.value].en;
+        const xNeg = negB ? xb : xa, xPos = negB ? xa : xb;
+        text("δ−", xNeg, cy - 30 * dpr, 18, ED.token("--warn"));
+        text("δ+", xPos, cy - 30 * dpr, 18, ED.token("--idea"));
+        const ya = cy + 62 * dpr, dir = Math.sign(xNeg - xPos), x0 = xPos, x1 = xNeg - dir * 2 * dpr;
+        ctx.strokeStyle = ink; ctx.fillStyle = ink; ctx.lineWidth = 2.2 * dpr; ctx.lineCap = "round";
+        ctx.beginPath(); ctx.moveTo(x0, ya); ctx.lineTo(x1 - dir * 8 * dpr, ya); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(x0 + dir * 12 * dpr, ya - 7 * dpr); ctx.lineTo(x0 + dir * 12 * dpr, ya + 7 * dpr); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(x1, ya); ctx.lineTo(x1 - dir * 11 * dpr, ya - 6 * dpr); ctx.lineTo(x1 - dir * 11 * dpr, ya + 6 * dpr); ctx.closePath(); ctx.fill();
+      }
+    }
+    function animateTo(target) {
+      qTarget = target; cancelAnimationFrame(tween);
+      if (ED.reduceMotion) { q = qTarget; draw(); return; }
+      const q0 = q, t0 = performance.now(), dur = 650;
+      const tick = (now) => {
+        const t = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - t, 3);
+        q = q0 + (qTarget - q0) * e; draw();
+        if (t < 1) tween = requestAnimationFrame(tick);
+      };
+      tween = requestAnimationFrame(tick);
+    }
+    function update(animate) {
+      const a = selA.value, b = selB.value, ea = EL[a].en, eb = EL[b].en, d = Math.abs(eb - ea);
+      const p = 1 - Math.exp(-(d * d) / 4);
+      const neg = eb >= ea ? b : a, pos = neg === b ? a : b;
+      out.delta.textContent = d.toFixed(2);
+      let type, color;
+      if (d < 0.4) { type = "非极性共价"; color = "var(--try)"; }
+      else if (d <= 1.7) { type = "极性共价"; color = "var(--idea)"; }
+      else { type = "主要为离子"; color = "var(--quiz)"; }
+      out.type.textContent = type; out.type.style.setProperty("--bt", color);
+      out.ionic.textContent = Math.round(p * 100) + "%";
+      out.shareLabel.textContent = "靠近 " + neg;
+      out.share.textContent = Math.round(50 + 50 * p) + "%";
+      out.marker.style.left = (Math.min(d, 3.3) / 3.3) * 100 + "%";
+      const N = cap(EL[neg].name), P = cap(EL[pos].name);
+      let msg;
+      if (d < 0.05) msg = "两个原子拉动能力相同，因此电子对均匀共享，密度在原子核中间累积。这份累积就是共价键。";
+      else if (d < 0.4) msg = N + " (" + EL[neg].en.toFixed(2) + ") 只是比 " + P.toLowerCase() + " (" + EL[pos].en.toFixed(2) + "), ，所以共享几乎均匀。这样的键算作非极性。";
+      else if (d <= 1.7) msg = N + " (" + EL[neg].en.toFixed(2) + ") 把共享电子对拉向自己，因此 " + neg + " 一端变成 δ−，" + pos + " 一端变成 δ+。";
+      else msg = N + " 几乎完全把电子对从 " + P.toLowerCase() + "。这个键的行为主要像 " + pos + "⁺ 和 " + neg + "⁻ 离子靠静电吸引维系。";
+      out.explain.textContent = msg;
+      presetGroup.querySelectorAll("button").forEach((btn) => {
+        const [x, y] = btn.dataset.pair.split(",");
+        btn.setAttribute("aria-pressed", String((x === a && y === b) || (x === b && y === a)));
+      });
+      if (animate) animateTo(signedPolarity()); else { q = signedPolarity(); draw(); }
+    }
+    selA.addEventListener("change", () => update(true));
+    selB.addEventListener("change", () => update(true));
+    presetGroup.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-pair]"); if (!btn) return;
+      const [x, y] = btn.dataset.pair.split(","); selA.value = x; selB.value = y; update(true);
+    });
+    update(false);
+    ED.onTheme(draw);
+    ED.onResize(bondCanvas, draw);
+  }
+})();
+</script>
+<script>
+(function () {
+  "use strict";
+  const ED = window.ED;
+  const $ = (id) => document.getElementById(id);
+  const make = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+
+  /* ================= ESP 图 viewer ================= */
+  const VDW = { H: 1.20, C: 1.70, N: 1.55, O: 1.52, F: 1.47 };
+  const t = 0.629; // CH4 hydrogen offset (Å)
+  const ESP = {
+    water:   { name: "水", formula: "H₂O", mu: "μ = 1.85 D", text: "氧周围为红色，那里有两个孤对电子；两个氢上为蓝色。弯曲的形状使键偶极无法抵消，所以水是强极性的。",
+               atoms: [["O", 0, 0.293, 0, -0.80], ["H", 0.757, -0.293, 0, 0.40], ["H", -0.757, -0.293, 0, 0.40]] },
+    ammonia: { name: "氨", formula: "NH₃", mu: "μ = 1.47 D", text: "氮的孤对电子使分子顶部为红色，三个氢为蓝色。金字塔形状留下净偶极。",
+               atoms: [["N", 0, 0.19, 0, -0.90], ["H", 0, -0.191, 0.937, 0.30], ["H", -0.811, -0.191, -0.469, 0.30], ["H", 0.811, -0.191, -0.469, 0.30]] },
+    hf:      { name: "氟化氢", formula: "HF", mu: "μ = 1.82 D", text: "氟是最具电负性的元素，用力把密度拉向自己（ΔEN = 1.78）。F 端为红色，H 端为深蓝色。",
+               atoms: [["H", -0.459, 0, 0, 0.41], ["F", 0.459, 0, 0, -0.41]] },
+    methane: { name: "甲烷", formula: "CH₄", mu: "μ = 0 D", text: "几乎整体为淡色。C–H 键接近非极性（ΔEN = 0.35），四面体形状抵消了那一点点极性。",
+               atoms: [["C", 0, 0, 0, -0.24], ["H", t, t, t, 0.06], ["H", t, -t, -t, 0.06], ["H", -t, t, -t, 0.06], ["H", -t, -t, t, 0.06]] },
+    co2:     { name: "二氧化碳", formula: "CO₂", mu: "μ = 0 D", text: "每个 C=O 键都是极性的：氧端为红色，中心碳为贫电子的蓝色。分子是线性的，所以两个键偶极相互抵消。",
+               atoms: [["O", -1.16, 0, 0, -0.325], ["C", 0, 0, 0, 0.65], ["O", 1.16, 0, 0, -0.325]] },
+    benzene: { name: "苯", formula: "C₆H₆", mu: "μ = 0 D", text: "从正面看，环的中间为红色，因为 π 云位于碳的上方和下方，边缘的氢则略带蓝色。正是这份 π 密度使苯吸引亲电试剂。",
+               atoms: (function () { const a = []; for (let k = 0; k < 6; k++) { const g = Math.PI / 2 + k * Math.PI / 3; a.push(["C", 1.397 * Math.cos(g), 1.397 * Math.sin(g), 0, -0.08]); } for (let k = 0; k < 6; k++) { const g = Math.PI / 2 + k * Math.PI / 3; a.push(["H", 2.481 * Math.cos(g), 2.481 * Math.sin(g), 0, 0.08]); } return a; })() }
+  };
+  const espCanvas = $("espCanvas");
+  if (espCanvas) {
+    let cur = "water";
+    const L = (function () { const v = [-0.42, 0.55, 0.72], n = Math.hypot(v[0], v[1], v[2]); return v.map((x) => x / n); })();
+    const Hh = (function () { const v = [L[0], L[1], L[2] + 1], n = Math.hypot(v[0], v[1], v[2]); return v.map((x) => x / n); })();
+    function render() {
+      const m = ESP[cur], fit = ED.fitCanvas(espCanvas, 2), { pw, ph, dpr } = fit, ctx = espCanvas.getContext("2d");
+      const neg = ED.hexToRgb(ED.token("--esp-neg")), mid = ED.hexToRgb(ED.token("--esp-mid")), pos = ED.hexToRgb(ED.token("--esp-pos"));
+      const atoms = m.atoms.map(([s, x, y, z, q]) => ({ s, x, y, z, q, R: VDW[s] }));
+      let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+      atoms.forEach((a) => { minX = Math.min(minX, a.x - a.R); maxX = Math.max(maxX, a.x + a.R); minY = Math.min(minY, a.y - a.R); maxY = Math.max(maxY, a.y + a.R); });
+      const pad = 0.5, sc = Math.min(pw / (maxX - minX + 2 * pad), ph / (maxY - minY + 2 * pad));
+      const mx = (minX + maxX) / 2, my = (minY + maxY) / 2;
+      const img = ctx.createImageData(pw, ph), d = img.data, n = atoms.length;
+      for (let py = 0; py < ph; py++) {
+        const Y = my - (py + 0.5 - ph / 2) / sc;
+        for (let px = 0; px < pw; px++) {
+          const X = mx + (px + 0.5 - pw / 2) / sc;
+          let zs = -Infinity, top = -1, covered = 0, edge = 1;
+          for (let k = 0; k < n; k++) {
+            const a = atoms[k], dx = X - a.x, dy = Y - a.y, r2 = dx * dx + dy * dy;
+            if (r2 < a.R * a.R) { covered++; const z = a.z + Math.sqrt(a.R * a.R - r2); if (z > zs) { zs = z; top = k; edge = (a.R - Math.sqrt(r2)) * sc; } }
+          }
+          if (top < 0) continue;
+          let V = 0;
+          for (let k = 0; k < n; k++) { const a = atoms[k]; V += a.q / Math.hypot(X - a.x, Y - a.y, zs - a.z); }
+          const v = Math.max(-1, Math.min(1, (V * 332.06) / 50));
+          const c = v < 0 ? ED.mix(mid, neg, Math.pow(-v, 0.85)) : ED.mix(mid, pos, Math.pow(v, 0.85));
+          const a = atoms[top], nx = (X - a.x) / a.R, ny = (Y - a.y) / a.R, nz = (zs - a.z) / a.R;
+          const diff = Math.max(0, nx * L[0] + ny * L[1] + nz * L[2]);
+          const spec = Math.pow(Math.max(0, nx * Hh[0] + ny * Hh[1] + nz * Hh[2]), 30) * 0.35;
+          const shade = 0.42 + 0.58 * diff, o = (py * pw + px) * 4;
+          d[o] = Math.min(255, c[0] * shade + 255 * spec);
+          d[o + 1] = Math.min(255, c[1] * shade + 255 * spec);
+          d[o + 2] = Math.min(255, c[2] * shade + 255 * spec);
+          d[o + 3] = covered > 1 ? 255 : 255 * Math.max(0, Math.min(1, edge));
+        }
+      }
+      ctx.putImageData(img, 0, 0);
+      // label atoms whose own sphere is frontmost at their centre
+      ctx.font = "700 " + Math.round(13 * dpr) + 'px "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif';
+      ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.lineJoin = "round";
+      atoms.forEach((a, i) => {
+        const front = atoms.every((b, j) => { if (j === i) return true; const r2 = (a.x - b.x) ** 2 + (a.y - b.y) ** 2; return r2 >= b.R * b.R || b.z + Math.sqrt(b.R * b.R - r2) <= a.z + a.R; });
+        if (!front) return;
+        const sx = pw / 2 + (a.x - mx) * sc, sy = ph / 2 - (a.y - my) * sc;
+        ctx.lineWidth = 3.5 * dpr; ctx.strokeStyle = "rgba(255,255,255,0.85)"; ctx.strokeText(a.s, sx, sy);
+        ctx.fillStyle = "#131a35"; ctx.fillText(a.s, sx, sy);
+      });
+      $("espName").textContent = m.name; $("espFormula").textContent = m.formula;
+      $("espDipole").textContent = m.mu; $("espText").textContent = m.text;
+      espCanvas.setAttribute("aria-label", "静电势图：" + m.name.toLowerCase() + "。" + m.text);
+    }
+    const group = $("espButtons");
+    group.addEventListener("click", (e) => { const b = e.target.closest("button[data-esp]"); if (!b) return; ED.press(group, b); cur = b.dataset.esp; render(); });
+    render();
+    ED.onResize(espCanvas, render);
+  }
+
+  /* ================= pKa bar chart ================= */
+  const PKA = {
+    count: { rows: [["乙酸", "CH₃COOH", 4.76], ["氯乙酸", "ClCH₂COOH", 2.86], ["二氯乙酸", "Cl₂CHCOOH", 1.29], ["三氯乙酸", "Cl₃CCOOH", 0.65]],
+             note: "每多一个氯都降低 pKa。三氯乙酸比乙酸强约 13000 倍（10^4.11）。" },
+    distance: { rows: [["2-氯丁酸", "氯在 C2，紧邻 COOH", 2.86], ["3-氯丁酸", "氯在 C3", 4.05], ["4-氯丁酸", "氯在 C4", 4.52], ["丁酸", "没有氯", 4.82]],
+                note: "把氯移远一个碳会使其拉力急剧减弱：pKa 先是 2.86，再 4.05，再 4.52，接近丁酸的 4.82。" }
+  };
+  const pkaChart = $("pkaChart");
+  if (pkaChart) {
+    const tip = $("pkaTip"), wrap = $("pkaWrap");
+    function showTip(row, r) {
+      tip.innerHTML = "";
+      tip.appendChild(make("b", null, "pKa " + r[2].toFixed(2)));
+      tip.appendChild(make("span", null, r[0]));
+      tip.appendChild(make("span", null, "Ka = " + ED.fmt(Math.pow(10, -r[2]))));
+      tip.hidden = false;
+      const wr = wrap.getBoundingClientRect(), rr = row.getBoundingClientRect(), fill = row.querySelector(".hbar-fill").getBoundingClientRect();
+      let left = fill.right - wr.left + 14; if (left + tip.offsetWidth > wr.width) left = Math.max(0, wr.width - tip.offsetWidth);
+      tip.style.left = left + "px"; tip.style.top = (rr.top - wr.top - tip.offsetHeight - 4) + "px";
+    }
+    function draw(setKey, first) {
+      const set = PKA[setKey];
+      pkaChart.innerHTML = "";
+      set.rows.forEach((r) => {
+        const row = make("div", "hbar"); row.tabIndex = 0;
+        row.setAttribute("aria-label", r[0] + ", " + r[1] + ": pKa " + r[2].toFixed(2));
+        const lab = make("div", "hbar-label"); lab.appendChild(make("b", null, r[0])); lab.appendChild(make("span", null, r[1]));
+        const track = make("div", "hbar-track"), fill = make("span", "hbar-fill"); track.appendChild(fill);
+        row.appendChild(lab); row.appendChild(track); row.appendChild(make("span", "hbar-val", r[2].toFixed(2)));
+        const on = () => showTip(row, r), off = () => { tip.hidden = true; };
+        row.addEventListener("pointerenter", on); row.addEventListener("pointerleave", off);
+        row.addEventListener("focus", on); row.addEventListener("blur", off);
+        pkaChart.appendChild(row);
+        const w = (r[2] / 5) * 100 + "%";
+        if (first || ED.reduceMotion) fill.style.width = w; else requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.width = w; }));
+      });
+      const axis = make("div", "hbar-axis"); axis.setAttribute("aria-hidden", "true");
+      axis.appendChild(make("span"));
+      const ticks = make("div", "hbar-ticks");
+      for (let k = 0; k <= 5; k++) { const s = make("span", null, String(k)); s.style.left = k * 20 + "%"; ticks.appendChild(s); }
+      axis.appendChild(ticks); axis.appendChild(make("span"));
+      axis.appendChild(make("span", "hbar-axis-title", "pKa · 越低酸越强"));
+      pkaChart.appendChild(axis);
+      $("pkaTakeaway").textContent = set.note;
+    }
+    const group = $("pkaButtons");
+    group.addEventListener("click", (e) => { const b = e.target.closest("button[data-set]"); if (!b) return; ED.press(group, b); tip.hidden = true; draw(b.dataset.set, false); });
+    draw("count", true);
+  }
+
+  /* ================= 迷思 cards ================= */
+  const MYTHS = [
+    ["电子在固定圆形轨道上绕原子核运动。", "量子力学只给出概率。密度图显示电子可能在何处被找到，而不是它遵循的路径。"],
+    ["在氢 1s 原子中，密度在离原子核 52.9 pm 处达到峰值。", "密度在原子核处达到峰值。52.9 pm 是最概然距离，因为更外面的壳层含有更多体积。"],
+    ["轨道上的两种颜色表示正电荷和负电荷。", "它们表示 ψ 的正负（相位）。密度 |ψ|² 除节点外处处为正。"],
+    ["轨道有硬边界，电子总在画出的形状内部。", "密度平滑地衰减，永远不会真正达到零。画出的轨道是一个边界面，包围所选份额的密度，通常是 90%。"],
+    ["化学键要么纯共价，要么纯离子。", "极性是由密度共享的不均匀程度决定的连续谱。鲍林对 NaCl 的估计约为 70% 离子性，而非 100%。"],
+    ["电子必须跨过节点才能从一个瓣到另一个瓣。", "节点是波的一个特征，就像振动的吉他弦上的静止点。电子由整个波一次描述，所以无需跨越什么。"]
+  ];
+  const mythGrid = $("mythGrid");
+  if (mythGrid) {
+    MYTHS.forEach(([myth, fact]) => {
+      const btn = make("button", "flip myth"); btn.type = "button"; btn.setAttribute("aria-pressed", "false");
+      const inner = make("span", "flip-inner");
+      const front = make("span", "face front"), back = make("span", "face back");
+      const fl = make("span", "face-label", "迷思 "); fl.appendChild(make("span", "hint", "点击翻转"));
+      front.appendChild(fl); front.appendChild(make("span", "txt", myth));
+      back.appendChild(make("span", "face-label", "实际情况")); back.appendChild(make("span", "txt", fact));
+      back.setAttribute("aria-hidden", "true");
+      inner.appendChild(front); inner.appendChild(back); btn.appendChild(inner);
+      btn.addEventListener("click", () => {
+        const on = btn.getAttribute("aria-pressed") !== "true";
+        btn.setAttribute("aria-pressed", String(on));
+        front.setAttribute("aria-hidden", String(on)); back.setAttribute("aria-hidden", String(!on));
+      });
+      mythGrid.appendChild(btn);
+    });
+  }
+
+  /* ================= Flashcards ================= */
+  const CARDS = [
+    ["电子密度，ρ(r)", "点 r 处每单位体积的电子数。对整个空间积分，得到电子总数 N。"],
+    ["波函数，ψ", "电子量子态的数学描述。它可以为正或负，其平方给出概率密度。"],
+    ["玻恩诠释", "|ψ|² dV 是在小体积 dV 内找到电子的概率。马克斯·玻恩于 1926 年提出。"],
+    ["轨道", "单电子波函数。每个被占据的轨道向总电子密度贡献 nᵢ|φᵢ|²。"],
+    ["节点", "ψ = 0 的曲面，因此密度为零。轨道有 n − l − 1 个径向节点和 l 个角向节点。"],
+    ["径向概率，P(r)", "4πr²ρ(r)：在距离 r 处薄壳内找到电子的概率。对氢 1s 它在 a₀ 处达到峰值。"],
+    ["玻尔半径，a₀", "52.9 pm（0.529 Å）。氢 1s 中最概然的电子–原子核距离，也是长度原子单位（1 bohr）。"],
+    ["电负性", "原子在化学键中吸引共享电子密度的强弱。在鲍林标度上氟最高，为 3.98。"],
+    ["部分电荷，δ+ 和 δ−", "当键的密度共享不均匀时留下的小电荷。电负性更强的原子变为 δ−。"],
+    ["偶极矩，μ", "分子正负电荷中心相距多远乘以电荷量，以德拜（D）为单位。水：1.85 D。"],
+    ["ESP 图", "按静电势着色的密度面。红色为负（富电子），蓝色为正（贫电子）。"],
+    ["诱导效应", "电负性或电正性基团沿 σ 键拉动或推动的密度。它随距离迅速减弱。"],
+    ["共振效应", "通过离域把密度供入或抽出 π 体系，例如 –OH 把密度推入苯环。"],
+    ["亲核试剂与亲电试剂", "亲核试剂富电子并给出电子对。亲电试剂贫电子并接受电子对。"],
+    ["密度泛函理论（DFT）", "一种从电子密度而非多电子波函数获取能量和性质的计算方法。"],
+    ["等值面", "连接等密度点的三维面，例如 ρ = 0.001 e/bohr³。常用它来展示分子的形状。"]
+  ];
+  const fcCard = $("fcCard");
+  if (fcCard) {
+    let order = CARDS.map((_, i) => i), pos = 0;
+    const known = new Set(ED.store.get("known", []).filter((i) => i < CARDS.length));
+    const filter = $("fcFilter");
+    const visible = () => (filter.checked ? order.filter((i) => !known.has(i)) : order);
+    function setFlip(on) {
+      fcCard.setAttribute("aria-pressed", String(on));
+      fcCard.querySelector(".front").setAttribute("aria-hidden", String(on));
+      fcCard.querySelector(".back").setAttribute("aria-hidden", String(!on));
+    }
+    function show() {
+      const list = visible();
+      $("fcKnown").textContent = "已知 " + known.size + " / " + CARDS.length;
+      const buttons = ["fcPrev", "fcNext", "fcAgain", "fcGot"].map($);
+      if (!list.length) {
+        $("fcTerm").textContent = "你已认识所有卡";
+        $("fcDef").textContent = "关闭筛选来重新复习全部卡。";
+        $("fcPos").textContent = "0 / 0"; setFlip(false); buttons.forEach((b) => { b.disabled = true; });
+        return;
+      }
+      buttons.forEach((b) => { b.disabled = false; });
+      pos = ((pos % list.length) + list.length) % list.length;
+      const c = CARDS[list[pos]];
+      $("fcTerm").textContent = c[0]; $("fcDef").textContent = c[1];
+      $("fcPos").textContent = (pos + 1) + " / " + list.length;
+      setFlip(false);
+    }
+    function mark(isKnown) {
+      const list = visible(); if (!list.length) return;
+      const id = list[pos];
+      if (isKnown) known.add(id); else known.delete(id);
+      ED.store.set("known", Array.from(known));
+      if (!(filter.checked && isKnown)) pos++;
+      show();
+    }
+    fcCard.addEventListener("click", () => setFlip(fcCard.getAttribute("aria-pressed") !== "true"));
+    $("fcPrev").addEventListener("click", () => { pos--; show(); });
+    $("fcNext").addEventListener("click", () => { pos++; show(); });
+    $("fcGot").addEventListener("click", () => mark(true));
+    $("fcAgain").addEventListener("click", () => mark(false));
+    $("fcShuffle").addEventListener("click", () => {
+      for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+      pos = 0; show();
+    });
+    filter.addEventListener("change", () => { pos = 0; show(); });
+    $("deck").addEventListener("keydown", (e) => {
+      if (e.target.tagName === "INPUT") return;
+      if (e.key === "ArrowRight") { e.preventDefault(); pos++; show(); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); pos--; show(); }
+    });
+    show();
+  }
+
+  /* ================= Quiz ================= */
+  const MODS = { basics: "模块 1 · 什么是电子密度", atoms: "模块 2 · 原子中的密度", bonds: "模块 3 · 化学键中的密度", maps: "模块 4 · 解读 ESP 图", reactivity: "模块 5 · 密度与反应性", measure: "模块 6 · 测量与计算它" };
+  const QUIZ = [
+    { q: "电子密度 ρ(r) 度量什么？", o: ["电子在点 r 移动的速度", "点 r 处每单位体积的电子数", "最高占据轨道的能量", "原子核的正电荷"], a: 1, e: "ρ(r) 是每单位体积的电子数。对它在整个空间积分得到电子总数。", m: "basics" },
+    { q: "对单个中性水分子的电子密度在整个空间积分得到：", o: ["1", "3", "8", "10"], a: 3, e: "∫ρ dr = N，即电子数。H₂O 有 1 + 1 + 8 = 10。", m: "basics" },
+    { q: "在氢原子的 1s 态中，哪里电子密度最高？", o: ["在原子核处", "离原子核 52.9 pm（1 a₀）处", "离原子核 2 a₀ 处", "各处相同"], a: 0, e: "ρ ∝ e^(−2r/a₀) 在 r = 0 处最大。径向概率 4πr²ρ 才是 1 a₀ 处的峰值，因为更外面的壳层有更多体积。", m: "atoms" },
+    { q: "3s 轨道有几个径向节点？", o: ["0", "1", "2", "3"], a: 2, e: "径向节点 = n − l − 1 = 3 − 0 − 1 = 2。", m: "atoms" },
+    { q: "p 轨道图上的两种颜色表示：", o: ["正电荷和负电荷", "波函数的正负（相位）", "自旋向上和自旋向下的电子", "两个不同的电子"], a: 1, e: "颜色标记 ψ 为正或为负的位置。密度 |ψ|² 在两个瓣中都为正。", m: "atoms" },
+    { q: "在 H–Cl 键中，哪个原子带有部分负电荷（δ−）？", o: ["H，因为它更小", "Cl，因为它电负性更强", "都不是，因为该键是非极性的", "两个原子相同"], a: 1, e: "氯（3.16）比氢（2.20）电负性更强，所以它把共享密度拉向自己。", m: "bonds" },
+    { q: "哪个键极性最强？", o: ["C–H", "N–H", "O–H", "F–H"], a: 3, e: "C–H 的 ΔEN 为 0.35，N–H 为 0.84，O–H 为 1.24，F–H 为 1.78。差值越大，密度共享越不均匀。", m: "bonds" },
+    { q: "在静电势图上，红色区域通常意味着：", o: ["该区域贫电子（正势）", "该区域富电子（负势）", "那里有一个原子核", "那里没有电子"], a: 1, e: "红色标记负势，那里电子密度占主导，正电荷会被吸引。", m: "maps" },
+    { q: "CO₂ 有两个极性 C=O 键却没有整体偶极矩。为什么？", o: ["碳和氧电负性相同", "分子是线性的，所以键偶极相互抵消", "C 和 O 之间没有电子密度", "双键不能是极性的"], a: 1, e: "两个键偶极大小相等、方向相反，所以相互抵消。", m: "maps" },
+    { q: "这些酸中哪个最强（pKa 最低）？", o: ["CH₃COOH", "ClCH₂COOH", "Cl₂CHCOOH", "Cl₃CCOOH"], a: 3, e: "每个氯都通过诱导拉走密度并稳定羧酸根阴离子。pKa 从 4.76 降到 0.65。", m: "reactivity" },
+    { q: "亲核试剂最贴切的描述是：", o: ["接受电子对的贫电子物种", "给出电子对的富电子物种", "任何带正电的离子", "没有孤对电子的分子"], a: 1, e: "亲核试剂有可分享的密度（孤对电子、π 键或负电荷），并把它给与贫电子的亲电试剂。", m: "reactivity" },
+    { q: "为什么氢原子难以用 X 射线晶体学定位？", o: ["X 射线从电子散射，而氢只有一个电子", "氢原子运动太快看不到", "晶体从不含氢", "氢吸收所有入射 X 射线"], a: 0, e: "X 射线从电子密度散射。单个电子部分被拉进化学键，产生一个微弱且偏离中心的峰。", m: "measure" }
+  ];
+  const quizApp = $("quizApp");
+  if (quizApp) {
+    let idx = 0, picks = [];
+    const score = () => picks.reduce((s, p, i) => s + (p === QUIZ[i].a ? 1 : 0), 0);
+    function dots() {
+      const wrapD = make("div", "quiz-dots"); wrapD.setAttribute("aria-hidden", "true");
+      QUIZ.forEach((_, i) => { const d = make("i"); if (i < picks.length) d.className = picks[i] === QUIZ[i].a ? "ok" : "no"; else if (i === idx) d.className = "now"; wrapD.appendChild(d); });
+      return wrapD;
+    }
+    function renderQuestion(focus) {
+      const Q = QUIZ[idx];
+      quizApp.innerHTML = "";
+      const top = make("div", "quiz-top");
+      top.appendChild(make("span", "eyebrow", "题目 " + (idx + 1) + " of " + QUIZ.length));
+      top.appendChild(dots());
+      top.appendChild(make("span", "quiz-score", "得分 " + score()));
+      const qt = make("p", "q-text", Q.q); qt.tabIndex = -1;
+      const list = make("ul", "q-options");
+      const fb = make("div", "q-feedback"); fb.hidden = true;
+      const actions = make("div", "q-actions");
+      const next = make("button", "btn btn-primary", idx === QUIZ.length - 1 ? "查看我的结果" : "下一题"); next.type = "button"; next.hidden = true;
+      Q.o.forEach((text, i) => {
+        const li = make("li"), b = make("button"); b.type = "button";
+        b.appendChild(make("span", "letter", "ABCD"[i])); b.appendChild(make("span", null, text)); b.appendChild(make("span", "verdict"));
+        b.addEventListener("click", () => {
+          picks[idx] = i;
+          list.querySelectorAll("button").forEach((x, j) => {
+            x.disabled = true;
+            if (j === Q.a) { x.classList.add("correct"); x.querySelector(".verdict").textContent = "正确答案"; }
+            else if (j === i) { x.classList.add("wrong"); x.querySelector(".verdict").textContent = "你的答案"; }
+          });
+          fb.innerHTML = "";
+          fb.appendChild(make("strong", null, i === Q.a ? "正确。" : "不对。答案是 " + "ABCD"[Q.a] + "."));
+          fb.appendChild(make("span", null, Q.e));
+          const link = make("a", null, "复习：" + MODS[Q.m]); link.href = "#" + Q.m; fb.appendChild(link);
+          fb.hidden = false; next.hidden = false;
+          top.replaceChild(dots(), top.children[1]); top.children[2].textContent = "得分 " + score();
+          next.focus({ preventScroll: true });
+        });
+        li.appendChild(b); list.appendChild(li);
+      });
+      next.addEventListener("click", () => { idx++; if (idx < QUIZ.length) renderQuestion(true); else renderResult(); });
+      actions.appendChild(next);
+      [top, qt, list, fb, actions].forEach((n) => quizApp.appendChild(n));
+      if (focus) qt.focus({ preventScroll: true });
+    }
+    function renderResult() {
+      const s = score(), best = Math.max(s, ED.store.get("best", 0));
+      ED.store.set("best", best);
+      quizApp.innerHTML = "";
+      const res = make("div", "result");
+      res.appendChild(make("span", "eyebrow", "你的结果"));
+      const big = make("div", "result-score", String(s)); big.appendChild(make("small", null, " / " + QUIZ.length)); res.appendChild(big);
+      res.appendChild(dots());
+      const msg = s === QUIZ.length ? "满分。你已掌握基础知识。" : s >= 9 ? "出色的成绩。复习你错过的题目，然后再试一次。" : s >= 6 ? "进步不错。重新看看下面的模块，再测一次。" : "继续加油。学完下面的模块，然后再试一次。";
+      res.appendChild(make("p", null, msg));
+      res.appendChild(make("p", "hero-meta", "本浏览器中的最佳成绩：" + best + " / " + QUIZ.length));
+      const missed = QUIZ.map((q, i) => (picks[i] !== q.a ? q : null)).filter(Boolean);
+      if (missed.length) {
+        const ul = make("ul");
+        missed.forEach((q) => { const li = make("li"); li.appendChild(document.createTextNode(q.q + " ")); const a = make("a", null, MODS[q.m]); a.href = "#" + q.m; li.appendChild(a); ul.appendChild(li); });
+        res.appendChild(make("strong", null, "需要复习的题目")); res.appendChild(ul);
+      }
+      const again = make("button", "btn btn-primary", "再试一次"); again.type = "button";
+      again.addEventListener("click", () => { idx = 0; picks = []; renderQuestion(true); });
+      res.appendChild(again);
+      quizApp.appendChild(res);
+      again.focus({ preventScroll: true });
+    }
+    renderQuestion(false);
+  }
+
+  /* ================= Progress, section highlight ================= */
+  const MODULES = ["basics", "atoms", "bonds", "maps", "reactivity", "measure", "myths"];
+  const done = new Set(ED.store.get("done", []).filter((m) => MODULES.includes(m)));
+  function syncProgress() {
+    document.querySelectorAll("[data-done]").forEach((b) => {
+      const on = done.has(b.dataset.done);
+      b.setAttribute("aria-pressed", String(on));
+      b.querySelector("span").textContent = on ? "已理解" : "标记为已理解";
+    });
+    document.querySelectorAll("#path li[data-mod]").forEach((li, i) => {
+      const on = done.has(li.dataset.mod), num = li.querySelector(".num");
+      li.classList.toggle("done", on);
+      num.innerHTML = on ? '<svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>' : String(i + 1);
+    });
+    const n = done.size, meter = $("progressMeter");
+    meter.firstElementChild.style.width = (n / MODULES.length) * 100 + "%";
+    meter.setAttribute("aria-valuenow", String(n));
+    $("progressText").textContent = n + " of " + MODULES.length + " modules";
+  }
+  document.querySelectorAll("[data-done]").forEach((b) => b.addEventListener("click", () => {
+    const m = b.dataset.done; if (done.has(m)) done.delete(m); else done.add(m);
+    ED.store.set("done", Array.from(done)); syncProgress();
+  }));
+  const resetBtn = $("resetProgress");
+  let armed = 0;
+  resetBtn.addEventListener("click", () => {
+    if (!armed) { resetBtn.textContent = "再次点击以重置进度"; armed = setTimeout(() => { armed = 0; resetBtn.textContent = "重置我的进度"; }, 3500); return; }
+    clearTimeout(armed); armed = 0; done.clear(); ED.store.set("done", []); syncProgress(); resetBtn.textContent = "进度已重置";
+    setTimeout(() => { resetBtn.textContent = "重置我的进度"; }, 2000);
+  });
+  syncProgress();
+
+  if ("IntersectionObserver" in window) {
+    const links = {};
+    document.querySelectorAll("#path a").forEach((a) => { links[a.getAttribute("href").slice(1)] = a; });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        Object.values(links).forEach((a) => a.removeAttribute("aria-current"));
+        const a = links[en.target.id];
+        if (a) {
+          a.setAttribute("aria-current", "true");
+          const path = $("path");
+          if (path.scrollWidth > path.clientWidth + 4) path.scrollTo({ left: a.offsetLeft - 16, behavior: ED.reduceMotion ? "auto" : "smooth" });
+        }
+      });
+    }, { rootMargin: "-35% 0px -60% 0px" });
+    document.querySelectorAll("main > section[id]").forEach((s) => io.observe(s));
+  }
+
+  /* ================= Focus timer ================= */
+  const timer = $("timer");
+  if (timer) {
+    const FOCUS = 25 * 60, BREAK = 5 * 60, baseTitle = document.title;
+    let mode = "focus", left = FOCUS, end = 0, tick = 0;
+    const timeEl = $("timerTime"), labelEl = $("timerLabel"), toggle = $("timerToggle");
+    const fmt = (s) => String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0");
+    function paint() {
+      timeEl.textContent = fmt(left);
+      timer.classList.toggle("running", !!tick);
+      timer.classList.toggle("break", mode === "break");
+      labelEl.textContent = mode === "focus" ? "专注计时器 · 25 分钟" : "休息 · 5 分钟，然后回到正题";
+      toggle.querySelector("use").setAttribute("href", tick ? "#i-pause" : "#i-play");
+      toggle.setAttribute("aria-label", (tick ? "暂停 " : "开始 ") + (mode === "focus" ? "专注计时" : "休息计时"));
+      document.title = tick ? fmt(left) + " · " + baseTitle : baseTitle;
+    }
+    function stop() { clearInterval(tick); tick = 0; }
+    function step() {
+      left = Math.max(0, Math.round((end - Date.now()) / 1000));
+      if (left === 0) { stop(); mode = mode === "focus" ? "break" : "focus"; left = mode === "focus" ? FOCUS : BREAK; }
+      paint();
+    }
+    toggle.addEventListener("click", () => {
+      if (tick) { stop(); paint(); return; }
+      end = Date.now() + left * 1000; tick = setInterval(step, 1000); paint();
+    });
+    $("timerReset").addEventListener("click", () => { stop(); mode = "focus"; left = FOCUS; paint(); });
+    paint();
+  }
+})();
+</script>
+</body>
+</html>

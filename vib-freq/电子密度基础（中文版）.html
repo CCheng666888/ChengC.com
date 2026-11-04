@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><title>电子密度基础</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: a crystallographer's contour sheet. Sticky study map at left, one reading column of lessons.
+   Color meaning is fixed everywhere: red = electron-rich (δ−), blue = electron-poor (δ+), indigo = the electron cloud itself. */
+:root{
+  --bg:#F2F5FA; --surface:#FFFFFF; --surface-2:#E8EEF7; --ink:#12203A; --muted:#55627C; --line:#D5DEEB;
+  --contour:rgba(35,99,209,.08);
+  --rich:#CF3F35; --rich-soft:#FBE4E1;
+  --poor:#2363D1; --poor-soft:#DDE8FB;
+  --cloud:#5A48D6; --cloud-soft:#E7E3FB;
+  --accent:#0B8A7A; --accent-soft:#D3F0EA;
+  --glow:#E2A00E; --glow-soft:#FFF2CC;
+  --shadow:0 1px 2px rgba(18,32,58,.06),0 10px 28px rgba(18,32,58,.07);
+  --font-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --font-body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",Consolas,"Courier New",monospace;
+  --font-math:"Cambria Math","STIX Two Math","Times New Roman",serif;
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0C1320; --surface:#141E31; --surface-2:#1C2841; --ink:#E6ECF7; --muted:#9CA9C2; --line:#2A3851;
+  --contour:rgba(126,169,255,.08);
+  --rich:#FF7D71; --rich-soft:#3D2025; --poor:#7EA9FF; --poor-soft:#172B4E;
+  --cloud:#A79CFF; --cloud-soft:#252050; --accent:#40CCB5; --accent-soft:#11352F;
+  --glow:#F6C443; --glow-soft:#3A3014;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.28); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0C1320; --surface:#141E31; --surface-2:#1C2841; --ink:#E6ECF7; --muted:#9CA9C2; --line:#2A3851;
+  --contour:rgba(126,169,255,.08);
+  --rich:#FF7D71; --rich-soft:#3D2025; --poor:#7EA9FF; --poor-soft:#172B4E;
+  --cloud:#A79CFF; --cloud-soft:#252050; --accent:#40CCB5; --accent-soft:#11352F;
+  --glow:#F6C443; --glow-soft:#3A3014;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.28); color-scheme:dark}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.15;text-wrap:balance;margin:0}
+a{color:var(--poor)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px;border-radius:6px}
+var,.m{font-family:var(--font-math);font-style:italic}
+sub,sup{line-height:0}
+
+.page{display:grid;grid-template-columns:232px minmax(0,1fr);gap:48px;max-width:1220px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 72px}
+main{min-width:0}
+
+/* Study map */
+.studymap{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;display:grid;gap:18px}
+.sm-head{display:flex;gap:12px;align-items:center}
+.ring{width:48px;height:48px;flex:none}
+.ring circle{fill:none;stroke-width:5}
+.ring .track{stroke:var(--surface-2)}
+.ring .fill{stroke:var(--accent);stroke-linecap:round;transition:stroke-dashoffset .5s}
+.sm-head strong{display:block;font-family:var(--font-display);font-size:1.05rem}
+.sm-head span{font-size:.8125rem;color:var(--muted)}
+.toc{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.toc a{display:flex;gap:10px;align-items:center;padding:7px 10px;border-radius:10px;color:var(--muted);text-decoration:none;font-size:.9375rem}
+.toc a:hover{background:var(--surface-2);color:var(--ink)}
+.toc a.active{background:var(--surface);color:var(--ink);font-weight:700;box-shadow:var(--shadow)}
+.toc .tick{width:18px;height:18px;flex:none;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:.7rem;color:transparent}
+.toc a.studied .tick{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.sm-note{font-size:.8125rem;color:var(--muted);margin:0}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:28px;align-items:center;
+  padding:40px;border-radius:24px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-radial-gradient(ellipse 120% 100% at 78% 50%,transparent 0 24px,var(--contour) 24px 25.5px)}
+.hero>*{position:relative}
+.eyebrow{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+.hero h1{font-size:clamp(2.3rem,5.2vw,3.7rem);font-weight:800;letter-spacing:-.02em;line-height:1.02}
+.hero h1 em{font-style:normal;color:var(--cloud)}
+.lede{font-size:1.125rem;color:var(--muted);max-width:46ch;margin:16px 0 22px}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;font:700 .9375rem var(--font-body);text-decoration:none;cursor:pointer;
+  border:1.5px solid var(--ink);color:var(--ink);background:transparent}
+.btn.primary{background:var(--ink);color:var(--surface)}
+.btn:hover{transform:translateY(-1px)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;padding:0;list-style:none}
+.chip{font-family:var(--font-mono);font-size:.75rem;padding:4px 10px;border-radius:999px;background:var(--surface-2);color:var(--muted)}
+.hero-fig{margin:0}
+.hero-fig canvas{aspect-ratio:1/1}
+.hero-fig figcaption{font-size:.8125rem;color:var(--muted);text-align:center;margin-top:6px}
+
+/* 课程 */
+.lesson{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 20px);padding-block:60px 12px;border-bottom:1px solid var(--line)}
+.lesson-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 18px;align-items:center;margin-bottom:22px}
+.lesson-num{grid-row:span 2;font-family:var(--font-display);font-weight:800;font-size:3.4rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px var(--cloud)}
+.lesson h2{font-size:clamp(1.6rem,3vw,2rem)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--font-mono);font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.prose{max-width:68ch}
+.prose p,.prose ul,.prose ol{margin:0 0 1em}
+.prose li{margin-bottom:.35em}
+h3{font-size:1.3rem;margin:32px 0 12px}
+.rich{color:var(--rich);font-weight:700}
+.poor{color:var(--poor);font-weight:700}
+.cl{color:var(--cloud);font-weight:700}
+
+.key{max-width:68ch;margin:22px 0;padding:16px 20px;border-radius:var(--r);background:var(--glow-soft)}
+.key b.label,.label{display:block;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.key p{margin:0;font-size:1.0625rem}
+.hl{background:linear-gradient(transparent 58%,var(--glow-soft) 58%);padding:0 2px}
+
+.formula{max-width:68ch;margin:20px 0;padding:18px 20px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);text-align:center;overflow-x:auto}
+.formula .eq{font-family:var(--font-math);font-size:1.45rem;white-space:nowrap}
+.formula .note{display:block;font-size:.875rem;color:var(--muted);margin-top:8px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:14px;margin:20px 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;min-width:0}
+.card h4{font-size:1.02rem;margin-bottom:6px}
+.card p{margin:0;font-size:.9375rem;color:var(--muted)}
+.card .big{font-family:var(--font-display);font-weight:800;font-size:1.6rem;color:var(--ink)}
+
+details.check{max-width:68ch;margin:18px 0;padding:12px 18px;border-radius:var(--r);background:var(--accent-soft)}
+details.check summary{cursor:pointer;font-weight:700}
+details.check summary::marker{color:var(--accent)}
+details.check p{margin:10px 0 2px}
+
+.table-wrap{overflow-x:auto;margin:18px 0;max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:.9375rem}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* Interactive panels */
+.widget{margin:26px 0;padding:20px;border-radius:20px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+.widget-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.widget-title{font-family:var(--font-display);font-weight:700;font-size:1.15rem}
+.widget-title small{display:block;font-family:var(--font-mono);font-weight:400;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.seg{display:inline-flex;flex-wrap:wrap;gap:2px;padding:4px;border-radius:999px;background:var(--surface-2)}
+.seg button{border:0;background:transparent;color:var(--muted);font:700 .875rem var(--font-body);padding:6px 14px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(18,32,58,.18)}
+.widget-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.widget-body>*{min-width:0}
+canvas{display:block;width:100%;height:auto;max-width:100%}
+.plot{width:100%;height:auto;display:block;overflow:visible}
+.plot text{fill:var(--muted);font:11px var(--font-mono)}
+.plot .axis{stroke:var(--muted);stroke-width:1}
+.plot .grid{stroke:var(--line);stroke-width:1}
+.cap{font-size:.8125rem;color:var(--muted);margin:8px 0 0;text-align:center}
+.readout{font-size:.9375rem;margin-top:10px}
+.readout .stat{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--font-mono);font-size:.8125rem;color:var(--muted);margin-bottom:6px}
+.readout .stat b{color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.8125rem;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:18px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.esp-scale{height:12px;border-radius:6px;background:linear-gradient(90deg,var(--rich),var(--glow),var(--accent),var(--poor))}
+.esp-labels{display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted);font-family:var(--font-mono);margin-top:4px}
+.field{display:grid;gap:4px;font-size:.8125rem;color:var(--muted);font-weight:700}
+select{font:inherit;font-size:1rem;font-weight:400;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:8px 10px}
+
+.water-wrap{max-width:560px;margin:0 auto}
+.en-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;max-width:460px;margin:18px 0}
+.en-tile{aspect-ratio:1;max-width:100%;border-radius:8px;display:grid;place-content:center;text-align:center;line-height:1.15;color:var(--ink);border:1px solid var(--line)}
+.en-tile b{font-family:var(--font-display);font-size:1rem}
+.en-tile span{display:block;font-family:var(--font-mono);font-size:.66rem;color:var(--ink);opacity:.75}
+.bond-controls{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+.bond-svg{width:100%;height:auto;display:block;margin-top:8px}
+.bond-svg .atom{fill:var(--surface);stroke:var(--ink);stroke-width:2}
+.bond-svg .sym{fill:var(--ink);font:700 20px var(--font-display);text-anchor:middle;dominant-baseline:central}
+.bond-svg .delta{font:italic 700 20px var(--font-math);text-anchor:middle}
+.bond-svg .dip{stroke:var(--ink);stroke-width:2.5;fill:none}
+.bond-svg .dip-head{fill:var(--ink)}
+.en-scale{position:relative;margin:16px 0 2px}
+.en-zones{display:flex;height:12px;border-radius:6px;overflow:hidden}
+.en-zones span:nth-child(1){flex:.4;background:var(--surface-2)}
+.en-zones span:nth-child(2){flex:1.4;background:var(--glow-soft)}
+.en-zones span:nth-child(3){flex:1.4;background:var(--rich-soft)}
+.en-marker{position:absolute;top:-5px;left:0;width:4px;height:22px;border-radius:2px;background:var(--ink);transform:translateX(-50%);transition:left .4s}
+.en-ticks{position:relative;height:18px;font-family:var(--font-mono);font-size:.7rem;color:var(--muted)}
+.en-ticks span{position:absolute;top:2px;transform:translateX(-50%)}
+.en-ticks span:first-child{transform:none}
+.en-ticks span:last-child{transform:translateX(-100%)}
+.figure{margin:22px 0;max-width:620px}
+.figure svg{width:100%;height:auto;display:block}
+.figure figcaption{font-size:.875rem;color:var(--muted);margin-top:6px}
+.svgt{fill:var(--ink);font:700 26px var(--font-display)}
+.svgs{fill:var(--muted);font:13px var(--font-body)}
+.svgv{fill:var(--ink);font:600 12px var(--font-mono)}
+.steps{list-style:none;margin:20px 0;padding:0;display:grid;gap:10px;max-width:68ch;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:start;padding:12px 14px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line)}
+.steps li::before{content:counter(s);width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--cloud-soft);color:var(--cloud);font:800 1rem var(--font-display)}
+.steps b{display:block}
+.steps span{color:var(--muted);font-size:.9375rem}
+.deck{display:grid;gap:14px;justify-items:center;margin:16px 0}
+.flash{width:min(100%,540px);height:230px;padding:0;border:0;background:none;cursor:pointer;perspective:1200px;font:inherit;color:inherit}
+.flash-inner{position:relative;display:block;width:100%;height:100%;transition:transform .55s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}
+.flash.flipped .flash-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;display:grid;place-content:center;padding:22px 28px;border-radius:20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;text-align:center}
+.front{background:var(--ink);color:var(--surface);font:700 1.4rem/1.3 var(--font-display)}
+.back{background:var(--surface);border:1.5px solid var(--cloud);color:var(--ink);font-size:1.02rem;line-height:1.5;transform:rotateY(180deg)}
+.face small{display:block;font-family:var(--font-mono);font-size:.68rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-bottom:10px}
+.deck-controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
+.q{margin:0 0 14px;padding:18px 20px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);max-width:760px}
+.q h4{font-family:var(--font-body);font-size:1.02rem;line-height:1.4;margin:0 0 12px}
+.q h4 span{display:block;font-family:var(--font-mono);font-size:.72rem;font-weight:400;color:var(--muted);margin-bottom:2px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:.9375rem;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--cloud)}
+.opt:disabled{cursor:default}
+.opt.correct{border-color:var(--accent);background:var(--accent-soft)}
+.opt.wrong{border-color:var(--rich);background:var(--rich-soft)}
+.explain{margin:10px 0 0;font-size:.9375rem;color:var(--muted)}
+.quiz-score{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin:8px 0;padding:14px 18px;border-radius:var(--r);background:var(--cloud-soft);max-width:760px}
+.quiz-score b{font-family:var(--font-display);font-size:1.3rem}
+.done-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:30px 0 0}
+.done-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;border:1.5px dashed var(--accent);background:transparent;color:var(--accent);font:700 .9375rem var(--font-body);cursor:pointer}
+.done-btn[aria-pressed="true"]{background:var(--accent);border-style:solid;color:var(--surface)}
+.done-row span{font-size:.875rem;color:var(--muted)}
+
+footer{padding-block:36px 0;font-size:.875rem;color:var(--muted);max-width:68ch}
+
+@media (max-width:960px){
+  .page{grid-template-columns:minmax(0,1fr);gap:20px;padding-block:12px 56px}
+  .studymap{top:env(safe-area-inset-top,0px);z-index:20;gap:8px;padding:10px 12px;border-radius:16px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+  .ring{width:34px;height:34px}
+  .toc{display:flex;overflow-x:auto;gap:4px;scrollbar-width:none}
+  .toc a{white-space:nowrap;padding:5px 10px}
+  .sm-note{display:none}
+}
+@media (max-width:760px){
+  .hero{grid-template-columns:minmax(0,1fr);padding:24px}
+  .hero-fig{order:-1;max-width:320px;width:100%;justify-self:center}
+  .widget-body{grid-template-columns:minmax(0,1fr)}
+  .lesson-num{font-size:2.6rem}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+
+<style id="ed-paper-theme">
+/* Paper theme v1: shared with the nine-day study notes. */
+:root {
+  --bg:#f5f3ed; --surface:#fffefb; --surface-2:#eceee5; --sunken:#eceee5;
+  --ink:#172c39; --muted:#5f6d72; --ink-2:#4e6067; --ink-3:#64736d;
+  --line:#dcded5; --line-strong:#aabbb1;
+  --brand:#126b63; --brand-ink:#fffefb; --brand-wash:#e7f1e9;
+  --accent:#126b63; --accent-soft:#e7f1e9; --try:#126b63; --try-wash:#e7f1e9;
+  --idea:#335da0; --idea-wash:#e9eff8; --quiz:#6d587f; --quiz-wash:#f0ebf3;
+  --rich:#bf443a; --rich-soft:#f9e7e2; --poor:#335da0; --poor-soft:#e9eff8;
+  --warn:#ae482f; --warn-wash:#f9e7e2;
+  --fact:#946018; --fact-wash:#fbefdf; --glow:#b67a28; --glow-soft:#fbefdf;
+  --good:#276949; --good-wash:#e7f1e9;
+  --cloud:#126b63; --cloud-soft:#e7f1e9; --contour:rgba(18,107,99,.06);
+  --chart-surface:#fffefb; --grid:#e5e8df; --axis:#b7c2b7;
+  --s1:#126b63; --s2:#b65d2c;
+  --map-line:rgba(18,80,73,.5);
+  --map-ramp:#e4efe6,#cfe3d7,#b9d6c8,#9ec7b6,#83b8a5,#68a993,#4d9a82,#358c73,#247d65,#196e58,#135e4c,#104e40,#0d3f34;
+  --esp-neg:#bf443a; --esp-mid:#eeeae1; --esp-pos:#335da0;
+  --shadow:0 1px 2px rgba(23,44,57,.035),0 6px 18px rgba(23,44,57,.035);
+  --font-body:"Microsoft YaHei UI","Microsoft YaHei","PingFang SC","Segoe UI",system-ui,sans-serif;
+  --font-display:var(--font-body);
+  --font-mono:"Cascadia Code",Consolas,"Microsoft YaHei",monospace;
+  --font-math:"Cambria Math",Cambria,"Times New Roman",serif;
+  --r:12px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141d1c; --surface:#1c2926; --surface-2:#23322d; --sunken:#18231f;
+  --ink:#e8eee6; --muted:#b1c1b8; --ink-2:#c1cdc5; --ink-3:#a5b8ac;
+  --line:#35463c; --line-strong:#5b7364;
+  --brand:#8bd0b9; --brand-ink:#142720; --brand-wash:#233d32;
+  --accent:#8bd0b9; --accent-soft:#233d32; --try:#8bd0b9; --try-wash:#233d32;
+  --idea:#a6bee9; --idea-wash:#263346; --quiz:#c5b2d8; --quiz-wash:#322b3b;
+  --rich:#f39588; --rich-soft:#422d29; --poor:#a6bee9; --poor-soft:#263346;
+  --warn:#f39588; --warn-wash:#422d29;
+  --fact:#e9c17e; --fact-wash:#3c3323; --glow:#e9c17e; --glow-soft:#3c3323;
+  --good:#98d6ad; --good-wash:#263e2e;
+  --cloud:#8bd0b9; --cloud-soft:#233d32; --contour:rgba(139,208,185,.065);
+  --chart-surface:#1c2926; --grid:#304137; --axis:#5a6e5e;
+  --s1:#8bd0b9; --s2:#e9ab7f;
+  --map-line:rgba(210,236,222,.45);
+  --map-ramp:#18332a,#214337,#2b5344,#356351,#42745f,#51856e,#64967f,#79a78f,#90b8a2,#a8c9b5,#c0d9c8,#d7e9db,#edf6ef;
+  --esp-neg:#f39588; --esp-mid:#c9c8b9; --esp-pos:#a6bee9;
+  --shadow:0 1px 2px rgba(0,0,0,.1),0 6px 18px rgba(0,0,0,.1);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#141d1c; --surface:#1c2926; --surface-2:#23322d; --sunken:#18231f;
+  --ink:#e8eee6; --muted:#b1c1b8; --ink-2:#c1cdc5; --ink-3:#a5b8ac;
+  --line:#35463c; --line-strong:#5b7364;
+  --brand:#8bd0b9; --brand-ink:#142720; --brand-wash:#233d32;
+  --accent:#8bd0b9; --accent-soft:#233d32; --try:#8bd0b9; --try-wash:#233d32;
+  --idea:#a6bee9; --idea-wash:#263346; --quiz:#c5b2d8; --quiz-wash:#322b3b;
+  --rich:#f39588; --rich-soft:#422d29; --poor:#a6bee9; --poor-soft:#263346;
+  --warn:#f39588; --warn-wash:#422d29;
+  --fact:#e9c17e; --fact-wash:#3c3323; --glow:#e9c17e; --glow-soft:#3c3323;
+  --good:#98d6ad; --good-wash:#263e2e;
+  --cloud:#8bd0b9; --cloud-soft:#233d32; --contour:rgba(139,208,185,.065);
+  --chart-surface:#1c2926; --grid:#304137; --axis:#5a6e5e;
+  --s1:#8bd0b9; --s2:#e9ab7f;
+  --map-line:rgba(210,236,222,.45);
+  --map-ramp:#18332a,#214337,#2b5344,#356351,#42745f,#51856e,#64967f,#79a78f,#90b8a2,#a8c9b5,#c0d9c8,#d7e9db,#edf6ef;
+  --esp-neg:#f39588; --esp-mid:#c9c8b9; --esp-pos:#a6bee9;
+  --shadow:0 1px 2px rgba(0,0,0,.1),0 6px 18px rgba(0,0,0,.1);
+  color-scheme:dark;
+}
+
+body{margin:0;line-height:1.85;-webkit-font-smoothing:antialiased}
+h1{line-height:1.3!important;letter-spacing:-.025em}
+h2,h3,h4{line-height:1.45!important;letter-spacing:-.01em}
+button,input,select,textarea{font-family:var(--font-body)}
+a{text-underline-offset:4px}
+.btn,.btn-primary,.btn-ghost,.done-btn{border-radius:8px}
+.hero,.widget,.formula,.card,.lab,.subst,.mech{border-radius:12px}
+.hero{box-shadow:none}
+.hero h1 em,.hero h1 .rho{color:var(--brand);font-style:normal}
+.hero .lede,.hero .lede strong{line-height:1.8}
+.prose,.module .prose{line-height:1.85}
+.eq{line-height:1.8}
+.toc a.active,.path a[aria-current="true"]{background:var(--brand-wash);box-shadow:none}
+.toc a.active{border-left:2px solid var(--brand)}
+.lesson-num{color:var(--brand);-webkit-text-stroke:0;font-weight:600}
+.studymap,.rail{scrollbar-color:var(--line-strong) transparent;scrollbar-width:thin}
+:focus-visible{outline:3px solid var(--glow);outline-offset:3px}
+@media(max-width:760px){.hero{padding:22px}.hero h1{line-height:1.35!important}}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface-2:#f2f3ef;--sunken:#f2f3ef;--ink:#172c39;--ink-2:#4e6067;--ink-3:#5f6d72;--muted:#5f6d72;--line:#dcded5;--brand:#126b63;color-scheme:light}
+  body{background:#fff;color:#172c39}
+  .hero,.widget,.lab{box-shadow:none}
+}
+</style>
+</head><body><div class="page">
+  <nav class="studymap" aria-label="课程">
+    <div class="sm-head">
+      <svg class="ring" viewbox="0 0 48 48" aria-hidden="true"><circle class="track" cx="24" cy="24" r="20"></circle><circle class="fill" id="ring-fill" cx="24" cy="24" r="20" transform="rotate(-90 24 24)" stroke-dasharray="125.66" stroke-dashoffset="125.66"></circle></svg>
+      <div><strong>学习地图</strong><span id="progress-text">已完成 0 / 7 课</span></div>
+    </div>
+    <ol class="toc" id="toc">
+      <li><a href="#what" data-id="what"><span class="tick">✓</span>电子密度是什么</a></li>
+      <li><a href="#orbitals" data-id="orbitals"><span class="tick">✓</span>从轨道到密度</a></li>
+      <li><a href="#pictures" data-id="pictures"><span class="tick">✓</span>描绘密度</a></li>
+      <li><a href="#polarity" data-id="polarity"><span class="tick">✓</span>键的极性</a></li>
+      <li><a href="#reactivity" data-id="reactivity"><span class="tick">✓</span>反应活性</a></li>
+      <li><a href="#measure" data-id="measure"><span class="tick">✓</span>测量与计算</a></li>
+      <li><a href="#review" data-id="review"><span class="tick">✓</span>复习与测验</a></li>
+    </ol>
+    <p class="sm-note">完成每课后，将其标记为已学习。进度保存在当前浏览器中。</p>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">化学学习指南</p>
+        <h1>电子在<em>哪里</em>？</h1>
+        <p class="lede">电子并不固定在某个点。电子密度告诉你空间每个点周围能找到多少负电荷。学会解读它，你就能预测极性、形状以及反应发生的位置。</p>
+        <div class="actions">
+          <a class="btn primary" href="#what">开始第 1 课</a>
+          <a class="btn" href="#review">跳到测验</a>
+        </div>
+        <ul class="chips">
+          <li class="chip">共 7 课</li><li class="chip">约 35 分钟</li><li class="chip">3 个交互模型</li><li class="chip">10 张记忆卡</li><li class="chip">8 道题的测验</li>
+        </ul>
+      </div>
+      <figure class="hero-fig">
+        <canvas id="hero-cloud" width="440" height="440" aria-label="由单个电子位置逐渐累积而成的 2p 轨道动态点云"></canvas>
+        <figcaption>每个点都是电子可能出现的一个位置。把这些点累积足够多，密度就显现出来了。</figcaption>
+      </figure>
+    </header>
+
+    <section class="lesson" id="what">
+      <div class="lesson-head">
+        <span class="lesson-num" aria-hidden="true">1</span>
+        <h2>什么是电子密度</h2>
+        <div class="meta"><span>5 分钟</span><span>核心概念</span></div>
+      </div>
+      <div class="prose">
+        <p>量子力学不会告诉你电子到底在哪里，它只告诉你在空间每个小区域找到电子的可能性有多大。用这个概率乘以电子数目，就得到 <strong>电子密度</strong>，记作 ρ(<b>r</b>) ，读作“rho of r”。</p>
+        <p>想象一张旋转风扇的长曝光照片。你在某一瞬间看不到扇叶，但模糊的影像显示出扇叶常待的位置。电子密度对电子而言就是这种模糊：密度大的地方是电子常待之处，密度小的地方电子很少光顾。</p>
+      </div>
+      <div class="formula">
+        <div class="eq">ρ(<b>r</b>) = |ψ(<b>r</b>)|�</div>
+        <span class="note">对单个电子而言，密度是其波函数 ψ 的平方。单位是单位体积内的电子数，如 e/Å³ 或 e/bohr³（1 e/bohr³ = 6.75 e/Å³）。</span>
+      </div>
+      <div class="formula">
+        <div class="eq">∫ ρ(<b>r</b>) d<b>r</b> = <var>N</var></div>
+        <span class="note">把所有空间上的密度累加起来，就得到电子总数 <var>N</var>。</span>
+      </div>
+      <h3>四个要记住的事实</h3>
+      <div class="cards">
+        <div class="card"><h4>永不为负</h4><p>它是平方量，所以处处 ρ ≥ 0。ψ 的符号（相位）被消掉了。</p></div>
+        <div class="card"><h4>在原子核处达到峰值</h4><p>密度在每个原子核处最高，因为那里的正电荷拉力最大。</p></div>
+        <div class="card"><h4>随距离衰减</h4><p>远离原子时密度大致按指数衰减，因此分子有柔和的边缘。</p></div>
+        <div class="card"><h4>你可以测量它</h4><p>波函数无法直接观测，但密度可以通过 X 射线衍射观测到。</p></div>
+      </div>
+      <div class="key"><b class="label">核心要点</b><p>电子密度是空间负电荷的分布图。 <span class="rich">密度更高意味着电子富集</span>；<span class="poor">密度更低意味着电子贫乏</span>。化学的绝大部分内容都源于电荷堆积在哪里。</p></div>
+      <details class="check"><summary>自测：把 ρ 在整个水分子上积分，你会得到什么数？</summary><p>10。氧带来 8 个电子，每个氢带来 1 个。</p></details>
+      <div class="done-row"><button class="done-btn" type="button" data-done="what" aria-pressed="false">标记第 1 课为已学习</button></div>
+    </section>
+
+    <section class="lesson" id="orbitals">
+      <div class="lesson-head">
+        <span class="lesson-num" aria-hidden="true">2</span>
+        <h2>从轨道到密度</h2>
+        <div class="meta"><span>6 分钟</span><span>交互式</span></div>
+      </div>
+      <div class="prose">
+        <p>每个轨道 ψ 描述一个电子如何分布。原子或分子的总密度，是对每个被占据轨道求和，并按它容纳的电子数（1 或 2）加权：</p>
+      </div>
+      <div class="formula">
+        <div class="eq">ρ(<b>r</b>) = Σ<sub><var>i</var></sub> <var>n</var><sub><var>i</var></sub> |ψ<sub><var>i</var></sub>(<b>r</b>)|�</div>
+        <span class="note">核心轨道紧贴原子核，价轨道向外展开，成键和反应都发生在外层区域。</span>
+      </div>
+      <div class="prose">
+        <p>画一个轨道有两种常见方式，而且很容易搞混：</p>
+        <ul>
+          <li><strong>沿一条线的密度</strong>，|ψ|²：表示距离 <var>r</var> 处一个微小盒子里电子的密集程度。对 1s 来说它在原子核处最大。</li>
+          <li><strong>径向概率</strong>，<var>P</var>(<var>r</var>) = 4π<var>r</var>²|ψ|²：在距离 <var>r</var> 处一个薄壳层内找到电子的概率。靠近原子核的壳层很小，所以这条曲线从零开始，并在更靠外处达到峰值。</li>
+        </ul>
+      </div>
+      <div class="widget">
+        <div class="widget-head">
+          <div class="widget-title"><small>交互模型</small>：氢原子轨道探索器</div>
+          <div class="seg" role="group" aria-label="选择一个轨道" id="orb-seg">
+            <button type="button" data-orb="1s" aria-pressed="true">1s</button>
+            <button type="button" data-orb="2s" aria-pressed="false">2s</button>
+            <button type="button" data-orb="2p" aria-pressed="false">2p</button>
+          </div>
+        </div>
+        <div class="widget-body">
+          <div>
+            <canvas id="orb-cloud" width="360" height="360" aria-label="所选轨道以采样点绘制的切片"></canvas>
+            <p class="cap">沿穿过原子核的切片，跨度 10.6 Å，由 5000 个采样位置绘制。</p>
+          </div>
+          <div>
+            <svg class="plot" id="orb-plot" viewbox="0 0 400 270" role="img" aria-label="径向概率与密度随距原子核距离的曲线"></svg>
+            <div class="legend"><span><i style="background:var(--cloud)"></i>径向概率 <var>P</var>(<var>r</var>)</span><span><i style="background:var(--glow)"></i>沿一条线的密度（已缩放）</span></div>
+            <div class="readout" id="orb-readout"></div>
+          </div>
+        </div>
+      </div>
+      <div class="key"><b class="label">核心要点</b><p>1s 电子在原子核处最<em>密集</em>，但最<em>可能</em>被找到的位置却是 0.53 Å 之外。两者都对：更靠外的壳层只是容纳了更大的体积。</p></div>
+      <details class="check"><summary>自测：为什么 2s 曲线在 1.06 Å 处降到零？</summary><p>那是一个径向节点，即 ψ 改变符号的球面，因此那里 |ψ|² = 0。一个轨道有 <var>n</var> − <var>l</var> − 1 个径向节点，所以 2s（<var>n</var> = 2，<var>l</var> = 0）有一个。</p></details>
+      <div class="done-row"><button class="done-btn" type="button" data-done="orbitals" aria-pressed="false">标记第 2 课为已学习</button></div>
+    </section>
+
+    <section class="lesson" id="pictures">
+      <div class="lesson-head">
+        <span class="lesson-num" aria-hidden="true">3</span>
+        <h2>三种描绘密度的方法</h2>
+        <div class="meta"><span>5 分钟</span><span>交互式</span></div>
+      </div>
+      <div class="prose">
+        <p>ρ 在三维空间的每个点都有取值，要在平面页面上画出它需要一点技巧。教科书和论文使用三种方式。</p>
+      </div>
+      <div class="cards">
+        <div class="card"><h4>散点图</h4><p>按密度比例散布点。点越密表示 ρ 越高。最适合建立直觉。</p></div>
+        <div class="card"><h4>等高线图</h4><p>线条连接 ρ 相等的点，就像登山地图上的等高线。它们在原子核附近聚集。晶体学家使用这种方式。</p></div>
+        <div class="card"><h4>等值面</h4><p>ρ 等于所选数值的单个三维表面，通常为 0.002 e/bohr³。它赋予分子大小和形状。</p></div>
+      </div>
+      <h3>静电势（ESP）图</h3>
+      <div class="prose">
+        <p>用静电势为等值面上色，你就得到 <strong>ESP 图</strong>：即一个微小的正试探电荷在表面每个位置所受的推或拉。配色标准在各种教科书中是通用的。</p>
+      </div>
+      <div class="widget">
+        <div class="widget-head">
+          <div class="widget-title"><small>交互模型</small>：一个水分子，三种图像</div>
+          <div class="seg" role="group" aria-label="选择一种图" id="water-seg">
+            <button type="button" data-view="dots" aria-pressed="false">散点图</button>
+            <button type="button" data-view="contour" aria-pressed="false">等高线图</button>
+            <button type="button" data-view="esp" aria-pressed="true">ESP 图</button>
+          </div>
+        </div>
+        <div class="water-wrap">
+          <canvas id="water" width="480" height="340" aria-label="以所选样式绘制的水分子电子密度"></canvas>
+          <div id="water-legend"></div>
+          <p class="cap" id="water-cap"></p>
+        </div>
+      </div>
+      <div class="key"><b class="label">核心要点</b><p><span class="rich">红色</span>标出电子堆积之处：孤对电子、阴离子、亲核试剂。 <span class="poor">蓝色</span>标出吸引电子富集伙伴的电子贫乏位置。异色相吸，氢键正是这样排列的。</p></div>
+      <details class="check"><summary>自测：在水分子 ESP 图上，为什么氧端是红色？</summary><p>氧比氢电负性更强，且带有两对孤对电子，所以它占有的密度超过其应得份额。氢被留下而电子贫乏，显示为蓝色。</p></details>
+      <div class="done-row"><button class="done-btn" type="button" data-done="pictures" aria-pressed="false">标记第 3 课为已学习</button></div>
+    </section>
+
+    <section class="lesson" id="polarity">
+      <div class="lesson-head">
+        <span class="lesson-num" aria-hidden="true">4</span>
+        <h2>电负性拉扯密度</h2>
+        <div class="meta"><span>6 分钟</span><span>交互式</span></div>
+      </div>
+      <div class="prose">
+        <p>当两个原子共享电子时，共享密度并不总是均分。 <strong>电负性</strong>（χ）衡量一个原子把成键电子拉向自己的强弱程度。电负性更强的原子获得额外密度和部分负电荷 <span class="rich">δ−</span>，它的伙伴则留下部分正电荷 <span class="poor">δ+</span>。</p>
+        <p>电负性在同一周期从左到右增大，在同一族从上到下减小，因此氟是所有元素中拉力最强的。鲍林（Pauling）值：</p>
+      </div>
+      <div class="en-grid" id="en-grid" role="img" aria-label="主族元素的鲍林电负性值，按强弱着色"></div>
+      <div class="widget">
+        <div class="widget-head">
+          <div class="widget-title"><small>交互模型</small>：键极性构建器</div>
+          <div class="bond-controls">
+            <label class="field" for="atom-a">原子 A<select id="atom-a"></select></label>
+            <label class="field" for="atom-b">原子 B<select id="atom-b"></select></label>
+          </div>
+        </div>
+        <svg class="bond-svg" id="bond-svg" viewbox="0 0 520 210" role="img" aria-label="两个成键原子及其共享的电子密度">
+          <defs>
+            <lineargradient id="bond-grad" x1="0" x2="1" y1="0" y2="0">
+              <stop id="g-a" offset="0%"></stop><stop id="g-m" offset="50%"></stop><stop id="g-b" offset="100%"></stop>
+            </lineargradient>
+            <radialgradient id="pair-grad"><stop offset="0%" style="stop-color:var(--cloud);stop-opacity:.55"></stop><stop offset="100%" style="stop-color:var(--cloud);stop-opacity:0"></stop></radialgradient>
+          </defs>
+          <ellipse cx="260" cy="100" rx="200" ry="64" fill="url(#bond-grad)"></ellipse>
+          <ellipse id="pair" cx="260" cy="100" rx="70" ry="46" fill="url(#pair-grad)"></ellipse>
+          <circle class="atom" cx="160" cy="100" r="30"></circle><text class="sym" id="sym-a" x="160" y="100">H</text>
+          <circle class="atom" cx="360" cy="100" r="30"></circle><text class="sym" id="sym-b" x="360" y="100">O</text>
+          <text class="delta" id="delta-a" x="160" y="44"></text><text class="delta" id="delta-b" x="360" y="44"></text>
+          <g id="dipole"><path class="dip" id="dip-line" d=""></path><path class="dip-head" id="dip-head" d=""></path></g>
+        </svg>
+        <div class="en-scale"><div class="en-zones"><span></span><span></span><span></span></div><div class="en-marker" id="en-marker"></div></div>
+        <div class="en-ticks"><span style="left:0">0</span><span style="left:12.5%">0.4</span><span style="left:56.25%">1.8</span><span style="left:100%">3.2</span></div>
+        <div class="legend"><span><i style="background:var(--surface-2)"></i>非极性共价</span><span><i style="background:var(--glow)"></i>极性共价</span><span><i style="background:var(--rich)"></i>以离子为主</span><span>（Δχ 的临界值因教科书而异）</span></div>
+        <div class="readout" id="bond-readout"></div>
+      </div>
+      <h3>极性键，极性分子？</h3>
+      <div class="prose">
+        <p>每个极性键都有偶极矩，分子的总偶极矩是它们的矢量和。对称性可以完全抵消极性键。偶极矩以德拜（D）为单位测量。</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>分子</th><th>形状</th><th>偶极矩</th><th>原因</th></tr></thead>
+          <tbody>
+            <tr><td>H₂O</td><td>弯曲</td><td class="num">1.85 D</td><td>两个 O–H 偶极指向大致相同方向</td></tr>
+            <tr><td>NH₃</td><td>三角锥形</td><td class="num">1.47 D</td><td>三个 N–H 偶极加上一侧的一对孤对电子</td></tr>
+            <tr><td>HCl</td><td>直线形</td><td class="num">1.08 D</td><td>一个极性键，没有抵消它的键</td></tr>
+            <tr><td>CO₂</td><td>直线形</td><td class="num">0 D</td><td>两个 C=O 偶极指向相反方向</td></tr>
+            <tr><td>CCl₄</td><td>四面体</td><td class="num">0 D</td><td>四个 C–Cl 偶极因对称性而抵消</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="key"><b class="label">核心要点</b><p>密度向电负性更强的原子偏移。差值 Δχ 越大，偏移越大，直到一个原子几乎拿走电子，键变成离子键。</p></div>
+      <details class="check"><summary>自测：在 C–O 键中，哪个原子是 δ+？</summary><p>碳。氧（3.44）比碳（2.55）拉得更强，Δχ = 0.89，所以碳端电子贫乏。这就是羰基碳吸引亲核试剂的原因。</p></details>
+      <div class="done-row"><button class="done-btn" type="button" data-done="polarity" aria-pressed="false">标记第 4 课为已学习</button></div>
+    </section>
+
+    <section class="lesson" id="reactivity">
+      <div class="lesson-head">
+        <span class="lesson-num" aria-hidden="true">5</span>
+        <h2>密度驱动反应</h2>
+        <div class="meta"><span>6 分钟</span><span>有机化学</span></div>
+      </div>
+      <div class="prose">
+        <p>反应就是电子密度在移动。电子富集的位点称为 <strong class="rich">亲核试剂</strong>（“喜爱原子核”），它们把密度提供给电子贫乏的位点，后者称为 <strong class="poor">亲电试剂</strong>（“喜爱电子”）。反应机理中的弯箭头总是从高密度处（孤对电子或 π 键）出发，指向低密度处。</p>
+      </div>
+      <figure class="figure">
+        <svg viewbox="0 0 520 150" role="img" aria-label="氢氧根的孤对电子进攻羰基上电子贫乏的碳">
+          <defs><marker id="ah" viewbox="0 0 10 10" refx="8" refy="5" markerwidth="7" markerheight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--ink)"></path></marker></defs>
+          <text class="svgt" x="44" y="90" style="fill:var(--rich)">HO⁻</text>
+          <path d="M 104 64 C 160 6, 252 6, 300 58" style="fill:none;stroke:var(--ink);stroke-width:2" marker-end="url(#ah)"></path>
+          <text class="svgt" x="306" y="90">C</text><text class="svgt" x="340" y="88">=</text><text class="svgt" x="372" y="90">O</text>
+          <text x="306" y="50" style="fill:var(--poor);font:italic 700 18px var(--font-math)">δ+</text>
+          <text x="374" y="50" style="fill:var(--rich);font:italic 700 18px var(--font-math)">δ−</text>
+          <path d="M 346 98 C 352 128, 380 128, 386 102" style="fill:none;stroke:var(--ink);stroke-width:2" marker-end="url(#ah)"></path>
+          <text class="svgs" x="30" y="138">亲核试剂：电子富集</text>
+          <text class="svgs" x="290" y="144">亲电试剂：电子贫乏的碳</text>
+        </svg>
+        <figcaption>氢氧根把密度推向 δ+ 的羰基碳；C=O 的 π 电子移到氧上。</figcaption>
+      </figure>
+      <h3>诱导效应：沿 σ 键的拉力</h3>
+      <div class="prose">
+        <p>电负性原子会沿 σ 键链拉动密度。这种拉力很快减弱，经过约三个键后就几乎感觉不到。酸性强度能很好地说明这一点：把密度从羧酸根上拉走会分散它的负电荷，因此酸更容易给出 H⁺，其 p<var>K</var><sub>a</sub> 值下降。</p>
+      </div>
+      <figure class="figure">
+        <svg viewbox="0 0 520 196" role="img" aria-label="pKa 柱状图：丁酸 4.82、4-氯丁酸 4.52、3-氯丁酸 4.05、2-氯丁酸 2.86">
+          <g class="plot">
+            <line class="grid" x1="200" y1="8" x2="200" y2="166"></line><line class="grid" x1="256" y1="8" x2="256" y2="166"></line><line class="grid" x1="312" y1="8" x2="312" y2="166"></line><line class="grid" x1="368" y1="8" x2="368" y2="166"></line><line class="grid" x1="424" y1="8" x2="424" y2="166"></line><line class="grid" x1="480" y1="8" x2="480" y2="166"></line>
+            <text x="200" y="184" text-anchor="middle">0</text><text x="256" y="184" text-anchor="middle">1</text><text x="312" y="184" text-anchor="middle">2</text><text x="368" y="184" text-anchor="middle">3</text><text x="424" y="184" text-anchor="middle">4</text><text x="480" y="184" text-anchor="middle">5</text>
+          </g>
+          <text class="svgs" x="190" y="31" text-anchor="end">丁酸</text><rect x="200" y="14" width="269.9" height="24" rx="4" style="fill:var(--cloud);opacity:.45"></rect><text class="svgv" x="476" y="31">4.82</text>
+          <text class="svgs" x="190" y="69" text-anchor="end">4-氯丁酸</text><rect x="200" y="52" width="253.1" height="24" rx="4" style="fill:var(--cloud);opacity:.6"></rect><text class="svgv" x="459" y="69">4.52</text>
+          <text class="svgs" x="190" y="107" text-anchor="end">3-氯丁酸</text><rect x="200" y="90" width="226.8" height="24" rx="4" style="fill:var(--cloud);opacity:.78"></rect><text class="svgv" x="433" y="107">4.05</text>
+          <text class="svgs" x="190" y="145" text-anchor="end">2-氯丁酸</text><rect x="200" y="128" width="160.2" height="24" rx="4" style="fill:var(--cloud)"></rect><text class="svgv" x="366" y="145">2.86</text>
+        </svg>
+        <figcaption>p<var>K</var><sub>a</sub> 在水中。数值越低表示酸越强。把 Cl 移得更靠近 COOH 基团会产生大得多的影响。</figcaption>
+      </figure>
+      <h3>共振效应：沿 π 体系的推或拉</h3>
+      <div class="prose">
+        <p>连在苯环上的基团会改变环所持有的密度。给电子基团使环更具亲核性，并加快亲电芳香取代反应；吸电子基团则使其减慢。</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>基团</th><th>对环密度的影响</th><th>主要原因</th><th>定位方向</th></tr></thead>
+          <tbody>
+            <tr><td>–NH₂, –OH, –OCH₃</td><td class="rich">强给电子</td><td>孤对电子通过共振给电子</td><td>邻位 / 对位</td></tr>
+            <tr><td>–CH₃ 及其他烷基</td><td class="rich">弱给电子</td><td>诱导与超共轭</td><td>邻位 / 对位</td></tr>
+            <tr><td>–F, –Cl, –Br</td><td class="poor">弱吸电子</td><td>诱导吸电子强于共振给电子</td><td>邻位 / 对位</td></tr>
+            <tr><td>–CHO, –COR, –COOH</td><td class="poor">吸电子</td><td>C=O 通过共振和诱导吸电子</td><td>间位</td></tr>
+            <tr><td>–NO₂, –CN, –CF₃</td><td class="poor">强吸电子</td><td>共振与诱导（–CF₃ 仅靠诱导）</td><td>间位</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="key"><b class="label">核心要点</b><p>电子从高密度流向低密度。在一对分子中找到电子最富集和最贫乏的位点，通常就找到了它们反应的位置。</p></div>
+      <details class="check"><summary>自测：氯乙酸（p<var>K</var><sub>a</sub> 2.87）还是乙酸（4.76），哪个更强，为什么？</summary><p>氯乙酸。氯通过 σ 键拉动密度，使羧酸根离子上的负电荷分散并稳定下来。</p></details>
+      <div class="done-row"><button class="done-btn" type="button" data-done="reactivity" aria-pressed="false">标记第 5 课为已学习</button></div>
+    </section>
+
+    <section class="lesson" id="measure">
+      <div class="lesson-head">
+        <span class="lesson-num" aria-hidden="true">6</span>
+        <h2>我们如何测量和计算它</h2>
+        <div class="meta"><span>5 min</span><span>实验与理论</span></div>
+      </div>
+      <h3>X 射线晶体学观测电子</h3>
+      <ol class="steps">
+        <li><div><b>生长晶体</b><span>数十亿个相同的分子在规则晶格中重复排列。</span></div></li>
+        <li><div><b>用 X 射线照射</b><span>X 射线打在电子上发生散射，而非原子核，因此电子越多的原子散射越强。</span></div></li>
+        <li><div><b>记录衍射图样</b><span>数千个光点，其亮度编码了密度如何排布。</span></div></li>
+        <li><div><b>傅里叶变换</b><span>数学方法把光点连同估算的相位转成一张三维电子密度图。</span></div></li>
+        <li><div><b>建立模型</b><span>把原子放到密度峰里。在约 1 Å 分辨率下，单个原子显示为独立的斑点。</span></div></li>
+      </ol>
+      <h3>密度泛函理论</h3>
+      <div class="prose">
+        <p>一个描述 <var>N</var> 个电子的波函数依赖于 3<var>N</var> 个坐标。苯有 42 个电子，所以它的波函数生活在 126 维中；而它的电子密度仍然只生活在 3 维里。</p>
+        <p>1964 年，Hohenberg 和 Kohn 证明：仅凭基态密度就能确定分子的所有性质。这一结果正是 <strong>密度泛函理论（DFT）</strong> 的基础，如今它是计算化学中使用最广泛的方法。Walter Kohn 因这项工作分享了 1998 年诺贝尔化学奖。</p>
+      </div>
+      <h3>键处的密度</h3>
+      <div class="prose">
+        <p>在两个成键原子之间，密度下降到称为 <strong>键临界点</strong>（Bader 的分子中原子理论）的鞍点。那里的密度更高，意味着键更强、键级更高：</p>
+      </div>
+      <div class="cards">
+        <div class="card"><h4>乙烷中的 C–C</h4><p><span class="big">≈ 0.25</span> e/bohr�</p></div>
+        <div class="card"><h4>乙烯中的 C=C</h4><p><span class="big">≈ 0.35</span> e/bohr�</p></div>
+        <div class="card"><h4>乙炔中的 C≡C</h4><p><span class="big">≈ 0.41</span> e/bohr�</p></div>
+      </div>
+      <p class="cap" style="text-align:left">近似值；精确数值取决于计算方法。</p>
+      <div class="key"><b class="label">核心要点</b><p>电子密度既能由实验测量，也能由理论计算。这使它成为晶体学家与计算化学家之间的共同语言。</p></div>
+      <details class="check"><summary>自测：为什么氢原子难以用 X 射线衍射定位？</summary><p>氢只有一个电子，所以它对 X 射线的散射很弱。这个电子还被拉进键中，使得密度峰偏离原子核，X–H 键看起来短了约 0.1 Å。</p></details>
+      <div class="done-row"><button class="done-btn" type="button" data-done="measure" aria-pressed="false">标记第 6 课为已学习</button></div>
+    </section>
+
+    <section class="lesson" id="review">
+      <div class="lesson-head">
+        <span class="lesson-num" aria-hidden="true">7</span>
+        <h2>复习与测验</h2>
+        <div class="meta"><span>10 min</span><span>练习</span></div>
+      </div>
+      <h3>公式表</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>物理量</th><th>表达式</th><th>它告诉你的信息</th></tr></thead>
+          <tbody>
+            <tr><td>单电子密度</td><td class="m">ρ(<b>r</b>) = |ψ(<b>r</b>)|�</td><td>单位体积内的概率</td></tr>
+            <tr><td>多电子</td><td class="m">ρ(<b>r</b>) = Σ <var>n</var><sub>i</sub>|ψ<sub>i</sub>(<b>r</b>)|�</td><td>对所有被占据轨道求和</td></tr>
+            <tr><td>归一化</td><td class="m">∫ ρ(<b>r</b>) d<b>r</b> = <var>N</var></td><td>电子总数</td></tr>
+            <tr><td>径向概率</td><td class="m"><var>P</var>(<var>r</var>) = 4π<var>r</var>�|ψ|�</td><td>距离 <var>r</var></td></tr>
+            <tr><td>节点</td><td class="m"><var>n</var> − <var>l</var> − 1 个径向，<var>l</var> 个角向</td><td>ρ = 0 的表面</td></tr>
+            <tr><td>键极性</td><td class="m">Δχ = |χ<sub>A</sub> − χ<sub>B</sub>|</td><td>差值越大，共享越不均匀</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>记忆卡</h3>
+      <div class="deck">
+        <button class="flash" id="flash" type="button"><span class="flash-inner"><span class="face front" id="flash-front"></span><span class="face back" id="flash-back"></span></span></button>
+        <div class="deck-controls">
+          <button class="btn" id="fc-prev" type="button">上一张</button>
+          <span class="chip" id="fc-count">1 / 10</span>
+          <button class="btn" id="fc-next" type="button">下一张</button>
+          <button class="btn" id="fc-shuffle" type="button">打乱</button>
+        </div>
+        <p class="cap">点击卡片翻面。用方向键在卡片之间切换。</p>
+      </div>
+      <h3>测验</h3>
+      <div class="quiz-score" id="quiz-score"><b id="score-num">0 / 8</b><span id="score-text">为每道题选择一个答案以查看解释。</span><button class="btn" id="quiz-reset" type="button">重新开始</button></div>
+      <div id="quiz"></div>
+      <div class="done-row"><button class="done-btn" type="button" data-done="review" aria-pressed="false">标记第 7 课为已学习</button></div>
+    </section>
+
+    <footer>
+      <p>电负性采用鲍林值。轨道图使用精确的氢原子波函数（玻尔半径 <var>a</var><sub>0</sub> = 0.529 Å）。水和键模型是简化的教学示意图，并非量子计算。</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const rootEl = document.documentElement;
+const tok = n => getComputedStyle(rootEl).getPropertyValue(n).trim();
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const themeFns = [];
+const onTheme = f => themeFns.push(f);
+const rerunTheme = () => themeFns.forEach(f => f());
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', rerunTheme);
+new MutationObserver(rerunTheme).observe(rootEl, {attributes: true, attributeFilter: ['data-theme']});
+
+function rgb(hex) {
+  hex = hex.replace('#', '');
+  if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+  const n = parseInt(hex, 16);
+  return [n >> 16 & 255, n >> 8 & 255, n & 255];
+}
+// Scale a canvas for sharp drawing on high-density screens; drawing code keeps using CSS-pixel units.
+function prep(c) {
+  if (!c.dataset.w) {
+    const d = Math.min(window.devicePixelRatio || 1, 2);
+    c.dataset.w = c.width; c.dataset.h = c.height; c.dataset.d = d;
+    c.width = c.width * d; c.height = c.height * d;
+  }
+  const ctx = c.getContext('2d');
+  ctx.setTransform(+c.dataset.d, 0, 0, +c.dataset.d, 0, 0);
+  return ctx;
+}
+
+/* Hydrogen orbitals, distances in Bohr radii (a0 = 0.529 �). psi2 is |ψ|� in the xz slice through the 原子核. */
+const A0 = 0.529;
+const ORB = {
+  '1s': {psi2: (x, z) => Math.exp(-2 * Math.hypot(x, z)), max: 1,
+    P: r => 4 * r * r * Math.exp(-2 * r), line: r => Math.exp(-2 * r),
+    peak: 1, nodes: [], radial: 0, angular: 0,
+    text: 'Spherical and densest right at the 原子核. The radial curve peaks at the Bohr radius, 0.53 �.'},
+  '2s': {psi2: (x, z) => { const r = Math.hypot(x, z); return (2 - r) * (2 - r) * Math.exp(-r); }, max: 4,
+    P: r => r * r * (2 - r) * (2 - r) * Math.exp(-r) / 8, line: r => (2 - r) * (2 - r) * Math.exp(-r),
+    peak: 3 + Math.sqrt(5), nodes: [2], radial: 1, angular: 0,
+    text: 'A small inner sphere, a spherical 节点 at 1.06 �, then a larger outer shell where the electron spends most of its time.'},
+  '2p': {psi2: (x, z) => z * z * Math.exp(-Math.hypot(x, z)), max: 4 * Math.exp(-2),
+    P: r => Math.pow(r, 4) * Math.exp(-r) / 24, line: r => r * r * Math.exp(-r),
+    peak: 4, nodes: [], radial: 0, angular: 1,
+    text: '沿 z 轴的两个瓣，中间有一个穿过原子核的节面。密度在该平面上处处为零。'}
+};
+// Rejection sampling: keep a random point with probability proportional to |ψ|�.
+function sample(o, n, R) {
+  const pts = [];
+  let guard = 0;
+  while (pts.length < n && guard++ < 6e6) {
+    const x = (Math.random() * 2 - 1) * R, z = (Math.random() * 2 - 1) * R;
+    if (Math.random() * o.max < o.psi2(x, z)) pts.push([x, z]);
+  }
+  return pts;
+}
+
+/* Hero: a 2p cloud that builds up from single "measurements", then keeps re-sampling slowly. */
+const heroCv = $('#hero-cloud');
+const HERO_R = 9, HERO_S = 220 / HERO_R, HERO_N = 3200;
+let heroPts = sample(ORB['2p'], 900, HERO_R), heroVisible = false, heroRunning = false, lastSwap = 0;
+function drawHero() {
+  const ctx = prep(heroCv), W = 440, cx = 220, cy = 220;
+  ctx.clearRect(0, 0, W, W);
+  ctx.strokeStyle = tok('--muted'); ctx.globalAlpha = .5; ctx.setLineDash([4, 5]);
+  ctx.beginPath(); ctx.moveTo(24, cy); ctx.lineTo(W - 24, cy); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = tok('--cloud'); ctx.globalAlpha = .7;
+  for (const p of heroPts) ctx.fillRect(cx + p[0] * HERO_S - 1.3, cy - p[1] * HERO_S - 1.3, 2.6, 2.6);
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = tok('--ink');
+  ctx.beginPath(); ctx.arc(cx, cy, 4, 0, 7); ctx.fill();
+  ctx.fillStyle = tok('--muted'); ctx.font = '11px "JetBrains Mono", Consolas, monospace';
+  ctx.fillText('节面', W - 104, cy - 8);
+  ctx.fillText('原子核', cx + 8, cy + 16);
+}
+function heroTick(t) {
+  if (!heroVisible) { heroRunning = false; return; }
+  if (heroPts.length < HERO_N) { heroPts.push(...sample(ORB['2p'], 60, HERO_R)); drawHero(); }
+  else if (t - lastSwap > 90) {
+    lastSwap = t;
+    for (let i = 0; i < 40; i++) heroPts[(Math.random() * heroPts.length) | 0] = sample(ORB['2p'], 1, HERO_R)[0];
+    drawHero();
+  }
+  requestAnimationFrame(heroTick);
+}
+if (reduceMotion) { heroPts = sample(ORB['2p'], HERO_N, HERO_R); drawHero(); }
+else {
+  drawHero();
+  new IntersectionObserver(es => {
+    heroVisible = es[0].isIntersecting;
+    if (heroVisible && !heroRunning) { heroRunning = true; requestAnimationFrame(heroTick); }
+  }).observe(heroCv);
+}
+onTheme(drawHero);
+
+/* Orbital explorer: dot slice on the left, radial plot on the right. */
+let curOrb = '1s';
+const orbCache = {};
+function drawOrbCloud() {
+  const c = $('#orb-cloud'), ctx = prep(c), W = 360, cx = 180, cy = 180, s = 18; // 18 px per a0, box �10 a0
+  const o = ORB[curOrb];
+  const pts = orbCache[curOrb] || (orbCache[curOrb] = sample(o, 5000, 10));
+  ctx.fillStyle = tok('--bg'); ctx.fillRect(0, 0, W, W);
+  ctx.strokeStyle = tok('--line'); ctx.lineWidth = 1;
+  for (let a = 1; a <= 5; a++) { ctx.beginPath(); ctx.arc(cx, cy, a / A0 * s, 0, 7); ctx.stroke(); }
+  ctx.fillStyle = tok('--cloud'); ctx.globalAlpha = .55;
+  for (const [x, z] of pts) ctx.fillRect(cx + x * s - 1, cy - z * s - 1, 2, 2);
+  ctx.globalAlpha = 1;
+  ctx.font = '11px "JetBrains Mono", Consolas, monospace';
+  ctx.strokeStyle = tok('--ink'); ctx.fillStyle = tok('--ink'); ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+  if (curOrb === '2s') { ctx.beginPath(); ctx.arc(cx, cy, 2 * s, 0, 7); ctx.stroke(); ctx.setLineDash([]); ctx.fillText('径向节点', cx + 2 * s + 6, cy - 2 * s); }
+  if (curOrb === '2p') { ctx.beginPath(); ctx.moveTo(10, cy); ctx.lineTo(W - 10, cy); ctx.stroke(); ctx.setLineDash([]); ctx.fillText('节面', W - 96, cy - 8); ctx.fillText('z', cx + 8, 20); }
+  ctx.setLineDash([]);
+  ctx.beginPath(); ctx.arc(cx, cy, 3, 0, 7); ctx.fill();
+  const bar = 2 / A0 * s; // 2 � scale bar
+  ctx.fillRect(14, W - 20, bar, 3);
+  ctx.fillText('2 �', 14, W - 26);
+  ctx.fillStyle = tok('--muted'); ctx.fillText('rings every 1 �', W - 120, W - 14);
+}
+function drawOrbPlot() {
+  const o = ORB[curOrb], svg = $('#orb-plot');
+  const L = 46, R = 386, T = 16, B = 230, xMax = 6, yMax = 1.1;
+  const X = a => L + (R - L) * a / xMax, Y = v => B - (B - T) * v / yMax;
+  let h = '';
+  for (let a = 0; a <= 6; a++) h += `<line class="grid" x1="${X(a)}" y1="${T}" x2="${X(a)}" y2="${B}"/><text x="${X(a)}" y="${B + 16}" text-anchor="middle">${a}</text>`;
+  for (const v of [0, .5, 1]) h += `<line class="grid" x1="${L}" y1="${Y(v)}" x2="${R}" y2="${Y(v)}"/><text x="${L - 6}" y="${Y(v) + 4}" text-anchor="end">${v.toFixed(1)}</text>`;
+  h += `<line class="axis" x1="${L}" y1="${B}" x2="${R}" y2="${B}"/><line class="axis" x1="${L}" y1="${T}" x2="${L}" y2="${B}"/>`;
+  h += `<text x="${(L + R) / 2}" y="${B + 34}" text-anchor="middle">distance from 原子核, r (�)</text><text x="${L}" y="${T - 5}">P(r) per �</text>`;
+  let lineMax = 0;
+  for (let i = 0; i <= 240; i++) lineMax = Math.max(lineMax, o.line(i / 240 * xMax / A0));
+  let pP = '', pL = '';
+  for (let i = 0; i <= 240; i++) {
+    const a = i / 240 * xMax, r = a / A0;
+    pP += (i ? 'L' : 'M') + X(a).toFixed(1) + ' ' + Y(o.P(r) / A0).toFixed(1);
+    pL += (i ? 'L' : 'M') + X(a).toFixed(1) + ' ' + Y(o.line(r) / lineMax).toFixed(1);
+  }
+  h += `<path d="${pL}" style="fill:none;stroke:var(--glow);stroke-width:2;stroke-dasharray:6 4"/>`;
+  h += `<path d="${pP}" style="fill:none;stroke:var(--cloud);stroke-width:2.5"/>`;
+  for (const n of o.nodes) {
+    const nx = X(n * A0);
+    h += `<line x1="${nx}" y1="${T + 14}" x2="${nx}" y2="${B}" style="stroke:var(--ink);stroke-dasharray:3 3"/><text x="${nx + 4}" y="${T + 24}" style="fill:var(--ink)">节点 ${(n * A0).toFixed(2)} �</text>`;
+  }
+  const px = X(o.peak * A0), py = Y(o.P(o.peak) / A0);
+  h += `<circle cx="${px}" cy="${py}" r="4.5" style="fill:var(--cloud)"/><text x="${px + 8}" y="${py - 8}" style="fill:var(--ink)">${(o.peak * A0).toFixed(2)} �</text>`;
+  svg.innerHTML = h;
+  $('#orb-readout').innerHTML = `<div class="stat"><span>最可能距离 <b>${(o.peak * A0).toFixed(2)} �</b></span><span>径向节点 <b>${o.radial}</b></span><span>角向节点 <b>${o.angular}</b></span></div>${o.text}`;
+}
+function setOrb(k) {
+  curOrb = k;
+  $$('#orb-seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.orb === k));
+  drawOrbCloud(); drawOrbPlot();
+}
+$$('#orb-seg button').forEach(b => b.addEventListener('click', () => setOrb(b.dataset.orb)));
+setOrb('1s');
+onTheme(drawOrbCloud);
+
+/* Water: a simple two-exponential density model with point charges for the ESP. Distances in �, 80 px per �. */
+const WS = 80;
+const WATER = [
+  {sym: 'O', x: 240, y: 140, amp: 8, len: .40, q: -.82},
+  {sym: 'H', x: 179.3, y: 187, amp: 1, len: .50, q: .41},
+  {sym: 'H', x: 300.7, y: 187, amp: 1, len: .50, q: .41}
+];
+const ISO = .21;
+let waterView = 'esp';
+function waterRho(x, y) {
+  let s = 0;
+  for (const a of WATER) s += a.amp * Math.exp(-Math.hypot(x - a.x, y - a.y) / WS / a.len);
+  return s;
+}
+function waterV(x, y) {
+  let v = 0;
+  for (const a of WATER) v += a.q / Math.max(Math.hypot(x - a.x, y - a.y) / WS, .3);
+  return v;
+}
+function espColor(v, stops) { // v in [-1, 1]: red, yellow, green, blue
+  const t = (Math.max(-1, Math.min(1, v)) + 1) / 2 * 3, i = Math.min(2, Math.floor(t)), f = t - i;
+  return stops[i].map((c, k) => c + (stops[i + 1][k] - c) * f);
+}
+function drawWater() {
+  const c = $('#water'), ctx = prep(c), d = +c.dataset.d, W = 480, H = 340;
+  const bg = rgb(tok('--bg')), cl = rgb(tok('--cloud'));
+  ctx.fillStyle = tok('--bg'); ctx.fillRect(0, 0, W, H);
+  if (waterView === 'dots') {
+    ctx.fillStyle = tok('--cloud'); ctx.globalAlpha = .6;
+    let n = 0, guard = 0;
+    while (n < 4500 && guard++ < 3e6) {
+      const x = Math.random() * W, y = Math.random() * H;
+      if (Math.random() * 9.2 < waterRho(x, y)) { ctx.fillRect(x - 1, y - 1, 2, 2); n++; }
+    }
+    ctx.globalAlpha = 1;
+  } else {
+    const pw = c.width, ph = c.height, img = ctx.createImageData(pw, ph), px = img.data;
+    const stops = ['--rich', '--glow', '--accent', '--poor'].map(n => rgb(tok(n)));
+    const lvl = new Int16Array(pw * ph);
+    for (let j = 0; j < ph; j++) for (let i = 0; i < pw; i++) {
+      const x = i / d, y = j / d, r = waterRho(x, y), o = (j * pw + i) * 4;
+      let col = bg;
+      if (waterView === 'esp') {
+        if (r > ISO) {
+          const shade = .8 + .2 * Math.min(1, Math.log(r / ISO) / 2.5);
+          col = espColor(waterV(x, y) / .22, stops).map(v => v * shade);
+          if (r < ISO * 1.06) col = col.map(v => v * .7);
+        }
+      } else {
+        lvl[j * pw + i] = r > .02 ? Math.floor(Math.log(r) / .35) : -99;
+      }
+      px[o] = col[0]; px[o + 1] = col[1]; px[o + 2] = col[2]; px[o + 3] = 255;
+    }
+    if (waterView === 'contour') {
+      for (let j = 0; j < ph - 1; j++) for (let i = 0; i < pw - 1; i++) {
+        const k = j * pw + i;
+        if (lvl[k] !== -99 && (lvl[k] !== lvl[k + 1] || lvl[k] !== lvl[k + pw])) {
+          const o = k * 4; px[o] = cl[0]; px[o + 1] = cl[1]; px[o + 2] = cl[2];
+        }
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+    ctx.setTransform(d, 0, 0, d, 0, 0);
+  }
+  ctx.font = '700 18px "Bricolage Grotesque", "Segoe UI", sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  for (const a of WATER) {
+    ctx.fillStyle = tok('--surface'); ctx.beginPath(); ctx.arc(a.x, a.y, 12, 0, 7); ctx.fill();
+    ctx.fillStyle = tok('--ink'); ctx.fillText(a.sym, a.x, a.y + 1);
+  }
+  ctx.textAlign = 'start'; ctx.textBaseline = 'alphabetic';
+  const info = {
+    dots: ['<div class="legend"><span><i style="background:var(--cloud)"></i>每个点是一个采样的电子位置</span></div>',
+      '点聚集在氧周围，氧持有水的 10 个电子中的大部分。'],
+    contour: ['<div class="legend"><span><i style="background:var(--cloud)"></i>等密度线。每条线大约比其外侧的一条密 1.4 倍。</span></div>',
+      '线条在每个原子核附近聚集，那里密度急剧上升。'],
+    esp: ['<div class="esp-scale" style="margin-top:12px"></div><div class="esp-labels"><span>电子富集（−）</span><span>中性</span><span>电子贫乏（+）</span></div>',
+      '由静电势着色的密度表面：红色的氧端和蓝色的氢端。']
+  }[waterView];
+  $('#water-legend').innerHTML = info[0];
+  $('#water-cap').textContent = info[1];
+}
+$$('#water-seg button').forEach(b => b.addEventListener('click', () => {
+  waterView = b.dataset.view;
+  $$('#water-seg button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  drawWater();
+}));
+drawWater();
+onTheme(drawWater);
+
+/* Electronegativity tiles and the bond builder (Pauling values). */
+const EN = {H: 2.20, Li: .98, Be: 1.57, B: 2.04, C: 2.55, N: 3.04, O: 3.44, F: 3.98, Na: .93, Mg: 1.31, Al: 1.61, Si: 1.90, P: 2.19, S: 2.58, Cl: 3.16,
+  K: .82, Ca: 1.00, Ga: 1.81, Ge: 2.01, As: 2.18, Se: 2.55, Br: 2.96};
+const PT = [['H', '', '', '', '', '', ''], ['Li', 'Be', 'B', 'C', 'N', 'O', 'F'], ['Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl'], ['K', 'Ca', 'Ga', 'Ge', 'As', 'Se', 'Br']];
+$('#en-grid').innerHTML = PT.flat().map(s => s
+  ? `<div class="en-tile" style="background:color-mix(in srgb, var(--rich) ${Math.round(4 + 56 * (EN[s] - .8) / 3.2)}%, var(--surface))"><b>${s}</b><span>${EN[s].toFixed(2)}</span></div>`
+  : '<div></div>').join('');
+const opts = PT.flat().filter(Boolean).map(s => `<option value="${s}">${s} (${EN[s].toFixed(2)})</option>`).join('');
+$('#atom-a').innerHTML = opts; $('#atom-b').innerHTML = opts;
+$('#atom-a').value = 'H'; $('#atom-b').value = 'O';
+function setStop(el, offset, color, op) { el.setAttribute('offset', offset); el.setAttribute('style', `stop-color:var(${color});stop-opacity:${op}`); }
+function updateBond() {
+  const a = $('#atom-a').value, b = $('#atom-b').value, ea = EN[a], eb = EN[b], d = Math.abs(ea - eb);
+  const k = Math.min(d / 2.4, 1), dir = ea === eb ? 0 : (eb > ea ? 1 : -1);
+  const richSym = dir > 0 ? b : a, poorSym = dir > 0 ? a : b;
+  $('#sym-a').textContent = a; $('#sym-b').textContent = b;
+  const op = (.18 + .55 * k).toFixed(2);
+  if (dir === 0) { setStop($('#g-a'), '20%', '--cloud', .25); setStop($('#g-m'), '50%', '--cloud', .3); setStop($('#g-b'), '80%', '--cloud', .25); }
+  else {
+    setStop($('#g-a'), '20%', dir > 0 ? '--poor' : '--rich', op);
+    setStop($('#g-m'), '50%', '--cloud', .18);
+    setStop($('#g-b'), '80%', dir > 0 ? '--rich' : '--poor', op);
+  }
+  $('#pair').setAttribute('cx', 260 + dir * k * 100);
+  const ionic = d >= 1.8, small = d < .4;
+  const lab = (el, sym) => {
+    if (dir === 0) { el.textContent = ''; return; }
+    const isRich = sym === 'rich';
+    el.textContent = ionic ? (isRich ? '−' : '+') : (isRich ? 'δ−' : 'δ+');
+    el.setAttribute('style', `fill:var(${isRich ? '--rich' : '--poor'});opacity:${small ? .55 : 1}`);
+  };
+  lab($('#delta-a'), dir < 0 ? 'rich' : 'poor'); lab($('#delta-b'), dir > 0 ? 'rich' : 'poor');
+  const g = $('#dipole');
+  if (dir === 0) g.style.display = 'none';
+  else {
+    g.style.display = ''; g.style.opacity = small ? .45 : 1;
+    const x0 = dir > 0 ? 170 : 350, x1 = dir > 0 ? 338 : 182, cross = dir > 0 ? 188 : 332, tip = dir > 0 ? 352 : 168;
+    $('#dip-line').setAttribute('d', `M ${x0} 184 L ${x1} 184 M ${cross} 176 L ${cross} 192`);
+    $('#dip-head').setAttribute('d', `M ${tip} 184 L ${x1} 177 L ${x1} 191 Z`);
+  }
+  $('#en-marker').style.left = Math.min(d / 3.2, 1) * 100 + '%';
+  const type = small ? 'nonpolar covalent' : ionic ? 'mostly ionic' : 'polar covalent';
+  let msg;
+  if (a === b) msg = '两个相同的原子拉力相等，因此共享密度均匀地分布在它们之间。';
+  else if (dir === 0) msg = `${a} 和 ${b} 的电负性相同，因此密度被均匀共享。`;
+  else if (small) msg = `${richSym} 只比 ${poorSym} 稍强一点，因此密度几乎是均匀共享的。`;
+  else if (!ionic) msg = `密度向 ${richSym} 偏移，它变成 δ−，使 ${poorSym} 成为 δ+。偶极箭头指向 δ− 端。`;
+  else msg = `${richSym} 拉力极强，实际上相当于拿走了电子：${richSym} 变成阴离子，${poorSym} 变成阳离子。`;
+  $('#bond-readout').innerHTML = `<div class="stat"><span>χ(${a}) <b>${ea.toFixed(2)}</b></span><span>χ(${b}) <b>${eb.toFixed(2)}</b></span><span>Δχ <b>${d.toFixed(2)}</b></span><span>键类型 <b>${type}</b></span></div>${msg}`;
+}
+$('#atom-a').addEventListener('change', updateBond);
+$('#atom-b').addEventListener('change', updateBond);
+updateBond();
+
+/* Flashcards */
+const CARDS = [
+  ['电子密度 ρ(r)', 'The amount of electron charge per unit volume at each point in space: |ψ|� summed over every occupied orbital.'],
+  ['电子密度的单位', '电子 per volume: e/ų, or e/bohr� in atomic units. 1 e/bohr� = 6.75 e/ų.'],
+  ['径向概率 P(r)', '4πr�|ψ|�: the chance of finding the electron in a thin shell at distance r. For hydrogen 1s it peaks at 0.53 �.'],
+  ['节点', 'ψ = 0 的表面，因此那里密度为零。一个轨道有 n − l − 1 个径向节点和 l 个角向节点。'],
+  ['等值面', 'A 3D surface joining points of equal density, often ρ = 0.002 e/bohr�. It shows a molecule\'s size and shape.'],
+  ['ESP 图', '按静电势着色的密度表面。红色为电子富集（负）；蓝色为电子贫乏（正）。'],
+  ['电负性 χ', '一个原子把共享电子拉向自己的强弱程度。氟在鲍林标度上最高，为 3.98。'],
+  ['亲核试剂与亲电试剂', '亲核试剂电子富集，提供一个电子对；亲电试剂电子贫乏，接受一个电子对。'],
+  ['诱导效应', '由电负性差异沿 σ 键拉动或推动密度。经过约三个键后即减弱。'],
+  ['Hohenberg–Kohn 定理', '基态电子密度确定系统的所有性质（1964 年）。它是 DFT 的基础。']
+];
+const flash = $('#flash'), flashInner = $('#flash .flash-inner');
+let cardOrder = CARDS.map((_, i) => i), cardPos = 0;
+function syncFaces() {
+  const f = flash.classList.contains('flipped');
+  $('#flash-front').setAttribute('aria-hidden', f);
+  $('#flash-back').setAttribute('aria-hidden', !f);
+}
+function showCard() {
+  flashInner.style.transition = 'none';
+  flash.classList.remove('flipped');
+  void flashInner.offsetWidth;
+  flashInner.style.transition = '';
+  const [term, def] = CARDS[cardOrder[cardPos]];
+  $('#flash-front').innerHTML = `<span><small>术语</small>${term}</span>`;
+  $('#flash-back').innerHTML = `<span><small>${term}</small>${def}</span>`;
+  $('#fc-count').textContent = `${cardPos + 1} / ${CARDS.length}`;
+  syncFaces();
+}
+flash.addEventListener('click', () => { flash.classList.toggle('flipped'); syncFaces(); });
+flash.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') { e.preventDefault(); $('#fc-next').click(); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); $('#fc-prev').click(); }
+});
+$('#fc-next').addEventListener('click', () => { cardPos = (cardPos + 1) % CARDS.length; showCard(); });
+$('#fc-prev').addEventListener('click', () => { cardPos = (cardPos - 1 + CARDS.length) % CARDS.length; showCard(); });
+$('#fc-shuffle').addEventListener('click', () => {
+  for (let i = cardOrder.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [cardOrder[i], cardOrder[j]] = [cardOrder[j], cardOrder[i]]; }
+  cardPos = 0; showCard();
+});
+showCard();
+
+/* Quiz */
+const QUIZ = [
+  {q: '电子密度 ρ(r) 描述什么？', o: ['电子遵循的精确路径', '空间每个点单位体积内能找到多少电子电荷', '原子核中的质子数', '一个轨道的能量'], a: 1,
+    e: 'ρ(r) 是一种电荷分布：空间每个点单位体积内的电子数。量子力学并不给出精确路径。'},
+  {q: 'For a hydrogen 1s electron, where is the density |ψ|� highest?', o: ['在原子核处', 'At 0.53 � from the 原子核', 'At 1.06 � from the 原子核', '处处相同'], a: 0,
+    e: 'The density peaks at the 原子核. 0.53 � is where the radial probability 4πr�|ψ|� peaks, because shells further out hold more volume.'},
+  {q: '3p 轨道有多少个径向节点？', o: ['0', '1', '2', '3'], a: 1,
+    e: '径向节点数 = n − l − 1 = 3 − 1 − 1 = 1。'},
+  {q: '在 ESP 图上，深红色区域表示：', o: ['电子贫乏、正电势', '完全没有电子', '电子富集、负电势', '一个原子核的位置'], a: 2,
+    e: '红色标出负静电势，即电子密度堆积之处，例如孤对电子处。'},
+  {q: '在 H–F 键中（χ：H 2.20，F 3.98），共享密度发生偏移：', o: ['向 H，使 H 成为 δ−', '向 F，使 F 成为 δ−', '无处偏移；均匀共享', '向 F，使 F 成为 δ+'], a: 1,
+    e: '氟电负性更强（Δχ = 1.78），因此密度移向 F，F 成为 δ−，H 留下 δ+。'},
+  {q: 'CO₂ 有两个极性 C=O 键，但没有总的偶极矩。为什么？', o: ['C 和 O 的电负性相同', '直线形使两个键偶极相互抵消', '双键从不具有极性', 'CO₂ 没有成键电子'], a: 1,
+    e: '两个 C=O 偶极大小相等、方向相反，因此它们的矢量和为零。'},
+  {q: '哪个取代基使苯环的电子最富集？', o: ['–NO₂', '–CN', '–NH₂', '–COOH'], a: 2,
+    e: '–NH₂ 通过共振把孤对电子给进环中。另外三个基团吸电子。'},
+  {q: '在 X 射线晶体学中，X 射线主要从什么上发生散射？', o: ['电子', '质子', '中子', '化学键整体'], a: 0,
+    e: 'X 射线打在电子上散射，这正是实验能产生电子密度图的原因。'}
+];
+let answers = {};
+function renderQuiz() {
+  answers = {};
+  $('#quiz').innerHTML = QUIZ.map((it, i) => `<div class="q" data-q="${i}"><h4><span>第 ${i + 1} 题，共 ${QUIZ.length} 题</span>${it.q}</h4><div class="opts">${it.o.map((t, j) => `<button class="opt" type="button" data-j="${j}">${t}</button>`).join('')}</div><p class="explain" hidden></p></div>`).join('');
+  updateScore();
+}
+function updateScore() {
+  const n = Object.keys(answers).length, right = Object.values(answers).filter(Boolean).length, total = QUIZ.length;
+  $('#score-num').textContent = `${right} / ${total}`;
+  $('#score-text').textContent = n === 0 ? '为每道题选择一个答案以查看解释。'
+    : n < total ? `已作答 ${n} 题，还剩 ${total - n} 题。`
+    : right === total ? '满分。你已经掌握了基础知识。'
+    : right >= 6 ? '做得不错。看看你答错题目的解释。'
+    : '回到学习地图中复习相关课程，然后重新开始。';
+}
+$('#quiz').addEventListener('click', e => {
+  const btn = e.target.closest('.opt');
+  if (!btn) return;
+  const box = btn.closest('.q'), i = +box.dataset.q, j = +btn.dataset.j, it = QUIZ[i];
+  if (i in answers) return;
+  answers[i] = j === it.a;
+  box.querySelectorAll('.opt').forEach((b, k) => {
+    b.disabled = true;
+    if (k === it.a) b.classList.add('correct'); else if (k === j) b.classList.add('wrong');
+  });
+  const ex = box.querySelector('.explain');
+  ex.hidden = false;
+  ex.innerHTML = `<b style="color:var(${answers[i] ? '--accent' : '--rich'})">${answers[i] ? '正确。' : '不完全正确。'}</b> ${it.e}`;
+  updateScore();
+});
+$('#quiz-reset').addEventListener('click', renderQuiz);
+renderQuiz();
+
+/* Study progress, kept in this browser only */
+const LESSONS = ['what', 'orbitals', 'pictures', 'polarity', 'reactivity', 'measure', 'review'];
+let studied = new Set();
+try { studied = new Set(JSON.parse(localStorage.getItem('ed-studied') || '[]')); } catch (e) {}
+function saveStudied() { try { localStorage.setItem('ed-studied', JSON.stringify([...studied])); } catch (e) {} }
+function renderProgress() {
+  $$('.done-btn').forEach(b => {
+    const on = studied.has(b.dataset.done), num = LESSONS.indexOf(b.dataset.done) + 1;
+    b.setAttribute('aria-pressed', on);
+    b.textContent = on ? `第 ${num} 课已学习 ✓` : `标记第 ${num} 课为已学习`;
+  });
+  $$('#toc a').forEach(a => a.classList.toggle('studied', studied.has(a.dataset.id)));
+  const n = LESSONS.filter(l => studied.has(l)).length;
+  $('#progress-text').textContent = `已完成 ${n} / ${LESSONS.length} 课`;
+  $('#ring-fill').setAttribute('stroke-dashoffset', (125.66 * (1 - n / LESSONS.length)).toFixed(2));
+}
+$$('.done-btn').forEach(b => b.addEventListener('click', () => {
+  const id = b.dataset.done;
+  if (studied.has(id)) studied.delete(id); else studied.add(id);
+  saveStudied(); renderProgress();
+}));
+renderProgress();
+
+const toc = $('#toc'), tocLinks = $$('#toc a');
+const spy = new IntersectionObserver(entries => {
+  for (const en of entries) {
+    if (!en.isIntersecting) continue;
+    tocLinks.forEach(a => a.classList.toggle('active', a.dataset.id === en.target.id));
+    const act = tocLinks.find(a => a.dataset.id === en.target.id);
+    if (act && toc.scrollWidth > toc.clientWidth) toc.scrollTo({left: act.parentElement.offsetLeft - toc.offsetLeft - 12, behavior: reduceMotion ? 'auto' : 'smooth'});
+  }
+}, {rootMargin: '-35% 0px -60% 0px'});
+LESSONS.forEach(id => spy.observe(document.getElementById(id)));
+</script>
+</body></html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="电子密度与机器学习零基础学习笔记：量子、HF、DFT、基组与网格、机器学习、等变性、实验电子密度，附九日计划、自测和六个Python练习。"><title>电子密度与机器学习 · 九日学习笔记</title><style>
+:root{--bg:#f5f3ed;--paper:#fffefb;--ink:#172c39;--muted:#5f6d72;--line:#dcded5;--teal:#126b63;--wash:#e7f1e9;--orange:#b65d2c;--pale:#fbefdf;--blue:#335da0;--radius:12px;--mono:Consolas,"Cascadia Code",monospace;--body:"Microsoft YaHei UI","Microsoft YaHei","PingFang SC","Segoe UI",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:30px}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.88 var(--body)}a{color:var(--teal);text-underline-offset:4px}button,input{font:inherit}button{border:1px solid var(--teal);background:var(--teal);color:white;border-radius:7px;padding:7px 15px;cursor:pointer;font-size:14px}button:hover{filter:brightness(1.1)}button.ghost{color:var(--teal);background:transparent}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #dc973a;outline-offset:4px}[hidden]{display:none!important}.skip{position:fixed;top:-80px;left:10px;z-index:99;background:white;padding:10px}.skip:focus{top:5px}.shell{max-width:1450px;margin:auto;display:grid;grid-template-columns:244px minmax(0,1fr);gap:48px;padding:30px 42px 80px}.rail{position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding:4px 16px 20px 0;scrollbar-width:thin}.wordmark{font-size:13px;font-weight:700;letter-spacing:.17em;color:var(--teal);text-transform:uppercase}.rail h2{font-size:23px;line-height:1.5;margin:10px 0 18px}.rail small{display:block;color:var(--muted);font-size:12px}.rail nav{display:grid;gap:2px;margin:20px 0}.rail nav a{display:flex;gap:10px;padding:8px 10px;text-decoration:none;font-size:13px;color:var(--muted);border-left:2px solid transparent;line-height:1.55}.rail nav a span{font-family:var(--mono);color:var(--teal);min-width:20px}.rail nav a:hover,.rail nav a.current{background:var(--wash);border-left-color:var(--teal);color:var(--ink)}.progress-track{height:5px;background:#dfe4dc;border-radius:9px;overflow:hidden;margin:10px 0}.progress-track>div{height:100%;background:var(--teal);width:0;transition:width .2s}.rail-actions{display:flex;flex-wrap:wrap;gap:6px}.rail-actions button{font-size:12px;padding:5px 10px}.rail .rail-note{font-size:12px;line-height:1.7;color:var(--muted);margin-top:15px}main{min-width:0;max-width:1040px}.topline{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:12px;color:var(--muted);padding:4px 0 18px;border-bottom:1px solid var(--line)}.hero{padding:45px 0 36px;position:relative}.eyebrow{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--teal);margin-bottom:14px}.hero h1{font-size:clamp(32px,3.7vw,55px);font-weight:750;line-height:1.32;letter-spacing:-.04em;margin:0 0 20px}.hero h1 em{font-style:normal;color:var(--teal)}.hero .intro{font-size:18px;color:var(--muted);max-width:750px}.hero-bottom{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}.pill{font-size:12px;border:1px solid var(--line);border-radius:100px;padding:4px 13px;background:var(--paper)}.hero-art{height:115px;position:relative;overflow:hidden;margin-top:30px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#edf1e9}.hero-art svg{width:100%;height:100%;display:block}.lesson{padding:42px 0;border-top:1px solid var(--line);content-visibility:auto;contain-intrinsic-size:auto 1400px;scroll-margin-top:24px}.lesson h2{font-size:29px;line-height:1.45;margin:0 0 13px;letter-spacing:-.025em}.lesson .lead{font-size:17px;color:var(--muted);margin:0 0 25px;max-width:820px}.lesson h3{font-size:19px;line-height:1.5;margin:30px 0 10px}.lesson p{margin:12px 0}.lesson li{margin:7px 0}strong{font-weight:700}.route{display:flex;align-items:center;flex-wrap:wrap;gap:8px 10px;margin:25px 0;padding:18px;background:var(--wash);border-left:3px solid var(--teal);font-size:14px}.route span{padding:3px 7px}.route b{color:var(--teal)}.table-wrap{overflow-x:auto;margin:20px 0;border:1px solid var(--line);border-radius:8px;background:var(--paper)}table{width:100%;border-collapse:collapse;text-align:left;font-size:14px;line-height:1.8}th,td{padding:12px 15px;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#eaf0e8;font-weight:700;white-space:nowrap}tr:last-child td{border-bottom:0}td:first-child{min-width:115px}td:nth-child(2){min-width:140px}.schedule td:first-child{white-space:nowrap}.note{margin:23px 0;padding:17px 20px;background:var(--pale);border-left:3px solid var(--orange);border-radius:0 8px 8px 0;font-size:14px}.note strong{color:#8c431f}.note p{margin:4px 0 0}.equation{overflow-x:auto;padding:20px 24px;margin:20px 0;text-align:center;border:1px solid #d0ddd4;border-radius:8px;background:var(--paper);font:19px/1.9 "Cambria Math","Times New Roman",serif;white-space:nowrap;letter-spacing:.02em}.equation math{font-size:1.03em}code{font-family:var(--mono);font-size:.86em;background:#e9ede7;border-radius:4px;padding:2px 5px}pre{overflow:auto;max-height:550px;white-space:pre;padding:23px;margin:16px 0;background:#162c38;color:#e4eee7;font:13px/1.75 var(--mono);border-radius:8px}pre code{font:inherit;color:inherit;padding:0;background:none}.caption{font-size:12px!important;line-height:1.75;color:var(--muted)}.ref{font-family:var(--mono);font-size:11px;text-decoration:none;margin-left:4px;vertical-align:super}.check{padding:13px 18px;border:1px solid var(--line);background:var(--paper);border-radius:8px;margin:20px 0}.check summary{font-size:14px;font-weight:700;color:var(--teal);cursor:pointer}.check p{font-size:14px}.deliverable{margin:28px 0 0;padding:18px 22px;border-radius:8px;background:var(--wash);border:1px solid #ccdcd0;font-size:14px}.deliverable strong{color:var(--teal);font-size:12px;letter-spacing:.1em}.deliverable p{margin:5px 0 12px}.deliverable label{display:flex;align-items:center;gap:8px;cursor:pointer}.deliverable input{accent-color:var(--teal);width:17px;height:17px}.codebox{border:1px solid var(--line);border-radius:9px;background:var(--paper);margin:20px 0;overflow:hidden}.codebox summary{padding:14px 18px;font-size:14px;cursor:pointer;color:var(--teal);font-weight:700}.codebox pre{margin:0;border-radius:0}.code-actions{padding:10px 18px;display:flex;gap:8px}.code-actions button{font-size:12px;padding:5px 11px}.scf{display:grid;grid-template-columns:1.35fr 1fr;border:1px solid var(--line);border-radius:9px;background:var(--paper);margin:23px 0;overflow:hidden}.scf ol{list-style:none;padding:0;margin:0;counter-reset:scf}.scf li{counter-increment:scf;margin:0;padding:12px 18px;border-bottom:1px solid var(--line);font-size:13px}.scf li::before{content:counter(scf,decimal-leading-zero);color:var(--teal);font:12px var(--mono);margin-right:12px}.scf li:last-child{border:0}.scf li.active{background:var(--wash);font-weight:700;box-shadow:inset 3px 0 var(--teal)}.scf-control{padding:23px;border-left:1px solid var(--line);font-size:14px}.scf-control button{margin:0 5px 10px 0}.lab{background:var(--paper);padding:22px;border:1px solid var(--line);border-radius:10px;margin:22px 0}.lab-head{display:flex;justify-content:space-between;gap:15px;align-items:center;font-size:15px}.tag{color:var(--muted);font-size:11px;border:1px solid var(--line);border-radius:4px;padding:2px 6px}.slider{display:flex;align-items:center;gap:18px;margin:20px 0;font-size:13px}.slider input{accent-color:var(--teal);flex:1;max-width:450px;min-width:50px}.slider output{font:14px var(--mono);min-width:42px}canvas{width:100%;height:auto;display:block;border:1px solid #e4e6dd;border-radius:6px}.review-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 25px;border-top:1px solid var(--line)}.review-grid>div{padding:18px 0;border-bottom:1px solid var(--line);font-size:14px}.review-grid p{margin:6px 0}.review-grid strong{color:var(--teal)}fieldset{padding:17px 20px;margin:20px 0;border:1px solid var(--line);border-radius:8px;background:var(--paper)}legend{font-size:14px;font-weight:700;padding:0 7px}fieldset label{display:block;font-size:14px;margin:7px 0;cursor:pointer}fieldset input{accent-color:var(--teal);margin-right:9px}.feedback{padding:10px 13px;border-left:3px solid var(--orange);background:var(--pale);font-size:13px}.feedback.correct{border-color:var(--teal);background:var(--wash)}.quiz-score{font-weight:700;color:var(--teal)}.search-label{display:flex;gap:15px;align-items:center;font-size:14px}.search-label input{padding:9px 13px;border:1px solid var(--line);border-radius:6px;flex:1;max-width:450px;background:var(--paper);color:var(--ink)}.references{padding-left:30px}.references li{font-size:14px;margin:18px 0;scroll-margin-top:30px}.references span{display:block;color:var(--muted);font-size:12px}.references p{font-size:12px;margin:3px 0}.footer{border-top:1px solid var(--line);font-size:12px;color:var(--muted);padding-top:25px;margin-top:25px}#toast{position:fixed;bottom:20px;right:25px;background:var(--ink);color:white;padding:9px 18px;border-radius:7px;font-size:13px;z-index:100}.mobile-nav{display:none}.progress-copy{font-size:12px!important}.js-warning{background:var(--pale);padding:15px}.empty{font-size:14px;color:var(--muted)}
+@media(min-width:1500px){.shell{gap:65px}.lesson{padding-right:30px}}@media(max-width:1000px){.shell{padding:20px 24px 60px;grid-template-columns:200px minmax(0,1fr);gap:27px}.rail h2{font-size:21px}.hero h1{font-size:36px}.equation{font-size:17px}.scf{grid-template-columns:1fr}.scf-control{border-left:0;border-top:1px solid var(--line)}}@media(max-width:720px){.shell{display:block;padding:12px 18px 50px}.rail{position:static;max-height:none;padding:10px 0 18px;border-bottom:1px solid var(--line)}.rail h2{display:none}.rail nav{display:none}.rail .rail-note{display:none}.rail small{display:inline}.rail .wordmark{margin-bottom:8px}.progress-track{max-width:350px}.rail-actions{position:absolute;right:18px;top:18px}.rail-actions button{font-size:11px;padding:4px 8px}.mobile-nav{display:block;margin-top:13px}.mobile-nav summary{cursor:pointer;font-size:13px;color:var(--teal)}.mobile-nav div{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:15px 0;font-size:12px}.topline{font-size:10px;padding-top:15px}.hero{padding:30px 0}.hero h1{font-size:33px}.hero .intro{font-size:16px}.hero-art{height:90px}.lesson{padding:30px 0}.lesson h2{font-size:25px}.lesson .lead{font-size:16px}.lesson h3{font-size:18px}.lab{padding:13px}.lab-head{display:block}.tag{display:inline-block;margin-top:7px}.slider{gap:10px}.equation{padding:15px;font-size:16px}.review-grid{grid-template-columns:1fr}.table-wrap{font-size:13px}th,td{padding:10px 12px}.search-label{align-items:flex-start;flex-direction:column;gap:7px}.search-label input{width:100%;max-width:none}body{font-size:15px}.route{padding:12px;gap:3px}.route span{font-size:12px}.hero-bottom{gap:6px}.pill{font-size:11px}.scf-control{padding:16px}.footer{font-size:11px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}@media print{@page{size:A4;margin:16mm}.shell{display:block;padding:0;max-width:none}.rail,.topline,.hero-art,.code-actions,.scf-control,.slider,#quizForm button,#toast,.search-label{display:none!important}body{background:white;color:black;font-size:10.5pt;line-height:1.65}.hero{padding-top:0}.hero h1{font-size:27pt}.lesson{content-visibility:visible;padding:18px 0;break-before:auto}.lesson h2{font-size:19pt}.lesson h3{font-size:13pt;break-after:avoid}.lesson .lead{font-size:11pt}.table-wrap{overflow:visible}table{font-size:9pt}thead{display:table-header-group}tr,figure,.note,.deliverable{break-inside:avoid}pre{white-space:pre-wrap;max-height:none;overflow:visible;background:#f5f5f5;color:#111;font-size:8pt;overflow-wrap:anywhere}a{color:inherit;text-decoration:none}.equation{font-size:13pt;white-space:normal}details.codebox:not([open]){display:none}canvas{max-height:75mm;object-fit:contain}.feedback[hidden]{display:none!important}.references li{font-size:9pt}.lab{break-inside:avoid}.deliverable label{display:none}.references span,.references p,.caption{font-size:8pt!important}}
+</style></head><body>
+<a class="skip" href="#main">跳到正文</a><div class="shell"><aside class="rail"><div class="wordmark">DENSITY / FIELD NOTES</div><h2>电子密度<br>与机器学习</h2><small>2026.11.04 — 11.12</small><div class="progress-track"><div id="progressFill"></div></div><p id="progressText" class="progress-copy" aria-live="polite">已学习 0 / 9 天</p><nav aria-label="章节目录"><a href="#start"><span>↗</span>学习地图</a><a href="#foundation"><span>00</span>结构、数据与代码</a><a href="#d1"><span>01</span>量子基础</a><a href="#d2"><span>02</span>多电子体系与 HF</a><a href="#d3"><span>03</span>DFT 与自洽</a><a href="#d4"><span>04</span>交换关联泛函</a><a href="#d5"><span>05</span>数学与表示</a><a href="#d6"><span>06</span>机器学习基础</a><a href="#d7"><span>07</span>对称性与生成模型</a><a href="#d8"><span>08</span>实验密度与弱相互作用</a><a href="#d9"><span>09</span>复盘与综合自测</a><a href="#glossary"><span>Aa</span>中英术语速查</a><a href="#sources"><span>↗</span>资料与练习代码</a></nav><div class="rail-actions"><button id="printButton" class="ghost" type="button">打印 / 存为 PDF</button></div><p class="rail-note">勾选进度保存在当前浏览器中。<br>正文与互动均可离线使用。<br>网页内提供脚本复制与下载。</p><details class="mobile-nav"><summary>展开学习目录</summary><div><a href="#start">↗ · 学习地图</a><a href="#foundation">00 · 结构、数据与代码</a><a href="#d1">01 · 量子基础</a><a href="#d2">02 · 多电子体系与 HF</a><a href="#d3">03 · DFT 与自洽</a><a href="#d4">04 · 交换关联泛函</a><a href="#d5">05 · 数学与表示</a><a href="#d6">06 · 机器学习基础</a><a href="#d7">07 · 对称性与生成模型</a><a href="#d8">08 · 实验密度与弱相互作用</a><a href="#d9">09 · 复盘与综合自测</a><a href="#glossary">Aa · 中英术语速查</a><a href="#sources">↗ · 资料与练习代码</a></div></details></aside>
+<main id="main"><div class="topline"><span>学习总结 · 中文入门版</span><span>9 天主线 / 42 个术语 / 6 个练习</span></div><header class="hero"><div class="eyebrow">从基础概念走到可检验的实验</div><h1>从波函数，<br>到可学习的<em>电子密度</em>。</h1><p class="intro">把量子化学、数值表示和机器学习串成一条清晰主线。先理解每个概念在做什么，再动手画图、计算与验证。</p><div class="hero-bottom"><span class="pill">直观解释与公式</span><span class="pill">SCF 分步图解</span><span class="pill">傅里叶与旋转互动</span><span class="pill">自测与代码</span></div><div class="hero-art"><svg viewBox="0 0 960 115" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="从局部函数叠加到空间场的概念示意"><defs><radialGradient id="cloud"><stop stop-color="#126b63" stop-opacity=".45"/><stop offset="1" stop-color="#126b63" stop-opacity="0"/></radialGradient></defs><g fill="none" stroke="#126b63" opacity=".2"><ellipse cx="770" cy="66" rx="105" ry="33"/><ellipse cx="770" cy="66" rx="143" ry="46"/><ellipse cx="770" cy="66" rx="180" ry="62"/><ellipse cx="770" cy="66" rx="215" ry="80"/></g><ellipse cx="770" cy="66" rx="120" ry="75" fill="url(#cloud)"/><path d="M30 85 Q60 85 80 30 Q95 3 110 50 Q126 85 145 85 Q160 85 178 56 Q196 18 216 62 Q230 85 250 85" fill="none" stroke="#126b63" stroke-width="2"/><path d="M320 85 Q350 85 370 36 Q390 -2 410 36 Q430 85 460 85" fill="none" stroke="#b65d2c" stroke-width="2"/><g stroke="#172c39" stroke-width="1.3"><line x1="550" y1="60" x2="585" y2="35"/><line x1="550" y1="60" x2="586" y2="84"/></g><circle cx="550" cy="60" r="10" fill="#b65d2c"/><circle cx="585" cy="35" r="6" fill="#fffefb" stroke="#172c39"/><circle cx="586" cy="84" r="6" fill="#fffefb" stroke="#172c39"/><g font-family="Consolas, monospace" font-size="13" fill="#5f6d72"><text x="276" y="60">+</text><text x="484" y="60">→</text><text x="625" y="60">→</text></g></svg></div></header><noscript><p class="js-warning">浏览器关闭了 JavaScript：正文、代码和各节自测答案仍可阅读，互动图、综合测验与进度保存需要启用 JavaScript。</p></noscript>
+<section id="start" class="lesson"><div class="eyebrow">阅读地图 / 先建立主线</div><h2>这一组知识，最终要解决什么问题？</h2><p class="lead">给定分子的原子种类与位置，我们想知道电子怎样分布；再研究如何用机器学习更快地预测这种分布，并判断预测是否可信。</p>
+<div class="route" aria-label="知识主线"><span>原子与几何</span><b>→</b><span>量子理论 / HF / DFT</span><b>→</b><span>电子密度与数据表示</span><b>→</b><span>机器学习与物理约束</span><b>→</b><span>实验联系与结果验证</span></div>
+<p>把它想成三层工作：<strong>物理层</strong>决定“要预测什么、标签怎样算出来”；<strong>表示层</strong>决定“怎样把分子和密度交给计算机”；<strong>学习层</strong>决定“怎样拟合、泛化和检查”。只会训练网络，却不知道密度单位、电子数和参考计算方法，仍然难以判断结果是否正确。</p>
+<div class="table-wrap"><table><thead><tr><th>对象</th><th>你真正拿到的东西</th><th>先问什么</th></tr></thead><tbody>
+<tr><td>量子化学电子密度</td><td>由多电子态或近似电子结构计算得到的 ρ(r)</td><td>哪种方法、泛函、基组？电荷和自旋是多少？</td></tr>
+<tr><td>X 射线晶体学密度图</td><td>由衍射数据、相位信息及建模重建的图</td><td>分辨率、温度因素、图类型、模型依赖性如何？</td></tr>
+<tr><td>冷冻电镜图</td><td>主要与样品的库仑 / 静电势有关的重建图</td><td>怎样标定、滤波和归一化？不能直接当作电子数密度。</td></tr>
+</tbody></table></div>
+<p>后两类图与理论密度相关，但物理含义、分辨率和数值标度不同。文件都可能叫“密度图”，甚至都用 MRC 保存，仍然不能直接混在一起训练。<a class="ref" href="#ref7" aria-label="参考资料 7">[7]</a><a class="ref" href="#ref8" aria-label="参考资料 8">[8]</a></p>
+<h3>怎么读这份笔记</h3><p>每节按“直观解释 → 关键公式 → 具体例子 → 练习 → 自测”展开。公式主要用于辨认论文符号，不要求第一遍完成推导。推荐每天先用 30–45 分钟读概念，再用 45–90 分钟做最小练习；较难的算符推导、群表示与生成模型可以在复盘日回看。这是学习安排建议，不代表已经完成的进度。</p>
+<div class="table-wrap"><table class="schedule"><thead><tr><th>日期（2026）</th><th>主题</th><th>最小学习成果</th></tr></thead><tbody>
+<tr><td><a href="#d1">11/4 周三</a></td><td>量子基础</td><td>解释波函数与电子密度的区别</td></tr>
+<tr><td><a href="#d2">11/5 周四</a></td><td>多电子体系与 HF</td><td>水分子两种基组比较表</td></tr>
+<tr><td><a href="#d3">11/6 周五</a></td><td>DFT 与自洽</td><td>闭卷画出 KS 自洽流程</td></tr>
+<tr><td><a href="#d4">11/7 周六</a></td><td>交换关联泛函</td><td>三种泛函、同网格的 cube 密度文件</td></tr>
+<tr><td><a href="#d5">11/8 周日</a></td><td>数学与表示</td><td>一维函数两种基函数展开图</td></tr>
+<tr><td><a href="#d6">11/9 周一</a></td><td>机器学习基础</td><td>一个保留独立测试集的 KRR 实验</td></tr>
+<tr><td><a href="#d7">11/10 周二</a></td><td>对称性与生成模型</td><td>用旋转分子说明不变与等变</td></tr>
+<tr><td><a href="#d8">11/11 周三</a></td><td>实验密度与弱相互作用</td><td>冻结几何下水二聚体差分密度</td></tr>
+<tr><td><a href="#d9">11/12 周四</a></td><td>复盘与术语表</td><td>完成自测，标记薄弱概念</td></tr>
+</tbody></table></div>
+</section><section id="foundation" class="lesson"><div class="eyebrow">前置基础 / 汇总前面提到的内容</div><h2>把结构、数据和代码先连起来</h2><p class="lead">这部分对应此前提到的蛋白质结构、Python 数据处理、深度学习流程、PyTorch、密度文件与开源项目入门。</p>
+<h3>1. 蛋白质结构与密度图</h3><p>蛋白质由氨基酸残基连接而成，三维结构通常用一组原子的种类和坐标表示。<strong>结构模型像“标出的原子位置”，密度图像“支持这些位置的空间证据”</strong>；它们是不同的数据对象。PDB / mmCIF 主要保存结构模型及相关信息，不能仅从一份原子坐标文件就认定它包含完整实验密度。</p>
+<p>分辨率描述数据能区分多细的空间特征：在相同意义下，2 Å 比 4 Å 能分辨更细的细节。但一个全局分辨率数值不能说明每个局部都一样好；噪声、柔性、占有率及原子位移都会影响可辨认程度。阅读结构论文时，同时看模型和图，避免把“图上看不清”简单理解成“原子不存在”。<a class="ref" href="#ref7" aria-label="参考资料 7">[7]</a></p>
+<h3>2. Python / NumPy / 绘图分别做什么</h3><div class="table-wrap"><table><thead><tr><th>工具</th><th>在这个方向的作用</th><th>最先掌握</th></tr></thead><tbody>
+<tr><td>Python</td><td>串联数据读取、计算、保存和批处理</td><td>变量、循环、函数、路径、异常、虚拟环境</td></tr>
+<tr><td>NumPy</td><td>用数组表示坐标、网格、矩阵和场</td><td>shape、索引、广播、轴、单位与数据类型</td></tr>
+<tr><td>Matplotlib</td><td>画误差曲线、密度切片和比较图</td><td>坐标轴、色条、单位、相同颜色范围</td></tr>
+<tr><td>PyTorch</td><td>用张量和自动微分训练模型</td><td>Tensor、Dataset / DataLoader、模型、损失与优化器</td></tr>
+</tbody></table></div>
+<p>例如原子坐标可以是 <code>(N_atoms, 3)</code>，网格查询点可以是 <code>(N_points, 3)</code>，密度体数据可以是 <code>(nx, ny, nz)</code>。<strong>shape 只说明排列，不说明坐标原点、方向或单位。</strong>即便两个数组 shape 相同，也未必能逐点相减。<a class="ref" href="#ref9" aria-label="参考资料 9">[9]</a></p>
+<h3>3. 深度学习与 PyTorch 的最小闭环</h3><div class="route"><span>读取数据</span><b>→</b><span>前向预测</span><b>→</b><span>计算损失</span><b>→</b><span>反向求梯度</span><b>→</b><span>更新参数</span></div>
+<p>训练是调整模型参数，使预测接近标签；验证用于选超参数和停止时机；测试用于最后估计泛化表现。PyTorch 中 <code>loss.backward()</code> 计算梯度，<code>optimizer.step()</code> 更新参数；每轮前先 <code>zero_grad()</code>，因为梯度默认会累积。评估通常配合 <code>model.eval()</code> 与 <code>torch.no_grad()</code>。<a class="ref" href="#ref10" aria-label="参考资料 10">[10]</a></p>
+<details class="codebox"><summary>展开练习代码 · 05_PyTorch标量场入门.py</summary><div class="code-actions"><button type="button" data-copy="05_PyTorch标量场入门.py">复制代码</button><button type="button" data-download="05_PyTorch标量场入门.py">下载 .py</button></div><pre><code>&quot;&quot;&quot;用小网络拟合一个数学标量场，练习训练循环；不是量子化学模型。&quot;&quot;&quot;
+import torch
+from torch import nn
+
+torch.manual_seed(42)
+X = 2*torch.rand(640, 3)-1
+y = torch.exp(-3*(X**2).sum(dim=1, keepdim=True))
+Xtr, Xte = X[:512], X[512:]
+ytr, yte = y[:512], y[512:]
+model = nn.Sequential(nn.Linear(3, 32), nn.Tanh(),
+                      nn.Linear(32, 32), nn.Tanh(), nn.Linear(32, 1))
+optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
+loss_fn = nn.MSELoss()
+model.train()
+for epoch in range(400):
+    optimizer.zero_grad()
+    pred = model(Xtr)
+    loss = loss_fn(pred, ytr)
+    loss.backward()
+    optimizer.step()
+model.eval()
+with torch.no_grad():
+    print(&quot;held-out MSE:&quot;, loss_fn(model(Xte), yte).item())
+torch.save(model.state_dict(), &quot;toy_field_weights.pt&quot;)
+# 普通 MLP 不自动满足旋转等变、密度非负或电子数守恒。
+</code></pre></details>
+<p class="caption">上面的练习拟合一个人为指定的三维高斯函数，只用于理解张量 shape 和训练循环，不代表真实电子密度，也没有自动施加旋转等变、非负性或电子数守恒。</p>
+<h3>4. 密度文件：先辨认“里面保存的是什么”</h3><div class="table-wrap"><table><thead><tr><th>格式</th><th>常见内容</th><th>读取前要检查</th></tr></thead><tbody>
+<tr><td>.cube</td><td>网格上的密度、轨道、静电势等标量场，附原子与网格信息</td><td>物理量、坐标单位、原点、步进向量、采样点数；扩展名不保证就是密度</td></tr>
+<tr><td>.mrc / .map / CCP4</td><td>实验重建图或其他体数据</td><td>轴顺序、晶胞 / 体素尺寸、原点、数值标度及生成来源</td></tr>
+<tr><td>.npy / .npz</td><td>数组与自定义打包数据</td><td>是否另存了网格坐标、单位、元素与几何等元数据</td></tr>
+</tbody></table></div>
+<p>读出三维数组后，先画一个二维切片，例如 <code>rho[:, :, nz//2]</code>。再检查色条范围和坐标方向，最后考虑三维等值面。等值面是“数值等于某个阈值的点组成的面”，改变阈值会改变外观，不能仅凭一张漂亮图判断方法优劣。</p>
+<h3>5. 开源项目入门：先跑通一个样例</h3><ol><li>读 README，确认任务、输入、输出、数据权限和依赖版本。</li><li>建立独立环境，记录代码提交号、Python / 库版本和运行命令。</li><li>先用作者提供的最小样例做推理或短训练，核对输出 shape、单位和日志。</li><li>确认样例可重复，再替换一个数据样本；记录预处理与失败原因。</li><li>复现报告同时保存配置、随机种子、数据划分与评价方法，区分“能运行”和“复现论文结果”。</li></ol>
+<details class="check"><summary>自测：为什么同一个分子的不同网格点不能随意分到训练和测试两边？</summary><p>这些点共享同一分子的结构和计算来源，模型可能利用已经见过的体系信息。这样得到的分数不能代表对新分子的泛化。按分子或更严格的体系 / 构型分组划分，具体取决于评估目标。</p></details>
+</section><section id="d1" class="lesson"><div class="eyebrow">DAY 01 / 11月4日 · 周三</div><h2>量子基础：从波函数到电子密度</h2><p class="lead">先分清“整个多电子量子态”与“空间某点附近有多少电子”这两件事。</p>
+<h3>波函数 Ψ：描述量子态的数学对象</h3><p>波函数可以取复数，本身不是可以直接拍照得到的电子云。按玻恩规则，模平方与概率有关。对一个电子，空间波函数归一化后，<strong>|ψ(r)|² d³r</strong> 表示在 r 附近小体积 d³r 内发现电子的概率；若还包含自旋，需要对自旋求和。</p>
+<p>多电子波函数写成 <strong>Ψ(x₁, …, xₙ)</strong>，其中 xᵢ 同时包含第 i 个电子的位置 rᵢ 和自旋 σᵢ。它取决于所有电子的联合配置，不能简单画成普通三维空间的一张图。</p>
+<h3>薛定谔方程与算符</h3><div class="equation" role="math">Ĥ Ψ = E Ψ</div><p>这是定态薛定谔方程：Ĥ 是哈密顿算符，表示体系总能量的作用规则；E 是对应定态的能量本征值。<strong>算符是作用于函数的规则</strong>，例如位置算符做乘法，动量算符涉及空间求导。一般可观测量的平均值由 ⟨Â⟩ = ⟨Ψ|Â|Ψ⟩ 给出；只有处于相应本征态时，测量才一定得到那个本征值。</p>
+<p>固定原子核、采用非相对论原子单位后，电子哈密顿量包含电子动能、核对电子的吸引和电子间排斥。固定几何时，核间排斥 E<sub>NN</sub> 是常数；软件报告的分子总能量通常也包含它。</p>
+<div class="equation" role="math">Ĥ<sub>e</sub> = −½ ∑ᵢ ∇ᵢ² − ∑ᵢ∑<sub>A</sub> Z<sub>A</sub>/|rᵢ−R<sub>A</sub>| + ∑<sub>i&lt;j</sub> 1/|rᵢ−rⱼ|</div>
+<h3>玻恩–奥本海默近似：把快慢运动分开</h3><p>原子核通常比电子重得多，常可在一组固定核位置上先求电子态，再把得到的势能曲面用于核的振动、转动或运动。这种分离使“给定几何，计算电子结构”成为可操作的任务；它并不是说原子核永远不动。能面接近或非绝热耦合强时，这种近似可能失效。<a class="ref" href="#ref1" aria-label="参考资料 1">[1]</a></p>
+<h3>电子密度 ρ(r)：对其他电子坐标求和 / 积分</h3>
+<div class="equation" role="math"><math display="block"><mrow><mi>ρ</mi><mo>(</mo><mi mathvariant="bold">r</mi><mo>)</mo><mo>=</mo><mi>N</mi><munder><mo>∑</mo><mrow><msub><mi>σ</mi><mn>1</mn></msub><mo>,</mo><mo>…</mo><mo>,</mo><msub><mi>σ</mi><mi>N</mi></msub></mrow></munder><mo>∫</mo><mo>…</mo><mo>∫</mo><msup><mrow><mo>|</mo><mi>Ψ</mi><mo>(</mo><mi mathvariant="bold">r</mi><mo>,</mo><msub><mi>σ</mi><mn>1</mn></msub><mo>;</mo><msub><mi mathvariant="bold">r</mi><mn>2</mn></msub><mo>,</mo><msub><mi>σ</mi><mn>2</mn></msub><mo>;</mo><mo>…</mo><mo>)</mo><mo>|</mo></mrow><mn>2</mn></msup><mi>d</mi><msup><mi>r</mi><mn>3</mn></msup><msub><mspace width="0em"/><mn>2</mn></msub><mo>…</mo><mi>d</mi><msup><mi>r</mi><mn>3</mn></msup><msub><mspace width="0em"/><mi>N</mi></msub></mrow></math></div>
+<p>更便于记忆的读法是：固定一个电子的位置，对它的自旋求和，再把其余 N−1 个电子的位置与自旋全部积分 / 求和，最后乘 N。它得到的是三维空间里的<strong>电子数密度</strong>，满足 ρ(r) ≥ 0 与 ∫ρ(r)d³r = N。因此 ρ/N 才是随机选一个电子的位置概率密度。</p>
+<div class="equation" role="math">单电子：ρ = |ψ|²　　多电子：ρ = N × 单电子边缘分布　　电荷密度（仅电子）：q<sub>e</sub>(r) = −eρ(r)</div>
+<aside class="note"><strong>容易混淆</strong><p>多电子体系的 ρ(r) 不是把完整 Ψ 直接取模平方后当三维函数；轨道也不等于完整多电子波函数。普通密度图中的负值可能来自差分、滤波、重建或不同物理量，不能因此认为电子数密度本来可以为负。</p></aside>
+<h3>用水分子检查理解</h3><p>中性 H₂O 有 8 + 1 + 1 = <strong>10 个电子</strong>。若使用全电子计算，完整空间密度积分应为 10；如果图只覆盖有限盒子且网格较粗，数值积分可能有误差。采用赝势时，还需确认文件保存的是价电子密度还是重建的全电子密度。</p>
+<details class="check"><summary>自测：知道水的电子密度图，是否就能逐个标出“第1个电子”和“第2个电子”的轨迹？</summary><p>不能。电子是不可区分的量子粒子，密度描述空间分布，不提供经典粒子轨迹或电子编号。</p></details>
+<div class="deliverable"><strong>今日产出</strong><p>写一段 100 字以内的解释：Ψ、轨道 ψᵢ、ρ 分别是什么；写出水的电子数和密度归一化条件。</p><label><input type="checkbox" data-day="1"> 我已学习并完成自测</label></div>
+</section><section id="d2" class="lesson"><div class="eyebrow">DAY 02 / 11月5日 · 周四</div><h2>多电子体系：HF 为什么是重要的起点</h2><p class="lead">电子之间会相互影响，直接处理完整多电子波函数很难。HF 用优化后的单个斯莱特行列式建立近似。</p>
+<h3>斯莱特行列式：把反对称性写进波函数</h3><p>电子是费米子，交换两个电子的全部坐标，多电子波函数应变号。行列式天然具有“交换两列 / 行后变号”的性质，因此用自旋轨道构成的斯莱特行列式能满足这一要求。若两个电子占据同一个自旋轨道，行列式两列相同、整体为零，这体现泡利原理。</p>
+<div class="equation" role="math">Ψ(x₁,…,xₙ) = (1/√N!) det[χᵢ(xⱼ)]</div>
+<p>χᵢ 是自旋轨道，可由空间轨道与自旋函数组成。两个电子可以占据同一个空间轨道，但它们必须具有不同的自旋轨道，例如闭壳层体系中的一对相反自旋电子。</p>
+<h3>交换、库仑与相关要分开</h3><div class="table-wrap"><table><thead><tr><th>概念</th><th>直观含义</th><th>HF 里怎样出现</th></tr></thead><tbody>
+<tr><td>库仑作用</td><td>电荷间的排斥相互作用</td><td>通过平均场库仑项描述</td></tr>
+<tr><td>交换效应</td><td>波函数反对称性影响同自旋电子的联合分布</td><td>行列式产生交换项；不是额外的一种经典力</td></tr>
+<tr><td>电子相关</td><td>超出最佳单行列式 HF 描述的电子协同变化</td><td>常规定义下 HF 缺少相关能</td></tr>
+</tbody></table></div>
+<p>在同一个非相对论哈密顿量、几何与相应完备基组极限下，量子化学常定义 E<sub>corr</sub> = E<sub>exact</sub> − E<sub>HF</sub>。HF 并没有忽略电子间作用，它包含平均场排斥与交换，但不能完整表示相关运动。<a class="ref" href="#ref2" aria-label="参考资料 2">[2]</a></p>
+<h3>HF 自洽与高斯基组</h3><p>每个电子感受到的平均场取决于其他占据轨道；占据轨道又取决于这个场，因此必须迭代。实际计算通常先把分子轨道展开成有限个基函数：</p>
+<div class="equation" role="math">φᵢ(r) = ∑<sub>μ</sub> C<sub>μi</sub> χ<sub>μ</sub>(r)　　FC = SCε</div>
+<p>χ<sub>μ</sub> 是固定的基函数，C 是待求系数，S 是重叠矩阵，F 是依赖当前密度的 Fock 矩阵。原子中心高斯函数的基本形状是“多项式 × exp(−α|r−R<sub>A</sub>|²)”；多个原始高斯可以收缩成一个基函数，方便计算积分。这里的高斯基组与机器学习里的“高斯核”用途不同。</p>
+<p><strong>STO-3G</strong> 是便于入门的小基组，其中“3”指收缩所用原始高斯的数量，不是每个原子只拥有 3 个电子；<strong>cc-pVDZ</strong> 提供更灵活的价层双 ζ 与极化描述。更大基组通常增加表达能力和成本，但不同方法、不同基组之间不能仅凭总能量高低判断哪一个更准确。</p>
+<h3>练习：固定几何，只改变基组</h3><p>使用下面的脚本对同一水分子做两次 RHF 计算，记录基函数数量、总能量、SCF 是否收敛和电子数。基组比较时不要同时更改几何，否则难以确定差异来源。HF 的严格变分单调关系要求嵌套的试探空间等条件；任意两套不同基组并不自动满足这些条件。<a class="ref" href="#ref3" aria-label="参考资料 3">[3]</a></p>
+<details class="codebox"><summary>展开练习代码 · 01_HF比较两种基组.py</summary><div class="code-actions"><button type="button" data-copy="01_HF比较两种基组.py">复制代码</button><button type="button" data-download="01_HF比较两种基组.py">下载 .py</button></div><pre><code>&quot;&quot;&quot;水分子固定几何的 RHF 基组比较；在已安装 PySCF 的环境中运行。&quot;&quot;&quot;
+from pyscf import gto, scf, lib
+import csv
+import platform
+import pyscf
+
+lib.num_threads(2)
+geometry = &quot;O 0 0 0; H 0 -0.75716 0.58626; H 0 0.75716 0.58626&quot;
+rows = []
+print(&quot;Python&quot;, platform.python_version(), &quot;PySCF&quot;, pyscf.__version__)
+for basis in (&quot;sto-3g&quot;, &quot;cc-pvdz&quot;):
+    mol = gto.M(atom=geometry, basis=basis, unit=&quot;Angstrom&quot;,
+                charge=0, spin=0, verbose=0)
+    mf = scf.RHF(mol)
+    mf.conv_tol = 1e-10
+    energy = mf.kernel()
+    if not mf.converged:
+        raise RuntimeError(f&quot;{basis}: SCF 未收敛，不应直接比较结果&quot;)
+    # 密度矩阵在非正交 AO 基中：电子数 = Tr(D S)，不能直接 Tr(D)。
+    electrons = (mf.make_rdm1() * mf.get_ovlp().T).sum()
+    row = dict(basis=basis, nao=mol.nao_nr(),
+               energy_hartree=float(energy), electrons=float(electrons))
+    rows.append(row)
+    print(row)
+with open(&quot;hf_basis_results.csv&quot;, &quot;w&quot;, newline=&quot;&quot;, encoding=&quot;utf-8-sig&quot;) as f:
+    writer = csv.DictWriter(f, fieldnames=list(rows[0]))
+    writer.writeheader()
+    writer.writerows(rows)
+</code></pre></details>
+<p><strong>阅读：</strong>按你的计划读 Szabo &amp; Ostlund《Modern Quantum Chemistry》第 1–3 章，优先抓住行列式、变分、基组与自洽主线。章节和页码请按手头版本定位；也可配合 Sherrill 的公开 HF 讲义。<a class="ref" href="#ref2" aria-label="参考资料 2">[2]</a></p>
+<details class="check"><summary>自测：HF 包含“交换”，是否说明它已经包含全部电子相关？</summary><p>不是。HF 单行列式能体现反对称性与交换效应，但电子相关在常规定义下是超出 HF 的部分。</p></details>
+<div class="deliverable"><strong>今日产出</strong><p>输出 hf_basis_results.csv，并用两句话说明：为什么换基组会改变结果，以及为什么总能量更低不等于任意性质都更准。</p><label><input type="checkbox" data-day="2"> 我已学习并完成自测</label></div>
+</section><section id="d3" class="lesson"><div class="eyebrow">DAY 03 / 11月6日 · 周五</div><h2>DFT：以密度为主角，借助轨道求解</h2><p class="lead">DFT 的吸引力在于用三维密度组织基态问题；KS 方法则用辅助的单电子轨道把计算落到实处。</p>
+<h3>霍恩伯格–科恩定理：理论上为什么可行</h3><p>在通常的固定粒子数、非相对论基态及适用条件下，基态电子密度能够确定外势（相差一个常数除外），从而确定相应哈密顿量与基态性质。另一核心结论是：存在基态能量泛函，正确密度使其达到最低值。简并、自旋和可表示性有额外细节，第一遍先掌握这两条主线。</p>
+<p><strong>“存在这样的泛函”不等于“已经知道精确表达式”。</strong>理论告诉我们密度足够关键，却没有直接交给我们通用的精确实用公式。这也是近似泛函和机器学习泛函仍需研究的原因。<a class="ref" href="#ref4" aria-label="参考资料 4">[4]</a><a class="ref" href="#ref5" aria-label="参考资料 5">[5]</a></p>
+<h3>“函数”和“泛函”有什么区别</h3><p>普通函数可以把一个位置 r 映射成一个数 ρ(r)；泛函把<strong>整条函数 / 整个密度场</strong>作为输入，输出一个数，例如 E[ρ]。方括号提醒你：不是只看某一个空间点的密度值。</p>
+<h3>科恩–沈方程：辅助无相互作用体系</h3><p>KS 构造一个辅助的无相互作用电子体系，使其密度等于目标相互作用体系的基态密度，并求解相应的单电子方程。轨道使动能项更容易处理；它们并非整个真实多电子波函数。对闭壳层、每个空间轨道双占据的情形，ρ(r) = 2∑<sub>occ</sub>|φᵢ(r)|²；更一般地使用占据数 fᵢ。</p>
+<div class="equation" role="math">[−½∇² + v<sub>ext</sub>(r) + v<sub>H</sub>[ρ](r) + v<sub>xc</sub>[ρ](r)] φᵢ(r) = εᵢ φᵢ(r)</div>
+<div class="equation" role="math">ρ(r) = ∑ᵢ fᵢ|φᵢ(r)|²　　E[ρ] = T<sub>s</sub>[ρ] + ∫v<sub>ext</sub>ρ d³r + E<sub>H</sub>[ρ] + E<sub>xc</sub>[ρ] + E<sub>NN</sub></div>
+<div class="table-wrap"><table><thead><tr><th>符号</th><th>含义</th></tr></thead><tbody><tr><td>T<sub>s</sub></td><td>辅助无相互作用电子体系的动能</td></tr><tr><td>v<sub>ext</sub></td><td>电子受到的外势，分子中主要来自原子核</td></tr><tr><td>E<sub>H</sub> / v<sub>H</sub></td><td>经典平均场电子排斥能 / 相应势</td></tr><tr><td>E<sub>xc</sub> / v<sub>xc</sub></td><td>交换关联能 / 由泛函导数得到的势；也吸收真实动能与 T<sub>s</sub> 的差别</td></tr></tbody></table></div>
+<p class="caption">上式是普通局域势 KS 的常用形式。杂化泛函含非局域交换，常在广义 KS 框架中实现，不能把所有方法都理解成同一个纯乘法局域势。</p>
+<h3>SCF 自洽：猜一个密度，再让它与自己一致</h3>
+<div class="scf" aria-label="科恩沈自洽步骤"><ol id="scfSteps"><li class="active">输入几何、电子数、基组和泛函</li><li>给出初始密度 ρ₀ 或密度矩阵 D₀</li><li>由当前密度构造有效势 / KS 矩阵</li><li>解单电子方程，按占据数生成新密度</li><li>检查能量变化、密度变化或残差</li><li>未收敛：混合 / 加速后返回第 3 步；收敛：保存结果</li></ol><div class="scf-control"><button type="button" id="scfNext">下一步</button><button type="button" id="scfReset" class="ghost">从头看</button><p id="scfExplain" aria-live="polite">先确定你要求解的是哪个物理体系，以及采用哪些近似。</p></div></div>
+<p>自洽是一个固定点问题：输出密度应与用来构造势的输入密度一致。混合和 DIIS 等方法是改善迭代稳定性的手段；“收敛了”只说明满足数值收敛条件，不代表一定找到全局最低能解，也不说明泛函本身没有误差。<a class="ref" href="#ref3" aria-label="参考资料 3">[3]</a><a class="ref" href="#ref6" aria-label="参考资料 6">[6]</a></p>
+<p><strong>阅读：</strong>先看 Burke 的《Perspective on density functional theory》建立 DFT 成功与局限的全局认识，再配合 Parr &amp; Yang《Density-Functional Theory of Atoms and Molecules》开篇章节。前者是观点综述，不必把它当作完整的零基础推导教材。<a class="ref" href="#ref4" aria-label="参考资料 4">[4]</a></p>
+<details class="check"><summary>自测：为什么不是“输入原子坐标后解一次方程”就结束？</summary><p>有效势依赖密度，密度又来自这个势下的轨道和占据数。一次求解通常只能得到新猜测，需要反复更新直到满足自洽条件。</p></details>
+<div class="deliverable"><strong>今日产出</strong><p>闭卷画出 6 步自洽流程，并逐一标出：哪里输入近似、哪里解方程、哪里判断收敛。</p><label><input type="checkbox" data-day="3"> 我已学习并完成自测</label></div>
+</section><section id="d4" class="lesson"><div class="eyebrow">DAY 04 / 11月7日 · 周六</div><h2>泛函：近似信息从哪里来</h2><p class="lead">理论框架相同，交换关联近似不同，计算出的密度、能量和其他性质仍可能不同。</p>
+<h3>交换关联项不是一个可有可无的小修正</h3><p>经典 Hartree 项把电子密度当连续电荷处理，不能完整表示量子交换与相关；E<sub>xc</sub> 用于补足这些缺失，也包含真实相互作用动能与辅助体系动能之间的差别。近似 E<sub>xc</sub> 的选择是实用 KS-DFT 的关键误差来源之一。</p>
+<div class="table-wrap"><table><thead><tr><th>近似类别</th><th>使用哪些信息</th><th>例子与理解</th></tr></thead><tbody>
+<tr><td>LDA / LSDA</td><td>某点的局部密度；自旋形式区分两种自旋密度</td><td>借鉴均匀电子气。练习中明确用 SVWN：<code>lda,vwn</code></td></tr>
+<tr><td>GGA</td><td>密度以及密度的空间梯度</td><td>PBE；不仅问“这里有多密”，也问“附近变化有多快”</td></tr>
+<tr><td>meta-GGA</td><td>在密度与梯度之外，常加入轨道动能密度 τ 等信息</td><td>如 TPSS / SCAN；不是单纯把梯度求得更高阶</td></tr>
+<tr><td>杂化泛函</td><td>混合部分轨道依赖的精确交换与近似交换关联</td><td>B3LYP、PBE0 等；并不等于把 HF 与 DFT 的最终总能量直接平均</td></tr>
+<tr><td>更高一层的非局域相关</td><td>可引入未占据轨道等更丰富信息</td><td>如某些双杂化 / RPA 思路，成本和实现更复杂</td></tr>
+</tbody></table></div>
+<p>这就是“雅可比阶梯”的基本组织方式：从较少局部信息走向更丰富的信息。它是理解近似的地图，<strong>不是对每一种分子、每一种性质都成立的准确率排名</strong>。<a class="ref" href="#ref5" aria-label="参考资料 5">[5]</a><a class="ref" href="#ref15" aria-label="参考资料 15">[15]</a></p>
+<h3>为什么水分子要用三种泛函算一遍</h3><p>这个练习的目的不是宣布谁最好，而是观察：相同输入几何与基组下，不同近似如何改变输出。比较密度必须保持坐标、网格范围和采样点完全一致。比较图时也要固定等值面阈值或切片色条，避免视觉设置造成假差异。总能量在不同近似泛函之间更低，不能直接推出更接近真实值。</p>
+<aside class="note"><strong>容易混淆</strong><p>“LDA”是一个家族名称，不足以完整标识计算；记录具体交换与相关组合。B3LYP 等名称还可能涉及实现约定，因此保存软件与泛函库版本有助于复现。普通 LDA / GGA 和部分常见杂化并不能自动可靠描述长程色散。</p></aside>
+<h3>练习：导出同一网格的 cube 文件</h3><p>脚本固定水的几何，使用 cc-pVDZ 基组，分别计算 SVWN、PBE 与 B3LYP。每次都检查 SCF 收敛，再在同一输出网格求密度。注意 DFT 内部数值积分网格与 cube 可视化用的均匀网格是两回事。<a class="ref" href="#ref6" aria-label="参考资料 6">[6]</a><a class="ref" href="#ref16" aria-label="参考资料 16">[16]</a></p>
+<details class="codebox"><summary>展开练习代码 · 02_DFT与同网格密度.py</summary><div class="code-actions"><button type="button" data-copy="02_DFT与同网格密度.py">复制代码</button><button type="button" data-download="02_DFT与同网格密度.py">下载 .py</button></div><pre><code>&quot;&quot;&quot;LDA / PBE / B3LYP：相同几何、基组、输出网格；不做几何优化。&quot;&quot;&quot;
+from pathlib import Path
+import csv
+import numpy as np
+from pyscf import gto, dft, lib
+from pyscf.tools import cubegen
+
+lib.num_threads(2)
+out = Path(&quot;water_density_results&quot;)
+out.mkdir(exist_ok=True)
+mol = gto.M(atom=&quot;O 0 0 0; H 0 -0.75716 0.58626; H 0 0.75716 0.58626&quot;,
+            basis=&quot;cc-pvdz&quot;, unit=&quot;Angstrom&quot;, charge=0, spin=0, verbose=0)
+# Cube 的内部坐标及 box 使用 Bohr；输出密度使用 electron / Bohr^3。
+grid = cubegen.Cube(mol, nx=64, ny=64, nz=64, margin=4.0)
+coords = grid.get_coords()
+shape = (grid.nx, grid.ny, grid.nz)
+step = grid.box / (np.array(shape)[:, None] - 1)
+dv = abs(np.linalg.det(step))
+weights = []
+for n in shape:
+    w = np.ones(n)
+    w[[0, -1]] = 0.5
+    weights.append(w)
+
+def density_on_grid(molecule, dm):
+    parts = []
+    for begin in range(0, len(coords), 8192):
+        ao = dft.numint.eval_ao(molecule, coords[begin:begin+8192])
+        parts.append(dft.numint.eval_rho(molecule, ao, dm, xctype=&quot;LDA&quot;))
+    return np.concatenate(parts).reshape(shape)
+
+rows = []
+for label, xc in [(&quot;LDA_SVWN&quot;, &quot;lda,vwn&quot;), (&quot;PBE&quot;, &quot;pbe&quot;), (&quot;B3LYP&quot;, &quot;b3lyp&quot;)]:
+    mf = dft.RKS(mol)
+    mf.xc = xc
+    mf.grids.level = 3   # DFT 积分网格；与导出 cube 的均匀网格不同。
+    mf.conv_tol = 1e-9
+    energy = mf.kernel()
+    if not mf.converged:
+        raise RuntimeError(f&quot;{label}: SCF 未收敛&quot;)
+    rho = density_on_grid(mol, mf.make_rdm1())
+    grid.write(rho, str(out / f&quot;water_{label}.cube&quot;), comment=f&quot;density {xc}, e/Bohr^3&quot;)
+    count = np.einsum(&quot;i,j,k,ijk-&gt;&quot;, *weights, rho) * dv
+    rows.append(dict(method=label, xc=xc, energy_hartree=float(energy),
+                     grid_electrons=float(count), expected_electrons=mol.nelectron))
+    print(rows[-1])
+with (out / &quot;summary.csv&quot;).open(&quot;w&quot;, newline=&quot;&quot;, encoding=&quot;utf-8-sig&quot;) as f:
+    writer = csv.DictWriter(f, fieldnames=list(rows[0]))
+    writer.writeheader()
+    writer.writerows(rows)
+# 网格积分仅是近似检查。若与 10 相差明显，增大盒子并加密网格再比较。
+</code></pre></details>
+<ol><li>在已有 PySCF 环境中运行脚本，得到三个 cube 和汇总 CSV。</li><li>用 Jmol / VMD 等支持体数据的工具打开文件，先确认加载的是密度字段。</li><li>固定相同视角与相同等值面阈值观察差别；也可以画相同平面的二维切片。</li><li>检查有限网格积分是否接近水的 10 个电子；加密网格、放大盒子后应观察数值是否稳定。</li></ol>
+<p class="caption">这里提供的是练习代码，不包含预先虚构的计算结果。按官方安装说明，PySCF 的 Windows 使用路径是 WSL；已有可用环境时直接沿用，不必重复安装。<a class="ref" href="#ref17" aria-label="参考资料 17">[17]</a></p>
+<details class="check"><summary>自测：PBE 算出的总能量比另一个泛函更低，就能判断 PBE 更准确吗？</summary><p>不能。不同近似泛函不是同一个严格变分目标。应针对目标性质、合适参考值和一致的计算条件进行验证。</p></details>
+<div class="deliverable"><strong>今日产出</strong><p>保存三个 cube、一张使用统一可视化设置的对比图，以及方法 / 基组 / 几何 / 网格 / 软件版本记录。</p><label><input type="checkbox" data-day="4"> 我已学习并完成自测</label></div>
+</section><section id="d5" class="lesson"><div class="eyebrow">DAY 05 / 11月8日 · 周日</div><h2>数学与表示：怎样把一个连续场存进计算机</h2><p class="lead">同一个电子密度可以用网格数值或基函数系数表示；表示决定精度、存储量与模型设计。</p>
+<h3>傅里叶变换：从“哪里有变化”到“有哪些空间频率”</h3><p>一条复杂曲线可以由不同频率、振幅与相位的正弦 / 余弦叠加。傅里叶级数常用于周期函数；连续傅里叶变换把函数映射到连续频率空间；FFT 则是计算离散傅里叶变换的高效算法，三者不要混成同一个概念。</p>
+<div class="equation" role="math">f(x) ≈ a₀ + ∑<sub>k=1…K</sub> [aₖ cos(kx) + bₖ sin(kx)]</div>
+<p>低空间频率控制缓慢变化的轮廓，高空间频率帮助表示尖锐细节。丢掉高频信息，图会更平滑，也可能失去原子附近或成键区域的细节；高频数据中也可能混有噪声，实际重建需权衡。<a class="ref" href="#ref11" aria-label="参考资料 11">[11]</a></p>
+<h3>互动：增加频率能找回什么</h3><div class="lab"><div class="lab-head"><strong>截断傅里叶展开 · 一维示意</strong><span class="tag">无量纲数学函数</span></div><label class="slider">最高频率 K <input type="range" id="fourierK" min="0" max="18" value="3"><output id="fourierOut">3</output></label><canvas id="fourierCanvas" width="820" height="270" role="img" aria-label="目标函数与有限傅里叶展开对比图"></canvas><p id="fourierCaption" class="caption" aria-live="polite"></p><p class="caption">深色：周期延拓的目标函数 exp(−5x²)；橙色：截断展开。它不是真实分子密度。K 增大时，整体逼近改善不意味着每一个点的误差都单调减小。</p></div>
+<h3>平面波、高斯、实空间网格怎么选</h3><div class="table-wrap"><table><thead><tr><th>表示</th><th>特点</th><th>代价与注意事项</th></tr></thead><tbody>
+<tr><td>平面波</td><td>在整个计算盒内延展，常与周期体系和倒空间计算配合</td><td>截断能控制基函数数量；分子也能放进超胞，但需处理镜像相互作用等问题</td></tr>
+<tr><td>原子中心高斯</td><td>局域在原子附近，用有限系数组合描述轨道 / 场</td><td>适合局域结构；存在基组不完备和基组重叠误差，周期体系也可以用</td></tr>
+<tr><td>实空间网格</td><td>直接保存一组位置处的数值，适合切片和体数据学习</td><td>均匀网格每轴点数加倍，总点数约变为 8 倍；必须保存原点、方向、间距</td></tr>
+</tbody></table></div>
+<p><strong>基组与网格不是互相排斥的两条路线：</strong>可以先用高斯基组解轨道，再把所得密度采样到规则网格中导出 cube。机器学习可以预测基函数展开系数，也可以直接在查询点预测密度。两类输出应先转换到一致表示后再公平比较。</p>
+<h3>球谐函数：描述围绕原子“朝哪个方向”</h3><p>球谐函数 Y<sub>ℓm</sub>(θ,φ) 描述球面上的角向变化，常与径向函数 R<sub>nℓ</sub>(r) 配合。ℓ = 0 对应球对称角向形式，ℓ = 1、2…包含更丰富方向结构；相同 ℓ 的 2ℓ+1 个分量会在旋转时按规则混合。这使它成为构造旋转等变表示的重要工具。轨道图上的正负颜色表示函数符号 / 相位，不能解释为正电子与负电子。<a class="ref" href="#ref12" aria-label="参考资料 12">[12]</a></p>
+<div class="equation" role="math">f(r,θ,φ) ≈ ∑<sub>nℓm</sub> c<sub>nℓm</sub> R<sub>nℓ</sub>(r)Y<sub>ℓm</sub>(θ,φ)</div>
+<h3>周期性边界条件：用重复单元描述无限结构</h3><p>计算一个晶胞，并让它沿晶格向量重复。对理想周期体系，密度满足 ρ(r+T) = ρ(r)；轨道通常满足 Bloch 形式 φ<sub>nk</sub>(r+T) = exp(ik·T)φ<sub>nk</sub>(r)，未必本身严格相同。晶胞大小、k 点与基组截断是不同的收敛设置。</p>
+<details class="codebox"><summary>展开练习代码 · 03_平面波与高斯展开.py</summary><div class="code-actions"><button type="button" data-copy="03_平面波与高斯展开.py">复制代码</button><button type="button" data-download="03_平面波与高斯展开.py">下载 .py</button></div><pre><code>&quot;&quot;&quot;同一个一维函数、相同基函数数量，比较两种最小二乘表示。&quot;&quot;&quot;
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-np.pi, np.pi, 600, endpoint=False)
+y = np.exp(-5 * x**2)
+# 15 个实平面波基函数：1 + 7 组 cos / sin。
+plane = [np.ones_like(x)]
+for k in range(1, 8):
+    plane.extend([np.cos(k*x), np.sin(k*x)])
+A = np.column_stack(plane)
+# 15 个局域高斯。中心和宽度是本练习设定，不代表量化化学基组。
+centers = np.linspace(-np.pi, np.pi, 15)
+B = np.exp(-((x[:, None]-centers[None, :])/0.45)**2)
+ca = np.linalg.lstsq(A, y, rcond=None)[0]
+cb = np.linalg.lstsq(B, y, rcond=None)[0]
+for name, pred in [(&quot;plane waves&quot;, A@ca), (&quot;Gaussians&quot;, B@cb)]:
+    print(name, &quot;RMSE&quot;, np.sqrt(np.mean((pred-y)**2)))
+    plt.plot(x, pred, label=name)
+plt.plot(x, y, &quot;k--&quot;, label=&quot;target exp(-5x^2)&quot;)
+plt.xlabel(&quot;x (dimensionless)&quot;)
+plt.ylabel(&quot;f(x)&quot;)
+plt.legend()
+plt.tight_layout()
+plt.savefig(&quot;basis_comparison.png&quot;, dpi=160)
+# 这是固定采样点上的拟合演示；不用于判断真实分子哪种基组更准确。
+</code></pre></details>
+<p><strong>阅读：</strong>用 3Blue1Brown 的傅里叶视频建立频率与相位直觉，再读球谐函数入门说明；先学会看图与符号，后续再补积分、正交性与群表示。<a class="ref" href="#ref11" aria-label="参考资料 11">[11]</a><a class="ref" href="#ref12" aria-label="参考资料 12">[12]</a></p>
+<details class="check"><summary>自测：把密度从高斯基组采样到 cube 网格后，它还是同一个物理量吗？</summary><p>仍是同一个目标密度的数值采样，但有限网格范围、分辨率及插值会引入表示误差。要记录这些数值设置。</p></details>
+<div class="deliverable"><strong>今日产出</strong><p>生成 basis_comparison.png，说明局域基函数和整体振荡基函数各自怎样逼近同一个一维目标。</p><label><input type="checkbox" data-day="5"> 我已学习并完成自测</label></div>
+</section><section id="d6" class="lesson"><div class="eyebrow">DAY 06 / 11月9日 · 周一</div><h2>机器学习：让模型学到规律，也测出它的边界</h2><p class="lead">先从一个小数据集和简单基线学会评估，再理解神经网络与图神经网络的作用。</p>
+<h3>神经网络与模型训练</h3><p>神经网络由可调参数组成，通常把线性变换与非线性激活逐层组合。给定输入 x，模型输出 ŷ = f<sub>θ</sub>(x)，训练通过最小化损失 L(ŷ,y) 调整参数 θ。电子密度任务的输入可以是原子种类、坐标与查询位置，输出可以是该点密度、整块网格或展开系数。</p>
+<p>密度是连续标量场，常用回归损失。若网格间距不同，想比较空间积分意义上的误差，就要考虑体积权重，而不只是对数组元素直接取平均。近核高密度与成键低密度区域可能同时重要，仅看一个全局数字容易掩盖局部问题。</p>
+<h3>先做核岭回归 KRR 基线</h3><p>核方法通过“样本之间有多相似”来做预测。岭回归加入二次惩罚以抑制过大的参数；KRR 用核矩阵实现非线性拟合。它不需要像深度网络那样逐层学习表征，但非常依赖输入描述符、核与超参数。</p>
+<div class="equation" role="math">α = (K + λI)⁻¹y　　ŷ(x) = ∑ᵢ αᵢ k(x,xᵢ)</div>
+<p>这是常见的一种损失归一化约定下的表达。K 是样本两两相似度矩阵，λ 控制正则化；RBF 核中的 γ 控制相似度随距离衰减的快慢。α 是拟合系数，与软件参数名 <code>alpha</code>（通常表示正则强度）不是同一个东西。朴素 KRR 需要保存样本间矩阵，大样本下内存和求解成本会增加。<a class="ref" href="#ref13" aria-label="参考资料 13">[13]</a></p>
+<details class="codebox"><summary>展开练习代码 · 04_核岭回归入门.py</summary><div class="code-actions"><button type="button" data-copy="04_核岭回归入门.py">复制代码</button><button type="button" data-download="04_核岭回归入门.py">下载 .py</button></div><pre><code>&quot;&quot;&quot;合成一维数据上的 KRR；调参只用训练集，测试集最后使用一次。&quot;&quot;&quot;
+import numpy as np
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.kernel_ridge import KernelRidge
+from sklearn.metrics import mean_absolute_error
+
+rng = np.random.default_rng(42)
+X = rng.uniform(-3, 3, (240, 1))
+y = np.sin(X[:, 0]) + 0.2*X[:, 0] + rng.normal(0, 0.03, len(X))
+Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.2, random_state=42)
+pipeline = Pipeline([(&quot;scale&quot;, StandardScaler()),
+                     (&quot;krr&quot;, KernelRidge(kernel=&quot;rbf&quot;))])
+search = GridSearchCV(pipeline,
+    {&quot;krr__alpha&quot;: [1e-4, 1e-2, 1.0], &quot;krr__gamma&quot;: [0.1, 1.0, 10.0]},
+    scoring=&quot;neg_mean_absolute_error&quot;, cv=5)
+search.fit(Xtr, ytr)
+print(&quot;best parameters:&quot;, search.best_params_)
+print(&quot;test MAE:&quot;, mean_absolute_error(yte, search.predict(Xte)))
+# 分子数据应按分子/体系划分，避免同一分子的网格点同时进入训练和测试。
+</code></pre></details>
+<h3>GNN 与消息传递：把分子看作图</h3><p>用原子作为节点，键或空间近邻作为边。每轮消息传递中，节点汇总邻居的信息并更新自己的表示；多轮后能包含更大范围的局部环境。用于电子密度时，研究者还可能加入查询点、原子中心基函数或多尺度场表示，具体设计要看论文。<a class="ref" href="#ref14" aria-label="参考资料 14">[14]</a></p>
+<div class="equation" role="math">mᵢ = ∑<sub>j∈N(i)</sub> M(hᵢ,hⱼ,eᵢⱼ)　　hᵢ′ = U(hᵢ,mᵢ)</div>
+<p>hᵢ 是节点特征，eᵢⱼ 是边特征，M 生成消息，U 更新节点。求和等聚合方式有助于消除邻居排列顺序的影响；但普通 GNN <strong>不会仅因使用了分子图就自动获得三维旋转等变性</strong>，还要看几何特征和运算设计。</p>
+<h3>训练、验证、测试怎样划分才有意义</h3><div class="table-wrap"><table><thead><tr><th>数据部分</th><th>用来做什么</th><th>避免的问题</th></tr></thead><tbody>
+<tr><td>训练集</td><td>拟合模型参数与预处理统计量</td><td>标准化时不要先看全部数据</td></tr>
+<tr><td>验证集 / 训练内交叉验证</td><td>选择超参数、模型和训练轮数</td><td>不能把测试集当验证集反复调参</td></tr>
+<tr><td>独立测试集</td><td>最后估计目标场景下的泛化误差</td><td>避免相同分子、近重复构型或同源样本泄漏</td></tr>
+</tbody></table></div>
+<h3>电子密度任务至少检查什么</h3><ul><li><strong>数值误差：</strong>报告明确的 MAE / RMSE / 积分误差及归一化方式，和基线比较。</li><li><strong>物理检查：</strong>非负性、总电子数、旋转 / 平移变换后的行为。</li><li><strong>局部表现：</strong>原子附近、化学键和弱相互作用区域的切片或区域指标。</li><li><strong>泛化：</strong>换分子、换构型或换化学空间后是否仍有效；参考标签本身来自哪种计算近似。</li></ul>
+<details class="check"><summary>自测：训练损失持续下降，而验证误差先降后升，最常见的解释是什么？</summary><p>模型开始过拟合训练数据。应检查数据划分与泄漏，并考虑早停、正则化、降低模型容量或增加合适数据；不应继续用测试集指导调参。</p></details>
+<div class="deliverable"><strong>今日产出</strong><p>运行合成数据 KRR，保存调参范围、最优参数与测试误差。再写出把它迁移到分子数据时必须补上的描述符与分组划分。</p><label><input type="checkbox" data-day="6"> 我已学习并完成自测</label></div>
+</section><section id="d7" class="lesson"><div class="eyebrow">DAY 07 / 11月10日 · 周二</div><h2>对称性与生成模型：旋转后应该怎样变</h2><p class="lead">能量、向量和密度场对坐标变换的响应不同；理解这个区别，才能看懂等变模型。</p>
+<h3>不变性：输入旋转，标量结果不变</h3><p>把孤立分子整体旋转，且不改变相对构型、外场条件等，物理能量应保持不变。用 X 表示全部原子坐标、R 表示旋转矩阵，则 E(RX) = E(X)。这叫旋转不变性。</p>
+<h3>等变性：输入变，输出按同样的规则变</h3><p>例如原子受力是向量，旋转分子后，力也应旋转：F(RX) = RF(X)。输出不是“所有数字保持不变”，而是<strong>先变换输入再预测，与先预测再变换输出相一致</strong>。</p>
+<h3>电子密度是标量场，为什么仍要讲等变？</h3><p>密度在一个点的数值是标量，但整个密度场会随分子在空间中移动。旋转后的场满足：</p>
+<div class="equation" role="math">ρ<sub>RX</sub>(Rr) = ρ<sub>X</sub>(r)　　等价地：ρ<sub>RX</sub>(r) = ρ<sub>X</sub>(R⁻¹r)</div>
+<p>同一块电子云随分子一起旋转；如果始终看实验室固定位置 r，该位置的数值可能改变。若同时旋转分子和查询点，密度值应保持一致。平移也有相应关系：ρ<sub>X+t</sub>(r+t) = ρ<sub>X</sub>(r)。</p>
+<div class="lab"><div class="lab-head"><strong>互动：转动分子与密度场</strong><span class="tag">高斯叠加示意，非真实计算</span></div><label class="slider">旋转角度 <input id="rotateAngle" type="range" min="0" max="360" value="0"><output id="rotateOut">0°</output></label><canvas id="rotationCanvas" width="820" height="350" role="img" aria-label="分子及示意标量场一起旋转"></canvas><p id="rotationCaption" class="caption" aria-live="polite"></p><p class="caption">左：固定的初始场；右：旋转后的场。紫点是固定实验室位置，绿点随分子旋转。这里用二维高斯和演示变换规则，数值无量纲，颜色不表示真实电荷或水分子计算结果。</p></div>
+<p>球谐函数与不可约表示提供按旋转规律组织特征的方法，e3nn 则提供相应的等变运算组件。数据增强让模型见过更多旋转样本；结构上的等变设计把变换规律写进模型，两者概念不同。<a class="ref" href="#ref12" aria-label="参考资料 12">[12]</a></p>
+<h3>神经算子：学习“函数到函数”的映射</h3><p>普通有限维网络常把一个向量映射成另一个向量；神经算子着眼于输入函数与输出函数之间的映射，比如把外势场映射成密度场。FNO 等方法用傅里叶空间运算实现高效非局域信息交互。原子结构如何编码成输入，仍是具体论文需要解决的问题。<a class="ref" href="#ref18" aria-label="参考资料 18">[18]</a></p>
+<p>这类设计可以支持不同离散网格上的参数共享，但“叫神经算子”不等于无需验证就能在任意分辨率、任意几何或任意边界条件下准确预测。离散化、数据分布和架构都会影响结果。</p>
+<h3>扩散模型：逐步加噪，再学习去噪</h3><p>训练时按预设过程把数据逐步加入噪声，让网络学习在各噪声级别恢复信息；生成时从噪声出发逐步去噪。条件扩散可以把分子结构、性质或其他信息作为条件，学习输出分布。<a class="ref" href="#ref19" aria-label="参考资料 19">[19]</a></p>
+<div class="route"><span>真实样本 x₀</span><b>→</b><span>逐步加噪 xₜ</span><b>⇄</b><span>学习反向去噪</span><b>→</b><span>条件下的新样本</span></div>
+<aside class="note"><strong>容易混淆</strong><p>扩散模型里的“扩散”是生成建模过程，不表示电子真的沿经典轨迹在分子里扩散。生成的密度也不自动满足非负性、电子数或量子力学可表示性，需要专门设计与验证。</p></aside>
+<details class="check"><summary>自测：把水分子转 90° 后，固定空间坐标处的密度值必须保持不变吗？</summary><p>不必。应保持的是跟随分子一起旋转的对应位置处的密度值。密度场整体旋转，而不是固定网格上每个数都不变。</p></details>
+<div class="deliverable"><strong>今日产出</strong><p>分别举出不变标量、等变向量、等变标量场各一个例子，并用自己的话解释 ρ_RX(Rr)=ρ_X(r)。</p><label><input type="checkbox" data-day="7"> 我已学习并完成自测</label></div>
+</section><section id="d8" class="lesson"><div class="eyebrow">DAY 08 / 11月11日 · 周三</div><h2>实验电子密度与弱相互作用</h2><p class="lead">把理论密度与实验观测联系起来，并用差分密度观察相互作用引起的电子重排。</p>
+<h3>X 射线衍射：测到的是散射信息</h3><p>X 射线主要被电子散射。晶体周期排列使特定方向出现衍射信号，结构因子 F(hkl) 描述一个晶胞对相应反射的复振幅贡献。它与晶胞电子密度互为傅里叶关系，兼有振幅与相位。<a class="ref" href="#ref20" aria-label="参考资料 20">[20]</a></p>
+<div class="equation" role="math">F(h) = ∫<sub>cell</sub> ρ(r) exp(2πih·r) d³r　　I(h) ∝ |F(h)|²</div>
+<p class="caption">这里 r 使用分数坐标、积分含实际体积元；不同教材可使用相反指数符号，只要正反变换约定一致即可。真实实验还需尺度、几何与其他修正。</p>
+<h3>相位问题：为什么不能直接“把强度变成图”</h3><p>探测器主要给出与 |F|² 有关的强度，没有直接给出每个 F 的相位；而反傅里叶重建密度需要两者。相位可借助分子置换、异常散射、直接法等方法获得或估计。由此产生的密度图会受到数据质量、分辨率截断与建模的影响，并非不经假设的电子照片。<a class="ref" href="#ref7" aria-label="参考资料 7">[7]</a><a class="ref" href="#ref20" aria-label="参考资料 20">[20]</a></p>
+<h3>电荷密度建模：从球形原子到非球形分布</h3><p>常规独立原子模型把原子视为近似球对称的散射贡献；更精细的电荷密度研究可使用多极模型等描述成键、孤对电子和非球形重排。要从实验中可靠讨论这些细节，通常需要高质量数据，并妥善处理热运动、参数相关和模型误差。分子原子坐标、普通实验图与精细电荷密度分析不能当作完全相同的任务。</p>
+<h3>氢键与色散：不要用一个简单图像概括所有作用</h3><div class="table-wrap"><table><thead><tr><th>作用</th><th>入门理解</th><th>密度图能与不能说明什么</th></tr></thead><tbody>
+<tr><td>氢键</td><td>涉及供体 X–H 与受体的定向相互作用，包含静电、极化等多种贡献</td><td>可观察电子重排；单凭一块颜色不能分解出全部相互作用能</td></tr>
+<tr><td>色散</td><td>电子涨落的相关引起的吸引，远距离行为与非局域相关有关</td><td>平均密度变化可能很小；不能只凭“图上有没有明显电荷转移”判断有无色散</td></tr>
+</tbody></table></div>
+<h3>差分密度 Δρ：相互作用前后改变了哪里</h3><div class="equation" role="math">Δρ(r) = ρ<sub>AB</sub>(r) − ρ<sub>A</sub>(r) − ρ<sub>B</sub>(r)</div>
+<p>这里将 A、B 的几何冻结在二聚体中的位置；三次计算采用相同方法，且在完全相同的空间网格上求值。Δρ &gt; 0 表示相对参考片段的电子积累，Δρ &lt; 0 表示电子减少。若 AB 的电子数等于两个片段之和，完整空间中 ∫Δρd³r = 0。</p>
+<p>这张图取决于参考片段的定义，不能解释成某个电子从 A 到 B 的经典运动路线。量子化学的 AB−A−B 差分密度也不同于晶体学中用于检查模型偏差的 F<sub>o</sub>−F<sub>c</sub> 型差值图。</p>
+<h3>练习：水二聚体</h3><p>下面采用一个未经优化的教学构型。为减少基组空间不一致带来的干扰，片段计算保留另一片段的“幽灵基函数”：它们提供基函数，却不提供核电荷或电子。这样可以在共同基组空间下计算冻结几何的密度差。这个选择需要写在方法记录里，不能只写“做了相减”。</p>
+<details class="codebox"><summary>展开练习代码 · 06_水二聚体差分密度.py</summary><div class="code-actions"><button type="button" data-copy="06_水二聚体差分密度.py">复制代码</button><button type="button" data-download="06_水二聚体差分密度.py">下载 .py</button></div><pre><code>&quot;&quot;&quot;冻结几何、同方法、同基组空间、同网格的 AB-A-B 差分密度。&quot;&quot;&quot;
+from pathlib import Path
+import numpy as np
+from pyscf import gto, dft, lib
+from pyscf.tools import cubegen
+
+lib.num_threads(2)
+out = Path(&quot;water_dimer_results&quot;)
+out.mkdir(exist_ok=True)
+# 教学构型，未优化。A 中一条 O-H 键指向 B 的氧；O···O = 2.9 Å。
+atoms = [(&quot;O&quot;, (0, 0, 0)), (&quot;H&quot;, (0.9572, 0, 0)),
+         (&quot;H&quot;, (-0.23999, 0.92730, 0)),
+         (&quot;O&quot;, (2.9, 0, 0)), (&quot;H&quot;, (3.486, 0.757, 0)),
+         (&quot;H&quot;, (3.486, -0.757, 0))]
+
+def molecule(real_indices):
+    # ghost 原子只保留基函数，无核电荷与电子，统一三次计算的 AO 空间。
+    spec = [(symbol if i in real_indices else &quot;ghost-&quot;+symbol, pos)
+            for i, (symbol, pos) in enumerate(atoms)]
+    return gto.M(atom=spec, basis=&quot;cc-pvdz&quot;, unit=&quot;Angstrom&quot;,
+                 charge=0, spin=0, verbose=0)
+
+AB = molecule(set(range(6)))
+A = molecule({0, 1, 2})
+B = molecule({3, 4, 5})
+grid = cubegen.Cube(AB, nx=64, ny=64, nz=64, margin=4.0)
+coords = grid.get_coords()
+shape = (grid.nx, grid.ny, grid.nz)
+
+def solve(mol):
+    mf = dft.RKS(mol)
+    mf.xc = &quot;pbe&quot;
+    mf.grids.level = 3
+    mf.conv_tol = 1e-9
+    energy = mf.kernel()
+    if not mf.converged:
+        raise RuntimeError(&quot;SCF 未收敛&quot;)
+    dm = mf.make_rdm1()
+    values = []
+    for begin in range(0, len(coords), 8192):
+        ao = dft.numint.eval_ao(mol, coords[begin:begin+8192])
+        values.append(dft.numint.eval_rho(mol, ao, dm, xctype=&quot;LDA&quot;))
+    return energy, np.concatenate(values).reshape(shape)
+
+eAB, rAB = solve(AB)
+eA, rA = solve(A)
+eB, rB = solve(B)
+delta = rAB-rA-rB
+grid.write(rAB, str(out / &quot;dimer_density.cube&quot;), comment=&quot;AB density, e/Bohr^3&quot;)
+grid.write(delta, str(out / &quot;delta_density.cube&quot;), comment=&quot;rho_AB-rho_A-rho_B, e/Bohr^3&quot;)
+np.save(out / &quot;delta_density.npy&quot;, delta)
+step = grid.box / (np.array(shape)[:, None]-1)
+weights = []
+for n in shape:
+    w = np.ones(n)
+    w[[0, -1]] = 0.5
+    weights.append(w)
+integral = np.einsum(&quot;i,j,k,ijk-&gt;&quot;, *weights, delta)*abs(np.linalg.det(step))
+print(&quot;integral(delta rho), should approach 0:&quot;, integral)
+print(&quot;frozen-geometry CP interaction energy (Hartree):&quot;, eAB-eA-eB)
+print(&quot;This is a PBE teaching calculation, not a dispersion benchmark.&quot;)
+</code></pre></details>
+<ol><li>先看普通二聚体密度，再用正、负对称阈值显示差分等值面。</li><li>明确图例：哪种颜色代表积累，哪种代表减少；不要沿用其他软件的默认含义。</li><li>检查差分密度积分是否接近零，并通过更大盒子 / 更密网格判断数值稳定性。</li><li>不要把练习中的 PBE 相互作用能当作色散基准；若研究弱相互作用精度，还需适当方法与参考数据。</li></ol>
+<details class="check"><summary>自测：用各自优化后的单体密度去减二聚体密度，得到的仍然只是相互作用引起的重排吗？</summary><p>不完全是。差异还混入了单体构型变化的贡献。若想先观察固定几何下的重排，应让参考片段保持二聚体中的原子位置，并统一坐标、网格和计算设置。</p></details>
+<div class="deliverable"><strong>今日产出</strong><p>生成 delta_density.cube，保存正负差分图，并记录参考片段、冻结几何、幽灵基组、数值网格与积分检查。</p><label><input type="checkbox" data-day="8"> 我已学习并完成自测</label></div>
+</section><section id="d9" class="lesson"><div class="eyebrow">DAY 09 / 11月12日 · 周四</div><h2>复盘：能讲清楚，比“看过”更重要</h2><p class="lead">用一条完整的解释和一组最小实验，把零散术语组织成可以实际使用的知识。</p>
+<h3>先闭卷讲一遍这条主线</h3><p>给定原子种类、位置、电荷和自旋，选定电子结构方法与基组。HF 用单行列式近似多电子态，KS-DFT 以密度为核心并使用辅助轨道求解。两者通常都需要自洽迭代。得到的密度再用网格或基函数表示。机器学习可以拟合这种结构到密度的关系，但评价必须检查数值误差、物理约束、对称性和新体系泛化。最后，若要与实验图比较，还必须处理物理量、分辨率、标度与模型差异。</p>
+<h3>一页复盘清单</h3><div class="review-grid"><div><strong>理论</strong><p>Ψ 与 ρ 的关系？BO 近似做了什么？交换与相关如何区分？HK 定理保证了什么、没有直接给出什么？</p></div><div><strong>数值</strong><p>方法 / 泛函 / 基组 / 网格有什么区别？SCF 为什么循环？密度积分与坐标单位怎么检查？</p></div><div><strong>学习</strong><p>预测对象是什么？标签来自什么计算？是否分子级划分？基线与泛化目标是什么？</p></div><div><strong>解释</strong><p>旋转后密度怎样变？实验图与理论密度有何区别？差分图的参考状态是什么？</p></div></div>
+<h3>综合自测</h3><p>每题只有一个最合适的答案。提交后显示解释，可以重新作答；这部分用于复习，不会替你勾选“已学习”。</p><form id="quizForm"><div id="quizQuestions"></div><button type="submit">检查答案</button><button type="button" id="quizReset" class="ghost">重新作答</button><p id="quizScore" class="quiz-score" aria-live="polite"></p></form>
+<h3>读电子密度机器学习论文时，用这张提取表</h3><div class="table-wrap"><table><thead><tr><th>维度</th><th>应该写下来的信息</th></tr></thead><tbody><tr><td>任务</td><td>预测理论密度、修正密度、学习泛函，还是实验图重建？</td></tr><tr><td>标签来源</td><td>软件、方法、泛函、基组、全电子 / 价电子、几何与自旋</td></tr><tr><td>输入 / 输出</td><td>元素、坐标、周期胞、查询点；网格、系数或其他表示</td></tr><tr><td>约束</td><td>不变 / 等变、平移、非负性、总电子数、边界条件</td></tr><tr><td>数据</td><td>样本单位、分子数 / 构型数、划分方式、相似或重复样本</td></tr><tr><td>验证</td><td>误差定义、基线、局部区域表现、外推与物理性质</td></tr><tr><td>复现条件</td><td>代码提交、环境、数据可得性、算力、训练时间与许可证</td></tr></tbody></table></div>
+<h3>学习成果怎样记进周报</h3><p>从实际完成的成果中写，而不是照抄整张计划。例如完成 HF 练习后可写：“学习 HF 自洽与基组的基本概念，在固定水分子几何下完成两种基组的对比计算，整理基函数数量、能量与电子数检查结果。”没有跑完的部分写成“了解 / 初步学习 / 计划开展”，并标记待解决问题。</p>
+<div class="deliverable"><strong>今日产出</strong><p>完成综合自测，将概念标为“能解释 / 模糊 / 待重学”，整理一个代表性实验的代码、图与方法记录。</p><label><input type="checkbox" data-day="9"> 我已学习并完成自测</label></div></section><section id="glossary" class="lesson"><div class="eyebrow">随手查 / 中英对照</div><h2>术语速查表</h2><p class="lead">先能用一句自己的话解释，再回到原文看精确定义。</p>
+<label class="search-label" for="termSearch">查找术语<input type="search" id="termSearch" placeholder="例如：密度、SCF、equivariance" autocomplete="off"></label><p id="termCount" class="caption" aria-live="polite">共 42 个术语</p><div class="table-wrap"><table id="termTable"><thead><tr><th>中文</th><th>英文 / 符号</th><th>一句话解释</th></tr></thead><tbody><tr><td><strong>波函数</strong></td><td>wavefunction / Ψ</td><td>描述量子态的复值函数；多电子波函数取决于所有电子的空间与自旋坐标。</td></tr><tr><td><strong>轨道</strong></td><td>orbital / φ</td><td>单电子函数；不等于整个多电子波函数，也不是经典运动轨道。</td></tr><tr><td><strong>电子密度</strong></td><td>electron density / ρ</td><td>空间中的电子数密度，完整积分为电子数 N。</td></tr><tr><td><strong>电荷密度</strong></td><td>charge density</td><td>电子贡献为 −eρ；总电荷密度还涉及原子核等电荷。</td></tr><tr><td><strong>哈密顿算符</strong></td><td>Hamiltonian / Ĥ</td><td>描述体系能量的算符，包含相应动能与相互作用。</td></tr><tr><td><strong>本征值</strong></td><td>eigenvalue</td><td>算符作用后仅将函数乘以常数时，该常数为本征值。</td></tr><tr><td><strong>玻恩–奥本海默近似</strong></td><td>Born–Oppenheimer / BO</td><td>利用核与电子的质量 / 时间尺度差异分离其运动。</td></tr><tr><td><strong>自旋轨道</strong></td><td>spin orbital / χ</td><td>同时包含空间与自旋自由度的单电子函数。</td></tr><tr><td><strong>斯莱特行列式</strong></td><td>Slater determinant</td><td>由自旋轨道组成的反对称多电子波函数形式。</td></tr><tr><td><strong>交换</strong></td><td>exchange</td><td>反对称性引起的量子效应，HF 已包含交换项。</td></tr><tr><td><strong>电子相关</strong></td><td>electron correlation</td><td>常规量化化学定义下，超出 HF 的电子运动关联。</td></tr><tr><td><strong>哈特里–福克</strong></td><td>Hartree–Fock / HF</td><td>通过优化单行列式近似电子态的方法，通常需自洽求解。</td></tr><tr><td><strong>基组</strong></td><td>basis set</td><td>用来展开轨道或场的一组函数；方法与基组是不同设置。</td></tr><tr><td><strong>高斯基函数</strong></td><td>Gaussian-type orbital / GTO</td><td>原子中心多项式乘高斯的函数，可高效计算积分。</td></tr><tr><td><strong>极化函数</strong></td><td>polarization function</td><td>增加角向灵活度的基函数，有助于描述非球形电子分布。</td></tr><tr><td><strong>密度泛函理论</strong></td><td>density functional theory / DFT</td><td>以电子密度组织基态电子结构问题的理论框架。</td></tr><tr><td><strong>泛函</strong></td><td>functional / E[ρ]</td><td>以整个函数作为输入的映射，例如密度函数映射到能量。</td></tr><tr><td><strong>霍恩伯格–科恩定理</strong></td><td>Hohenberg–Kohn / HK</td><td>给出密度与外势及基态能量变分之间的理论联系。</td></tr><tr><td><strong>科恩–沈方法</strong></td><td>Kohn–Sham / KS</td><td>通过辅助无相互作用体系的轨道求目标密度。</td></tr><tr><td><strong>自洽场</strong></td><td>self-consistent field / SCF</td><td>让输入密度与由它生成的新密度达到一致的迭代流程。</td></tr><tr><td><strong>交换关联</strong></td><td>exchange–correlation / XC</td><td>补充经典平均场未完整描述的交换、相关及动能差等。</td></tr><tr><td><strong>局部密度近似</strong></td><td>local density approximation / LDA</td><td>用局部密度与均匀电子气信息构造近似。</td></tr><tr><td><strong>广义梯度近似</strong></td><td>generalized gradient approximation / GGA</td><td>在局部密度外引入密度梯度信息。</td></tr><tr><td><strong>meta-GGA</strong></td><td>meta-generalized gradient approximation</td><td>进一步加入轨道动能密度等信息的半局域近似。</td></tr><tr><td><strong>杂化泛函</strong></td><td>hybrid functional</td><td>混入一定比例轨道依赖精确交换的近似泛函。</td></tr><tr><td><strong>平面波</strong></td><td>plane wave</td><td>空间整体延展的波函数基，常与周期计算结合。</td></tr><tr><td><strong>傅里叶变换</strong></td><td>Fourier transform</td><td>在空间 / 时间描述与频率描述之间转换。</td></tr><tr><td><strong>球谐函数</strong></td><td>spherical harmonics / Yℓm</td><td>描述球面角向变化的一组函数，旋转时分量按规则混合。</td></tr><tr><td><strong>周期性边界条件</strong></td><td>periodic boundary conditions / PBC</td><td>以重复晶胞描述周期结构，需考虑晶胞与采样设置。</td></tr><tr><td><strong>核岭回归</strong></td><td>kernel ridge regression / KRR</td><td>用核相似度和二次正则化进行回归的基线方法。</td></tr><tr><td><strong>图神经网络</strong></td><td>graph neural network / GNN</td><td>通过节点与边组织数据，并进行特征更新的网络。</td></tr><tr><td><strong>消息传递</strong></td><td>message passing</td><td>邻居生成、聚合信息，再更新节点特征的过程。</td></tr><tr><td><strong>不变性</strong></td><td>invariance</td><td>变换输入后，目标量保持相同，例如孤立分子整体旋转的能量。</td></tr><tr><td><strong>等变性</strong></td><td>equivariance</td><td>输入和输出的变换相容，例如旋转输入后密度场随之旋转。</td></tr><tr><td><strong>神经算子</strong></td><td>neural operator</td><td>面向函数空间之间映射的学习模型，离散实现仍需验证。</td></tr><tr><td><strong>扩散模型</strong></td><td>diffusion model</td><td>通过加噪训练与反向去噪生成样本的模型。</td></tr><tr><td><strong>结构因子</strong></td><td>structure factor / F(hkl)</td><td>晶胞电子密度的傅里叶分量，含振幅与相位。</td></tr><tr><td><strong>相位问题</strong></td><td>phase problem</td><td>衍射强度未直接提供重建密度所需的相位。</td></tr><tr><td><strong>差分密度</strong></td><td>difference density / Δρ</td><td>相对明确参考状态的密度差；正负代表积累与减少。</td></tr><tr><td><strong>色散</strong></td><td>dispersion</td><td>与电子涨落相关的非局域吸引作用，平均密度重排未必明显。</td></tr><tr><td><strong>幽灵原子</strong></td><td>ghost atom</td><td>只保留基函数、不带核电荷和电子的计算中心。</td></tr><tr><td><strong>原子单位</strong></td><td>atomic units / a.u.</td><td>量化计算常用单位；长度为 Bohr、能量为 Hartree。1 Bohr 约 0.529177 Å。</td></tr></tbody></table></div>
+</section><section id="sources" class="lesson"><div class="eyebrow">资料与实验 / 可回查</div><h2>阅读材料与代码说明</h2><p class="lead">正文按概念重新组织，重要术语和软件用法可沿链接回到原始资料核对。</p>
+<h3>你指定的教材</h3><ul><li>Szabo &amp; Ostlund：<em>Modern Quantum Chemistry</em>，按你的计划读第 1–3 章；以手头版本为准。</li><li>Parr &amp; Yang：<em>Density-Functional Theory of Atoms and Molecules</em>，先读开篇的密度与基态理论部分。</li><li>机器学习课程可沿用 fast.ai 或 CS229 讲义；本文把练习集中在可核对的官方 API 与原始方法论文。</li></ul>
+<h3>公开资料</h3><ol class="references"><li id="ref1"><a href="https://vergil.chemistry.gatech.edu/resources" target="_blank" rel="noopener noreferrer">量子基础与 BO 近似公开讲义</a><span>C. David Sherrill · Electronic Structure / Resources</span><p>用于补充定态电子结构、算符、玻恩–奥本海默近似与基组基础。</p></li><li id="ref2"><a href="https://vergil.chemistry.gatech.edu/Hartree-Fock-Intro.pdf" target="_blank" rel="noopener noreferrer">Introduction to Hartree–Fock Molecular Orbital Theory</a><span>C. David Sherrill · Georgia Tech</span><p>配合行列式、平均场、交换与 HF 变分思路。</p></li><li id="ref3"><a href="https://pyscf.org/user/scf.html" target="_blank" rel="noopener noreferrer">Self-consistent field methods</a><span>PySCF 官方用户文档</span><p>查询 RHF、初猜、自洽与收敛设置。</p></li><li id="ref4"><a href="https://arxiv.org/abs/1201.3679" target="_blank" rel="noopener noreferrer">Perspective on density functional theory</a><span>Kieron Burke · 2012</span><p>用户指定的综述：用于理解 DFT 的发展、用途与局限。</p></li><li id="ref5"><a href="https://dft.uci.edu/teaching/lausanne/ABCDFT.pdf" target="_blank" rel="noopener noreferrer">The ABC of DFT</a><span>Kieron Burke and friends · 2007</span><p>DFT 基础补充讲义；公开 PDF 链接若暂时不可访问，可先读 Burke 综述与 PySCF 文档。</p></li><li id="ref6"><a href="https://pyscf.org/user/dft.html" target="_blank" rel="noopener noreferrer">Density functional theory</a><span>PySCF 官方用户文档</span><p>核对 RKS、泛函字符串、LDA / GGA / hybrid 的调用。</p></li><li id="ref7"><a href="https://pdb101.rcsb.org/learn/guide-to-understanding-pdb-data/crystallographic-structure-factors-and-electron-density-resolution-and-r-value" target="_blank" rel="noopener noreferrer">Crystallographic structure factors, electron density, resolution and R-value</a><span>RCSB PDB-101 官方教学资料</span><p>用于理解结构模型、衍射、相位与分辨率。</p></li><li id="ref8"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6778505/" target="_blank" rel="noopener noreferrer">CryoEM maps are full of potential</a><span>Marques, Purdy &amp; Yeager · 2019</span><p>区分 X 射线电子密度与电子显微镜静电势图的物理含义。</p></li><li id="ref9"><a href="https://numpy.org/doc/stable/user/absolute_beginners.html" target="_blank" rel="noopener noreferrer">NumPy: the absolute basics for beginners</a><span>NumPy 官方文档</span><p>数组、索引、shape、轴与广播。</p></li><li id="ref10"><a href="https://docs.pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html" target="_blank" rel="noopener noreferrer">Quickstart / Learn the Basics</a><span>PyTorch 官方教程</span><p>张量、模型、损失、自动微分、优化与评估的入门闭环。</p></li><li id="ref11"><a href="https://www.3blue1brown.com/lessons/fourier-transforms/" target="_blank" rel="noopener noreferrer">But what is the Fourier Transform?</a><span>3Blue1Brown · Grant Sanderson</span><p>用户计划中的直观傅里叶学习材料。</p></li><li id="ref12"><a href="https://docs.e3nn.org/en/stable/api/o3/o3_sh.html" target="_blank" rel="noopener noreferrer">Spherical Harmonics</a><span>e3nn 官方文档</span><p>球谐函数、旋转变换与等变关系。</p></li><li id="ref13"><a href="https://scikit-learn.org/stable/modules/kernel_ridge.html" target="_blank" rel="noopener noreferrer">Kernel ridge regression</a><span>scikit-learn 官方文档</span><p>KRR、核函数与实现入口。</p></li><li id="ref14"><a href="https://arxiv.org/abs/1704.01212" target="_blank" rel="noopener noreferrer">Neural Message Passing for Quantum Chemistry</a><span>Gilmer et al. · 2017</span><p>消息传递神经网络的原始论文。</p></li><li id="ref15"><a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.91.146401" target="_blank" rel="noopener noreferrer">Climbing the Density Functional Ladder</a><span>Tao, Perdew, Staroverov &amp; Scuseria · 2003</span><p>meta-GGA 与雅可比阶梯第三层的原始研究。</p></li><li id="ref16"><a href="https://pyscf.org/_modules/pyscf/tools/cubegen.html" target="_blank" rel="noopener noreferrer">pyscf.tools.cubegen</a><span>PySCF 官方源码文档</span><p>核对输出网格、Cube 类、密度计算与 cube 写出。</p></li><li id="ref17"><a href="https://pyscf.org/user/install.html" target="_blank" rel="noopener noreferrer">How to install PySCF</a><span>PySCF 官方安装文档</span><p>Windows 使用 WSL 的安装说明；优先沿用已有可用环境。</p></li><li id="ref18"><a href="https://arxiv.org/abs/2108.08481" target="_blank" rel="noopener noreferrer">Neural Operator: Learning Maps Between Function Spaces</a><span>Kovachki et al. · 原始论文</span><p>函数到函数的映射、离散化与神经算子框架。</p></li><li id="ref19"><a href="https://arxiv.org/abs/2006.11239" target="_blank" rel="noopener noreferrer">Denoising Diffusion Probabilistic Models</a><span>Ho, Jain &amp; Abbeel · 2020</span><p>扩散模型与反向去噪学习的原始论文。</p></li><li id="ref20"><a href="https://www.iucr.org/what-we-do/education/pamphlets/introduction-calculation-of-structure-factors" target="_blank" rel="noopener noreferrer">Introduction to the calculation of structure factors</a><span>International Union of Crystallography · IUCr</span><p>结构因子、振幅、相位与电子密度的公开教学资料。</p></li></ol>
+<h3>练习环境与使用方法</h3><p>本 HTML 的正文、图解与自测可以离线使用；外部资料链接需要联网。旁边的 .py 文件与网页内的下载代码一致。PySCF 练习请在已安装 PySCF 的环境中运行；Windows 原生终端通常应切换到现有 WSL 环境。其他脚本分别需要 NumPy、Matplotlib、scikit-learn 或 PyTorch，不要求一次安装全部工具。</p>
+<pre><code># 在已有环境中，选择一个脚本运行；路径有中文或空格时加引号。
+python "01_HF比较两种基组.py"
+python "02_DFT与同网格密度.py"
+python "03_平面波与高斯展开.py"
+python "04_核岭回归入门.py"
+python "05_PyTorch标量场入门.py"
+python "06_水二聚体差分密度.py"</code></pre>
+<p class="caption">输出保存在运行脚本时的工作目录。练习代码用于学习概念，不包含预先宣称的计算结果；实际运行时应检查依赖、收敛与数值设置。页面上的互动图均为明确标注的数学示意。</p>
+</section><footer class="footer">整理于 2026-11-04 · 学习内容是概念总结与练习安排，不表示已完成的实际进度。原有学习文件保持原位，本文为新增独立笔记。</footer></main></div><div id="toast" role="status" hidden></div><script>
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const scripts = {"01_HF比较两种基组.py": "\"\"\"水分子固定几何的 RHF 基组比较；在已安装 PySCF 的环境中运行。\"\"\"\nfrom pyscf import gto, scf, lib\nimport csv\nimport platform\nimport pyscf\n\nlib.num_threads(2)\ngeometry = \"O 0 0 0; H 0 -0.75716 0.58626; H 0 0.75716 0.58626\"\nrows = []\nprint(\"Python\", platform.python_version(), \"PySCF\", pyscf.__version__)\nfor basis in (\"sto-3g\", \"cc-pvdz\"):\n    mol = gto.M(atom=geometry, basis=basis, unit=\"Angstrom\",\n                charge=0, spin=0, verbose=0)\n    mf = scf.RHF(mol)\n    mf.conv_tol = 1e-10\n    energy = mf.kernel()\n    if not mf.converged:\n        raise RuntimeError(f\"{basis}: SCF 未收敛，不应直接比较结果\")\n    # 密度矩阵在非正交 AO 基中：电子数 = Tr(D S)，不能直接 Tr(D)。\n    electrons = (mf.make_rdm1() * mf.get_ovlp().T).sum()\n    row = dict(basis=basis, nao=mol.nao_nr(),\n               energy_hartree=float(energy), electrons=float(electrons))\n    rows.append(row)\n    print(row)\nwith open(\"hf_basis_results.csv\", \"w\", newline=\"\", encoding=\"utf-8-sig\") as f:\n    writer = csv.DictWriter(f, fieldnames=list(rows[0]))\n    writer.writeheader()\n    writer.writerows(rows)\n", "02_DFT与同网格密度.py": "\"\"\"LDA / PBE / B3LYP：相同几何、基组、输出网格；不做几何优化。\"\"\"\nfrom pathlib import Path\nimport csv\nimport numpy as np\nfrom pyscf import gto, dft, lib\nfrom pyscf.tools import cubegen\n\nlib.num_threads(2)\nout = Path(\"water_density_results\")\nout.mkdir(exist_ok=True)\nmol = gto.M(atom=\"O 0 0 0; H 0 -0.75716 0.58626; H 0 0.75716 0.58626\",\n            basis=\"cc-pvdz\", unit=\"Angstrom\", charge=0, spin=0, verbose=0)\n# Cube 的内部坐标及 box 使用 Bohr；输出密度使用 electron / Bohr^3。\ngrid = cubegen.Cube(mol, nx=64, ny=64, nz=64, margin=4.0)\ncoords = grid.get_coords()\nshape = (grid.nx, grid.ny, grid.nz)\nstep = grid.box / (np.array(shape)[:, None] - 1)\ndv = abs(np.linalg.det(step))\nweights = []\nfor n in shape:\n    w = np.ones(n)\n    w[[0, -1]] = 0.5\n    weights.append(w)\n\ndef density_on_grid(molecule, dm):\n    parts = []\n    for begin in range(0, len(coords), 8192):\n        ao = dft.numint.eval_ao(molecule, coords[begin:begin+8192])\n        parts.append(dft.numint.eval_rho(molecule, ao, dm, xctype=\"LDA\"))\n    return np.concatenate(parts).reshape(shape)\n\nrows = []\nfor label, xc in [(\"LDA_SVWN\", \"lda,vwn\"), (\"PBE\", \"pbe\"), (\"B3LYP\", \"b3lyp\")]:\n    mf = dft.RKS(mol)\n    mf.xc = xc\n    mf.grids.level = 3   # DFT 积分网格；与导出 cube 的均匀网格不同。\n    mf.conv_tol = 1e-9\n    energy = mf.kernel()\n    if not mf.converged:\n        raise RuntimeError(f\"{label}: SCF 未收敛\")\n    rho = density_on_grid(mol, mf.make_rdm1())\n    grid.write(rho, str(out / f\"water_{label}.cube\"), comment=f\"density {xc}, e/Bohr^3\")\n    count = np.einsum(\"i,j,k,ijk->\", *weights, rho) * dv\n    rows.append(dict(method=label, xc=xc, energy_hartree=float(energy),\n                     grid_electrons=float(count), expected_electrons=mol.nelectron))\n    print(rows[-1])\nwith (out / \"summary.csv\").open(\"w\", newline=\"\", encoding=\"utf-8-sig\") as f:\n    writer = csv.DictWriter(f, fieldnames=list(rows[0]))\n    writer.writeheader()\n    writer.writerows(rows)\n# 网格积分仅是近似检查。若与 10 相差明显，增大盒子并加密网格再比较。\n", "03_平面波与高斯展开.py": "\"\"\"同一个一维函数、相同基函数数量，比较两种最小二乘表示。\"\"\"\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nx = np.linspace(-np.pi, np.pi, 600, endpoint=False)\ny = np.exp(-5 * x**2)\n# 15 个实平面波基函数：1 + 7 组 cos / sin。\nplane = [np.ones_like(x)]\nfor k in range(1, 8):\n    plane.extend([np.cos(k*x), np.sin(k*x)])\nA = np.column_stack(plane)\n# 15 个局域高斯。中心和宽度是本练习设定，不代表量化化学基组。\ncenters = np.linspace(-np.pi, np.pi, 15)\nB = np.exp(-((x[:, None]-centers[None, :])/0.45)**2)\nca = np.linalg.lstsq(A, y, rcond=None)[0]\ncb = np.linalg.lstsq(B, y, rcond=None)[0]\nfor name, pred in [(\"plane waves\", A@ca), (\"Gaussians\", B@cb)]:\n    print(name, \"RMSE\", np.sqrt(np.mean((pred-y)**2)))\n    plt.plot(x, pred, label=name)\nplt.plot(x, y, \"k--\", label=\"target exp(-5x^2)\")\nplt.xlabel(\"x (dimensionless)\")\nplt.ylabel(\"f(x)\")\nplt.legend()\nplt.tight_layout()\nplt.savefig(\"basis_comparison.png\", dpi=160)\n# 这是固定采样点上的拟合演示；不用于判断真实分子哪种基组更准确。\n", "04_核岭回归入门.py": "\"\"\"合成一维数据上的 KRR；调参只用训练集，测试集最后使用一次。\"\"\"\nimport numpy as np\nfrom sklearn.model_selection import train_test_split, GridSearchCV\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.kernel_ridge import KernelRidge\nfrom sklearn.metrics import mean_absolute_error\n\nrng = np.random.default_rng(42)\nX = rng.uniform(-3, 3, (240, 1))\ny = np.sin(X[:, 0]) + 0.2*X[:, 0] + rng.normal(0, 0.03, len(X))\nXtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.2, random_state=42)\npipeline = Pipeline([(\"scale\", StandardScaler()),\n                     (\"krr\", KernelRidge(kernel=\"rbf\"))])\nsearch = GridSearchCV(pipeline,\n    {\"krr__alpha\": [1e-4, 1e-2, 1.0], \"krr__gamma\": [0.1, 1.0, 10.0]},\n    scoring=\"neg_mean_absolute_error\", cv=5)\nsearch.fit(Xtr, ytr)\nprint(\"best parameters:\", search.best_params_)\nprint(\"test MAE:\", mean_absolute_error(yte, search.predict(Xte)))\n# 分子数据应按分子/体系划分，避免同一分子的网格点同时进入训练和测试。\n", "05_PyTorch标量场入门.py": "\"\"\"用小网络拟合一个数学标量场，练习训练循环；不是量子化学模型。\"\"\"\nimport torch\nfrom torch import nn\n\ntorch.manual_seed(42)\nX = 2*torch.rand(640, 3)-1\ny = torch.exp(-3*(X**2).sum(dim=1, keepdim=True))\nXtr, Xte = X[:512], X[512:]\nytr, yte = y[:512], y[512:]\nmodel = nn.Sequential(nn.Linear(3, 32), nn.Tanh(),\n                      nn.Linear(32, 32), nn.Tanh(), nn.Linear(32, 1))\noptimizer = torch.optim.Adam(model.parameters(), lr=0.01)\nloss_fn = nn.MSELoss()\nmodel.train()\nfor epoch in range(400):\n    optimizer.zero_grad()\n    pred = model(Xtr)\n    loss = loss_fn(pred, ytr)\n    loss.backward()\n    optimizer.step()\nmodel.eval()\nwith torch.no_grad():\n    print(\"held-out MSE:\", loss_fn(model(Xte), yte).item())\ntorch.save(model.state_dict(), \"toy_field_weights.pt\")\n# 普通 MLP 不自动满足旋转等变、密度非负或电子数守恒。\n", "06_水二聚体差分密度.py": "\"\"\"冻结几何、同方法、同基组空间、同网格的 AB-A-B 差分密度。\"\"\"\nfrom pathlib import Path\nimport numpy as np\nfrom pyscf import gto, dft, lib\nfrom pyscf.tools import cubegen\n\nlib.num_threads(2)\nout = Path(\"water_dimer_results\")\nout.mkdir(exist_ok=True)\n# 教学构型，未优化。A 中一条 O-H 键指向 B 的氧；O···O = 2.9 Å。\natoms = [(\"O\", (0, 0, 0)), (\"H\", (0.9572, 0, 0)),\n         (\"H\", (-0.23999, 0.92730, 0)),\n         (\"O\", (2.9, 0, 0)), (\"H\", (3.486, 0.757, 0)),\n         (\"H\", (3.486, -0.757, 0))]\n\ndef molecule(real_indices):\n    # ghost 原子只保留基函数，无核电荷与电子，统一三次计算的 AO 空间。\n    spec = [(symbol if i in real_indices else \"ghost-\"+symbol, pos)\n            for i, (symbol, pos) in enumerate(atoms)]\n    return gto.M(atom=spec, basis=\"cc-pvdz\", unit=\"Angstrom\",\n                 charge=0, spin=0, verbose=0)\n\nAB = molecule(set(range(6)))\nA = molecule({0, 1, 2})\nB = molecule({3, 4, 5})\ngrid = cubegen.Cube(AB, nx=64, ny=64, nz=64, margin=4.0)\ncoords = grid.get_coords()\nshape = (grid.nx, grid.ny, grid.nz)\n\ndef solve(mol):\n    mf = dft.RKS(mol)\n    mf.xc = \"pbe\"\n    mf.grids.level = 3\n    mf.conv_tol = 1e-9\n    energy = mf.kernel()\n    if not mf.converged:\n        raise RuntimeError(\"SCF 未收敛\")\n    dm = mf.make_rdm1()\n    values = []\n    for begin in range(0, len(coords), 8192):\n        ao = dft.numint.eval_ao(mol, coords[begin:begin+8192])\n        values.append(dft.numint.eval_rho(mol, ao, dm, xctype=\"LDA\"))\n    return energy, np.concatenate(values).reshape(shape)\n\neAB, rAB = solve(AB)\neA, rA = solve(A)\neB, rB = solve(B)\ndelta = rAB-rA-rB\ngrid.write(rAB, str(out / \"dimer_density.cube\"), comment=\"AB density, e/Bohr^3\")\ngrid.write(delta, str(out / \"delta_density.cube\"), comment=\"rho_AB-rho_A-rho_B, e/Bohr^3\")\nnp.save(out / \"delta_density.npy\", delta)\nstep = grid.box / (np.array(shape)[:, None]-1)\nweights = []\nfor n in shape:\n    w = np.ones(n)\n    w[[0, -1]] = 0.5\n    weights.append(w)\nintegral = np.einsum(\"i,j,k,ijk->\", *weights, delta)*abs(np.linalg.det(step))\nprint(\"integral(delta rho), should approach 0:\", integral)\nprint(\"frozen-geometry CP interaction energy (Hartree):\", eAB-eA-eB)\nprint(\"This is a PBE teaching calculation, not a dispersion benchmark.\")\n"};
+const quiz = [{"q": "中性全电子水分子的电子密度在完整空间中应积分为多少？", "a": ["1", "8", "10", "18"], "c": 2, "why": "氧提供 8 个电子，两个氢各提供 1 个，共 10。ρ 是电子数密度，不是已经归一化为 1 的概率密度。"}, {"q": "玻恩–奥本海默近似最贴切的解释是？", "a": ["原子核完全不存在", "利用质量与运动尺度差异，先在固定核位置求电子态", "忽略所有电子间相互作用", "电子沿固定圆轨道运动"], "c": 1, "why": "BO 近似分离核与电子运动；之后仍可以研究核的振动、转动与动力学。"}, {"q": "关于 HF 的交换与相关，哪一项正确？", "a": ["HF 没有任何电子间作用", "HF 已包含全部相关", "HF 包含交换，但常规定义下缺少相关能", "交换是一种额外经典吸引力"], "c": 2, "why": "HF 有平均场库仑作用与行列式带来的交换效应，但不足以完整描述相关。"}, {"q": "HK 定理直接交给我们的是？", "a": ["任何体系的精确实用交换关联表达式", "基态密度与外势及基态变分原理的理论联系", "不需要任何数值误差检查的保证", "所有激发态的全部实验数据"], "c": 1, "why": "理论存在性不等于已知可直接使用的精确泛函。"}, {"q": "SCF 必须循环的主要原因是什么？", "a": ["计算机不能一次打开文件", "有效势依赖密度，密度又由该势下的解产生", "电子数每轮必须增加", "所有算法都必须随机初始化"], "c": 1, "why": "需要让输入与输出密度达到一致；数值收敛仍不等于物理近似精确。"}, {"q": "使用高斯基组解轨道后，可以导出规则网格上的密度吗？", "a": ["可以，基组求解和网格采样可结合", "不可以，两者互相排斥", "只能导出原子坐标", "必须先把所有轨道改成平面波"], "c": 0, "why": "可以在任意查询点计算基函数与密度，再采样成 cube 等体数据。"}, {"q": "想测试模型对新分子的泛化，哪种划分最合理？", "a": ["每个分子的一半网格点训练、另一半测试", "训练和测试使用相同分子并重复调参", "按分子或目标体系分组，保留独立测试集", "按文件行号随机划分且不检查重复"], "c": 2, "why": "测试目标决定划分方式。对新分子泛化，需要避免同分子或近重复体系泄漏。"}, {"q": "旋转分子后，正确的密度场变换关系是？", "a": ["固定坐标处的所有值都不变", "ρ_RX(Rr)=ρ_X(r)", "密度值必须全部乘旋转角度", "电子数也跟着旋转角度改变"], "c": 1, "why": "整个密度场随分子旋转；随分子一起旋转的对应查询点数值不变。"}, {"q": "X 射线相位问题指什么？", "a": ["晶体没有电子", "探测强度未直接提供重建所需的结构因子相位", "只要有原子坐标就不需要数据", "所有反射相位都等于零"], "c": 1, "why": "强度与振幅模平方相关，反傅里叶重建还需要相位信息。"}, {"q": "计算相互作用引起的 AB−A−B 密度差，优先统一什么？", "a": ["只统一图片颜色", "冻结参考片段几何、方法、坐标网格和基组处理", "分别优化单体后直接按数组相减", "只要求文件扩展名相同"], "c": 1, "why": "否则差异可能混入构型变化、空间错位、基组或采样不一致等影响。"}];
+const storageKey = 'electron-density-notes-20261104-v1';
+let saved = {};
+try { saved = JSON.parse(localStorage.getItem(storageKey) || '{}') || {}; } catch (_) {}
+function toast(message) { const t = $('#toast'); t.textContent = message; t.hidden = false; clearTimeout(window.toastTimer); window.toastTimer = setTimeout(() => t.hidden=true, 2500); }
+function updateProgress() { const boxes=$$('[data-day]');const n=boxes.filter(b=>b.checked).length;$('#progressText').textContent=`已学习 ${n} / 9 天`;$('#progressFill').style.width=`${n/9*100}%`; }
+$$('[data-day]').forEach(box=>{box.checked=!!saved[box.dataset.day];box.addEventListener('change',()=>{saved[box.dataset.day]=box.checked;try{localStorage.setItem(storageKey,JSON.stringify(saved));}catch(_){toast('当前浏览器无法保存进度，本次仍可勾选。');}updateProgress();});});
+updateProgress();
+$('#printButton').addEventListener('click',()=>window.print());
+$$('[data-download]').forEach(b=>b.addEventListener('click',()=>{let u=URL.createObjectURL(new Blob([scripts[b.dataset.download]],{type:'text/x-python;charset=utf-8'}));let a=document.createElement('a');a.href=u;a.download=b.dataset.download;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);toast('已下载练习脚本');}));
+$$('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{const txt=scripts[b.dataset.copy];try{if(!navigator.clipboard)throw new Error();await navigator.clipboard.writeText(txt);toast('代码已复制');}catch(_){const t=document.createElement('textarea');t.value=txt;document.body.append(t);t.select();const ok=document.execCommand('copy');t.remove();toast(ok?'代码已复制':'请展开后选中代码复制');}}));
+const scfTexts=['先确定你要求解的是哪个物理体系，以及采用哪些近似。','初始密度只是起点，可以来自原子密度叠加、核心哈密顿量或已有结果。','当前密度决定 Hartree 项和交换关联等贡献，因此势与矩阵需要更新。','在当前有效势下求轨道，再按电子数与占据方式生成新的密度。','查看能量变化、密度差或残差。具体阈值和准则以所用程序为准。','若不满足收敛，混合 / 加速后返回构造有效势；收敛后保存并继续做物理与数值检查。'];
+let scfIndex=0;
+function showSCF(){ $$('#scfSteps li').forEach((li,i)=>li.classList.toggle('active',i===scfIndex));$('#scfExplain').textContent=scfTexts[scfIndex];$('#scfNext').textContent=scfIndex===5?'未收敛，返回第 3 步':'下一步'; }
+$('#scfNext').addEventListener('click',()=>{scfIndex=scfIndex===5?2:scfIndex+1;showSCF();});$('#scfReset').addEventListener('click',()=>{scfIndex=0;showSCF();});
+const fc=$('#fourierCanvas'),ctx=fc.getContext('2d');
+const nSamples=720,a0=Array.from({length:nSamples},(_,i)=>Math.exp(-5*(-Math.PI+2*Math.PI*i/nSamples)**2)).reduce((a,b)=>a+b,0)/nSamples;
+const cosCoeff=Array.from({length:19},(_,k)=>{let s=0;for(let i=0;i<nSamples;i++){const x=-Math.PI+2*Math.PI*i/nSamples;s+=Math.exp(-5*x*x)*Math.cos(k*x);}return 2*s/nSamples;});
+function fourierValue(x,k){let v=a0;for(let j=1;j<=k;j++)v+=cosCoeff[j]*Math.cos(j*x);return v;}
+function drawFourier(){const k=+$('#fourierK').value;$('#fourierOut').value=k;const w=fc.width,h=fc.height,L=52,R=20,T=25,B=38;ctx.clearRect(0,0,w,h);ctx.fillStyle='#fffefb';ctx.fillRect(0,0,w,h);const px=x=>L+(x+Math.PI)/(2*Math.PI)*(w-L-R),py=y=>h-B-(y+.15)/1.3*(h-T-B);ctx.strokeStyle='#d8ded6';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(L,py(0));ctx.lineTo(w-R,py(0));ctx.moveTo(L,T);ctx.lineTo(L,h-B);ctx.stroke();ctx.fillStyle='#5f6d72';ctx.font='12px Segoe UI';ctx.fillText('−π',L-7,h-10);ctx.fillText('0',px(0)-3,h-10);ctx.fillText('π',w-R-5,h-10);ctx.fillText('f(x)',8,24);ctx.fillText('1',L-17,py(1)+4);let err=0;for(let type=0;type<2;type++){ctx.beginPath();ctx.strokeStyle=type?'#b65d2c':'#172c39';ctx.lineWidth=type?2.5:2;for(let i=0;i<=600;i++){let x=-Math.PI+2*Math.PI*i/600;let target=Math.exp(-5*x*x),v=type?fourierValue(x,k):target;if(type)err+=(v-target)**2;i?ctx.lineTo(px(x),py(v)):ctx.moveTo(px(x),py(v));}ctx.stroke();}ctx.fillStyle='#172c39';ctx.fillText('目标函数',w-190,28);ctx.fillStyle='#b65d2c';ctx.fillText('截断展开',w-100,28);$('#fourierCaption').textContent=`K = ${k}，使用 ${1+2*k} 个实傅里叶基函数（含 sin 项；本例的 sin 系数为零）。采样 RMSE ≈ ${Math.sqrt(err/601).toFixed(5)}。`;}
+$('#fourierK').addEventListener('input',drawFourier);drawFourier();
+const rc=$('#rotationCanvas'),rctx=rc.getContext('2d'),atoms=[{x:0,y:0,w:4,s:.6,tag:'O'},{x:.95,y:.74,w:1,s:.42,tag:'H'},{x:-.95,y:.74,w:1,s:.42,tag:'H'}];
+const rotate=(p,t)=>({x:p.x*Math.cos(t)-p.y*Math.sin(t),y:p.x*Math.sin(t)+p.y*Math.cos(t)});
+function field(p,t){let q=rotate(p,-t);return atoms.reduce((sum,a)=>sum+a.w*Math.exp(-((q.x-a.x)**2+(q.y-a.y)**2)/(2*a.s*a.s)),0);}
+function drawRotation(){const deg=+$('#rotateAngle').value,t=deg*Math.PI/180;$('#rotateOut').value=deg+'°';const w=rc.width,h=rc.height,pw=w/2,p={x:1.2,y:.35},q=rotate(p,t);rctx.clearRect(0,0,w,h);rctx.fillStyle='#fffefb';rctx.fillRect(0,0,w,h);function panel(cx,ang,title){const scale=54,cy=175;const px=x=>cx+x*scale,py=y=>cy-y*scale;for(let ix=-70;ix<70;ix++){for(let iy=-65;iy<65;iy++){const x=ix*.036,y=iy*.036,v=Math.min(1,field({x,y},ang)/4.1);rctx.fillStyle=`rgb(${Math.round(248-199*v)},${Math.round(248-117*v)},${Math.round(240-121*v)})`;rctx.fillRect(px(x),py(y),2.2,2.2);}}rctx.strokeStyle='#667e7b';rctx.lineWidth=3;const a=atoms.map(a=>({...rotate(a,ang),tag:a.tag}));for(let i=1;i<3;i++){rctx.beginPath();rctx.moveTo(px(a[0].x),py(a[0].y));rctx.lineTo(px(a[i].x),py(a[i].y));rctx.stroke();}a.forEach((v,i)=>{rctx.fillStyle=i?'#fffefb':'#b65d2c';rctx.beginPath();rctx.arc(px(v.x),py(v.y),i?8:13,0,2*Math.PI);rctx.fill();rctx.strokeStyle='#172c39';rctx.lineWidth=1;rctx.stroke();rctx.fillStyle='#172c39';rctx.font='12px Segoe UI';rctx.fillText(v.tag,px(v.x)+15,py(v.y)-10);});function point(pt,color){rctx.fillStyle=color;rctx.beginPath();rctx.arc(px(pt.x),py(pt.y),5,0,2*Math.PI);rctx.fill();rctx.strokeStyle='#fff';rctx.lineWidth=1.5;rctx.stroke();}if(ang===0){point(p,'#7552a4');}else{point(p,'#7552a4');point(q,'#08834f');}rctx.fillStyle='#172c39';rctx.font='14px Microsoft YaHei';rctx.fillText(title,cx-80,30);rctx.fillStyle='#5f6d72';rctx.font='12px Segoe UI';rctx.fillText('二维高斯场示意 · 无量纲',cx-79,h-22);}
+panel(pw/2,0,'初始分子与场');panel(pw*1.5,t,'旋转 '+deg+'°');rctx.strokeStyle='#dcded5';rctx.beginPath();rctx.moveTo(pw,20);rctx.lineTo(pw,h-20);rctx.stroke();$('#rotationCaption').textContent=`初始查询值 ${field(p,0).toFixed(4)}；右图固定实验室点（紫）${field(p,t).toFixed(4)}；随分子旋转的对应点（绿）${field(q,t).toFixed(4)}。绿色点对应值与初始值一致。0° 时两点重合。`;}
+$('#rotateAngle').addEventListener('input',drawRotation);drawRotation();
+$('#termSearch').addEventListener('input',e=>{const key=e.target.value.toLowerCase().trim();let n=0; $$('#termTable tbody tr').forEach(tr=>{const yes=tr.textContent.toLowerCase().includes(key);tr.hidden=!yes;if(yes)n++;});$('#termCount').textContent=n?`显示 ${n} / 42 个术语`:'没有匹配的术语，试试中文名或英文缩写。';});
+const qwrap=$('#quizQuestions');quiz.forEach((q,i)=>{const f=document.createElement('fieldset');const l=document.createElement('legend');l.textContent=(i+1)+'. '+q.q;f.append(l);q.a.forEach((a,j)=>{const label=document.createElement('label'),r=document.createElement('input');r.type='radio';r.name='q'+i;r.value=j;label.append(r,document.createTextNode(a));f.append(label);});const feed=document.createElement('p');feed.className='feedback';feed.id='feedback'+i;feed.hidden=true;f.append(feed);qwrap.append(f);});
+$('#quizForm').addEventListener('submit',e=>{e.preventDefault();let correct=0,answered=0;quiz.forEach((q,i)=>{const chosen=$(`input[name="q${i}"]:checked`);if(chosen)answered++;const ok=chosen&&+chosen.value===q.c;if(ok)correct++;const feed=$('#feedback'+i);feed.hidden=false;feed.classList.toggle('correct',!!ok);feed.textContent=(ok?'回答正确。':chosen?'需要复习。':'本题未作答。')+'正确答案：'+q.a[q.c]+'。'+q.why;});$('#quizScore').textContent=`答对 ${correct} / ${quiz.length} 题；已作答 ${answered} 题。${correct===quiz.length?'可以尝试闭卷讲出整条知识主线。':'回看错误题对应的章节，再用自己的话解释。'}`;});
+$('#quizReset').addEventListener('click',()=>{$('#quizForm').reset();$$('.feedback').forEach(p=>p.hidden=true);$('#quizScore').textContent='';});
+if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting){$$('.rail nav a').forEach(a=>a.classList.toggle('current',a.hash==='#'+e.target.id));}},{rootMargin:'-5% 0px -75% 0px',threshold:0});$$('.lesson').forEach(s=>observer.observe(s));}
+</script></body></html>
