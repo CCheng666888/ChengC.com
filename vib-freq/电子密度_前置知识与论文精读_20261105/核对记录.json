@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-05",
+  "pdf_pages": 73,
+  "html_checks": {
+    "47 chapters": true,
+    "28 foundations": true,
+    "13 papers": true,
+    "paper prerequisite jump unhides chapter": true,
+    "empty search message": true,
+    "search finds papers": true,
+    "Gaussian center updates": true,
+    "Gaussian width updates": true,
+    "rotation updates": true,
+    "34 answer details opened": true,
+    "reading mark persists": true,
+    "font control changes": true,
+    "all offline images loaded": true,
+    "missingLocalLinks": [],
+    "all local links resolve": true,
+    "mobile no document overflow": true,
+    "mobile chapter selector": true,
+    "print includes all chapters": true,
+    "no script errors": true
+  },
+  "pdf_and_science_checks": {
+    "all_47_bookmarks": true,
+    "no_margin_overflow": true,
+    "no_nearly_empty_pages": true,
+    "all_quantum_calculations_converged": true,
+    "water_electron_integrals_within_1e-5": true,
+    "density_arrays_finite": true,
+    "same_plane_shapes": true,
+    "dimer_difference_definition": true,
+    "all_paper_ids_present": true
+  },
+  "limits": [
+    "教学计算不是论文复现",
+    "ED2Mol未取得自由可读完整主文，材料范围见正文",
+    "ZIP不包含原文PDF，包含8张原文页面及完整教学图解",
+    "没有运行大型论文模型训练"
+  ]
+}

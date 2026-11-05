@@ -1,0 +1,307 @@
+{
+  "purpose": "Executed teaching examples; not reproduction of any paper",
+  "pyscf": "2.14.0",
+  "python": "3.11.18",
+  "threads": 4,
+  "geometry_angstrom": "O 0 0 0; H 0 -0.757 0.587; H 0 0.757 0.587",
+  "plane": "x=0, y/z in angstrom; density e/bohr^3",
+  "water": [
+    {
+      "label": "HF_STO3G",
+      "method": "RHF",
+      "basis": "sto-3g",
+      "nao": 7,
+      "electrons": 10,
+      "energy_hartree": -74.96306312972914,
+      "scf_converged": true,
+      "scf_history": [
+        {
+          "iteration": 1,
+          "energy_hartree": -74.91280845521476
+        },
+        {
+          "iteration": 2,
+          "energy_hartree": -74.96253175783352
+        },
+        {
+          "iteration": 3,
+          "energy_hartree": -74.96303687488371
+        },
+        {
+          "iteration": 4,
+          "energy_hartree": -74.96306312818655
+        },
+        {
+          "iteration": 5,
+          "energy_hartree": -74.96306312959896
+        },
+        {
+          "iteration": 6,
+          "energy_hartree": -74.96306312972057
+        },
+        {
+          "iteration": 7,
+          "energy_hartree": -74.96306312972912
+        }
+      ],
+      "integrated_electrons": 10.000000120670915,
+      "seconds": 0.106
+    },
+    {
+      "label": "HF_def2SVP",
+      "method": "RHF",
+      "basis": "def2-svp",
+      "nao": 24,
+      "electrons": 10,
+      "energy_hartree": -75.9609751669858,
+      "scf_converged": true,
+      "scf_history": [
+        {
+          "iteration": 1,
+          "energy_hartree": -75.92258546908911
+        },
+        {
+          "iteration": 2,
+          "energy_hartree": -75.95204093637548
+        },
+        {
+          "iteration": 3,
+          "energy_hartree": -75.96078478015062
+        },
+        {
+          "iteration": 4,
+          "energy_hartree": -75.96096069911069
+        },
+        {
+          "iteration": 5,
+          "energy_hartree": -75.96097467094853
+        },
+        {
+          "iteration": 6,
+          "energy_hartree": -75.96097515223192
+        },
+        {
+          "iteration": 7,
+          "energy_hartree": -75.96097516675096
+        },
+        {
+          "iteration": 8,
+          "energy_hartree": -75.96097516696966
+        },
+        {
+          "iteration": 9,
+          "energy_hartree": -75.96097516698572
+        }
+      ],
+      "integrated_electrons": 10.00000005750806,
+      "seconds": 0.292
+    },
+    {
+      "label": "LDA_def2SVP",
+      "method": "lda,vwn",
+      "basis": "def2-svp",
+      "nao": 24,
+      "electrons": 10,
+      "energy_hartree": -75.79519072243903,
+      "scf_converged": true,
+      "scf_history": [
+        {
+          "iteration": 1,
+          "energy_hartree": -75.68460709573407
+        },
+        {
+          "iteration": 2,
+          "energy_hartree": -75.44811126269194
+        },
+        {
+          "iteration": 3,
+          "energy_hartree": -75.79493730295016
+        },
+        {
+          "iteration": 4,
+          "energy_hartree": -75.79518306831699
+        },
+        {
+          "iteration": 5,
+          "energy_hartree": -75.79519053921106
+        },
+        {
+          "iteration": 6,
+          "energy_hartree": -75.79519072213049
+        },
+        {
+          "iteration": 7,
+          "energy_hartree": -75.7951907224338
+        },
+        {
+          "iteration": 8,
+          "energy_hartree": -75.7951907224391
+        }
+      ],
+      "integrated_electrons": 10.000000056305632,
+      "seconds": 0.95
+    },
+    {
+      "label": "PBE_def2SVP",
+      "method": "pbe",
+      "basis": "def2-svp",
+      "nao": 24,
+      "electrons": 10,
+      "energy_hartree": -76.27201447267034,
+      "scf_converged": true,
+      "scf_history": [
+        {
+          "iteration": 1,
+          "energy_hartree": -76.16290725718252
+        },
+        {
+          "iteration": 2,
+          "energy_hartree": -75.93930965417354
+        },
+        {
+          "iteration": 3,
+          "energy_hartree": -76.27175759053098
+        },
+        {
+          "iteration": 4,
+          "energy_hartree": -76.27200778115146
+        },
+        {
+          "iteration": 5,
+          "energy_hartree": -76.27201428735945
+        },
+        {
+          "iteration": 6,
+          "energy_hartree": -76.27201447222717
+        },
+        {
+          "iteration": 7,
+          "energy_hartree": -76.27201447266808
+        },
+        {
+          "iteration": 8,
+          "energy_hartree": -76.27201447267034
+        }
+      ],
+      "integrated_electrons": 10.000000056425051,
+      "seconds": 0.969
+    },
+    {
+      "label": "B3LYP_def2SVP",
+      "method": "b3lyp",
+      "basis": "def2-svp",
+      "nao": 24,
+      "electrons": 10,
+      "energy_hartree": -76.3581494546531,
+      "scf_converged": true,
+      "scf_history": [
+        {
+          "iteration": 1,
+          "energy_hartree": -76.26734977327351
+        },
+        {
+          "iteration": 2,
+          "energy_hartree": -76.18235160964385
+        },
+        {
+          "iteration": 3,
+          "energy_hartree": -76.35804318518754
+        },
+        {
+          "iteration": 4,
+          "energy_hartree": -76.35814719436672
+        },
+        {
+          "iteration": 5,
+          "energy_hartree": -76.35814941954142
+        },
+        {
+          "iteration": 6,
+          "energy_hartree": -76.35814945462035
+        },
+        {
+          "iteration": 7,
+          "energy_hartree": -76.35814945465285
+        }
+      ],
+      "integrated_electrons": 10.000000056491139,
+      "seconds": 0.924
+    }
+  ],
+  "dimer": [
+    {
+      "label": "AB",
+      "energy_hartree": -152.55148741966167,
+      "nao": 48,
+      "electrons": 20,
+      "converged": true
+    },
+    {
+      "label": "A_ghostB",
+      "energy_hartree": -76.27350759515716,
+      "nao": 48,
+      "electrons": 10,
+      "converged": true
+    },
+    {
+      "label": "ghostA_B",
+      "energy_hartree": -76.27493983704002,
+      "nao": 48,
+      "electrons": 10,
+      "converged": true
+    }
+  ],
+  "dimer_atoms_A": [
+    [
+      "O",
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    [
+      "H",
+      [
+        0.0,
+        -0.757,
+        0.587
+      ]
+    ],
+    [
+      "H",
+      [
+        0.0,
+        0.757,
+        0.587
+      ]
+    ]
+  ],
+  "dimer_atoms_B": [
+    [
+      "O",
+      [
+        0.0,
+        0.0,
+        2.9
+      ]
+    ],
+    [
+      "H",
+      [
+        0.0,
+        0.757,
+        3.487
+      ]
+    ],
+    [
+      "H",
+      [
+        0.0,
+        -0.757,
+        3.487
+      ]
+    ]
+  ],
+  "dimer_note": "Frozen illustrative geometry, PBE/def2-SVP, common ghost basis; no optimization or binding free energy"
+}

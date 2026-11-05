@@ -1,0 +1,112 @@
+[
+  {
+    "path": "前置知识详解.md",
+    "bytes": 37806,
+    "sha256": "a1ebdf3c024644cf0848a695cdd8168c4f0e0537c85211e44f40c88f36337eed"
+  },
+  {
+    "path": "图解/01_HF基组与密度.png",
+    "bytes": 116499,
+    "sha256": "12b2d45db4e563d5e5807b776aee3153a290d135e6a705df36468be400038925"
+  },
+  {
+    "path": "图解/02_SCF与泛函差异.png",
+    "bytes": 177644,
+    "sha256": "46ba68e52cd1f4d5c74370e5bba79a11a0c569fbca4ce9577d1894786db986e9"
+  },
+  {
+    "path": "图解/03_水二聚体差分密度.png",
+    "bytes": 88606,
+    "sha256": "855c673ce44b35e4e49f4bdca4133c24cc2beaad6c7845fb6077d9442a7fca9f"
+  },
+  {
+    "path": "图解/04_高斯与傅里叶.png",
+    "bytes": 169792,
+    "sha256": "6f67548c1a1ec9c66c4d6f31315e28d04ca07b76116b4ad67eba3fba4f6abd7e"
+  },
+  {
+    "path": "图解/05_SCF循环.png",
+    "bytes": 74816,
+    "sha256": "d222b9dc30f778bbb951c8b7a90474fed9bcb28a0893ecfff7b791a241192872"
+  },
+  {
+    "path": "图解/原文_L03_p05.png",
+    "bytes": 319994,
+    "sha256": "1be810578906510aad6cb90305f535860c6519536904e53351d09da92de4870d"
+  },
+  {
+    "path": "图解/原文_L11_p02.png",
+    "bytes": 386011,
+    "sha256": "dc1be1cd304684ef587e8941b3bf28c23dda0b12ae8a4c244f00d0eed96bd397"
+  },
+  {
+    "path": "图解/原文_L23_p04.png",
+    "bytes": 396460,
+    "sha256": "317a8b07a8f8baebced9e7c51de940aaca59b0f1d236c35941ff4e30c15c1c84"
+  },
+  {
+    "path": "图解/原文_L25_p04.png",
+    "bytes": 420449,
+    "sha256": "9552c6cc04ad21a6fd7885658c32e5c0d39f8c212b77a20bee76cd010c52c6b3"
+  },
+  {
+    "path": "图解/原文_N03_p04.png",
+    "bytes": 321354,
+    "sha256": "ee1795eceec65e498981217403336ca51c6e26c5cd6debcb721aaa3422be2cf8"
+  },
+  {
+    "path": "图解/原文_N04_p06.png",
+    "bytes": 315520,
+    "sha256": "fe1d2f27f1f0bcebe8a96b77ca626716196821dc9825a358033276135b9610e1"
+  },
+  {
+    "path": "图解/原文_N17_p03.png",
+    "bytes": 375894,
+    "sha256": "6682a48e1519672a47d90b344ed7dec8f3a1ecd27df6d23c12ee70383dfce466"
+  },
+  {
+    "path": "图解/原文_N21_p05.png",
+    "bytes": 319440,
+    "sha256": "1ec79485ee35aa0bf9a857dd7938fe5407972fda33bb56385155f2a93f1b7226"
+  },
+  {
+    "path": "完整讲义.md",
+    "bytes": 142371,
+    "sha256": "e4036d2a68bc43857a2a03f7a638e2e0434e066b395bf0bd4d7ad52136ea960a"
+  },
+  {
+    "path": "实践/run_teaching.py",
+    "bytes": 3772,
+    "sha256": "ccf124a658624a84977957dfa8f320ec8838a15242a487d55dd8c2853733d62d"
+  },
+  {
+    "path": "实践/teaching_density_arrays.npz",
+    "bytes": 1712708,
+    "sha256": "dfab1e4f42082e7ef217031280303a3fdcda61b1296355fa32a60521fd4aaa11"
+  },
+  {
+    "path": "实践/teaching_results.json",
+    "bytes": 6600,
+    "sha256": "7f7a4fe951c652695bbb546ccb25ee130e99702605945952a214cb9490a7397e"
+  },
+  {
+    "path": "打开学习讲义.html",
+    "bytes": 196446,
+    "sha256": "b43ab3e782d58c4ad8776f34a59e8441f14c81209061e8114192e184f84a859c"
+  },
+  {
+    "path": "核对记录.json",
+    "bytes": 1386,
+    "sha256": "fcd17841c1d8db8a517551c562d3a202c57e85b4b2eccbfb814ebf2b8522bcc6"
+  },
+  {
+    "path": "电子密度_前置知识与论文精读.pdf",
+    "bytes": 5226342,
+    "sha256": "e6d90100b0cb0837d709613f87367cff07931fb8df759415722f2bfb24ebcdbf"
+  },
+  {
+    "path": "阅读说明.txt",
+    "bytes": 391,
+    "sha256": "2a10ec7858fa318e801897b92dca14f1922c4a9c09b21d606ebfafac41581c44"
+  }
+]
