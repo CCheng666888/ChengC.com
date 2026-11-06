@@ -1,0 +1,229 @@
+{
+  "version": 1,
+  "generated_date": "2026-10-29 Asia/Shanghai",
+  "renderer": "PyMOL CPU ray tracing",
+  "encoding": "H.264 Main / yuv420p / MP4 faststart / no audio",
+  "sources": {
+    "exported_at_utc": "2026-10-29T11:06:56.287069+00:00",
+    "generator": "04_学习资料/电子结构与振动频率_学习资料_20261027/程序/export_demo_science.py",
+    "new_scf_calculation": false,
+    "new_geometry_optimization": false,
+    "new_frequency_calculation": false,
+    "water_xtb_method": "GFN2-xTB 6.7.1; stored --gfn 2 --ohess result",
+    "methane_kind": "PPT screenshot transcription; first five atomic lines, only element/x/y/z columns",
+    "water_electron_method": "Existing PySCF PBE/def2-SVP calculation; HOMO sampled from stored Molden coefficients",
+    "homo_cube_sha256": "c13ecfa254e4dea1bf3d4b1a20d7140ea0d6f44aa72410a8781b3c693667ff6f",
+    "references": [
+      "https://xtb-docs.readthedocs.io/en/latest/hessian.html",
+      "https://github.com/grimme-lab/xtb/blob/v6.7.1/src/hessian.F90#L358",
+      "https://github.com/grimme-lab/xtb/blob/v6.7.1/src/main/property.F90#L677",
+      "https://github.com/grimme-lab/xtb/blob/v6.7.1/src/freq/io.f90#L219"
+    ]
+  },
+  "source_files": [
+    {
+      "path": "08_计算环境与启动/计算结果/N08_xTB_优化与频率/20261028_221940_222/xtbopt.xyz",
+      "sha256": "8647b48256096a1d9158bf1e11064e918294dde80a6857f4bd8026c94a53e419",
+      "bytes": 304
+    },
+    {
+      "path": "08_计算环境与启动/计算结果/N08_xTB_优化与频率/20261028_221940_222/hessian",
+      "sha256": "038261d9494a909698a0698c2d62e1a0599c72cb37f6b447588db2d05420c704",
+      "bytes": 1404
+    },
+    {
+      "path": "08_计算环境与启动/计算结果/N08_xTB_优化与频率/20261028_221940_222/g98.out",
+      "sha256": "f4ef1993126c85346920baea0c741295e43622a3c16348684df262f923af99fe",
+      "bytes": 1981
+    },
+    {
+      "path": "08_计算环境与启动/计算结果/N08_xTB_优化与频率/20261028_221940_222/xtb.out",
+      "sha256": "09569754d50312315e0a7ad1e49cea1056b77294ea8325e9909c3005af8fa331",
+      "bytes": 31635
+    },
+    {
+      "path": "04_学习资料/电子结构与振动频率_学习资料_20261027/数据/甲烷_从PPT截图转录.xyz",
+      "sha256": "0e5511708b7a35acca71df45e489fc7a553e9a798ea39b984be03c27e646563b",
+      "bytes": 516
+    },
+    {
+      "path": "08_计算环境与启动/计算结果/pyscf_电子结构与密度/20261028_162045_2641/wavefunction.molden",
+      "sha256": "f6fce4d5fa1346ff96266aacaff66c8e204c224cc3ee133d250eb22398c3fd4b",
+      "bytes": 18919
+    },
+    {
+      "path": "08_计算环境与启动/计算结果/pyscf_电子结构与密度/20261028_162045_2641/density.cube",
+      "sha256": "93e8c57d509ea48bcbbc14e409640d466866c59bc69ebcce61e91749b42d07dc",
+      "bytes": 843626
+    },
+    {
+      "path": "08_计算环境与启动/计算结果/pyscf_电子结构与密度/20261028_162045_2641/result.json",
+      "sha256": "45aab76fd787929d2596f663790243dc1fba55118b262c21a41e0fc8802be80d",
+      "bytes": 216
+    }
+  ],
+  "scientific_notes": [
+    "振动向量由已存储的投影 Hessian 重新对角化，逐原子除以质量平方根后恢复相对笛卡尔位移；每模式统一归一化为最大原子位移1，数值不是直接的埃单位振幅。",
+    "动画应标注放慢时间、放大振幅；演示播放周期不是实际分子振动周期。模式整体正负号任意，同号翻转只改变动画起始相位。",
+    "g98.out 中模式1/2/3对应 vibspectrum 中7/8/9；此前6项是投影掉的整体平移和转动。g98.out 的电子数、基函数数和零拉曼等占位字段不得当成额外物理计算结果。",
+    "水的振动使用 xTB 优化几何；电子密度和轨道使用同一组 PySCF 几何及波函数，不混用 Psi4 几何。",
+    "轨道双色表示波函数正负相位，不表示两种电子电荷；总电子数密度非负，也不等于单个占据轨道的平方。",
+    "总电子数10来自该分子和已保存的密度矩阵核验；现有40立方密度网格的简单矩形积分约9.72412电子，受采样与有限边界影响，不是精确的电子数。",
+    "改变等值面阈值只改变显示边界，不修改底层密度和电子数；等值面之外通常仍有密度，阈值也不是被圈住电子数的百分比。"
+  ],
+  "items": [
+    {
+      "id": "molecule-rotation",
+      "title": "换个角度：水的弯曲结构与甲烷的四面体",
+      "description": "球棍模型连续转动。同一分子的视角变化，不代表化学键发生变化；从侧面看，空间结构可能被遮住。",
+      "sections": [
+        "atoms-first",
+        "structure"
+      ],
+      "scientific_note": "水来自已有 GFN2-xTB 优化结构；甲烷来自资料中原 PPT 截录的坐标。两者只是并排比较，不表示相互作用。",
+      "video": "媒体/三维演示/molecule-rotation/demo.mp4",
+      "poster": "媒体/三维演示/molecule-rotation/poster.jpg",
+      "frames": [
+        {
+          "src": "媒体/三维演示/molecule-rotation/frame-1.jpg",
+          "caption": "0.00 秒关键帧 · 先看起始视角：水是弯曲的三原子结构，甲烷有四根 C–H 键。球棍之间的距离代表空间关系。"
+        },
+        {
+          "src": "媒体/三维演示/molecule-rotation/frame-2.jpg",
+          "caption": "2.50 秒关键帧 · 转过90度后，某些原子和键会在投影中重叠。遮挡改变了画面，分子的键长、键角没有改变。"
+        },
+        {
+          "src": "媒体/三维演示/molecule-rotation/frame-3.jpg",
+          "caption": "7.50 秒关键帧 · 从另一侧观察甲烷，比较四根键的前后关系。四面体是三维排列，平面截图不一定能同时看清四根键。"
+        }
+      ],
+      "duration_seconds": 10,
+      "width": 960,
+      "height": 540,
+      "fps": 20,
+      "video_bytes": 131535
+    },
+    {
+      "id": "rigid-vs-vibration",
+      "title": "自由度：整体移动、整体转动、内部振动",
+      "description": "三个相同的水分子分别演示平移、转动和弯曲振动。观察哪些运动会改变原子之间的相对位置。",
+      "sections": [
+        "modecount"
+      ],
+      "scientific_note": "平移和转动是人为施加的刚体运动；内部振动来自 xTB Hessian 的弯曲模式。显示时间和振幅用于教学，不对应实际运动速度。",
+      "video": "媒体/三维演示/rigid-vs-vibration/demo.mp4",
+      "poster": "媒体/三维演示/rigid-vs-vibration/poster.jpg",
+      "frames": [
+        {
+          "src": "媒体/三维演示/rigid-vs-vibration/frame-1.jpg",
+          "caption": "0.00 秒关键帧 · 先比较三个水分子的内部结构。平移改变整体位置，转动改变整体朝向；这两种运动保持所有原子间距离。"
+        },
+        {
+          "src": "媒体/三维演示/rigid-vs-vibration/frame-2.jpg",
+          "caption": "1.25 秒关键帧 · 右边弯曲模式达到一侧的最大演示位移。比较两根 O–H 键夹角；左边和中间仍保持原有内部结构。"
+        },
+        {
+          "src": "媒体/三维演示/rigid-vs-vibration/frame-3.jpg",
+          "caption": "3.75 秒关键帧 · 右边弯曲模式反向运动，达到另一侧的最大演示位移。内部角度来回改变，整体移动或转动不产生这种变化。"
+        }
+      ],
+      "duration_seconds": 10,
+      "width": 960,
+      "height": 540,
+      "fps": 20,
+      "video_bytes": 150581
+    },
+    {
+      "id": "water-vibrations",
+      "title": "水的三种正常振动：看清原子怎样一起动",
+      "description": "并排播放弯曲、对称伸缩和反对称伸缩。先看键角是否变化，再比较两根 O–H 键是同伸同缩，还是一长一短。",
+      "sections": [
+        "frequency"
+      ],
+      "scientific_note": "1539.1230、3642.0183、3650.4709 cm⁻¹ 来自已有 GFN2-xTB 计算。位移由高精度 Hessian 质量加权对角化恢复，归一化后用于可视化；不是实验频谱。",
+      "video": "媒体/三维演示/water-vibrations/demo.mp4",
+      "poster": "媒体/三维演示/water-vibrations/poster.jpg",
+      "frames": [
+        {
+          "src": "媒体/三维演示/water-vibrations/frame-1.jpg",
+          "caption": "0.00 秒关键帧 · 三种模式都从平衡结构经过。左为弯曲，中为对称伸缩，右为反对称伸缩；标题下标出各自的计算波数。"
+        },
+        {
+          "src": "媒体/三维演示/water-vibrations/frame-2.jpg",
+          "caption": "2.50 秒关键帧 · 达到一侧的最大演示位移：弯曲主要改变键角；对称伸缩中两根键同伸同缩；反对称伸缩中一长一短。"
+        },
+        {
+          "src": "媒体/三维演示/water-vibrations/frame-3.jpg",
+          "caption": "7.50 秒关键帧 · 达到相反方向的最大位移。将这一帧与上一帧比较，看原子如何协同运动；三段统一慢放，并非真实时间尺度。"
+        }
+      ],
+      "duration_seconds": 10,
+      "width": 960,
+      "height": 540,
+      "fps": 20,
+      "video_bytes": 144072
+    },
+    {
+      "id": "density-isosurface",
+      "title": "电子密度等值面：改阈值，三维外形怎样变化",
+      "description": "两边使用完全相同的电子密度网格。左边固定阈值，右边改变阈值，同时缓慢换一个观察角度。",
+      "sections": [
+        "density-first",
+        "cube"
+      ],
+      "scientific_note": "使用已有 PySCF PBE/def2-SVP 水分子 density.cube；密度单位 e/bohr³。原网格为40³，只用于空间形状展示，不把粗网格积分当作精确电子数，也不把等值面当硬边界。",
+      "video": "媒体/三维演示/density-isosurface/demo.mp4",
+      "poster": "媒体/三维演示/density-isosurface/poster.jpg",
+      "frames": [
+        {
+          "src": "媒体/三维演示/density-isosurface/frame-1.jpg",
+          "caption": "0.00 秒关键帧 · 左边阈值固定为0.030，右边为0.012 e/bohr³。较低阈值能够画出更外围、密度较低的位置。"
+        },
+        {
+          "src": "媒体/三维演示/density-isosurface/frame-2.jpg",
+          "caption": "5.00 秒关键帧 · 右边阈值提高到0.080 e/bohr³，显示范围收紧。左边仍固定0.030；两边一直使用同一份密度数据。"
+        },
+        {
+          "src": "媒体/三维演示/density-isosurface/frame-3.jpg",
+          "caption": "7.50 秒关键帧 · 右边阈值回到0.046 e/bohr³。阈值只改变显示边界，边界外通常仍有电子密度，也不能把阈值当成电子数百分比。"
+        }
+      ],
+      "duration_seconds": 10,
+      "width": 960,
+      "height": 540,
+      "fps": 20,
+      "video_bytes": 129342
+    },
+    {
+      "id": "orbital-density",
+      "title": "轨道与总密度：正负相位不是正负电荷",
+      "description": "左边显示一个占据轨道 HOMO 的正、负相位等值面；右边是同一波函数的总电子密度。转动视角比较它们的形状。",
+      "sections": [
+        "probability-first",
+        "density"
+      ],
+      "scientific_note": "两边均来自同一份已有 PySCF PBE/def2-SVP 波函数及几何。HOMO为第5个空间轨道，等值面±0.04（原子单位）；总密度等值面0.03 e/bohr³。没有重新运行SCF。",
+      "video": "媒体/三维演示/orbital-density/demo.mp4",
+      "poster": "媒体/三维演示/orbital-density/poster.jpg",
+      "frames": [
+        {
+          "src": "媒体/三维演示/orbital-density/frame-1.jpg",
+          "caption": "0.00 秒关键帧 · 左边只显示 HOMO 的两种相位；蓝色为正、橙色为负。右边总电子密度包含所有占据轨道的贡献，数值非负。"
+        },
+        {
+          "src": "媒体/三维演示/orbital-density/frame-2.jpg",
+          "caption": "2.50 秒关键帧 · 换到侧面比较空间形状。左边的正负号描述波函数相位，不能解释为正电荷和负电荷。"
+        },
+        {
+          "src": "媒体/三维演示/orbital-density/frame-3.jpg",
+          "caption": "7.50 秒关键帧 · 从另一侧查看前后两片相位区域。单个轨道的平方贡献到密度；总密度还要按占据数汇总其他轨道。"
+        }
+      ],
+      "duration_seconds": 10,
+      "width": 960,
+      "height": 540,
+      "fps": 20,
+      "video_bytes": 151496
+    }
+  ]
+}
