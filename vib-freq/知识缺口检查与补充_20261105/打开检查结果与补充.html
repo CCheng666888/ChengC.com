@@ -1,0 +1,120 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>前置知识、论文与PPT：检查与补充</title><style>
+:root{color-scheme:light;--ink:#253b32;--accent:#285c45;--line:#d4ded7;--paper:#fff;--bg:#f3f5f0}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.9 "Microsoft YaHei","Segoe UI",sans-serif}
+.layout{display:grid;grid-template-columns:230px minmax(0,1030px);gap:34px;max-width:1340px;margin:0 auto;padding:32px 20px}
+aside{align-self:start;position:sticky;top:24px;font-size:14px;line-height:1.7}aside a{display:block;margin:12px 0}aside strong{display:block;margin-bottom:14px;font-size:17px}
+main{min-width:0;background:var(--paper);padding:38px 46px;border:1px solid var(--line)}
+h1{font-size:30px;line-height:1.5;margin:0 0 26px}h2{font-size:24px;line-height:1.6;margin:50px 0 18px;padding-top:20px;border-top:1px solid var(--line)}h3{font-size:20px;line-height:1.6;margin:30px 0 14px}
+p{margin:0 0 17px}a{color:var(--accent);text-underline-offset:3px;overflow-wrap:anywhere}strong{font-weight:700}
+ul,ol{padding-left:25px}li{padding-left:3px;margin:10px 0}code{font-family:Consolas,"Microsoft YaHei",monospace;background:#f0f4ef;border-radius:3px;padding:2px 4px;overflow-wrap:anywhere}
+pre{background:#eef3ee;padding:16px 20px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.85;font-size:15px;border-left:3px solid #6f8d75}pre code{background:none;padding:0}
+.table-wrap{max-width:100%;overflow-x:auto;margin:24px 0;border:1px solid var(--line)}table{width:100%;min-width:650px;border-collapse:collapse;font-size:14.5px;line-height:1.8}
+th,td{border-bottom:1px solid var(--line);padding:11px 13px;text-align:left;vertical-align:top}th{background:#eaf0e9;color:#1d4934}td+td,th+th{border-left:1px solid var(--line)}tr:last-child td{border-bottom:none}
+.meta{color:#65756b;font-size:13px;margin-top:28px}h1,h2,h3{break-after:avoid}pre,tr{break-inside:avoid}
+@media(max-width:900px){.layout{display:block;padding:12px}aside{position:static;padding:12px 14px;margin-bottom:16px}aside a{display:inline-block;margin:5px 14px 5px 0}main{padding:24px 20px}h1{font-size:25px}h2{font-size:21px}h3{font-size:19px}body{font-size:16px}}
+@media print{body{background:#fff;font-size:10.5pt}.layout{display:block;padding:0;max-width:none}aside{display:none}main{padding:0;border:none}h1{font-size:21pt}h2{font-size:16pt;margin-top:25px}h3{font-size:13pt}table{min-width:0;font-size:9pt}.table-wrap{overflow:visible}pre{font-size:9pt}a{color:inherit} }
+</style></head><body><div class="layout"><aside aria-label="目录"><strong>检查结果与补充</strong><a href="#section-1">1. 检查范围与判断依据</a><a href="#section-2">2. 应优先处理的五处具体问题</a><a href="#section-3">3. 前置知识还有哪些薄弱环节</a><a href="#section-4">4. 逐篇论文：最值得继续补的知识</a><a href="#section-5">5. 补充讲解：先把这些桥梁补上</a><a href="#section-6">6. 已有内容应怎样接回新讲义和 PPT</a><a href="#section-7">7. 论文补充：优先补两篇数据源原论文</a><a href="#section-8">8. 推荐补充顺序与完成标准</a></aside><main><h1 id="heading-0">前置知识、论文与 PPT：检查结果与补充讲解</h1>
+<p>检查日期：2026-11-05。</p>
+<p><strong>结论：基础主干已经比较齐全，接下来应优先补上“公式如何落到数据和计算”这一层，并同步新旧材料。</strong> 目前还不能把资料称为逐式讲透的精读版，但也不需要重新从原子、波函数和 DFT 讲起。</p>
+<p>本次区分三种情况：<strong>需要纠正或补上关键步骤</strong>；<strong>其他材料已有，新讲义缺少衔接</strong>；<strong>已有概念介绍，方法细节还不够</strong>。后两种不等于完全没有学习资料。</p>
+<h2 id="section-1">1. 检查范围与判断依据</h2>
+<ul><li>11 月 5 日的《前置知识详解》28 节，以及《完整讲义》中 9 篇主论文、4 篇补充论文。</li><li>10 月 27 日资料的纯文本复习稿，11 月 4 日的九日学习笔记。</li><li>三份本地 PPT，共 60 页：11 月 4 日周报 18 页、20261020 共 17 页、bio_组会02 共 25 页。提取逐页文字与备注，并抽看已有渲染图。</li><li>针对关键问题回查本地原文与一手资料，重点包括 ELECTRA 第 8 页、L25 的密度分解段落与 Fig.1、EG-XC 的训练损失及可微要求。</li></ul>
+<p>这是一轮知识覆盖与关键步骤审查，不是 13 篇论文全部公式和实验的独立复算。ED2Mol 的正式主文仍受访问限制，不能把摘要、代码和补充信息的阅读写成已经完整精读正式全文。</p>
+<p><strong>已覆盖得较好的内容：</strong> 坐标与电子密度的区别、波函数与轨道、HF/KS-DFT、基组与泛函、SCF、密度矩阵与重叠矩阵、单位与电子数、旋转等变性、训练/验证/测试、基本数据泄漏、密度与药物活性的证据边界。这些不必再列成“完全缺失”。</p>
+<h2 id="section-2">2. 应优先处理的五处具体问题</h2>
+<h3 id="heading-21">2.1 ELECTRA 漏讲最终电子数归一化</h3>
+<p><strong>位置：</strong> 11 月 5 日完整讲义的 N21 节，“三种参数各管什么”。现文说明带符号高斯相加后经过 ReLU，又指出非负不等于电子数守恒，却没有继续说明作者的最终处理。</p>
+<p><strong>原文核对：</strong> ELECTRA 本地 PDF 第 8 页，§3.2 的 Normalization，Eq.(15)–(17)。作者将输出密度归一化到体系的<strong>价电子数</strong>。</p>
+<pre><code>ρ_raw(r) = ReLU[Σ_j w_j G_j(r)]
+ρ_pred(r) = ρ_raw(r) × N_val / ∫ρ_raw(r)d³r</code></pre>
+<p>应补成：“ReLU 控制非负性，随后作者通过整体缩放满足所用积分口径下的价电子数约束。实现时仍需检查积分权重、有限网格和数值误差。”</p>
+<p>这里是<strong>方法链条漏了一步</strong>；“非负本身不能保证守恒”这句话依然正确。不要把归一化说成恢复了全部局部密度细节，也不要用全电子水分子的 10 电子口径直接代替该 PAW 数据中的价电子计数。</p>
+<p><a href="../../03_原始文献/N21.pdf#page=8">原文 PDF</a>；<a href="../../06_核对与预览/知识缺口审查_20261105/N21_归一化_p08.png">本轮核对截图</a>；<a href="https://proceedings.neurips.cc/paper_files/paper/2025/file/288b63aa98084366c4536ba0574a0f22-Paper-Conference.pdf">正式论文</a>。</p>
+<h3 id="heading-38">2.2 CHGCAR 样本行号：旧讲义已纠正，PPT 尚未同步</h3>
+<p><strong>位置：</strong> bio_组会02 第 7 页。仍写密度数据至第 35136 行、补充块从该行附近开始。</p>
+<p>按该样本第 16 行起、56³ 个数、每满行 5 个数计算：</p>
+<pre><code>网格数 = 56³ = 175616
+数据行数 = ceil(175616/5) = 35124
+最后一个密度数据行 = 16 + 35124 - 1 = 35139
+后续补充块从第 35140 行开始</code></pre>
+<p>10 月 27 日学习资料第 14 节已经给出这一更正，说明是<strong>PPT 与讲义不同步</strong>。此行号只适用于该截图样本，实际解析应按数值个数读第一密度块，不能把某份样本行号写死成通用格式。</p>
+<h3 id="heading-53">2.3 四篇补充论文的 PPT 来源定位不完整</h3>
+<p>PPT-A 至 PPT-D 的来源段写有“PPT 第 2–3 页”或类似表述，却没有给出 PPT 文件名与可打开入口。当前目录内三份 PPT 的对应页不能据此定位到四篇研究。</p>
+<p>应改为“具体文件名＋页码＋图/表号”，或直接给论文方法小节。现有定位不能独立复核；不能据此认定论文结论错误，也不能断言原 PPT 在其他位置不存在。</p>
+<h3 id="heading-59">2.4 周报的四处运行截图仍未补齐</h3>
+<p><strong>11 月 4 日周报：</strong> 第 8 页 S01 为环境检查，第 9 页 S02 为水分子结果，第 13 页 S03/S04 为密度等值面与 ESP 着色。它们仍是提示框。</p>
+<p>这属于<strong>展示证据未完成</strong>，并不意味着计算没有运行。尤其第 13 页需要实际阈值、单位、颜色条与相同视角，才能让“密度与 ESP 是不同物理量”的讲解落到图上。</p>
+<p><a href="../../00_组会汇报PPT/20261104_本周汇报/运行截图补充清单.md">现有截图清单</a>。本轮没有修改 PPT，也没有把占位文字当成已经完成的截图。</p>
+<h3 id="heading-67">2.5 总文件导览仍有旧目录路径</h3>
+<p><code>01_开始使用/文件导览.md</code> 仍按迁移前的编号介绍目录，其中 3 个 Markdown 相对链接指向不存在的目标：论文总结、压缩包、计算环境说明。11 月 5 日两份 Markdown 讲义的非锚点本地链接本轮未发现目标文件缺失。</p>
+<p>这会造成“资料已经补了却找不到”的体验。应同步总导览与入口，不能只继续增加新文件。</p>
+<h2 id="section-3">3. 前置知识还有哪些薄弱环节</h2>
+<p>P1 表示会直接影响读懂当前论文或解释现有结果；P2 表示进入深入方法比较时再补。以下判断限定于本轮核查材料。</p>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th>优先级</th><th>知识点</th><th>目前状态</th><th>应补到什么程度</th></tr></thead><tbody><tr><td>P1</td><td>非正交基、本征值、矩阵正定与条件数</td><td>已有 FC=SCε、Tr(PS)，缺少中间推理</td><td>能解释为什么不能直接对 F 当作普通本征问题处理，为什么近线性相关会放大数值误差</td></tr><tr><td>P1</td><td>密度拟合、辅助基与表示误差</td><td>讲了辅助基用途，误差层次未讲透</td><td>分清参考计算误差、基展开误差、学习误差、导出与积分误差</td></tr><tr><td>P1</td><td>归一化、非负性、协方差约束</td><td>ELECTRA 归一化漏讲；协方差约束未展开</td><td>区分三个约束各管什么，了解 Gram 矩阵与归一化权重的作用</td></tr><tr><td>P1</td><td>DFT 积分网格与 CUBE 导出网格</td><td>练习脚本已区分，正文衔接不足</td><td>知道提高导出分辨率不等于提高 SCF 所用积分精度</td></tr><tr><td>P1</td><td>全电子、价电子、PAW 与文件缩放</td><td>旧讲义有具体解释，新讲义偏概述</td><td>对每篇密度论文明确目标场和应积分出的电子数，避免跨体系误比</td></tr><tr><td>P1</td><td>三种导数与可微 SCF</td><td>已有泛函导数、力和训练梯度，尚未并排连接</td><td>区分对密度、核坐标和模型参数求导；理解 EG-XC 的二阶可微要求</td></tr><tr><td>P1</td><td>QTAIM 临界点与 DORI/NCI 图</td><td>有名称、用途和边界，缺少实际读图步骤</td><td>看懂 NCP/BCP、Hessian 符号、等值面与着色各表达什么</td></tr><tr><td>P1</td><td>NMAE 的积分、分母与平均方式</td><td>有一般定义，缺少算例</td><td>分清逐分子平均与把所有电子/体素合并后的加权结果</td></tr><tr><td>P1</td><td>条件生成、潜码与损失函数</td><td>解释了模块名称，训练目标较略</td><td>顺着一个样本说清条件、生成变量、标签及每个损失约束什么</td></tr><tr><td>P2</td><td>力、Hessian、振动、虚频与热化学</td><td>旧资料第 20–21 节已有，不属整体缺失</td><td>在新讲义和周报第 11 页设置回查入口，并区分电子能、零点能和自由能</td></tr><tr><td>P2</td><td>电荷、自旋多重度与软件输入约定</td><td>旧资料第 2、9、12 节已有</td><td>加一个水/水阳离子输入对照；避免把 multiplicity=1 直接传成 PySCF spin=1</td></tr><tr><td>P2</td><td>分子准备与生成评价</td><td>已提到质子化、有效性等，操作含义较略</td><td>分清盐、互变异构、立体化学、加氢、构象，以及 validity/uniqueness/novelty 的分母</td></tr><tr><td>P2</td><td>尺寸一致性、长程影响与适用范围</td><td>有局限性提示，缺少判断例子</td><td>讨论两个远离片段时能量能否相加、局部环境相同但远处电荷不同时会怎样</td></tr><tr><td>P2</td><td>不确定度与统计可靠性</td><td>测试划分已有，未形成完整讲解</td><td>学会报告多次训练波动、误差分布与适用域；按独立体系抽样，避免把相关体素当独立重复</td></tr><tr><td>P2</td><td>光伏/光学及 QM9 标签的物理含义</td><td>QM9 旧资料已有；VisionED 多为缩写</td><td>解释 VOC、JSC、FF、PCE、吸收/发射、PLQY、FWHM，避免与轨道能隙、药物活性混用</td></tr></tbody></table></div>
+<p>不确定度、尺寸一致性等是本轮提出的后续补充方向，不代表这 13 篇论文已经全部做过相应检验。</p>
+<h2 id="section-4">4. 逐篇论文：最值得继续补的知识</h2>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th>论文</th><th>当前已讲到</th><th>仍应补的关键桥梁</th></tr></thead><tbody><tr><td>N21 ELECTRA</td><td>浮动高斯、方向特征、SCF 初始化</td><td>第 8 页归一化；Appendix F 的协方差构造；内部构件对称性与最终场对称性的区别</td></tr><tr><td>N04 ∇²DFT</td><td>数据规模、矩阵标签、优化基准</td><td>F/S/P 的维度、AO 排序与占据；矩阵元素误差怎样影响能级、密度与力</td></tr><tr><td>L11 口袋生成</td><td>GAN、VQ-VAE2、PixelCNN、片段重建</td><td>条件概率与模块损失；实验口袋图/计算配体场如何分别预处理；重建失败发生在哪一步</td></tr><tr><td>N08 xTB 综述</td><td>方法家族、SCC、应用边界</td><td>用一个样本贯穿自洽电荷/多极矩、轨道和密度；明确价电子、参数化与目标范围</td></tr><tr><td>L25 SA-GPR</td><td>局域环境、辅助基、旋转规律、迁移</td><td>表示误差与回归误差分开；非正交系数的误差度量；DORI 与 ESP 的具体读图</td></tr><tr><td>N03 EG-XC</td><td>密度投影、消息传递、能量监督、SCF</td><td>对 P 构造 F 的导数与对 θ 的训练导数；反传经过 SCF；为何使用平滑激活</td></tr><tr><td>N17 VisionED</td><td>六视图、CAP/EGP/QSP、ViT</td><td>69 维目标的类别与物理意义；预训练/微调/推理数据流；材料指标与渲染信息损失</td></tr><tr><td>L03 GPWNO</td><td>高斯与平面波支路、探针、周期性</td><td>傅里叶截断与频域卷积的一个简单算例；掩码/组合方式；分辨率、边界和插值误差</td></tr><tr><td>L23 ML-HK</td><td>势到密度再到能量、KRR、绕过 KS</td><td>高斯外势代理与真实核势的区别；密度表示的投影/截断；同一体系插值与新化学空间泛化</td></tr><tr><td>PPT-A eqDeepDFT</td><td>原子与探针、标量与方向特征</td><td>探针消息的方向和共享计算；成本随原子数、查询点数、截断半径怎样变化</td></tr><tr><td>PPT-B QTAIM-embed</td><td>密度特征转图、不同任务并非都改善</td><td>原子/键/全局特征举例及单位；临界点提取质量、失败样本和基线信息增量</td></tr><tr><td>PPT-C BCP/NCP 亲和力</td><td>负面结果、PDBbind/PDE10A、划分</td><td>两种图的真实节点/边；pKd 等标签与不同测定量的区别；更难划分为何改变结论</td></tr><tr><td>PPT-D ED2Mol</td><td>场引导片段生长、物理有效性与活性区分</td><td>场的准确数学定义与缩放、训练/评测划分、湿实验送测分母；正式主文细节仍待可访问全文逐项核对</td></tr></tbody></table></div>
+<p>这张表列的是精读深度，不应据此把所有项目标成“完全没补”。例如 L23 的外势代理、新旧 MD 数据的区别和 VisionED 的近似旋转不变性，正文已经有解释。</p>
+<h2 id="section-5">5. 补充讲解：先把这些桥梁补上</h2>
+<h3 id="heading-119">5.1 电子数归一化究竟保证什么</h3>
+<p>设目标价电子数为 8，模型在当前积分网格上的总数为 7.6，整体乘以 8/7.6≈1.05263 后，按同一积分规则求和可得到 8。</p>
+<p>它修正的是总量，不会知道某根键附近缺少的密度应从哪里补。两个空间分布可以拥有相同总电子数，却有完全不同的局部误差与静电势。因此要分别报告非负性、总电子数和空间误差。</p>
+<p>还要区分：分子波函数的归一化、单个高斯的归一化、整个高斯混合场的电子数归一化。高斯权重可正可负，经过 ReLU 后也不能一般地把权重和直接当作最后的积分。</p>
+<h3 id="heading-127">5.2 为什么 FC=SCε 多了一个 S</h3>
+<p>AO 基函数彼此重叠，系数向量的普通欧氏长度不能直接代表轨道归一化。实系数写法下，轨道需要满足 CᵀSC=I。</p>
+<p>若 S 正定且数值稳定，可先变换到正交基：</p>
+<pre><code>X = S^(-1/2)
+F_orth = Xᵀ F X
+F_orth U = U ε
+C = X U</code></pre>
+<p>这才把广义本征问题变成普通本征问题。S 出现很小的本征值时，取逆平方根会放大误差，实践中需检查近线性相关并采用适当处理。这里不建议直接写出矩阵逆来“硬算”。</p>
+<p>这也是电子数要用 Tr(PS) 的原因之一。预测一个看似接近的 F，仍要结合 S、占据和基函数才能得到密度，不能把 F 的每行当作一个原子。</p>
+<h3 id="heading-144">5.3 学习误差很小，为什么总密度还可能不准</h3>
+<p>令 ρ_ref 为参考计算密度，ρ_basis 为它在指定辅助基中的重建，ρ_ML 为模型预测系数重建出的密度：</p>
+<pre><code>ρ_ref - ρ_ML = (ρ_ref - ρ_basis) + (ρ_basis - ρ_ML)</code></pre>
+<p>第一项是表示/拟合误差，第二项是相对该表示的学习误差。范数满足三角不等式，不能把两个误差百分比不加条件地当作严格相加关系。</p>
+<p>L25 在 Fig.1 专门比较了基展开的误差，说明辅助基选择本身就会限制最终精度。真实物理与参考计算之间还存在方法误差；再导出网格，又会引入截断与积分误差。这几层不能混成一个“AI 误差”。</p>
+<p>非正交辅助基的不同系数会互相重叠。教学上，若 A_kl=∫φ_kφ_l，则空间平方误差可写为 δcᵀAδc，而不是一般地等于 Σ_kδc_k²。<strong>这里 A 是辅助密度基的度量，不是前面 AO 的 S，也不是声称 L25 的全部训练损失只有这一式。</strong></p>
+<h3 id="heading-158">5.4 同为“网格”，为什么不能共用一套直觉</h3>
+<ul><li><strong>DFT 数值积分网格：</strong> 常用原子中心的非均匀点与权重，计算交换关联能等积分。</li><li><strong>CUBE 导出网格：</strong> 在规则空间位置评价场，服务可视化或后续数据分析。</li><li><strong>周期 FFT 网格：</strong> 与晶胞、平面波截断及文件约定有关。</li></ul>
+<p>提高 CUBE 点数只会更密地采样当前近似密度，不会自动改变泛函、基组或已经收敛的 SCF 结果。</p>
+<p>对一般步进矢量 a、b、c，体积元为 |a·(b×c)|，轴不正交时不能只把三个坐标分量随便相乘。非均匀积分则应使用对应权重。</p>
+<p>常规 CHGCAR 第一密度块可按其定义写成 n_i=data_i/V_cell，离散电子数为 Σdata_i/N_grid。若读取库已把数值除过体积，不可再次处理。CUBE 的顺序和单位也要按生成程序核对，不能把 CHGCAR 的 x 最快顺序直接套给示例中的 Psi4 CUBE。</p>
+<p><a href="https://pyscf.org/user/dft.html">PySCF DFT 文档</a>；<a href="https://vasp.at/wiki/CHGCAR">VASP CHGCAR 文档</a>。VASP 当前页面的一处文字与其紧接的公式表述不一致，本段采用其明确给出的 n=data/V_cell 与 NELECT=Σdata/N_grid 两式，并用电子数积分检查约定。</p>
+<h3 id="heading-172">5.5 EG-XC 为什么需要比“能反传”更具体的解释</h3>
+<p>有三类导数：</p>
+<pre><code>δE_xc/δρ(r)       改变密度，交换关联能如何响应
+-∂E/∂R_A         改变核坐标，对应原子受力
+dL/dθ            改变模型参数，训练损失如何改变</code></pre>
+<p>EG-XC 在离散基表示下对密度矩阵求导以构造 F，再把能量训练损失沿 SCF 迭代传回模型参数。论文第 7 页说明了至少二阶可微的要求，并采用平滑 SiLU 激活。现讲义只说“可微 SCF”，尚未解释这一层。</p>
+<p>这与 ELECTRA 的输出非负化用途不同。不能因为 ELECTRA 使用 ReLU，就据此认定 ReLU 也可不加处理地替代 EG-XC 的泛函激活。</p>
+<p><a href="../../03_原始文献/N03.pdf#page=7">本地 N03 原文</a>；<a href="https://proceedings.iclr.cc/paper_files/paper/2025/hash/7d95d65059958ba8667be1f642c6447c-Abstract-Conference.html">正式论文入口</a>。</p>
+<h3 id="heading-188">5.6 QTAIM、NCI、DORI 应怎样分别读</h3>
+<p>先区分两种 Hessian：QTAIM 看的是电子密度对空间坐标的二阶导数；振动分析看的是能量对核坐标的二阶导数。二者不能因为都叫 Hessian 就当作同一张矩阵。</p>
+<p>通常的三维 QTAIM 临界点分类中，按密度 Hessian 三个本征值的符号，可区分核吸引子/极大类点、BCP、环临界点和笼临界点。BCP 有两个负方向、一个正方向，是鞍点，不是“密度最高的键中心”。</p>
+<p>NCI 的约化密度梯度 s，DORI 的密度重叠指标，以及 QTAIM 临界点，是不同构造。L25 的 DORI 图用 DORI 等值面显示区域，再按 sign(λ₂)ρ 着色；选等值面和选颜色变量是两步。颜色可提示不同作用区域，但不能直接读成 kcal/mol，也不能据此计算亲和力。</p>
+<p>后续应选 L25 的一幅具体图，按“场定义、阈值、色标、参考与预测差别”顺序解释，而不只背 DORI 的英文全称。</p>
+<p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6991182/">L25 原文</a>；<a href="https://pubmed.ncbi.nlm.nih.gov/25221443/">DORI 原始研究入口</a>。</p>
+<h3 id="heading-200">5.7 同一个 NMAE 名称，为什么可能算出不同数</h3>
+<p>教学例子：A 有 10 个电子，积分绝对误差为 1；B 有 100 个电子，积分绝对误差也为 1。</p>
+<pre><code>A 的归一化误差 = 1/10 = 10%
+B 的归一化误差 = 1/100 = 1%
+逐体系等权平均 = (10%+1%)/2 = 5.5%
+合并积分后归一化 = (1+1)/(10+100) ≈ 1.82%</code></pre>
+<p>两种平均都可能有合理用途，但回答的问题不同。综述比较时，应记录每篇的积分权重、分母、逐样本平均方式和是否乘 100%，不能只抄表格里的 NMAE 三个字母。</p>
+<h3 id="heading-213">5.8 生成模型各模块到底在约束什么</h3>
+<p>对 L11，可先把目标写成“在给定口袋条件下生成配体密度，再将密度解释为分子结构”。条件是已知信息，生成变量是待采样对象，训练标签提供对应参考。三者应在流程图上分开。</p>
+<p>一般而言，对抗目标约束生成分布与条件匹配，重建目标约束编码/解码保留信息，码本相关目标约束离散潜表示，自回归目标学习按次序采样潜码。<strong>这些是解释模型家族的分工，不是在未核对方法公式时替 L11 编造具体损失权重。</strong></p>
+<p>一团看似合理的密度仍可能在原子检测、骨架恢复、片段连接或价态检查时失败。因此应把“密度生成质量”“结构重建成功率”和“最终分子评价”分别说明。</p>
+<h2 id="section-6">6. 已有内容应怎样接回新讲义和 PPT</h2>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th>新讲义或 PPT 出现的问题</th><th>现成资料</th><th>应补的连接</th></tr></thead><tbody><tr><td>不清楚自旋多重度如何输入</td><td>10 月 27 日纯文本资料第 2、9、12 节</td><td>从新讲义第 2、8、10 节跳回，增加一个输入对照</td></tr><tr><td>看到 CHGCAR 不知道为何不是全电子数</td><td>同资料第 14 节</td><td>从新讲义第 4、16、25 节与 ELECTRA 节回查</td></tr><tr><td>不会解释 QM9 的 15 个标量</td><td>同资料第 17 节</td><td>新讲义的数据标签段加入回查入口</td></tr><tr><td>不理解周报中的三个振动频率</td><td>同资料第 20–21 节</td><td>周报第 11 页补一句“质量加权 Hessian 的内部模式”并给讲者备注入口</td></tr><tr><td>会读 SMILES，仍不清楚坐标从哪来</td><td>bio_组会02 第 8–12 页、旧资料分子表示部分</td><td>解释加氢、ETKDG 初始构象与 MMFF 优化和电子结构求解的衔接</td></tr></tbody></table></div>
+<p><a href="../电子结构与振动频率_学习资料_20261027/00_学习资料.html">打开旧学习资料</a>；<a href="../电子结构与振动频率_学习资料_20261027/01_纯文本复习资料.txt">打开旧纯文本</a>；<a href="../电子密度_前置知识与论文精读_20261105/打开学习讲义.html">打开现有精读讲义</a>。</p>
+<h2 id="section-7">7. 论文补充：优先补两篇数据源原论文</h2>
+<p>现有 13 篇精读中，EDBench 和 QMugs 已在其他资料被介绍，但没有各自独立的精读章节。它们直接对应 PPT 中的数据样本，比立即加入更多预测模型更有针对性。</p>
+<ol><li><strong>EDBench: Large-Scale Electron Density Data for Molecular Modeling，NeurIPS 2025。</strong> 补清分子来源、参考计算、场与性质文件、任务定义及划分。尤其要区分原数据集和 VisionED 选取的预训练子集。<a href="https://proceedings.neurips.cc/paper_files/paper/2025/hash/d412ba5c76774f921762644e82515da3-Abstract-Datasets_and_Benchmarks_Track.html">正式论文入口</a>，<a href="https://hongxinxiang.github.io/projects/EDBench/">作者项目页</a>。</li><li><strong>QMugs, quantum mechanical properties of drug-like molecules，Scientific Data 2022。</strong> 补清构象流程、GFN2-xTB 与 DFT 两层标签、波函数/密度矩阵的基组与约定、分子和构象计数。它能直接连接 bio_组会02 第 6 页的 Da/Db 矩阵样本。<a href="https://www.nature.com/articles/s41597-022-01390-7">正式论文</a>，<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9174255/">开放全文</a>。</li><li><strong>按需补 DORI 原始研究，2014。</strong> 若需要深入解释 L25 的非共价作用图，再读 <em>Simultaneous Visualization of Covalent and Noncovalent Interactions Using Regions of Density Overlap</em>，重点是指标定义、等值面与着色，不要求先完整推导全部公式。<a href="https://pubmed.ncbi.nlm.nih.gov/25221443/">论文信息</a>。</li></ol>
+<p>ED2Mol 找到作者预印本入口，但本轮访问受限，尚未完成其与正式版的逐项比较：<a href="https://www.biorxiv.org/content/10.1101/2024.12.18.629081v1">bioRxiv 预印本</a>。预印本与正式版标题和版本不同，后续若使用，需标明版本，不混写实验数字。</p>
+<h2 id="section-8">8. 推荐补充顺序与完成标准</h2>
+<ol><li>先读第 2 节，纠正 ELECTRA 的方法链条和 PPT 中的旧行号，并明确证据未完成项。</li><li>再读第 5.2–5.4 节，把非正交基、表示误差和网格连起来。</li><li>按研究主线选择：密度预测读 5.1/5.7，泛函学习读 5.5，非共价分析读 5.6，生成方向读 5.8。</li><li>通过第 6 节回查旧资料，再补 EDBench 与 QMugs 的原始数据流程。</li></ol>
+<p>完成标准不是背会更多名词，而是能独立回答：<strong>输入是什么；求解/学习了什么；输出怎样重建；单位和电子数是什么口径；误差对什么参考计算；论文真正验证了哪一步。</strong></p>
+<p>本轮新增的是独立检查报告和补充解释。原讲义、PDF、PPT 均未改动，以上“应补”“应同步”仍是后续修订项目，不能据本报告写成已经全部完成。</p><p class="meta">独立检查报告 · 2026-11-05 · 原讲义、PDF、PPT 未改动</p></main></div></body></html>
