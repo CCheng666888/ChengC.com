@@ -31,3 +31,9 @@ play/beacon-relay/烽火来信存档/
 
 # 独立密码学课程仓库（单独维护，不随网站发布）
 /reaction-cipher/
+
+# Chark 邮件模板接入文档与图片清单（内部资料，不随网站发布）
+/chark-email/
+
+# Chark 介绍站：独立仓库 CCheng666888/ai，主站不跟踪，避免嵌套仓库
+/ai/
